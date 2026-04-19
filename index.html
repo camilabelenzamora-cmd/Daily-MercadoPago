@@ -322,7 +322,7 @@
 
   function navigate(dir) {
     if (view === 'week') cursor = addDays(cursor, dir*7);
-    else { const [y,m] = cursor.split('-').map(Number); const d=new Date(y,m-1+dir,1); cursor=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`; }
+    else cursor = String(parseInt(cursor) + dir);
     render();
   }
 
@@ -413,28 +413,26 @@
   }
 
   function renderMonth() {
-    if (!cursor) { const n=new Date(); cursor=`${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}`; }
-    const [year, month] = cursor.split('-').map(Number);
-    document.getElementById('navLabel').textContent = `${MONTHS_ES[month-1]} ${year}`;
+    if (!cursor) { const n=new Date(); cursor=String(n.getFullYear()); }
 
-    const firstDay = new Date(year, month-1, 1);
-    const lastDay = new Date(year, month, 0);
-    let ws = new Date(getMonday(firstDay)+'T12:00:00');
-    const weeks = [];
-    while (ws <= lastDay) {
-      const days = [];
-      for (let i=0;i<5;i++) { const d=new Date(ws); d.setDate(d.getDate()+i); if(d.getMonth()+1===month) days.push(isoDate(d)); }
-      if (days.length) weeks.push({ label:`Sem ${shortDate(days[0])}`, dates: days });
-      ws.setDate(ws.getDate()+7);
-    }
+    // All months with data for the selected year
+    const allDates = Object.keys(history).sort();
+    const months = [...new Set(allDates.filter(d => d.startsWith(cursor)).map(d => d.slice(0,7)))].sort();
 
-    if (!weeks.some(w => w.days.some(d => history[d]))) { showEmpty(); return; }
+    document.getElementById('navLabel').textContent = `Año ${cursor}`;
+
+    if (months.length === 0) { showEmpty(); return; }
     showTable();
 
-    document.getElementById('tableHeader').innerHTML =
-      `<th>OUTBOUND</th>` + weeks.map(w=>`<th>${w.label}</th>`).join('') + `<th>Acumulado</th>`;
+    const cols = months.map(m => {
+      const mo = parseInt(m.split('-')[1]);
+      return { label: MONTHS_ES[mo-1], dates: allDates.filter(d => d.startsWith(m)) };
+    });
 
-    buildColumns(weeks);
+    document.getElementById('tableHeader').innerHTML =
+      `<th>OUTBOUND</th>` + cols.map(c=>`<th>${c.label}</th>`).join('') + `<th>Acumulado</th>`;
+
+    buildColumns(cols);
   }
 
   function showEmpty() {
