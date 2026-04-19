@@ -6,75 +6,96 @@
   <title>Tablero Daily — Mercado Envíos</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: Arial, sans-serif; background: #f0f2f5; color: #333; font-size: 14px; }
+    body { font-family: Arial, sans-serif; background: #f4f6f9; color: #2c3e50; font-size: 14px; }
 
+    /* HEADER */
     .header { background: #FFE600; padding: 14px 28px; display: flex; justify-content: space-between; align-items: center; }
-    .header h1 { font-size: 18px; font-weight: 700; }
+    .header h1 { font-size: 18px; font-weight: 700; color: #1a1a2e; }
     .header p { font-size: 12px; color: #555; margin-top: 2px; }
-    .header-right { display: flex; gap: 10px; align-items: center; }
 
-    .top-bar { background: #fff; border-bottom: 1px solid #e0e0e0; padding: 0 28px; display: flex; align-items: center; gap: 4px; }
-    .country-tab { padding: 13px 18px; cursor: pointer; font-size: 13px; font-weight: 500; color: #666; border-bottom: 3px solid transparent; }
+    /* TOP BAR */
+    .top-bar { background: #fff; border-bottom: 1px solid #e8ecf0; padding: 0 28px; display: flex; align-items: center; gap: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+    .country-tab { padding: 13px 18px; cursor: pointer; font-size: 13px; font-weight: 500; color: #7f8c8d; border-bottom: 3px solid transparent; transition: all 0.2s; }
     .country-tab.active { color: #3483FA; border-bottom-color: #3483FA; font-weight: 700; }
-    .country-tab:hover { color: #333; }
+    .country-tab:hover { color: #2c3e50; }
     .upload-btn { margin-left: auto; background: none; border: none; cursor: pointer; color: #3483FA; font-size: 13px; font-weight: 700; padding: 13px 0; }
     .upload-btn:hover { color: #2968c8; }
 
+    /* CONTENT */
     .content { padding: 20px 28px; }
 
+    /* TOOLBAR */
     .toolbar { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
-    .view-toggle { display: flex; border: 1px solid #ddd; border-radius: 6px; overflow: hidden; }
-    .view-btn { padding: 7px 18px; background: #fff; border: none; cursor: pointer; font-size: 13px; font-weight: 500; color: #666; }
+    .view-toggle { display: flex; border: 1px solid #dce3ea; border-radius: 6px; overflow: hidden; }
+    .view-btn { padding: 7px 18px; background: #fff; border: none; cursor: pointer; font-size: 13px; font-weight: 500; color: #7f8c8d; }
     .view-btn.active { background: #3483FA; color: #fff; font-weight: 700; }
     .navigator { display: flex; align-items: center; gap: 8px; margin-left: 8px; }
-    .nav-btn { width: 28px; height: 28px; border: 1px solid #ddd; border-radius: 6px; background: #fff; cursor: pointer; font-size: 15px; display: flex; align-items: center; justify-content: center; }
-    .nav-btn:hover { background: #f5f5f5; }
-    .nav-label { font-size: 13px; font-weight: 600; color: #333; min-width: 160px; text-align: center; }
+    .nav-btn { width: 28px; height: 28px; border: 1px solid #dce3ea; border-radius: 6px; background: #fff; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; color: #555; }
+    .nav-btn:hover { background: #f0f4ff; border-color: #3483FA; color: #3483FA; }
+    .nav-label { font-size: 13px; font-weight: 600; color: #2c3e50; min-width: 180px; text-align: center; }
 
-    .table-card { background: #fff; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); overflow: hidden; }
+    /* TABLE CARD */
+    .table-card { background: #fff; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); overflow: hidden; }
+
     table { width: 100%; border-collapse: collapse; }
-    thead tr { background: #1a1a1a; color: #fff; }
-    thead th { padding: 11px 16px; font-size: 12px; font-weight: 700; text-align: right; white-space: nowrap; }
+
+    /* TABLE HEADER */
+    thead tr { background: #3483FA; }
+    thead th { padding: 12px 16px; font-size: 12px; font-weight: 700; text-align: right; color: #fff; white-space: nowrap; letter-spacing: 0.3px; }
     thead th:first-child { text-align: left; }
-    tbody tr { border-bottom: 1px solid #f0f0f0; }
-    tbody tr:hover { background: #fafafa; }
-    td { padding: 10px 16px; text-align: right; font-size: 14px; }
-    td:first-child { text-align: left; font-weight: 500; }
-    .row-total td { font-weight: 700; background: #f5f5f5; border-top: 2px solid #e0e0e0; }
 
-    .empty-state { text-align: center; padding: 60px; color: #aaa; }
+    /* PRODUCT ROW */
+    .row-product td { padding: 11px 16px; background: #fff; border-bottom: 1px solid #eef1f5; font-weight: 600; color: #2c3e50; }
+    .row-product:hover td { background: #f7f9ff; }
+    .row-product td { text-align: right; }
+    .row-product td:first-child { text-align: left; cursor: pointer; user-select: none; }
+    .toggle-icon { display: inline-block; width: 18px; font-size: 11px; color: #3483FA; transition: transform 0.2s; }
+    .toggle-icon.open { transform: rotate(90deg); }
+
+    /* ROUTE SUB-ROW */
+    .row-route { display: none; }
+    .row-route td { padding: 8px 16px 8px 42px; background: #f7f9ff; border-bottom: 1px solid #eef1f5; font-size: 13px; color: #5a6a7a; text-align: right; }
+    .row-route td:first-child { text-align: left; font-weight: 400; }
+    .row-route.visible { display: table-row; }
+
+    /* TOTAL ROWS */
+    .row-total td { padding: 12px 16px; font-weight: 700; background: #eef4ff; border-top: 2px solid #c8d8f8; color: #1a3a6e; text-align: right; font-size: 14px; }
+    .row-total td:first-child { text-align: left; }
+
+    /* EMPTY STATE */
+    .empty-state { text-align: center; padding: 60px; color: #aab; }
     .empty-state .icon { font-size: 40px; margin-bottom: 10px; }
+    .empty-state p { font-size: 14px; line-height: 1.6; }
 
-    /* MODAL base */
-    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 100; justify-content: center; align-items: center; }
+    /* TOKEN STATUS */
+    .token-status { font-size: 12px; color: #555; cursor: pointer; display: flex; align-items: center; gap: 5px; }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .dot-ok { background: #00a650; }
+    .dot-no { background: #bbb; }
+
+    /* MODALS */
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.35); z-index: 100; justify-content: center; align-items: center; }
     .modal-overlay.active { display: flex; }
-    .modal { background: #fff; border-radius: 10px; padding: 28px; width: 420px; box-shadow: 0 8px 32px rgba(0,0,0,0.15); }
-    .modal h2 { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+    .modal { background: #fff; border-radius: 12px; padding: 28px; width: 430px; box-shadow: 0 8px 32px rgba(0,0,0,0.12); }
+    .modal h2 { font-size: 17px; font-weight: 700; margin-bottom: 6px; color: #1a1a2e; }
     .modal p { font-size: 13px; color: #666; margin-bottom: 20px; line-height: 1.5; }
-    .file-label { display: block; border: 2px dashed #ccc; border-radius: 8px; padding: 18px; text-align: center; cursor: pointer; font-size: 13px; color: #777; margin-bottom: 14px; transition: border-color 0.2s; }
-    .file-label:hover { border-color: #3483FA; color: #3483FA; }
-    .file-label .fname { font-weight: 700; color: #333; margin-top: 4px; }
+    .file-label { display: block; border: 2px dashed #c8d4e0; border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; font-size: 13px; color: #7f8c8d; margin-bottom: 14px; transition: all 0.2s; }
+    .file-label:hover { border-color: #3483FA; color: #3483FA; background: #f0f7ff; }
+    .file-label .fname { font-weight: 700; color: #2c3e50; margin-top: 6px; }
     #fileInput { display: none; }
     .modal-btns { display: flex; gap: 10px; }
-    .btn-primary { flex: 1; background: #3483FA; color: #fff; border: none; border-radius: 6px; padding: 11px; font-size: 14px; font-weight: 700; cursor: pointer; }
+    .btn-primary { flex: 1; background: #3483FA; color: #fff; border: none; border-radius: 8px; padding: 11px; font-size: 14px; font-weight: 700; cursor: pointer; transition: background 0.2s; }
     .btn-primary:hover { background: #2968c8; }
-    .btn-primary:disabled { background: #a0c4ff; cursor: not-allowed; }
-    .btn-cancel { background: #f0f0f0; color: #333; border: none; border-radius: 6px; padding: 11px 18px; font-size: 14px; cursor: pointer; }
-    .btn-cancel:hover { background: #e0e0e0; }
-    .feedback { margin-top: 10px; font-size: 13px; text-align: center; }
+    .btn-primary:disabled { background: #a8c8f8; cursor: not-allowed; }
+    .btn-cancel { background: #f0f2f5; color: #555; border: none; border-radius: 8px; padding: 11px 18px; font-size: 14px; cursor: pointer; }
+    .btn-cancel:hover { background: #e2e6ea; }
+    .feedback { margin-top: 12px; font-size: 13px; text-align: center; }
     .feedback.ok { color: #00a650; }
     .feedback.err { color: #d32f2f; }
-
-    /* token modal */
-    .token-input { width: 100%; border: 1px solid #ddd; border-radius: 6px; padding: 10px 12px; font-size: 13px; margin-bottom: 14px; font-family: monospace; }
+    .token-input { width: 100%; border: 1px solid #dce3ea; border-radius: 8px; padding: 10px 12px; font-size: 13px; margin-bottom: 14px; font-family: monospace; color: #2c3e50; }
     .token-input:focus { outline: none; border-color: #3483FA; }
-
     .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid #fff; border-top-color: transparent; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; }
     @keyframes spin { to { transform: rotate(360deg); } }
-
-    .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 4px; }
-    .status-ok { background: #00a650; }
-    .status-no { background: #ccc; }
   </style>
 </head>
 <body>
@@ -84,11 +105,9 @@
     <h1>Tablero Daily — Mercado Envíos</h1>
     <p>OUTBOUND · Despachos por producto</p>
   </div>
-  <div class="header-right">
-    <span id="tokenStatus" style="font-size:12px;color:#555;cursor:pointer" onclick="openTokenModal()">
-      <span class="status-dot status-no" id="statusDot"></span>
-      <span id="statusText">Sin token</span>
-    </span>
+  <div class="token-status" onclick="openTokenModal()">
+    <span class="status-dot" id="statusDot"></span>
+    <span id="statusText"></span>
   </div>
 </div>
 
@@ -119,9 +138,7 @@
       <p>No hay datos para este período.<br>Subí el CSV con el botón Actualizar.</p>
     </div>
     <table id="mainTable" style="display:none">
-      <thead>
-        <tr id="tableHeader"></tr>
-      </thead>
+      <thead><tr id="tableHeader"></tr></thead>
       <tbody id="tableBody"></tbody>
     </table>
   </div>
@@ -149,13 +166,12 @@
 <div class="modal-overlay" id="tokenModal">
   <div class="modal">
     <h2>🔑 GitHub Token</h2>
-    <p>Necesitás un token para guardar los datos. Solo lo ingresás una vez — queda guardado en tu navegador.</p>
+    <p>Necesitás un token para guardar los datos en GitHub. Solo lo ingresás una vez — queda guardado en tu navegador.</p>
     <input type="password" class="token-input" id="tokenInput" placeholder="github_pat_...">
     <div class="modal-btns">
       <button class="btn-cancel" onclick="closeTokenModal()">Cancelar</button>
       <button class="btn-primary" onclick="saveToken()">Guardar</button>
     </div>
-    <div class="feedback" id="tokenFeedback"></div>
   </div>
 </div>
 
@@ -172,75 +188,59 @@
   let view = 'week';
   let cursor = null;
   let history = {};
+  let expandedProducts = new Set();
 
-  // ── TOKEN ────────────────────────────────────────────
+  // ── TOKEN ─────────────────────────────────────────────
   function getToken() { return localStorage.getItem('gh_token'); }
-
   function updateTokenStatus() {
-    const t = getToken();
-    document.getElementById('statusDot').className = 'status-dot ' + (t ? 'status-ok' : 'status-no');
-    document.getElementById('statusText').textContent = t ? 'Token activo' : 'Sin token — click para configurar';
+    const ok = !!getToken();
+    document.getElementById('statusDot').className = 'status-dot ' + (ok ? 'dot-ok' : 'dot-no');
+    document.getElementById('statusText').textContent = ok ? 'Token activo' : 'Sin token — configurar';
   }
-
   function openTokenModal() { document.getElementById('tokenModal').classList.add('active'); }
   function closeTokenModal() { document.getElementById('tokenModal').classList.remove('active'); }
-
   function saveToken() {
-    const val = document.getElementById('tokenInput').value.trim();
-    if (!val) return;
-    localStorage.setItem('gh_token', val);
+    const v = document.getElementById('tokenInput').value.trim();
+    if (!v) return;
+    localStorage.setItem('gh_token', v);
     updateTokenStatus();
     closeTokenModal();
   }
 
-  // ── GITHUB API ───────────────────────────────────────
+  // ── GITHUB API ────────────────────────────────────────
   async function ghGet(path) {
     const url = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`;
-    const headers = { 'Accept': 'application/vnd.github.v3+json' };
-    const token = getToken();
-    if (token) headers['Authorization'] = `Bearer ${token}`;
-    const res = await fetch(url, { headers });
+    const h = { 'Accept': 'application/vnd.github.v3+json' };
+    const t = getToken(); if (t) h['Authorization'] = `Bearer ${t}`;
+    const res = await fetch(url, { headers: h });
     if (res.status === 404) return null;
     if (!res.ok) throw new Error(await res.text());
     return await res.json();
   }
-
   async function ghPut(path, content, sha, message) {
-    const token = getToken();
-    if (!token) throw new Error('Sin token');
+    const t = getToken(); if (!t) throw new Error('Sin token configurado');
     const url = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`;
     const body = { message, content: btoa(unescape(encodeURIComponent(content))), branch: BRANCH };
     if (sha) body.sha = sha;
-    const res = await fetch(url, {
-      method: 'PUT',
-      headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
-    });
+    const res = await fetch(url, { method:'PUT', headers:{'Authorization':`Bearer ${t}`,'Content-Type':'application/json'}, body: JSON.stringify(body) });
     if (!res.ok) throw new Error(await res.text());
-    return await res.json();
   }
-
   async function loadHistory(site) {
     try {
-      const file = await ghGet(`data/${site}.json`);
-      if (!file) return {};
-      return JSON.parse(decodeURIComponent(escape(atob(file.content.replace(/\n/g,'')))));
+      const f = await ghGet(`data/${site}.json`);
+      if (!f) return {};
+      return JSON.parse(decodeURIComponent(escape(atob(f.content.replace(/\n/g,'')))));
     } catch { return {}; }
   }
-
   async function saveHistory(site, data) {
     const content = JSON.stringify(data, null, 2);
     const existing = await ghGet(`data/${site}.json`);
-    const sha = existing?.sha || null;
     const today = new Date().toISOString().slice(0,10);
-    await ghPut(`data/${site}.json`, content, sha, `Update ${site} - ${today}`);
+    await ghPut(`data/${site}.json`, content, existing?.sha || null, `Update ${site} - ${today}`);
   }
 
-  // ── CSV PROCESSING ───────────────────────────────────
-  function detectSite(filename) {
-    const u = filename.toUpperCase();
-    return SITES.find(s => u.includes(s)) || null;
-  }
+  // ── CSV PROCESSING ────────────────────────────────────
+  function detectSite(filename) { return SITES.find(s => filename.toUpperCase().includes(s)) || null; }
 
   function classifyProduct(nom) {
     const n = (nom || '').trim().toLowerCase();
@@ -255,8 +255,7 @@
     if (lines.length < 2) return null;
     const headers = lines[0].split(',').map(h => h.trim().replace(/^\uFEFF/,''));
     return lines.slice(1).filter(l => l.trim()).map(line => {
-      const vals = line.split(',');
-      const obj = {};
+      const vals = line.split(','); const obj = {};
       headers.forEach((h, i) => obj[h] = (vals[i] || '').trim());
       return obj;
     });
@@ -266,70 +265,124 @@
     let fecha = null;
     for (const r of rows) {
       const raw = (r['FECHA DESPACHO'] || '').trim();
-      if (raw) {
-        try {
-          const [d, m, y] = raw.split(' ')[0].split('/');
-          fecha = `${y}-${m.padStart(2,'0')}-${d.padStart(2,'0')}`;
-          break;
-        } catch {}
-      }
+      if (raw) { try { const [d,m,y] = raw.split(' ')[0].split('/'); fecha = `${y}-${m.padStart(2,'0')}-${d.padStart(2,'0')}`; break; } catch {} }
     }
     if (!fecha) fecha = new Date().toISOString().slice(0,10);
 
-    const products = { Cards: 0, Point: 0, Bobinas: 0, Others: 0 };
+    const products = { Cards:0, Point:0, Bobinas:0, Others:0 };
+    const routes = { Cards:{}, Point:{}, Bobinas:{}, Others:{} };
     const osIds = new Set();
+
     for (const r of rows) {
-      const cat = classifyProduct(r['NOM PROD']);
-      products[cat] += parseInt(r['UNI DESP'] || '0') || 0;
+      const prod = classifyProduct(r['NOM PROD']);
+      const uds = parseInt(r['UNI DESP'] || '0') || 0;
+      const ruta = (r['RUTA'] || '').trim() || 'Sin ruta';
+      products[prod] += uds;
+      routes[prod][ruta] = (routes[prod][ruta] || 0) + uds;
       if (r['ID OS']) osIds.add(r['ID OS']);
     }
-    return { fecha, products, total_unidades: Object.values(products).reduce((a,b)=>a+b,0), total_os: osIds.size };
+
+    // Sort routes by units desc
+    for (const p of PRODUCTS) {
+      routes[p] = Object.fromEntries(Object.entries(routes[p]).sort((a,b) => b[1]-a[1]));
+    }
+
+    return { fecha, products, routes, total_unidades: Object.values(products).reduce((a,b)=>a+b,0), total_os: osIds.size };
   }
 
-  // ── SITE ─────────────────────────────────────────────
+  // ── SITE ──────────────────────────────────────────────
   async function selectSite(site) {
     currentSite = site;
+    expandedProducts.clear();
     document.querySelectorAll('.country-tab').forEach(t => t.classList.remove('active'));
     document.querySelector(`[data-site="${site}"]`).classList.add('active');
-    document.getElementById('emptyState').innerHTML = '<div class="icon">⏳</div><p>Cargando datos...</p>';
-    document.getElementById('emptyState').style.display = 'block';
-    document.getElementById('mainTable').style.display = 'none';
+    showLoading();
     history = await loadHistory(site);
     cursor = null;
     render();
   }
 
-  // ── VIEW ─────────────────────────────────────────────
   function setView(v) {
-    view = v;
-    cursor = null;
-    document.getElementById('btnWeek').classList.toggle('active', v === 'week');
-    document.getElementById('btnMonth').classList.toggle('active', v === 'month');
+    view = v; cursor = null; expandedProducts.clear();
+    document.getElementById('btnWeek').classList.toggle('active', v==='week');
+    document.getElementById('btnMonth').classList.toggle('active', v==='month');
     render();
   }
 
   function navigate(dir) {
-    if (view === 'week') cursor = addDays(cursor, dir * 7);
-    else {
-      const [y, m] = cursor.split('-').map(Number);
-      const d = new Date(y, m - 1 + dir, 1);
-      cursor = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
-    }
+    if (view === 'week') cursor = addDays(cursor, dir*7);
+    else { const [y,m] = cursor.split('-').map(Number); const d=new Date(y,m-1+dir,1); cursor=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`; }
     render();
   }
 
-  // ── DATE UTILS ───────────────────────────────────────
+  // ── DATE UTILS ────────────────────────────────────────
   function isoDate(d) { return d.toISOString().slice(0,10); }
-  function addDays(s, n) { const d = new Date(s+'T12:00:00'); d.setDate(d.getDate()+n); return isoDate(d); }
-  function getMonday(d) { const dt = new Date(d); const day = dt.getDay(); dt.setDate(dt.getDate() + (day===0?-6:1-day)); return isoDate(dt); }
-  function fmt(n) { return n ? Number(n).toLocaleString('es-AR') : '<span style="color:#ccc">—</span>'; }
+  function addDays(s, n) { const d=new Date(s+'T12:00:00'); d.setDate(d.getDate()+n); return isoDate(d); }
+  function getMonday(d) { const dt=new Date(d); const day=dt.getDay(); dt.setDate(dt.getDate()+(day===0?-6:1-day)); return isoDate(dt); }
+  function shortDate(s) { const [,m,d]=s.split('-'); return `${d}/${m}`; }
+  function fmt(n) { return (n!=null && n!==0 && n!=='') ? Number(n).toLocaleString('es-AR') : '<span style="color:#ccc">—</span>'; }
   function fmtN(n) { return n ? Number(n).toLocaleString('es-AR') : '—'; }
-  function shortDate(s) { const [y,m,d] = s.split('-'); return `${d}/${m}`; }
 
-  // ── RENDER ───────────────────────────────────────────
-  function render() {
-    if (view === 'week') renderWeek();
-    else renderMonth();
+  // ── RENDER ────────────────────────────────────────────
+  function render() { view==='week' ? renderWeek() : renderMonth(); }
+
+  function buildColumns(cols) {
+    // cols: array of {label, dates[]}
+    const tbody = document.getElementById('tableBody');
+    tbody.innerHTML = '';
+
+    PRODUCTS.forEach(prod => {
+      // Aggregate values per column
+      const colVals = cols.map(c => c.dates.reduce((s,d) => s+(history[d]?.products?.[prod]||0), 0));
+      const acc = colVals.reduce((a,b)=>a+b, 0);
+      const isExp = expandedProducts.has(prod);
+
+      // Product row
+      const tr = document.createElement('tr');
+      tr.className = 'row-product';
+      tr.innerHTML = `<td onclick="toggleProduct('${prod}')"><span class="toggle-icon ${isExp?'open':''}">▶</span> ${prod}</td>` +
+        colVals.map(v => `<td>${fmt(v||null)}</td>`).join('') +
+        `<td>${fmtN(acc)}</td>`;
+      tbody.appendChild(tr);
+
+      // Route sub-rows
+      const allRoutes = new Set();
+      cols.forEach(c => c.dates.forEach(d => Object.keys(history[d]?.routes?.[prod]||{}).forEach(r => allRoutes.add(r))));
+      // Sort by total desc
+      const routesSorted = Array.from(allRoutes).sort((a,b) => {
+        const ta = cols.reduce((s,c) => s+c.dates.reduce((ss,d)=>(ss+(history[d]?.routes?.[prod]?.[a]||0)),0),0);
+        const tb = cols.reduce((s,c) => s+c.dates.reduce((ss,d)=>(ss+(history[d]?.routes?.[prod]?.[b]||0)),0),0);
+        return tb-ta;
+      });
+
+      routesSorted.forEach(route => {
+        const rVals = cols.map(c => c.dates.reduce((s,d) => s+(history[d]?.routes?.[prod]?.[route]||0), 0));
+        const rAcc = rVals.reduce((a,b)=>a+b,0);
+        const tr2 = document.createElement('tr');
+        tr2.className = 'row-route' + (isExp ? ' visible' : '');
+        tr2.dataset.product = prod;
+        tr2.innerHTML = `<td>${route}</td>` + rVals.map(v=>`<td>${fmt(v||null)}</td>`).join('') + `<td>${fmtN(rAcc)}</td>`;
+        tbody.appendChild(tr2);
+      });
+    });
+
+    // Total Unidades
+    const tuVals = cols.map(c => c.dates.reduce((s,d)=>s+(history[d]?.total_unidades||0),0));
+    const trTU = document.createElement('tr'); trTU.className='row-total';
+    trTU.innerHTML = `<td>Total Unidades</td>` + tuVals.map(v=>`<td>${fmt(v||null)}</td>`).join('') + `<td>${fmtN(tuVals.reduce((a,b)=>a+b,0))}</td>`;
+    tbody.appendChild(trTU);
+
+    // Total OS
+    const osVals = cols.map(c => c.dates.reduce((s,d)=>s+(history[d]?.total_os||0),0));
+    const trOS = document.createElement('tr'); trOS.className='row-total';
+    trOS.innerHTML = `<td>Total OS</td>` + osVals.map(v=>`<td>${fmt(v||null)}</td>`).join('') + `<td>${fmtN(osVals.reduce((a,b)=>a+b,0))}</td>`;
+    tbody.appendChild(trOS);
+  }
+
+  function toggleProduct(prod) {
+    if (expandedProducts.has(prod)) expandedProducts.delete(prod);
+    else expandedProducts.add(prod);
+    render();
   }
 
   function renderWeek() {
@@ -337,29 +390,15 @@
     const dates = Array.from({length:5}, (_,i) => addDays(cursor, i));
     document.getElementById('navLabel').textContent = `Semana ${shortDate(cursor)} — ${shortDate(addDays(cursor,4))}`;
 
-    const hasData = dates.some(d => history[d]);
-    if (!hasData) { showEmpty(); return; }
+    if (!dates.some(d => history[d])) { showEmpty(); return; }
     showTable();
 
     document.getElementById('tableHeader').innerHTML =
       `<th>OUTBOUND</th>` +
-      dates.map(d => { const dt = new Date(d+'T12:00:00'); return `<th>${DAYS_ES[dt.getDay()]} ${shortDate(d)}</th>`; }).join('') +
+      dates.map(d => { const dt=new Date(d+'T12:00:00'); return `<th>${DAYS_ES[dt.getDay()]} ${shortDate(d)}</th>`; }).join('') +
       `<th>Acumulado</th>`;
 
-    const tbody = document.getElementById('tableBody');
-    tbody.innerHTML = '';
-
-    PRODUCTS.forEach(prod => {
-      const vals = dates.map(d => history[d]?.products?.[prod] ?? null);
-      const acc = vals.reduce((s,v) => s+(v||0), 0);
-      tbody.innerHTML += `<tr><td>${prod}</td>${dates.map((_,i) => `<td>${fmt(vals[i])}</td>`).join('')}<td><strong>${fmtN(acc)}</strong></td></tr>`;
-    });
-
-    const tuVals = dates.map(d => history[d]?.total_unidades ?? null);
-    tbody.innerHTML += `<tr class="row-total"><td>Total Unidades</td>${dates.map((_,i) => `<td>${fmt(tuVals[i])}</td>`).join('')}<td>${fmtN(tuVals.reduce((s,v)=>s+(v||0),0))}</td></tr>`;
-
-    const osVals = dates.map(d => history[d]?.total_os ?? null);
-    tbody.innerHTML += `<tr class="row-total"><td>Total OS</td>${dates.map((_,i) => `<td>${fmt(osVals[i])}</td>`).join('')}<td>${fmtN(osVals.reduce((s,v)=>s+(v||0),0))}</td></tr>`;
+    buildColumns(dates.map(d => ({ label: shortDate(d), dates: [d] })));
   }
 
   function renderMonth() {
@@ -373,36 +412,27 @@
     const weeks = [];
     while (ws <= lastDay) {
       const days = [];
-      for (let i=0; i<5; i++) { const d=new Date(ws); d.setDate(d.getDate()+i); if(d.getMonth()+1===month) days.push(isoDate(d)); }
-      if (days.length) weeks.push({ label: `Sem ${shortDate(days[0])}`, days });
+      for (let i=0;i<5;i++) { const d=new Date(ws); d.setDate(d.getDate()+i); if(d.getMonth()+1===month) days.push(isoDate(d)); }
+      if (days.length) weeks.push({ label:`Sem ${shortDate(days[0])}`, days });
       ws.setDate(ws.getDate()+7);
     }
 
-    const hasData = weeks.some(w => w.days.some(d => history[d]));
-    if (!hasData) { showEmpty(); return; }
+    if (!weeks.some(w => w.days.some(d => history[d]))) { showEmpty(); return; }
     showTable();
 
     document.getElementById('tableHeader').innerHTML =
       `<th>OUTBOUND</th>` + weeks.map(w=>`<th>${w.label}</th>`).join('') + `<th>Acumulado</th>`;
 
-    const tbody = document.getElementById('tableBody');
-    tbody.innerHTML = '';
-
-    PRODUCTS.forEach(prod => {
-      const vals = weeks.map(w => w.days.reduce((s,d) => s+(history[d]?.products?.[prod]||0), 0));
-      const acc = vals.reduce((a,b)=>a+b,0);
-      tbody.innerHTML += `<tr><td>${prod}</td>${vals.map(v=>`<td>${fmt(v||null)}</td>`).join('')}<td><strong>${fmtN(acc)}</strong></td></tr>`;
-    });
-
-    const tuVals = weeks.map(w => w.days.reduce((s,d)=>s+(history[d]?.total_unidades||0),0));
-    tbody.innerHTML += `<tr class="row-total"><td>Total Unidades</td>${tuVals.map(v=>`<td>${fmt(v||null)}</td>`).join('')}<td>${fmtN(tuVals.reduce((a,b)=>a+b,0))}</td></tr>`;
-
-    const osVals = weeks.map(w => w.days.reduce((s,d)=>s+(history[d]?.total_os||0),0));
-    tbody.innerHTML += `<tr class="row-total"><td>Total OS</td>${osVals.map(v=>`<td>${fmt(v||null)}</td>`).join('')}<td>${fmtN(osVals.reduce((a,b)=>a+b,0))}</td></tr>`;
+    buildColumns(weeks);
   }
 
   function showEmpty() {
     document.getElementById('emptyState').innerHTML = '<div class="icon">📊</div><p>No hay datos para este período.<br>Subí el CSV con el botón Actualizar.</p>';
+    document.getElementById('emptyState').style.display = 'block';
+    document.getElementById('mainTable').style.display = 'none';
+  }
+  function showLoading() {
+    document.getElementById('emptyState').innerHTML = '<div class="icon">⏳</div><p>Cargando datos...</p>';
     document.getElementById('emptyState').style.display = 'block';
     document.getElementById('mainTable').style.display = 'none';
   }
@@ -411,7 +441,7 @@
     document.getElementById('mainTable').style.display = 'table';
   }
 
-  // ── UPLOAD MODAL ─────────────────────────────────────
+  // ── UPLOAD ────────────────────────────────────────────
   function openUploadModal() {
     if (!getToken()) { openTokenModal(); return; }
     document.getElementById('uploadModal').classList.add('active');
@@ -429,36 +459,34 @@
     document.getElementById('fname').textContent = f?.name || '';
     document.getElementById('uploadBtn').disabled = !f;
   }
-
   async function doUpload() {
     const file = document.getElementById('fileInput').files[0];
     if (!file) return;
-    const site = detectSite(file.filename || file.name);
+    const site = detectSite(file.name);
     if (!site) {
-      document.getElementById('uploadFeedback').className = 'feedback err';
-      document.getElementById('uploadFeedback').textContent = '✗ No se detectó el país. El nombre debe incluir MLA, MLM, MLC o MLU';
+      document.getElementById('uploadFeedback').className='feedback err';
+      document.getElementById('uploadFeedback').textContent='✗ No se detectó el país. El nombre debe incluir MLA, MLM, MLC o MLU';
       return;
     }
     const btn = document.getElementById('uploadBtn');
     const fb = document.getElementById('uploadFeedback');
     btn.innerHTML = '<span class="spinner"></span> Procesando...';
-    btn.disabled = true;
-    fb.textContent = '';
+    btn.disabled = true; fb.textContent = '';
     try {
       const text = await file.text();
       const rows = parseCSV(text);
       const data = processRows(rows);
-      const currentHistory = await loadHistory(site);
-      currentHistory[data.fecha] = data;
-      await saveHistory(site, currentHistory);
-      fb.className = 'feedback ok';
-      fb.textContent = `✓ ${site} · ${data.fecha} · ${Number(data.total_unidades).toLocaleString('es-AR')} uds guardadas`;
+      const h = await loadHistory(site);
+      h[data.fecha] = data;
+      await saveHistory(site, h);
+      fb.className='feedback ok';
+      fb.textContent=`✓ ${site} · ${data.fecha} · ${Number(data.total_unidades).toLocaleString('es-AR')} uds guardadas`;
       setTimeout(async () => { closeUploadModal(); await selectSite(site); }, 1500);
     } catch(e) {
-      fb.className = 'feedback err';
-      fb.textContent = '✗ Error: ' + (e.message || 'Error desconocido');
-      btn.textContent = 'Subir y Actualizar';
-      btn.disabled = false;
+      fb.className='feedback err';
+      fb.textContent='✗ ' + (e.message || 'Error desconocido');
+      btn.textContent='Subir y Actualizar';
+      btn.disabled=false;
     }
   }
 
@@ -466,7 +494,7 @@
   document.getElementById('tokenModal').addEventListener('click', e => { if(e.target===e.currentTarget) closeTokenModal(); });
   document.getElementById('tokenInput').addEventListener('keydown', e => { if(e.key==='Enter') saveToken(); });
 
-  // ── INIT ─────────────────────────────────────────────
+  // ── INIT ──────────────────────────────────────────────
   updateTokenStatus();
   selectSite('MLA');
 </script>
