@@ -97,6 +97,13 @@
     .token-input:focus { outline: none; border-color: #3483FA; }
     .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid #fff; border-top-color: transparent; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; }
     @keyframes spin { to { transform: rotate(360deg); } }
+    .maquila-header th { background: #f0f4ff; color: #2c3e50; border-bottom: 2px solid #c8d8f8; }
+    .row-maquila-prod td { padding: 10px 16px; background: #fff; border-bottom: 1px solid #eef1f5; text-align: right; color: #2c3e50; }
+    .row-maquila-prod td:first-child { text-align: left; font-weight: 500; }
+    .row-maquila-prod:hover td { background: #f7f9ff; }
+    .row-maquila-total td { padding: 11px 16px; font-weight: 700; background: #eef4ff; border-top: 2px solid #c8d8f8; color: #1a3a6e; text-align: right; }
+    .row-maquila-total td:first-child { text-align: left; }
+    .zero-val { color: #bbb; }
   </style>
 </head>
 <body>
@@ -146,14 +153,17 @@
 </div>
 
   <!-- MAQUILA TABLE -->
-  <div style="margin-top: 20px;">
+  <div style="margin-top: 28px;">
+    <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px;">
+      <span style="font-size:16px;">🔧</span>
+      <span style="font-size:13px; font-weight:700; color:#555; letter-spacing:0.5px; text-transform:uppercase;">Maquila</span>
+    </div>
     <div class="table-card">
-      <div id="maquilaEmpty" class="empty-state" style="padding:30px;">
-        <div class="icon" style="font-size:28px;">🔧</div>
-        <p>Sin datos de maquila para este período.</p>
+      <div id="maquilaEmpty" class="empty-state" style="padding:32px;">
+        <p style="font-size:13px; color:#aaa;">Sin datos de maquila para este período.<br>Subí el archivo con el botón Actualizar.</p>
       </div>
       <table id="maquilaTable" style="display:none">
-        <thead><tr id="maquilaHeader"></tr></thead>
+        <thead><tr id="maquilaHeader" class="maquila-header"></tr></thead>
         <tbody id="maquilaBody"></tbody>
       </table>
     </div>
@@ -430,28 +440,35 @@
     maquilaEmpty.style.display = 'none';
     maquilaTable.style.display = 'table';
 
-    // Header
-    maquilaHeader.innerHTML = `<th>MAQUILA</th>` + cols.map(c=>`<th>${c.label}</th>`).join('') + `<th>Acumulado</th>`;
+    maquilaHeader.innerHTML = `<th>Producto</th>` + cols.map(c=>`<th>${c.label}</th>`).join('') + `<th>Acumulado</th>`;
 
-    // Get all products across all dates
+    // All known products across entire history (not just visible period)
     const allProds = new Set();
-    cols.forEach(c => c.dates.forEach(d => Object.keys(maquilaHistory[d]?.products||{}).forEach(p => allProds.add(p))));
+    Object.values(maquilaHistory).forEach(d => Object.keys(d.products||{}).forEach(p => allProds.add(p)));
     const prodsSorted = Array.from(allProds).sort((a,b) => {
-      const ta = cols.reduce((s,c)=>s+c.dates.reduce((ss,d)=>ss+(maquilaHistory[d]?.products?.[a]||0),0),0);
-      const tb = cols.reduce((s,c)=>s+c.dates.reduce((ss,d)=>ss+(maquilaHistory[d]?.products?.[b]||0),0),0);
+      const ta = Object.values(maquilaHistory).reduce((s,d)=>s+(d.products?.[a]||0),0);
+      const tb = Object.values(maquilaHistory).reduce((s,d)=>s+(d.products?.[b]||0),0);
       return tb-ta;
     });
+
+    // fmt for maquila: show 0 if day has data but product = 0, show — if no data for that day
+    function fmtM(val, colDates) {
+      const hasUpload = colDates.some(d => maquilaHistory[d]);
+      if (!hasUpload) return '<span style="color:#ccc">—</span>';
+      return val > 0 ? Number(val).toLocaleString('es-AR') : '<span class="zero-val">0</span>';
+    }
 
     maquilaBody.innerHTML = '';
     prodsSorted.forEach(prod => {
       const vals = cols.map(c => c.dates.reduce((s,d)=>s+(maquilaHistory[d]?.products?.[prod]||0),0));
       const acc = vals.reduce((a,b)=>a+b,0);
-      maquilaBody.innerHTML += `<tr><td>${prod}</td>${vals.map(v=>`<td>${fmt(v||null)}</td>`).join('')}<td><strong>${fmtN(acc)}</strong></td></tr>`;
+      const cells = cols.map((c,i) => `<td>${fmtM(vals[i], c.dates)}</td>`).join('');
+      maquilaBody.innerHTML += `<tr class="row-maquila-prod"><td>${prod}</td>${cells}<td><strong>${fmtN(acc)}</strong></td></tr>`;
     });
 
-    // Total
     const totVals = cols.map(c => c.dates.reduce((s,d)=>s+(maquilaHistory[d]?.total||0),0));
-    maquilaBody.innerHTML += `<tr class="row-total"><td>Total Maquilado</td>${totVals.map(v=>`<td>${fmt(v||null)}</td>`).join('')}<td>${fmtN(totVals.reduce((a,b)=>a+b,0))}</td></tr>`;
+    const totCells = cols.map((c,i) => `<td>${fmtM(totVals[i], c.dates)}</td>`).join('');
+    maquilaBody.innerHTML += `<tr class="row-maquila-total"><td>Total Maquilado</td>${totCells}<td>${fmtN(totVals.reduce((a,b)=>a+b,0))}</td></tr>`;
   }
 
   function buildColumns(cols) {
