@@ -7,6 +7,31 @@
       "Bobinas": 1321,
       "Others": 671
     },
+    "routes": {
+      "Cards": {
+        "XD - Credit Card": 7008,
+        "XD - CARDS": 5996,
+        "ANDREANI": 773,
+        "Andreani Credit Cards": 447,
+        "XD - POINT": 363
+      },
+      "Point": {
+        "FULL": 3100,
+        "XD - POINT": 1836,
+        "OFF": 1
+      },
+      "Bobinas": {
+        "XD - POINT": 932,
+        "CORREO ARGENTINO": 389
+      },
+      "Others": {
+        "FULL": 480,
+        "XD - POINT": 176,
+        "CORREO ARGENTINO": 14,
+        "XD - CARDS": 1,
+        "XD - Credit Card": 0
+      }
+    },
     "total_unidades": 21516,
     "total_os": 16126
   }
