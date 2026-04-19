@@ -424,7 +424,7 @@
     while (ws <= lastDay) {
       const days = [];
       for (let i=0;i<5;i++) { const d=new Date(ws); d.setDate(d.getDate()+i); if(d.getMonth()+1===month) days.push(isoDate(d)); }
-      if (days.length) weeks.push({ label:`Sem ${shortDate(days[0])}`, days });
+      if (days.length) weeks.push({ label:`Sem ${shortDate(days[0])}`, dates: days });
       ws.setDate(ws.getDate()+7);
     }
 
