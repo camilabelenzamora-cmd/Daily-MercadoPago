@@ -2,15 +2,15 @@
   "2026-04-16": {
     "fecha": "2026-04-16",
     "products": {
-      "Cards": 14587,
+      "Cards": 14590,
       "Point": 4937,
       "Bobinas": 1321,
-      "Others": 671
+      "Others": 670
     },
     "routes": {
       "Cards": {
-        "XD - Credit Card": 7008,
-        "XD - CARDS": 5996,
+        "XD - Credit Card": 7009,
+        "XD - CARDS": 5998,
         "ANDREANI": 773,
         "Andreani Credit Cards": 447,
         "XD - POINT": 363
@@ -27,12 +27,10 @@
       "Others": {
         "FULL": 480,
         "XD - POINT": 176,
-        "CORREO ARGENTINO": 14,
-        "XD - CARDS": 1,
-        "XD - Credit Card": 0
+        "CORREO ARGENTINO": 14
       }
     },
-    "total_unidades": 21516,
+    "total_unidades": 21518,
     "total_os": 16126
   }
 }
