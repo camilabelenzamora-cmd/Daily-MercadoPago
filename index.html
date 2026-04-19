@@ -251,11 +251,22 @@
   }
 
   function parseCSV(text) {
+    function splitLine(line) {
+      const vals = []; let cur = ''; let inQ = false;
+      for (let i = 0; i < line.length; i++) {
+        const c = line[i];
+        if (c === '"') { inQ = !inQ; }
+        else if (c === ',' && !inQ) { vals.push(cur.trim()); cur = ''; }
+        else { cur += c; }
+      }
+      vals.push(cur.trim());
+      return vals;
+    }
     const lines = text.split('\n');
     if (lines.length < 2) return null;
-    const headers = lines[0].split(',').map(h => h.trim().replace(/^\uFEFF/,''));
+    const headers = splitLine(lines[0]).map(h => h.replace(/^\uFEFF/,''));
     return lines.slice(1).filter(l => l.trim()).map(line => {
-      const vals = line.split(','); const obj = {};
+      const vals = splitLine(line); const obj = {};
       headers.forEach((h, i) => obj[h] = (vals[i] || '').trim());
       return obj;
     });
