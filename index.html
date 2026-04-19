@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tablero Daily — Mercado Envíos</title>
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: Arial, sans-serif; background: #f4f6f9; color: #2c3e50; font-size: 14px; }
@@ -144,16 +145,31 @@
   </div>
 </div>
 
+  <!-- MAQUILA TABLE -->
+  <div style="margin-top: 20px;">
+    <div class="table-card">
+      <div id="maquilaEmpty" class="empty-state" style="padding:30px;">
+        <div class="icon" style="font-size:28px;">🔧</div>
+        <p>Sin datos de maquila para este período.</p>
+      </div>
+      <table id="maquilaTable" style="display:none">
+        <thead><tr id="maquilaHeader"></tr></thead>
+        <tbody id="maquilaBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
 <!-- MODAL UPLOAD -->
 <div class="modal-overlay" id="uploadModal">
   <div class="modal">
     <h2>⬆️ Actualizar Reporte</h2>
-    <p>Subí el archivo de despachos del WMS. El nombre debe incluir el código del país (<strong>MLA, MLM, MLC</strong> o <strong>MLU</strong>).</p>
+    <p>Subí el archivo de despachos o maquila. El nombre debe incluir el código del país (<strong>MLA, MLM, MLC</strong> o <strong>MLU</strong>). Si el nombre incluye <strong>"Maquila"</strong> se procesa como maquila, sino como despachos. Acepta <strong>.csv</strong> y <strong>.xlsx</strong>.</p>
     <label class="file-label" for="fileInput">
       📂 Seleccionar archivo (.csv)
       <div class="fname" id="fname"></div>
     </label>
-    <input type="file" id="fileInput" accept=".csv" onchange="onFileChange(this)">
+    <input type="file" id="fileInput" accept=".csv,.xlsx,.xls" onchange="onFileChange(this)">
     <div class="modal-btns">
       <button class="btn-cancel" onclick="closeUploadModal()">Cancelar</button>
       <button class="btn-primary" id="uploadBtn" onclick="doUpload()" disabled>Subir y Actualizar</button>
@@ -188,6 +204,7 @@
   let view = 'week';
   let cursor = null;
   let history = {};
+  let maquilaHistory = {};
   let expandedProducts = new Set();
 
   // ── TOKEN ─────────────────────────────────────────────
@@ -225,6 +242,20 @@
     const res = await fetch(url, { method:'PUT', headers:{'Authorization':`Bearer ${t}`,'Content-Type':'application/json'}, body: JSON.stringify(body) });
     if (!res.ok) throw new Error(await res.text());
   }
+  async function loadMaquilaHistory(site) {
+    try {
+      const f = await ghGet(`data/${site}_maquila.json`);
+      if (!f) return {};
+      return JSON.parse(decodeURIComponent(escape(atob(f.content.replace(/\n/g,'')))));
+    } catch { return {}; }
+  }
+  async function saveMaquilaHistory(site, data) {
+    const content = JSON.stringify(data, null, 2);
+    const existing = await ghGet(`data/${site}_maquila.json`);
+    const today = new Date().toISOString().slice(0,10);
+    await ghPut(`data/${site}_maquila.json`, content, existing?.sha || null, `Update maquila ${site} - ${today}`);
+  }
+
   async function loadHistory(site) {
     try {
       const f = await ghGet(`data/${site}.json`);
@@ -239,8 +270,45 @@
     await ghPut(`data/${site}.json`, content, existing?.sha || null, `Update ${site} - ${today}`);
   }
 
-  // ── CSV PROCESSING ────────────────────────────────────
+  // ── FILE TYPE DETECTION ───────────────────────────────
   function detectSite(filename) { return SITES.find(s => filename.toUpperCase().includes(s)) || null; }
+  function isMaquila(filename) { return filename.toLowerCase().includes('maquila'); }
+  function isExcel(filename) { return filename.match(/\.xlsx?$/i); }
+
+  // ── MAQUILA PROCESSING ────────────────────────────────
+  function processMaquilaRows(rows) {
+    let fecha = null;
+    for (const r of rows) {
+      const raw = (r['FECHA MOD.'] || r['FECHA MOD'] || '').toString().trim();
+      if (raw && raw !== 'NaN') {
+        try { const [d,m,y] = raw.split(' ')[0].split('/'); fecha = `${y}-${m.padStart(2,'0')}-${d.padStart(2,'0')}`; break; } catch {}
+      }
+    }
+    if (!fecha) fecha = new Date().toISOString().slice(0,10);
+
+    const products = {};
+    for (const r of rows) {
+      const prod = (r['NOM PRODUCTO'] || '').trim();
+      const uds = parseInt(r['UNIDADES MOVIMIENTO'] || '0') || 0;
+      if (prod) products[prod] = (products[prod] || 0) + uds;
+    }
+    const sorted = Object.fromEntries(Object.entries(products).sort((a,b) => b[1]-a[1]));
+    return { fecha, products: sorted, total: Object.values(sorted).reduce((a,b)=>a+b,0) };
+  }
+
+  async function readFileAsRows(file) {
+    if (isExcel(file.name)) {
+      const buf = await file.arrayBuffer();
+      const wb = XLSX.read(buf, { type: 'array' });
+      const ws = wb.Sheets[wb.SheetNames[0]];
+      return XLSX.utils.sheet_to_json(ws, { defval: '' });
+    } else {
+      const text = await file.text();
+      return parseCSV(text);
+    }
+  }
+
+  // ── CSV PROCESSING ────────────────────────────────────
 
   function classifyProduct(nom) {
     const n = (nom || '').trim().toLowerCase();
@@ -308,7 +376,7 @@
     document.querySelectorAll('.country-tab').forEach(t => t.classList.remove('active'));
     document.querySelector(`[data-site="${site}"]`).classList.add('active');
     showLoading();
-    history = await loadHistory(site);
+    [history, maquilaHistory] = await Promise.all([loadHistory(site), loadMaquilaHistory(site)]);
     cursor = null;
     render();
   }
@@ -335,7 +403,56 @@
   function fmtN(n) { return n ? Number(n).toLocaleString('es-AR') : '—'; }
 
   // ── RENDER ────────────────────────────────────────────
-  function render() { view==='week' ? renderWeek() : renderMonth(); }
+  function render() { view==='week' ? renderWeek() : renderMonth(); renderMaquila(); }
+
+  function renderMaquila() {
+    const maquilaTable = document.getElementById('maquilaTable');
+    const maquilaEmpty = document.getElementById('maquilaEmpty');
+    const maquilaHeader = document.getElementById('maquilaHeader');
+    const maquilaBody = document.getElementById('maquilaBody');
+
+    let cols = [];
+    if (view === 'week') {
+      const dates = Array.from({length:5}, (_,i) => addDays(cursor || getMonday(new Date()), i));
+      cols = dates.map(d => { const dt=new Date(d+'T12:00:00'); return { label:`${DAYS_ES[dt.getDay()]} ${shortDate(d)}`, dates:[d] }; });
+    } else {
+      const allDates = Object.keys(maquilaHistory).sort();
+      const months = [...new Set(allDates.filter(d => d.startsWith(cursor || String(new Date().getFullYear()))).map(d => d.slice(0,7)))].sort();
+      cols = months.map(m => { const mo=parseInt(m.split('-')[1]); return { label:MONTHS_ES[mo-1], dates:allDates.filter(d=>d.startsWith(m)) }; });
+    }
+
+    const hasData = cols.some(c => c.dates.some(d => maquilaHistory[d]));
+    if (!hasData) {
+      maquilaEmpty.style.display = 'block';
+      maquilaTable.style.display = 'none';
+      return;
+    }
+    maquilaEmpty.style.display = 'none';
+    maquilaTable.style.display = 'table';
+
+    // Header
+    maquilaHeader.innerHTML = `<th>MAQUILA</th>` + cols.map(c=>`<th>${c.label}</th>`).join('') + `<th>Acumulado</th>`;
+
+    // Get all products across all dates
+    const allProds = new Set();
+    cols.forEach(c => c.dates.forEach(d => Object.keys(maquilaHistory[d]?.products||{}).forEach(p => allProds.add(p))));
+    const prodsSorted = Array.from(allProds).sort((a,b) => {
+      const ta = cols.reduce((s,c)=>s+c.dates.reduce((ss,d)=>ss+(maquilaHistory[d]?.products?.[a]||0),0),0);
+      const tb = cols.reduce((s,c)=>s+c.dates.reduce((ss,d)=>ss+(maquilaHistory[d]?.products?.[b]||0),0),0);
+      return tb-ta;
+    });
+
+    maquilaBody.innerHTML = '';
+    prodsSorted.forEach(prod => {
+      const vals = cols.map(c => c.dates.reduce((s,d)=>s+(maquilaHistory[d]?.products?.[prod]||0),0));
+      const acc = vals.reduce((a,b)=>a+b,0);
+      maquilaBody.innerHTML += `<tr><td>${prod}</td>${vals.map(v=>`<td>${fmt(v||null)}</td>`).join('')}<td><strong>${fmtN(acc)}</strong></td></tr>`;
+    });
+
+    // Total
+    const totVals = cols.map(c => c.dates.reduce((s,d)=>s+(maquilaHistory[d]?.total||0),0));
+    maquilaBody.innerHTML += `<tr class="row-total"><td>Total Maquilado</td>${totVals.map(v=>`<td>${fmt(v||null)}</td>`).join('')}<td>${fmtN(totVals.reduce((a,b)=>a+b,0))}</td></tr>`;
+  }
 
   function buildColumns(cols) {
     // cols: array of {label, dates[]}
@@ -482,14 +599,22 @@
     btn.innerHTML = '<span class="spinner"></span> Procesando...';
     btn.disabled = true; fb.textContent = '';
     try {
-      const text = await file.text();
-      const rows = parseCSV(text);
-      const data = processRows(rows);
-      const h = await loadHistory(site);
-      h[data.fecha] = data;
-      await saveHistory(site, h);
-      fb.className='feedback ok';
-      fb.textContent=`✓ ${site} · ${data.fecha} · ${Number(data.total_unidades).toLocaleString('es-AR')} uds guardadas`;
+      const rows = await readFileAsRows(file);
+      if (isMaquila(file.name)) {
+        const data = processMaquilaRows(rows);
+        const h = await loadMaquilaHistory(site);
+        h[data.fecha] = data;
+        await saveMaquilaHistory(site, h);
+        fb.className='feedback ok';
+        fb.textContent=`✓ Maquila ${site} · ${data.fecha} · ${Number(data.total).toLocaleString('es-AR')} uds guardadas`;
+      } else {
+        const data = processRows(rows);
+        const h = await loadHistory(site);
+        h[data.fecha] = data;
+        await saveHistory(site, h);
+        fb.className='feedback ok';
+        fb.textContent=`✓ Despachos ${site} · ${data.fecha} · ${Number(data.total_unidades).toLocaleString('es-AR')} uds guardadas`;
+      }
       setTimeout(async () => { closeUploadModal(); await selectSite(site); }, 1500);
     } catch(e) {
       fb.className='feedback err';
