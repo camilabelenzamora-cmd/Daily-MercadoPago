@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tablero Daily — Mercado Envíos</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, sans-serif; background: #f0f2f5; color: #333; font-size: 14px; }
+
+    .header { background: #FFE600; padding: 14px 28px; display: flex; justify-content: space-between; align-items: center; }
+    .header h1 { font-size: 18px; font-weight: 700; }
+    .header p { font-size: 12px; color: #555; margin-top: 2px; }
+    .header-right { display: flex; gap: 10px; align-items: center; }
+
+    .top-bar { background: #fff; border-bottom: 1px solid #e0e0e0; padding: 0 28px; display: flex; align-items: center; gap: 4px; }
+    .country-tab { padding: 13px 18px; cursor: pointer; font-size: 13px; font-weight: 500; color: #666; border-bottom: 3px solid transparent; }
+    .country-tab.active { color: #3483FA; border-bottom-color: #3483FA; font-weight: 700; }
+    .country-tab:hover { color: #333; }
+    .upload-btn { margin-left: auto; background: none; border: none; cursor: pointer; color: #3483FA; font-size: 13px; font-weight: 700; padding: 13px 0; }
+    .upload-btn:hover { color: #2968c8; }
+
+    .content { padding: 20px 28px; }
+
+    .toolbar { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+    .view-toggle { display: flex; border: 1px solid #ddd; border-radius: 6px; overflow: hidden; }
+    .view-btn { padding: 7px 18px; background: #fff; border: none; cursor: pointer; font-size: 13px; font-weight: 500; color: #666; }
+    .view-btn.active { background: #3483FA; color: #fff; font-weight: 700; }
+    .navigator { display: flex; align-items: center; gap: 8px; margin-left: 8px; }
+    .nav-btn { width: 28px; height: 28px; border: 1px solid #ddd; border-radius: 6px; background: #fff; cursor: pointer; font-size: 15px; display: flex; align-items: center; justify-content: center; }
+    .nav-btn:hover { background: #f5f5f5; }
+    .nav-label { font-size: 13px; font-weight: 600; color: #333; min-width: 160px; text-align: center; }
+
+    .table-card { background: #fff; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); overflow: hidden; }
+    table { width: 100%; border-collapse: collapse; }
+    thead tr { background: #1a1a1a; color: #fff; }
+    thead th { padding: 11px 16px; font-size: 12px; font-weight: 700; text-align: right; white-space: nowrap; }
+    thead th:first-child { text-align: left; }
+    tbody tr { border-bottom: 1px solid #f0f0f0; }
+    tbody tr:hover { background: #fafafa; }
+    td { padding: 10px 16px; text-align: right; font-size: 14px; }
+    td:first-child { text-align: left; font-weight: 500; }
+    .row-total td { font-weight: 700; background: #f5f5f5; border-top: 2px solid #e0e0e0; }
+
+    .empty-state { text-align: center; padding: 60px; color: #aaa; }
+    .empty-state .icon { font-size: 40px; margin-bottom: 10px; }
+
+    /* MODAL base */
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 100; justify-content: center; align-items: center; }
+    .modal-overlay.active { display: flex; }
+    .modal { background: #fff; border-radius: 10px; padding: 28px; width: 420px; box-shadow: 0 8px 32px rgba(0,0,0,0.15); }
+    .modal h2 { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+    .modal p { font-size: 13px; color: #666; margin-bottom: 20px; line-height: 1.5; }
+    .file-label { display: block; border: 2px dashed #ccc; border-radius: 8px; padding: 18px; text-align: center; cursor: pointer; font-size: 13px; color: #777; margin-bottom: 14px; transition: border-color 0.2s; }
+    .file-label:hover { border-color: #3483FA; color: #3483FA; }
+    .file-label .fname { font-weight: 700; color: #333; margin-top: 4px; }
+    #fileInput { display: none; }
+    .modal-btns { display: flex; gap: 10px; }
+    .btn-primary { flex: 1; background: #3483FA; color: #fff; border: none; border-radius: 6px; padding: 11px; font-size: 14px; font-weight: 700; cursor: pointer; }
+    .btn-primary:hover { background: #2968c8; }
+    .btn-primary:disabled { background: #a0c4ff; cursor: not-allowed; }
+    .btn-cancel { background: #f0f0f0; color: #333; border: none; border-radius: 6px; padding: 11px 18px; font-size: 14px; cursor: pointer; }
+    .btn-cancel:hover { background: #e0e0e0; }
+    .feedback { margin-top: 10px; font-size: 13px; text-align: center; }
+    .feedback.ok { color: #00a650; }
+    .feedback.err { color: #d32f2f; }
+
+    /* token modal */
+    .token-input { width: 100%; border: 1px solid #ddd; border-radius: 6px; padding: 10px 12px; font-size: 13px; margin-bottom: 14px; font-family: monospace; }
+    .token-input:focus { outline: none; border-color: #3483FA; }
+
+    .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid #fff; border-top-color: transparent; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 4px; }
+    .status-ok { background: #00a650; }
+    .status-no { background: #ccc; }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <h1>Tablero Daily — Mercado Envíos</h1>
+    <p>OUTBOUND · Despachos por producto</p>
+  </div>
+  <div class="header-right">
+    <span id="tokenStatus" style="font-size:12px;color:#555;cursor:pointer" onclick="openTokenModal()">
+      <span class="status-dot status-no" id="statusDot"></span>
+      <span id="statusText">Sin token</span>
+    </span>
+  </div>
+</div>
+
+<div class="top-bar">
+  <div class="country-tab active" data-site="MLA" onclick="selectSite('MLA')">🇦🇷 MLA</div>
+  <div class="country-tab" data-site="MLM" onclick="selectSite('MLM')">🇲🇽 MLM</div>
+  <div class="country-tab" data-site="MLC" onclick="selectSite('MLC')">🇨🇱 MLC</div>
+  <div class="country-tab" data-site="MLU" onclick="selectSite('MLU')">🇺🇾 MLU</div>
+  <button class="upload-btn" onclick="openUploadModal()">⬆️ Actualizar</button>
+</div>
+
+<div class="content">
+  <div class="toolbar">
+    <div class="view-toggle">
+      <button class="view-btn active" id="btnWeek" onclick="setView('week')">Semanal</button>
+      <button class="view-btn" id="btnMonth" onclick="setView('month')">Mensual</button>
+    </div>
+    <div class="navigator">
+      <button class="nav-btn" onclick="navigate(-1)">&#8249;</button>
+      <span class="nav-label" id="navLabel">—</span>
+      <button class="nav-btn" onclick="navigate(1)">&#8250;</button>
+    </div>
+  </div>
+
+  <div class="table-card">
+    <div id="emptyState" class="empty-state">
+      <div class="icon">📊</div>
+      <p>No hay datos para este período.<br>Subí el CSV con el botón Actualizar.</p>
+    </div>
+    <table id="mainTable" style="display:none">
+      <thead>
+        <tr id="tableHeader"></tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- MODAL UPLOAD -->
+<div class="modal-overlay" id="uploadModal">
+  <div class="modal">
+    <h2>⬆️ Actualizar Reporte</h2>
+    <p>Subí el archivo de despachos del WMS. El nombre debe incluir el código del país (<strong>MLA, MLM, MLC</strong> o <strong>MLU</strong>).</p>
+    <label class="file-label" for="fileInput">
+      📂 Seleccionar archivo (.csv)
+      <div class="fname" id="fname"></div>
+    </label>
+    <input type="file" id="fileInput" accept=".csv" onchange="onFileChange(this)">
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closeUploadModal()">Cancelar</button>
+      <button class="btn-primary" id="uploadBtn" onclick="doUpload()" disabled>Subir y Actualizar</button>
+    </div>
+    <div class="feedback" id="uploadFeedback"></div>
+  </div>
+</div>
+
+<!-- MODAL TOKEN -->
+<div class="modal-overlay" id="tokenModal">
+  <div class="modal">
+    <h2>🔑 GitHub Token</h2>
+    <p>Necesitás un token para guardar los datos. Solo lo ingresás una vez — queda guardado en tu navegador.</p>
+    <input type="password" class="token-input" id="tokenInput" placeholder="github_pat_...">
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closeTokenModal()">Cancelar</button>
+      <button class="btn-primary" onclick="saveToken()">Guardar</button>
+    </div>
+    <div class="feedback" id="tokenFeedback"></div>
+  </div>
+</div>
+
+<script>
+  const OWNER = 'camilabelenzamora-cmd';
+  const REPO  = 'Daily-MercadoPago';
+  const BRANCH = 'main';
+  const PRODUCTS = ['Cards', 'Point', 'Bobinas', 'Others'];
+  const DAYS_ES = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+  const MONTHS_ES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+  const SITES = ['MLA','MLM','MLC','MLU'];
+
+  let currentSite = 'MLA';
+  let view = 'week';
+  let cursor = null;
+  let history = {};
+
+  // ── TOKEN ────────────────────────────────────────────
+  function getToken() { return localStorage.getItem('gh_token'); }
+
+  function updateTokenStatus() {
+    const t = getToken();
+    document.getElementById('statusDot').className = 'status-dot ' + (t ? 'status-ok' : 'status-no');
+    document.getElementById('statusText').textContent = t ? 'Token activo' : 'Sin token — click para configurar';
+  }
+
+  function openTokenModal() { document.getElementById('tokenModal').classList.add('active'); }
+  function closeTokenModal() { document.getElementById('tokenModal').classList.remove('active'); }
+
+  function saveToken() {
+    const val = document.getElementById('tokenInput').value.trim();
+    if (!val) return;
+    localStorage.setItem('gh_token', val);
+    updateTokenStatus();
+    closeTokenModal();
+  }
+
+  // ── GITHUB API ───────────────────────────────────────
+  async function ghGet(path) {
+    const url = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`;
+    const headers = { 'Accept': 'application/vnd.github.v3+json' };
+    const token = getToken();
+    if (token) headers['Authorization'] = `Bearer ${token}`;
+    const res = await fetch(url, { headers });
+    if (res.status === 404) return null;
+    if (!res.ok) throw new Error(await res.text());
+    return await res.json();
+  }
+
+  async function ghPut(path, content, sha, message) {
+    const token = getToken();
+    if (!token) throw new Error('Sin token');
+    const url = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`;
+    const body = { message, content: btoa(unescape(encodeURIComponent(content))), branch: BRANCH };
+    if (sha) body.sha = sha;
+    const res = await fetch(url, {
+      method: 'PUT',
+      headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+    if (!res.ok) throw new Error(await res.text());
+    return await res.json();
+  }
+
+  async function loadHistory(site) {
+    try {
+      const file = await ghGet(`data/${site}.json`);
+      if (!file) return {};
+      return JSON.parse(decodeURIComponent(escape(atob(file.content.replace(/\n/g,'')))));
+    } catch { return {}; }
+  }
+
+  async function saveHistory(site, data) {
+    const content = JSON.stringify(data, null, 2);
+    const existing = await ghGet(`data/${site}.json`);
+    const sha = existing?.sha || null;
+    const today = new Date().toISOString().slice(0,10);
+    await ghPut(`data/${site}.json`, content, sha, `Update ${site} - ${today}`);
+  }
+
+  // ── CSV PROCESSING ───────────────────────────────────
+  function detectSite(filename) {
+    const u = filename.toUpperCase();
+    return SITES.find(s => u.includes(s)) || null;
+  }
+
+  function classifyProduct(nom) {
+    const n = (nom || '').trim().toLowerCase();
+    if (n.includes('tarjeta de cr') || n.includes('tarjetas prepagadas')) return 'Cards';
+    if (n.startsWith('point')) return 'Point';
+    if (n.includes('bobina')) return 'Bobinas';
+    return 'Others';
+  }
+
+  function parseCSV(text) {
+    const lines = text.split('\n');
+    if (lines.length < 2) return null;
+    const headers = lines[0].split(',').map(h => h.trim().replace(/^\uFEFF/,''));
+    return lines.slice(1).filter(l => l.trim()).map(line => {
+      const vals = line.split(',');
+      const obj = {};
+      headers.forEach((h, i) => obj[h] = (vals[i] || '').trim());
+      return obj;
+    });
+  }
+
+  function processRows(rows) {
+    let fecha = null;
+    for (const r of rows) {
+      const raw = (r['FECHA DESPACHO'] || '').trim();
+      if (raw) {
+        try {
+          const [d, m, y] = raw.split(' ')[0].split('/');
+          fecha = `${y}-${m.padStart(2,'0')}-${d.padStart(2,'0')}`;
+          break;
+        } catch {}
+      }
+    }
+    if (!fecha) fecha = new Date().toISOString().slice(0,10);
+
+    const products = { Cards: 0, Point: 0, Bobinas: 0, Others: 0 };
+    const osIds = new Set();
+    for (const r of rows) {
+      const cat = classifyProduct(r['NOM PROD']);
+      products[cat] += parseInt(r['UNI DESP'] || '0') || 0;
+      if (r['ID OS']) osIds.add(r['ID OS']);
+    }
+    return { fecha, products, total_unidades: Object.values(products).reduce((a,b)=>a+b,0), total_os: osIds.size };
+  }
+
+  // ── SITE ─────────────────────────────────────────────
+  async function selectSite(site) {
+    currentSite = site;
+    document.querySelectorAll('.country-tab').forEach(t => t.classList.remove('active'));
+    document.querySelector(`[data-site="${site}"]`).classList.add('active');
+    document.getElementById('emptyState').innerHTML = '<div class="icon">⏳</div><p>Cargando datos...</p>';
+    document.getElementById('emptyState').style.display = 'block';
+    document.getElementById('mainTable').style.display = 'none';
+    history = await loadHistory(site);
+    cursor = null;
+    render();
+  }
+
+  // ── VIEW ─────────────────────────────────────────────
+  function setView(v) {
+    view = v;
+    cursor = null;
+    document.getElementById('btnWeek').classList.toggle('active', v === 'week');
+    document.getElementById('btnMonth').classList.toggle('active', v === 'month');
+    render();
+  }
+
+  function navigate(dir) {
+    if (view === 'week') cursor = addDays(cursor, dir * 7);
+    else {
+      const [y, m] = cursor.split('-').map(Number);
+      const d = new Date(y, m - 1 + dir, 1);
+      cursor = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+    }
+    render();
+  }
+
+  // ── DATE UTILS ───────────────────────────────────────
+  function isoDate(d) { return d.toISOString().slice(0,10); }
+  function addDays(s, n) { const d = new Date(s+'T12:00:00'); d.setDate(d.getDate()+n); return isoDate(d); }
+  function getMonday(d) { const dt = new Date(d); const day = dt.getDay(); dt.setDate(dt.getDate() + (day===0?-6:1-day)); return isoDate(dt); }
+  function fmt(n) { return n ? Number(n).toLocaleString('es-AR') : '<span style="color:#ccc">—</span>'; }
+  function fmtN(n) { return n ? Number(n).toLocaleString('es-AR') : '—'; }
+  function shortDate(s) { const [y,m,d] = s.split('-'); return `${d}/${m}`; }
+
+  // ── RENDER ───────────────────────────────────────────
+  function render() {
+    if (view === 'week') renderWeek();
+    else renderMonth();
+  }
+
+  function renderWeek() {
+    if (!cursor) cursor = getMonday(new Date());
+    const dates = Array.from({length:5}, (_,i) => addDays(cursor, i));
+    document.getElementById('navLabel').textContent = `Semana ${shortDate(cursor)} — ${shortDate(addDays(cursor,4))}`;
+
+    const hasData = dates.some(d => history[d]);
+    if (!hasData) { showEmpty(); return; }
+    showTable();
+
+    document.getElementById('tableHeader').innerHTML =
+      `<th>OUTBOUND</th>` +
+      dates.map(d => { const dt = new Date(d+'T12:00:00'); return `<th>${DAYS_ES[dt.getDay()]} ${shortDate(d)}</th>`; }).join('') +
+      `<th>Acumulado</th>`;
+
+    const tbody = document.getElementById('tableBody');
+    tbody.innerHTML = '';
+
+    PRODUCTS.forEach(prod => {
+      const vals = dates.map(d => history[d]?.products?.[prod] ?? null);
+      const acc = vals.reduce((s,v) => s+(v||0), 0);
+      tbody.innerHTML += `<tr><td>${prod}</td>${dates.map((_,i) => `<td>${fmt(vals[i])}</td>`).join('')}<td><strong>${fmtN(acc)}</strong></td></tr>`;
+    });
+
+    const tuVals = dates.map(d => history[d]?.total_unidades ?? null);
+    tbody.innerHTML += `<tr class="row-total"><td>Total Unidades</td>${dates.map((_,i) => `<td>${fmt(tuVals[i])}</td>`).join('')}<td>${fmtN(tuVals.reduce((s,v)=>s+(v||0),0))}</td></tr>`;
+
+    const osVals = dates.map(d => history[d]?.total_os ?? null);
+    tbody.innerHTML += `<tr class="row-total"><td>Total OS</td>${dates.map((_,i) => `<td>${fmt(osVals[i])}</td>`).join('')}<td>${fmtN(osVals.reduce((s,v)=>s+(v||0),0))}</td></tr>`;
+  }
+
+  function renderMonth() {
+    if (!cursor) { const n=new Date(); cursor=`${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}`; }
+    const [year, month] = cursor.split('-').map(Number);
+    document.getElementById('navLabel').textContent = `${MONTHS_ES[month-1]} ${year}`;
+
+    const firstDay = new Date(year, month-1, 1);
+    const lastDay = new Date(year, month, 0);
+    let ws = new Date(getMonday(firstDay)+'T12:00:00');
+    const weeks = [];
+    while (ws <= lastDay) {
+      const days = [];
+      for (let i=0; i<5; i++) { const d=new Date(ws); d.setDate(d.getDate()+i); if(d.getMonth()+1===month) days.push(isoDate(d)); }
+      if (days.length) weeks.push({ label: `Sem ${shortDate(days[0])}`, days });
+      ws.setDate(ws.getDate()+7);
+    }
+
+    const hasData = weeks.some(w => w.days.some(d => history[d]));
+    if (!hasData) { showEmpty(); return; }
+    showTable();
+
+    document.getElementById('tableHeader').innerHTML =
+      `<th>OUTBOUND</th>` + weeks.map(w=>`<th>${w.label}</th>`).join('') + `<th>Acumulado</th>`;
+
+    const tbody = document.getElementById('tableBody');
+    tbody.innerHTML = '';
+
+    PRODUCTS.forEach(prod => {
+      const vals = weeks.map(w => w.days.reduce((s,d) => s+(history[d]?.products?.[prod]||0), 0));
+      const acc = vals.reduce((a,b)=>a+b,0);
+      tbody.innerHTML += `<tr><td>${prod}</td>${vals.map(v=>`<td>${fmt(v||null)}</td>`).join('')}<td><strong>${fmtN(acc)}</strong></td></tr>`;
+    });
+
+    const tuVals = weeks.map(w => w.days.reduce((s,d)=>s+(history[d]?.total_unidades||0),0));
+    tbody.innerHTML += `<tr class="row-total"><td>Total Unidades</td>${tuVals.map(v=>`<td>${fmt(v||null)}</td>`).join('')}<td>${fmtN(tuVals.reduce((a,b)=>a+b,0))}</td></tr>`;
+
+    const osVals = weeks.map(w => w.days.reduce((s,d)=>s+(history[d]?.total_os||0),0));
+    tbody.innerHTML += `<tr class="row-total"><td>Total OS</td>${osVals.map(v=>`<td>${fmt(v||null)}</td>`).join('')}<td>${fmtN(osVals.reduce((a,b)=>a+b,0))}</td></tr>`;
+  }
+
+  function showEmpty() {
+    document.getElementById('emptyState').innerHTML = '<div class="icon">📊</div><p>No hay datos para este período.<br>Subí el CSV con el botón Actualizar.</p>';
+    document.getElementById('emptyState').style.display = 'block';
+    document.getElementById('mainTable').style.display = 'none';
+  }
+  function showTable() {
+    document.getElementById('emptyState').style.display = 'none';
+    document.getElementById('mainTable').style.display = 'table';
+  }
+
+  // ── UPLOAD MODAL ─────────────────────────────────────
+  function openUploadModal() {
+    if (!getToken()) { openTokenModal(); return; }
+    document.getElementById('uploadModal').classList.add('active');
+  }
+  function closeUploadModal() {
+    document.getElementById('uploadModal').classList.remove('active');
+    document.getElementById('fileInput').value = '';
+    document.getElementById('fname').textContent = '';
+    document.getElementById('uploadBtn').disabled = true;
+    document.getElementById('uploadFeedback').textContent = '';
+    document.getElementById('uploadBtn').textContent = 'Subir y Actualizar';
+  }
+  function onFileChange(input) {
+    const f = input.files[0];
+    document.getElementById('fname').textContent = f?.name || '';
+    document.getElementById('uploadBtn').disabled = !f;
+  }
+
+  async function doUpload() {
+    const file = document.getElementById('fileInput').files[0];
+    if (!file) return;
+    const site = detectSite(file.filename || file.name);
+    if (!site) {
+      document.getElementById('uploadFeedback').className = 'feedback err';
+      document.getElementById('uploadFeedback').textContent = '✗ No se detectó el país. El nombre debe incluir MLA, MLM, MLC o MLU';
+      return;
+    }
+    const btn = document.getElementById('uploadBtn');
+    const fb = document.getElementById('uploadFeedback');
+    btn.innerHTML = '<span class="spinner"></span> Procesando...';
+    btn.disabled = true;
+    fb.textContent = '';
+    try {
+      const text = await file.text();
+      const rows = parseCSV(text);
+      const data = processRows(rows);
+      const currentHistory = await loadHistory(site);
+      currentHistory[data.fecha] = data;
+      await saveHistory(site, currentHistory);
+      fb.className = 'feedback ok';
+      fb.textContent = `✓ ${site} · ${data.fecha} · ${Number(data.total_unidades).toLocaleString('es-AR')} uds guardadas`;
+      setTimeout(async () => { closeUploadModal(); await selectSite(site); }, 1500);
+    } catch(e) {
+      fb.className = 'feedback err';
+      fb.textContent = '✗ Error: ' + (e.message || 'Error desconocido');
+      btn.textContent = 'Subir y Actualizar';
+      btn.disabled = false;
+    }
+  }
+
+  document.getElementById('uploadModal').addEventListener('click', e => { if(e.target===e.currentTarget) closeUploadModal(); });
+  document.getElementById('tokenModal').addEventListener('click', e => { if(e.target===e.currentTarget) closeTokenModal(); });
+  document.getElementById('tokenInput').addEventListener('keydown', e => { if(e.key==='Enter') saveToken(); });
+
+  // ── INIT ─────────────────────────────────────────────
+  updateTokenStatus();
+  selectSite('MLA');
+</script>
+</body>
+</html>
