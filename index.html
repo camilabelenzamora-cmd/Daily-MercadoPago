@@ -312,7 +312,7 @@
       reps[p] = Object.fromEntries(Object.entries(reps[p]).sort((a,b) => b[1]-a[1]));
     }
     const sorted = Object.fromEntries(Object.entries(products).sort((a,b) => b[1]-a[1]));
-    return { fecha, products: sorted, reps, total: Object.values(sorted).reduce((a,b)=>a+b,0) };
+    return { fecha, products: sorted, reps, total: Object.values(sorted).reduce((a,b)=>a+b,0), uploadedAt: new Date().toISOString() };
   }
 
   async function readFileAsRows(file) {
@@ -363,7 +363,8 @@
     return {
       fecha,
       devoluciones: { products: devoluciones, total: Object.values(devoluciones).reduce((a,b)=>a+b,0) },
-      inbound: { suppliers: sortedInbound, total: Object.values(inboundSuppliers).reduce((s,v)=>s+v.total,0) }
+      inbound: { suppliers: sortedInbound, total: Object.values(inboundSuppliers).reduce((s,v)=>s+v.total,0) },
+      uploadedAt: new Date().toISOString()
     };
   }
 
@@ -425,7 +426,7 @@
       routes[p] = Object.fromEntries(Object.entries(routes[p]).sort((a,b) => b[1]-a[1]));
     }
 
-    return { fecha, products, routes, total_unidades: Object.values(products).reduce((a,b)=>a+b,0), total_os: osIds.size };
+    return { fecha, products, routes, total_unidades: Object.values(products).reduce((a,b)=>a+b,0), total_os: osIds.size, uploadedAt: new Date().toISOString() };
   }
 
   // ── SITE ──────────────────────────────────────────────
@@ -461,6 +462,22 @@
   function getMonday(d) { const dt=new Date(d); const day=dt.getDay(); dt.setDate(dt.getDate()+(day===0?-6:1-day)); return isoDate(dt); }
   function shortDate(s) { const [,m,d]=s.split('-'); return `${d}/${m}`; }
   function fmt(n) { return (n!=null && n!==0 && n!=='') ? Number(n).toLocaleString('es-AR') : '<span style="color:#ccc">—</span>'; }
+  function lastUpload(histObj) {
+    const uploads = Object.values(histObj).map(d => d.uploadedAt).filter(Boolean).sort();
+    if (!uploads.length) return '';
+    const d = new Date(uploads[uploads.length-1]);
+    const dd = String(d.getDate()).padStart(2,'0');
+    const mm = String(d.getMonth()+1).padStart(2,'0');
+    const yy = d.getFullYear();
+    const hh = String(d.getHours()).padStart(2,'0');
+    const min = String(d.getMinutes()).padStart(2,'0');
+    return `${dd}/${mm}/${yy} ${hh}:${min}`;
+  }
+  function sectionLabel(name, histObj) {
+    const ts = lastUpload(histObj);
+    const badge = ts ? `<span style="font-size:10px;font-weight:400;color:#888;margin-left:10px;">Últ. actualización: ${ts}</span>` : '<span style="font-size:10px;font-weight:400;color:#bbb;margin-left:10px;">Sin datos</span>';
+    return `${name}${badge}`;
+  }
   function fmtN(n) { return n ? Number(n).toLocaleString('es-AR') : '—'; }
 
   // ── RENDER ────────────────────────────────────────────
@@ -521,7 +538,7 @@
 
     // ── MAQUILA SECTION ───────────────────────────────
     const trSec = document.createElement('tr'); trSec.className='row-section';
-    trSec.innerHTML = `<td>Maquila</td>` + cols.map(()=>'<td></td>').join('') + '<td></td>';
+    trSec.innerHTML = `<td>${sectionLabel('Maquila', maquilaHistory)}</td>` + cols.map(()=>'<td></td>').join('') + '<td></td>';
     tbody.appendChild(trSec);
 
     const extraProds = new Set();
@@ -574,7 +591,7 @@
     }
 
     const trDev = document.createElement('tr'); trDev.className='row-section';
-    trDev.innerHTML = `<td>Devoluciones</td>` + cols.map(()=>'<td></td>').join('') + '<td></td>';
+    trDev.innerHTML = `<td>${sectionLabel('Devoluciones', asnHistory)}</td>` + cols.map(()=>'<td></td>').join('') + '<td></td>';
     tbody.appendChild(trDev);
 
     const allDevProds = new Set();
@@ -595,7 +612,7 @@
 
     // ── INBOUND SECTION ───────────────────────────────
     const trInb = document.createElement('tr'); trInb.className='row-section';
-    trInb.innerHTML = `<td>Inbound</td>` + cols.map(()=>'<td></td>').join('') + '<td></td>';
+    trInb.innerHTML = `<td>${sectionLabel('Inbound', asnHistory)}</td>` + cols.map(()=>'<td></td>').join('') + '<td></td>';
     tbody.appendChild(trInb);
 
     const allSuppliers = new Set();
@@ -657,7 +674,7 @@
     showTable();
 
     document.getElementById('tableHeader').innerHTML =
-      `<th>OUTBOUND</th>` +
+      `<th>${sectionLabel('OUTBOUND', history)}</th>` +
       dates.map(d => { const dt=new Date(d+'T12:00:00'); return `<th>${DAYS_ES[dt.getDay()]} ${shortDate(d)}</th>`; }).join('') +
       `<th>Acumulado</th>`;
 
@@ -682,7 +699,7 @@
     });
 
     document.getElementById('tableHeader').innerHTML =
-      `<th>OUTBOUND</th>` + cols.map(c=>`<th>${c.label}</th>`).join('') + `<th>Acumulado</th>`;
+      `<th>${sectionLabel('OUTBOUND', history)}</th>` + cols.map(c=>`<th>${c.label}</th>`).join('') + `<th>Acumulado</th>`;
 
     buildColumns(cols);
   }
