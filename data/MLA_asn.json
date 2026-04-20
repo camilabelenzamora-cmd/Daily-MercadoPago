@@ -26,5 +26,31 @@
       "total": 70050
     },
     "uploadedAt": "2026-04-20T15:21:08.984Z"
+  },
+  "2026-04-17": {
+    "fecha": "2026-04-17",
+    "site": "MLA",
+    "devoluciones": {
+      "products": {
+        "Point Smart - Pendiente de Reparación": 1296,
+        "Tarjetas Prepagadas": 725,
+        "Bobinas de Papel": 38,
+        "Tarjeta de Crédito": 325
+      },
+      "total": 2384
+    },
+    "inbound": {
+      "suppliers": {
+        "GPC": {
+          "total": 40100,
+          "products": {
+            "Tarjeta de Crédito": 20000,
+            "Tarjetas Prepagadas": 20100
+          }
+        }
+      },
+      "total": 40100
+    },
+    "uploadedAt": "2026-04-20T16:19:22.273Z"
   }
 }
