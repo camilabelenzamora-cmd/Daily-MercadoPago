@@ -68,5 +68,34 @@
       "total": 0
     },
     "uploadedAt": "2026-04-20T21:54:54.721Z"
+  },
+  "2026-04-14": {
+    "fecha": "2026-04-14",
+    "site": "MLA",
+    "devoluciones": {
+      "products": {
+        "Point N950 - Pendiente de Reparación": 520
+      },
+      "total": 520
+    },
+    "inbound": {
+      "suppliers": {
+        "GPC": {
+          "total": 41050,
+          "products": {
+            "Tarjeta de Crédito": 31000,
+            "Tarjetas Prepagadas": 10050
+          }
+        },
+        "LEASA": {
+          "total": 19016,
+          "products": {
+            "Scrap Point Smart": 19016
+          }
+        }
+      },
+      "total": 60066
+    },
+    "uploadedAt": "2026-04-20T21:58:56.371Z"
   }
 }
