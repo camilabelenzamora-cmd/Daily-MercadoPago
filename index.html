@@ -189,7 +189,9 @@
   const REPO  = 'Daily-MercadoPago';
   const BRANCH = 'main';
   const PRODUCTS = ['Cards', 'Point', 'Bobinas', 'Others'];
-  const MAQUILA_PRODUCTS = ['POINT N953 - PERSONAL Amarillo', 'Point N952 - Claro Amarillo', 'Point N951 - Movistar Amarillo'];
+  const MAQUILA_PRODUCTS_BY_SITE = {
+    MLA: ['POINT N953 - PERSONAL Amarillo', 'Point N952 - Claro Amarillo', 'Point N951 - Movistar Amarillo']
+  };
   const DAYS_ES = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
   const MONTHS_ES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
   const SITES = ['MLA','MLM','MLC','MLU'];
@@ -543,9 +545,10 @@
     trSec.innerHTML = `<td>${sectionLabel('Maquila', maquilaHistory)}</td>` + cols.map(()=>'<td></td>').join('') + '<td></td>';
     tbody.appendChild(trSec);
 
+    const fixedProds = MAQUILA_PRODUCTS_BY_SITE[currentSite] || [];
     const extraProds = new Set();
-    Object.values(maquilaHistory).forEach(d => Object.keys(d.products||{}).forEach(p => { if (!MAQUILA_PRODUCTS.includes(p)) extraProds.add(p); }));
-    const allMaqProds = [...MAQUILA_PRODUCTS, ...Array.from(extraProds)];
+    Object.values(maquilaHistory).forEach(d => Object.keys(d.products||{}).forEach(p => { if (!fixedProds.includes(p)) extraProds.add(p); }));
+    const allMaqProds = [...fixedProds, ...Array.from(extraProds)];
 
     function fmtM(val, colDates) {
       const hasUpload = colDates.some(d => maquilaHistory[d]);
