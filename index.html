@@ -98,7 +98,9 @@
     .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid #fff; border-top-color: transparent; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; }
     @keyframes spin { to { transform: rotate(360deg); } }
     .zero-val { color: #bbb; }
-    .row-section td { background: #f4f6f9; font-size: 11px; font-weight: 700; color: #666; letter-spacing: 0.8px; text-transform: uppercase; padding: 14px 16px 8px 16px; border-top: 8px solid #e8ecf0; }
+    .row-section td { background: #FFE600; font-size: 12px; font-weight: 700; color: #1a1a2e; letter-spacing: 0.5px; text-transform: uppercase; padding: 11px 16px; border-top: 8px solid #e8ecf0; }
+    .row-maquila-total td { padding: 11px 16px; font-weight: 700; background: #FFE600; color: #1a1a2e; text-align: right; border-top: 1px solid #e8d800; }
+    .row-maquila-total td:first-child { text-align: left; }
   </style>
 </head>
 <body>
@@ -450,7 +452,7 @@
 
     // ── MAQUILA SECTION ───────────────────────────────
     const trSec = document.createElement('tr'); trSec.className='row-section';
-    trSec.innerHTML = `<td>🔧 Maquila</td>` + cols.map(()=>'<td></td>').join('') + '<td></td>';
+    trSec.innerHTML = `<td>Maquila</td>` + cols.map(()=>'<td></td>').join('') + '<td></td>';
     tbody.appendChild(trSec);
 
     const extraProds = new Set();
@@ -472,7 +474,7 @@
     });
 
     const totVals = cols.map(c => c.dates.reduce((s,d)=>s+(maquilaHistory[d]?.total||0),0));
-    const trTot = document.createElement('tr'); trTot.className='row-total';
+    const trTot = document.createElement('tr'); trTot.className='row-maquila-total';
     trTot.innerHTML = `<td>Total Maquilado</td>` + cols.map((c,i)=>`<td>${fmtM(totVals[i],c.dates)}</td>`).join('') + `<td>${fmtN(totVals.reduce((a,b)=>a+b,0))}</td>`;
     tbody.appendChild(trTot);
   }
