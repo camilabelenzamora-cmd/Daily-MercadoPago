@@ -239,13 +239,16 @@
     const res = await fetch(url, { method:'PUT', headers:{'Authorization':`Bearer ${t}`,'Content-Type':'application/json'}, body: JSON.stringify(body) });
     if (!res.ok) throw new Error(await res.text());
   }
-  async function loadASNHistory(site) {
+  async function loadRaw(path) {
     try {
-      const f = await ghGet(`data/${site}_asn.json`);
-      if (!f) return {};
-      return JSON.parse(decodeURIComponent(escape(atob(f.content.replace(/\n/g,'')))));
+      const url = `https://raw.githubusercontent.com/${OWNER}/${REPO}/main/${path}?t=${Date.now()}`;
+      const res = await fetch(url);
+      if (!res.ok) return {};
+      return await res.json();
     } catch { return {}; }
   }
+
+  async function loadASNHistory(site) { return loadRaw(`data/${site}_asn.json`); }
   async function saveASNHistory(site, data) {
     const content = JSON.stringify(data, null, 2);
     const existing = await ghGet(`data/${site}_asn.json`);
@@ -253,13 +256,7 @@
     await ghPut(`data/${site}_asn.json`, content, existing?.sha||null, `Update ASN ${site} - ${today}`);
   }
 
-  async function loadMaquilaHistory(site) {
-    try {
-      const f = await ghGet(`data/${site}_maquila.json`);
-      if (!f) return {};
-      return JSON.parse(decodeURIComponent(escape(atob(f.content.replace(/\n/g,'')))));
-    } catch { return {}; }
-  }
+  async function loadMaquilaHistory(site) { return loadRaw(`data/${site}_maquila.json`); }
   async function saveMaquilaHistory(site, data) {
     const content = JSON.stringify(data, null, 2);
     const existing = await ghGet(`data/${site}_maquila.json`);
@@ -267,13 +264,7 @@
     await ghPut(`data/${site}_maquila.json`, content, existing?.sha || null, `Update maquila ${site} - ${today}`);
   }
 
-  async function loadHistory(site) {
-    try {
-      const f = await ghGet(`data/${site}.json`);
-      if (!f) return {};
-      return JSON.parse(decodeURIComponent(escape(atob(f.content.replace(/\n/g,'')))));
-    } catch { return {}; }
-  }
+  async function loadHistory(site) { return loadRaw(`data/${site}.json`); }
   async function saveHistory(site, data) {
     const content = JSON.stringify(data, null, 2);
     const existing = await ghGet(`data/${site}.json`);
