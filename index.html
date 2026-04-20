@@ -475,7 +475,7 @@
   }
   function sectionLabel(name, histObj) {
     const ts = lastUpload(histObj);
-    const badge = ts ? `<span style="font-size:10px;font-weight:400;color:#888;margin-left:10px;">Últ. actualización: ${ts}</span>` : '<span style="font-size:10px;font-weight:400;color:#bbb;margin-left:10px;">Sin datos</span>';
+    const badge = ts ? `<span style="font-size:10px;font-weight:400;color:#888;margin-left:10px;text-transform:none;">últ. actualización: ${ts}</span>` : '<span style="font-size:10px;font-weight:400;color:#bbb;margin-left:10px;text-transform:none;">sin datos</span>';
     return `${name}${badge}`;
   }
   function fmtN(n) { return n ? Number(n).toLocaleString('es-AR') : '—'; }
