@@ -198,6 +198,7 @@
   let history = {};
   let maquilaHistory = {};
   let expandedProducts = new Set();
+  let expandedMaquilaProds = new Set();
 
   // ── TOKEN ─────────────────────────────────────────────
   function getToken() { return localStorage.getItem('gh_token'); }
@@ -279,13 +280,22 @@
     if (!fecha) fecha = new Date().toISOString().slice(0,10);
 
     const products = {};
+    const reps = {};
     for (const r of rows) {
       const prod = (r['NOM PRODUCTO'] || '').trim();
       const uds = parseInt(r['UNIDADES MOVIMIENTO'] || '0') || 0;
-      if (prod) products[prod] = (products[prod] || 0) + uds;
+      const rep = (r['USUARIO ULT MOD.'] || r['USUARIO ULT MOD'] || '').trim() || 'Sin usuario';
+      if (!prod) continue;
+      products[prod] = (products[prod] || 0) + uds;
+      if (!reps[prod]) reps[prod] = {};
+      reps[prod][rep] = (reps[prod][rep] || 0) + uds;
+    }
+    // Sort reps per product by units desc
+    for (const p of Object.keys(reps)) {
+      reps[p] = Object.fromEntries(Object.entries(reps[p]).sort((a,b) => b[1]-a[1]));
     }
     const sorted = Object.fromEntries(Object.entries(products).sort((a,b) => b[1]-a[1]));
-    return { fecha, products: sorted, total: Object.values(sorted).reduce((a,b)=>a+b,0) };
+    return { fecha, products: sorted, reps, total: Object.values(sorted).reduce((a,b)=>a+b,0) };
   }
 
   async function readFileAsRows(file) {
@@ -365,6 +375,7 @@
   async function selectSite(site) {
     currentSite = site;
     expandedProducts.clear();
+    expandedMaquilaProds.clear();
     document.querySelectorAll('.country-tab').forEach(t => t.classList.remove('active'));
     document.querySelector(`[data-site="${site}"]`).classList.add('active');
     showLoading();
@@ -374,7 +385,7 @@
   }
 
   function setView(v) {
-    view = v; cursor = null; expandedProducts.clear();
+    view = v; cursor = null; expandedProducts.clear(); expandedMaquilaProds.clear();
     document.getElementById('btnWeek').classList.toggle('active', v==='week');
     document.getElementById('btnMonth').classList.toggle('active', v==='month');
     render();
@@ -468,9 +479,28 @@
     allMaqProds.forEach(prod => {
       const vals = cols.map(c => c.dates.reduce((s,d)=>s+(maquilaHistory[d]?.products?.[prod]||0),0));
       const acc = vals.reduce((a,b)=>a+b,0);
+      const isExp = expandedMaquilaProds.has(prod);
       const tr = document.createElement('tr'); tr.className='row-product';
-      tr.innerHTML = `<td>${prod}</td>` + cols.map((c,i)=>`<td>${fmtM(vals[i],c.dates)}</td>`).join('') + `<td><strong>${fmtN(acc)}</strong></td>`;
+      tr.innerHTML = `<td onclick="toggleMaquilaProd('${prod.replace(/'/g,"\\'")}')"><span class="toggle-icon ${isExp?'open':''}">▶</span> ${prod}</td>` + cols.map((c,i)=>`<td>${fmtM(vals[i],c.dates)}</td>`).join('') + `<td><strong>${fmtN(acc)}</strong></td>`;
       tbody.appendChild(tr);
+
+      // Rep sub-rows
+      const allReps = new Set();
+      cols.forEach(c => c.dates.forEach(d => Object.keys(maquilaHistory[d]?.reps?.[prod]||{}).forEach(r => allReps.add(r))));
+      const repsSorted = Array.from(allReps).sort((a,b) => {
+        const ta = cols.reduce((s,c)=>s+c.dates.reduce((ss,d)=>ss+(maquilaHistory[d]?.reps?.[prod]?.[a]||0),0),0);
+        const tb = cols.reduce((s,c)=>s+c.dates.reduce((ss,d)=>ss+(maquilaHistory[d]?.reps?.[prod]?.[b]||0),0),0);
+        return tb-ta;
+      });
+      repsSorted.forEach(rep => {
+        const rVals = cols.map(c => c.dates.reduce((s,d)=>s+(maquilaHistory[d]?.reps?.[prod]?.[rep]||0),0));
+        const rAcc = rVals.reduce((a,b)=>a+b,0);
+        const tr2 = document.createElement('tr');
+        tr2.className = 'row-route' + (isExp ? ' visible' : '');
+        tr2.dataset.maquilaProd = prod;
+        tr2.innerHTML = `<td>${rep}</td>` + cols.map((c,i)=>`<td>${fmtM(rVals[i],c.dates)}</td>`).join('') + `<td>${fmtN(rAcc)}</td>`;
+        tbody.appendChild(tr2);
+      });
     });
 
     const totVals = cols.map(c => c.dates.reduce((s,d)=>s+(maquilaHistory[d]?.total||0),0));
@@ -482,6 +512,11 @@
   function toggleProduct(prod) {
     if (expandedProducts.has(prod)) expandedProducts.delete(prod);
     else expandedProducts.add(prod);
+    render();
+  }
+  function toggleMaquilaProd(prod) {
+    if (expandedMaquilaProds.has(prod)) expandedMaquilaProds.delete(prod);
+    else expandedMaquilaProds.add(prod);
     render();
   }
 
