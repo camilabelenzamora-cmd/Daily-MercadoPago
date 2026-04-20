@@ -155,7 +155,9 @@
 <div class="modal-overlay" id="uploadModal">
   <div class="modal">
     <h2>⬆️ Actualizar Reporte</h2>
-    <p>Subí el archivo de despachos o maquila. El nombre debe incluir el código del país (<strong>MLA, MLM, MLC</strong> o <strong>MLU</strong>). Si el nombre incluye <strong>"Maquila"</strong> se procesa como maquila, sino como despachos. Acepta <strong>.csv</strong> y <strong>.xlsx</strong>.</p>
+    <p>El sistema detecta el tipo por el nombre del archivo:<br>
+    📦 <strong>detalleOs</strong> → Despachos &nbsp;|&nbsp; 🔧 <strong>caja</strong> → Maquila &nbsp;|&nbsp; 📥 <strong>asn</strong> → Devoluciones + Inbound<br>
+    El país se detecta automáticamente del contenido. Acepta <strong>.csv</strong> y <strong>.xlsx</strong>.</p>
     <label class="file-label" for="fileInput">
       📂 Seleccionar archivo (.csv)
       <div class="fname" id="fname"></div>
@@ -291,6 +293,7 @@
   }
   function isMaquila(filename) { const f = filename.toLowerCase(); return f.includes('maquila') || f.includes('caja'); }
   function isASN(filename) { return filename.toLowerCase().includes('asn'); }
+  function isDespachos(filename) { return filename.toLowerCase().includes('detalleos'); }
   function isExcel(filename) { return filename.match(/\.xlsx?$/i); }
 
   // ── MAQUILA PROCESSING ────────────────────────────────
@@ -776,17 +779,17 @@
         await saveMaquilaHistory(site, h);
         fb.className='feedback ok';
         fb.textContent=`✓ Maquila ${site} · ${data.fecha} · ${Number(data.total).toLocaleString('es-AR')} uds guardadas`;
-      } else {
+      } else if (isDespachos(file.name)) {
         const data = processRows(rows);
         site = site || data.site;
         if (!site) throw new Error('No se pudo detectar el país. Revisá el archivo.');
         const h = await loadHistory(site);
-        site = site || data.site;
-        if (!site) throw new Error('No se pudo detectar el país. Revisá el archivo.');
         h[data.fecha] = data;
         await saveHistory(site, h);
         fb.className='feedback ok';
         fb.textContent=`✓ Despachos ${site} · ${data.fecha} · ${Number(data.total_unidades).toLocaleString('es-AR')} uds guardadas`;
+      } else {
+        throw new Error('No se reconoció el tipo de archivo. El nombre debe contener "detalleOs", "caja" o "asn".');
       }
       setTimeout(async () => { closeUploadModal(); await selectSite(site); }, 1500);
     } catch(e) {
