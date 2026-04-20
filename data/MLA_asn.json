@@ -52,5 +52,21 @@
       "total": 40100
     },
     "uploadedAt": "2026-04-20T16:19:22.273Z"
+  },
+  "2026-04-13": {
+    "fecha": "2026-04-13",
+    "site": "MLA",
+    "devoluciones": {
+      "products": {
+        "Tarjeta de Crédito": 550,
+        "Tarjetas Prepagadas": 6200
+      },
+      "total": 6750
+    },
+    "inbound": {
+      "suppliers": {},
+      "total": 0
+    },
+    "uploadedAt": "2026-04-20T21:54:54.721Z"
   }
 }
