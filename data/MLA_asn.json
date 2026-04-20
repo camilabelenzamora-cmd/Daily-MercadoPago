@@ -97,5 +97,32 @@
       "total": 60066
     },
     "uploadedAt": "2026-04-20T21:58:56.371Z"
+  },
+  "2026-04-15": {
+    "fecha": "2026-04-15",
+    "site": "MLA",
+    "devoluciones": {
+      "products": {},
+      "total": 0
+    },
+    "inbound": {
+      "suppliers": {
+        "GPC": {
+          "total": 20100,
+          "products": {
+            "Tarjetas Prepagadas": 20100
+          }
+        },
+        "ENOFIR": {
+          "total": 736,
+          "products": {
+            "Point N950 Amarillo Refurbished Sin Maquilar": 448,
+            "Point N950 Refurbished Sin Maquilar Azul": 288
+          }
+        }
+      },
+      "total": 20836
+    },
+    "uploadedAt": "2026-04-20T22:01:14.561Z"
   }
 }
