@@ -375,7 +375,7 @@
 
   function classifyProduct(nom) {
     const n = (nom || '').trim().toLowerCase();
-    if (n.startsWith('tarjeta')) return 'Cards';
+    if (n.includes('tarjeta')) return 'Cards';
     if (n.startsWith('point')) return 'Point';
     if (n.includes('bobina') || n.includes('kit rollo')) return 'Bobinas';
     return 'Others';
