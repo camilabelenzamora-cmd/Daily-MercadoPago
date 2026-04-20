@@ -1,0 +1,42 @@
+{
+  "2026-04-16": {
+    "fecha": "2026-04-16",
+    "site": "MLU",
+    "devoluciones": {
+      "products": {},
+      "total": 0
+    },
+    "inbound": {
+      "suppliers": {
+        "FUJIAN NEWLAND PAYMENT - NEWLAND": {
+          "total": 2400,
+          "products": {
+            "Point N950 - Sin Maquilar": 2400
+          }
+        }
+      },
+      "total": 2400
+    },
+    "uploadedAt": "2026-04-20T22:42:03.833Z"
+  },
+  "2026-04-15": {
+    "fecha": "2026-04-15",
+    "site": "MLU",
+    "devoluciones": {
+      "products": {},
+      "total": 0
+    },
+    "inbound": {
+      "suppliers": {
+        "CLARO S.A.": {
+          "total": 3000,
+          "products": {
+            "Chip Claro 4G": 3000
+          }
+        }
+      },
+      "total": 3000
+    },
+    "uploadedAt": "2026-04-20T22:42:03.833Z"
+  }
+}
