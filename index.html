@@ -289,7 +289,7 @@
     if (v.includes('URUGUAY')) return 'MLU';
     return null;
   }
-  function isMaquila(filename) { return filename.toLowerCase().includes('maquila'); }
+  function isMaquila(filename) { const f = filename.toLowerCase(); return f.includes('maquila') || f.includes('caja'); }
   function isASN(filename) { return filename.toLowerCase().includes('asn'); }
   function isExcel(filename) { return filename.match(/\.xlsx?$/i); }
 
