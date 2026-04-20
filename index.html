@@ -199,6 +199,8 @@
   let maquilaHistory = {};
   let expandedProducts = new Set();
   let expandedMaquilaProds = new Set();
+  let expandedInboundSuppliers = new Set();
+  let asnHistory = {};
 
   // ── TOKEN ─────────────────────────────────────────────
   function getToken() { return localStorage.getItem('gh_token'); }
@@ -235,6 +237,20 @@
     const res = await fetch(url, { method:'PUT', headers:{'Authorization':`Bearer ${t}`,'Content-Type':'application/json'}, body: JSON.stringify(body) });
     if (!res.ok) throw new Error(await res.text());
   }
+  async function loadASNHistory(site) {
+    try {
+      const f = await ghGet(`data/${site}_asn.json`);
+      if (!f) return {};
+      return JSON.parse(decodeURIComponent(escape(atob(f.content.replace(/\n/g,'')))));
+    } catch { return {}; }
+  }
+  async function saveASNHistory(site, data) {
+    const content = JSON.stringify(data, null, 2);
+    const existing = await ghGet(`data/${site}_asn.json`);
+    const today = new Date().toISOString().slice(0,10);
+    await ghPut(`data/${site}_asn.json`, content, existing?.sha||null, `Update ASN ${site} - ${today}`);
+  }
+
   async function loadMaquilaHistory(site) {
     try {
       const f = await ghGet(`data/${site}_maquila.json`);
@@ -266,6 +282,7 @@
   // ── FILE TYPE DETECTION ───────────────────────────────
   function detectSite(filename) { return SITES.find(s => filename.toUpperCase().includes(s)) || null; }
   function isMaquila(filename) { return filename.toLowerCase().includes('maquila'); }
+  function isASN(filename) { return filename.toLowerCase().includes('asn'); }
   function isExcel(filename) { return filename.match(/\.xlsx?$/i); }
 
   // ── MAQUILA PROCESSING ────────────────────────────────
@@ -308,6 +325,46 @@
       const text = await file.text();
       return parseCSV(text);
     }
+  }
+
+  // ── ASN PROCESSING ───────────────────────────────────
+  function processASNRows(rows) {
+    let fecha = null;
+    for (const r of rows) {
+      const raw = (r['FECHA ASIG PUERTA'] || '').toString().trim();
+      if (raw && raw !== 'NaN') {
+        try { const [d,m,y] = raw.split(' ')[0].split('/'); fecha = `${y}-${m.padStart(2,'0')}-${d.padStart(2,'0')}`; break; } catch {}
+      }
+    }
+    if (!fecha) fecha = new Date().toISOString().slice(0,10);
+
+    const devoluciones = {};
+    const inboundSuppliers = {};
+
+    for (const r of rows) {
+      const tipo = (r['TIPO ASN'] || '').trim();
+      const prod = (r['NOM PROD'] || '').trim();
+      const prov = (r['ASN NOM PROV'] || '').trim() || 'Sin proveedor';
+      const uds = parseInt(r['UN RECIBIDAS'] || '0') || 0;
+      if (!prod || !uds) continue;
+
+      if (tipo === 'DEVCLI') {
+        devoluciones[prod] = (devoluciones[prod] || 0) + uds;
+      } else {
+        if (!inboundSuppliers[prov]) inboundSuppliers[prov] = { total: 0, products: {} };
+        inboundSuppliers[prov].total += uds;
+        inboundSuppliers[prov].products[prod] = (inboundSuppliers[prov].products[prod] || 0) + uds;
+      }
+    }
+
+    // Sort suppliers by total desc
+    const sortedInbound = Object.fromEntries(Object.entries(inboundSuppliers).sort((a,b) => b[1].total - a[1].total));
+
+    return {
+      fecha,
+      devoluciones: { products: devoluciones, total: Object.values(devoluciones).reduce((a,b)=>a+b,0) },
+      inbound: { suppliers: sortedInbound, total: Object.values(inboundSuppliers).reduce((s,v)=>s+v.total,0) }
+    };
   }
 
   // ── CSV PROCESSING ────────────────────────────────────
@@ -376,16 +433,17 @@
     currentSite = site;
     expandedProducts.clear();
     expandedMaquilaProds.clear();
+    expandedInboundSuppliers.clear();
     document.querySelectorAll('.country-tab').forEach(t => t.classList.remove('active'));
     document.querySelector(`[data-site="${site}"]`).classList.add('active');
     showLoading();
-    [history, maquilaHistory] = await Promise.all([loadHistory(site), loadMaquilaHistory(site)]);
+    [history, maquilaHistory, asnHistory] = await Promise.all([loadHistory(site), loadMaquilaHistory(site), loadASNHistory(site)]);
     cursor = null;
     render();
   }
 
   function setView(v) {
-    view = v; cursor = null; expandedProducts.clear(); expandedMaquilaProds.clear();
+    view = v; cursor = null; expandedProducts.clear(); expandedMaquilaProds.clear(); expandedInboundSuppliers.clear();
     document.getElementById('btnWeek').classList.toggle('active', v==='week');
     document.getElementById('btnMonth').classList.toggle('active', v==='month');
     render();
@@ -507,6 +565,71 @@
     const trTot = document.createElement('tr'); trTot.className='row-maquila-total';
     trTot.innerHTML = `<td>Total Maquilado</td>` + cols.map((c,i)=>`<td>${fmtM(totVals[i],c.dates)}</td>`).join('') + `<td>${fmtN(totVals.reduce((a,b)=>a+b,0))}</td>`;
     tbody.appendChild(trTot);
+
+    // ── DEVOLUCIONES SECTION ──────────────────────────
+    function fmtA(val, colDates) {
+      const hasUpload = colDates.some(d => asnHistory[d]);
+      if (!hasUpload) return '<span style="color:#ccc">—</span>';
+      return val > 0 ? Number(val).toLocaleString('es-AR') : '<span class="zero-val">0</span>';
+    }
+
+    const trDev = document.createElement('tr'); trDev.className='row-section';
+    trDev.innerHTML = `<td>Devoluciones</td>` + cols.map(()=>'<td></td>').join('') + '<td></td>';
+    tbody.appendChild(trDev);
+
+    const allDevProds = new Set();
+    Object.values(asnHistory).forEach(d => Object.keys(d.devoluciones?.products||{}).forEach(p => allDevProds.add(p)));
+
+    allDevProds.forEach(prod => {
+      const vals = cols.map(c => c.dates.reduce((s,d)=>s+(asnHistory[d]?.devoluciones?.products?.[prod]||0),0));
+      const acc = vals.reduce((a,b)=>a+b,0);
+      const tr = document.createElement('tr'); tr.className='row-product';
+      tr.innerHTML = `<td>${prod}</td>` + cols.map((c,i)=>`<td>${fmtA(vals[i],c.dates)}</td>`).join('') + `<td><strong>${fmtN(acc)}</strong></td>`;
+      tbody.appendChild(tr);
+    });
+
+    const devTotVals = cols.map(c => c.dates.reduce((s,d)=>s+(asnHistory[d]?.devoluciones?.total||0),0));
+    const trDevTot = document.createElement('tr'); trDevTot.className='row-maquila-total';
+    trDevTot.innerHTML = `<td>Total Devoluciones</td>` + cols.map((c,i)=>`<td>${fmtA(devTotVals[i],c.dates)}</td>`).join('') + `<td>${fmtN(devTotVals.reduce((a,b)=>a+b,0))}</td>`;
+    tbody.appendChild(trDevTot);
+
+    // ── INBOUND SECTION ───────────────────────────────
+    const trInb = document.createElement('tr'); trInb.className='row-section';
+    trInb.innerHTML = `<td>Inbound</td>` + cols.map(()=>'<td></td>').join('') + '<td></td>';
+    tbody.appendChild(trInb);
+
+    const allSuppliers = new Set();
+    Object.values(asnHistory).forEach(d => Object.keys(d.inbound?.suppliers||{}).forEach(s => allSuppliers.add(s)));
+    const suppliersSorted = Array.from(allSuppliers).sort((a,b) => {
+      const ta = Object.values(asnHistory).reduce((s,d)=>s+(d.inbound?.suppliers?.[a]?.total||0),0);
+      const tb = Object.values(asnHistory).reduce((s,d)=>s+(d.inbound?.suppliers?.[b]?.total||0),0);
+      return tb-ta;
+    });
+
+    suppliersSorted.forEach(sup => {
+      const vals = cols.map(c => c.dates.reduce((s,d)=>s+(asnHistory[d]?.inbound?.suppliers?.[sup]?.total||0),0));
+      const acc = vals.reduce((a,b)=>a+b,0);
+      const isExp = expandedInboundSuppliers.has(sup);
+      const tr = document.createElement('tr'); tr.className='row-product';
+      tr.innerHTML = `<td onclick="toggleInboundSupplier('${sup.replace(/'/g,"\\'")}')"><span class="toggle-icon ${isExp?'open':''}">▶</span> ${sup}</td>` + cols.map((c,i)=>`<td>${fmtA(vals[i],c.dates)}</td>`).join('') + `<td><strong>${fmtN(acc)}</strong></td>`;
+      tbody.appendChild(tr);
+
+      const allProds = new Set();
+      cols.forEach(c => c.dates.forEach(d => Object.keys(asnHistory[d]?.inbound?.suppliers?.[sup]?.products||{}).forEach(p => allProds.add(p))));
+      allProds.forEach(prod => {
+        const pVals = cols.map(c => c.dates.reduce((s,d)=>s+(asnHistory[d]?.inbound?.suppliers?.[sup]?.products?.[prod]||0),0));
+        const pAcc = pVals.reduce((a,b)=>a+b,0);
+        const tr2 = document.createElement('tr');
+        tr2.className = 'row-route' + (isExp ? ' visible' : '');
+        tr2.innerHTML = `<td>${prod}</td>` + cols.map((c,i)=>`<td>${fmtA(pVals[i],c.dates)}</td>`).join('') + `<td>${fmtN(pAcc)}</td>`;
+        tbody.appendChild(tr2);
+      });
+    });
+
+    const inbTotVals = cols.map(c => c.dates.reduce((s,d)=>s+(asnHistory[d]?.inbound?.total||0),0));
+    const trInbTot = document.createElement('tr'); trInbTot.className='row-maquila-total';
+    trInbTot.innerHTML = `<td>Total Inbound</td>` + cols.map((c,i)=>`<td>${fmtA(inbTotVals[i],c.dates)}</td>`).join('') + `<td>${fmtN(inbTotVals.reduce((a,b)=>a+b,0))}</td>`;
+    tbody.appendChild(trInbTot);
   }
 
   function toggleProduct(prod) {
@@ -517,6 +640,11 @@
   function toggleMaquilaProd(prod) {
     if (expandedMaquilaProds.has(prod)) expandedMaquilaProds.delete(prod);
     else expandedMaquilaProds.add(prod);
+    render();
+  }
+  function toggleInboundSupplier(sup) {
+    if (expandedInboundSuppliers.has(sup)) expandedInboundSuppliers.delete(sup);
+    else expandedInboundSuppliers.add(sup);
     render();
   }
 
@@ -607,7 +735,14 @@
     btn.disabled = true; fb.textContent = '';
     try {
       const rows = await readFileAsRows(file);
-      if (isMaquila(file.name)) {
+      if (isASN(file.name)) {
+        const data = processASNRows(rows);
+        const h = await loadASNHistory(site);
+        h[data.fecha] = data;
+        await saveASNHistory(site, h);
+        fb.className='feedback ok';
+        fb.textContent=`✓ ASN ${site} · ${data.fecha} · Dev: ${Number(data.devoluciones.total).toLocaleString('es-AR')} · Inbound: ${Number(data.inbound.total).toLocaleString('es-AR')} uds`;
+      } else if (isMaquila(file.name)) {
         const data = processMaquilaRows(rows);
         const h = await loadMaquilaHistory(site);
         h[data.fecha] = data;
