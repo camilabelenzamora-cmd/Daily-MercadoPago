@@ -3,115 +3,115 @@
     "fecha": "2026-04-17",
     "site": "MLU",
     "products": {
-      "Cards": 0,
+      "Cards": 3,
       "Point": 496,
       "Bobinas": 0,
-      "Others": 3
+      "Others": 0
     },
     "routes": {
-      "Cards": {},
+      "Cards": {
+        "XD-CARDS": 3
+      },
       "Point": {
         "XD-POINT": 496
       },
       "Bobinas": {},
-      "Others": {
-        "XD-CARDS": 3
-      }
+      "Others": {}
     },
     "total_unidades": 499,
     "total_os": 318,
-    "uploadedAt": "2026-04-20T22:26:35.872Z"
+    "uploadedAt": "2026-04-20T22:29:52.796Z"
   },
   "2026-04-16": {
     "fecha": "2026-04-16",
     "site": "MLU",
     "products": {
-      "Cards": 0,
+      "Cards": 13,
       "Point": 299,
       "Bobinas": 0,
-      "Others": 13
+      "Others": 0
     },
     "routes": {
-      "Cards": {},
+      "Cards": {
+        "XD-CARDS": 13
+      },
       "Point": {
         "XD-POINT": 299
       },
       "Bobinas": {},
-      "Others": {
-        "XD-CARDS": 13
-      }
+      "Others": {}
     },
     "total_unidades": 312,
     "total_os": 312,
-    "uploadedAt": "2026-04-20T22:26:35.872Z"
+    "uploadedAt": "2026-04-20T22:29:52.796Z"
   },
   "2026-04-15": {
     "fecha": "2026-04-15",
     "site": "MLU",
     "products": {
-      "Cards": 0,
+      "Cards": 12,
       "Point": 298,
       "Bobinas": 0,
-      "Others": 12
+      "Others": 0
     },
     "routes": {
-      "Cards": {},
+      "Cards": {
+        "XD-CARDS": 12
+      },
       "Point": {
         "XD-POINT": 298
       },
       "Bobinas": {},
-      "Others": {
-        "XD-CARDS": 12
-      }
+      "Others": {}
     },
     "total_unidades": 310,
     "total_os": 310,
-    "uploadedAt": "2026-04-20T22:26:35.872Z"
+    "uploadedAt": "2026-04-20T22:29:52.796Z"
   },
   "2026-04-14": {
     "fecha": "2026-04-14",
     "site": "MLU",
     "products": {
-      "Cards": 0,
+      "Cards": 4,
       "Point": 302,
       "Bobinas": 0,
-      "Others": 4
+      "Others": 0
     },
     "routes": {
-      "Cards": {},
+      "Cards": {
+        "XD-CARDS": 4
+      },
       "Point": {
         "XD-POINT": 302
       },
       "Bobinas": {},
-      "Others": {
-        "XD-CARDS": 4
-      }
+      "Others": {}
     },
     "total_unidades": 306,
     "total_os": 305,
-    "uploadedAt": "2026-04-20T22:26:35.873Z"
+    "uploadedAt": "2026-04-20T22:29:52.797Z"
   },
   "2026-04-13": {
     "fecha": "2026-04-13",
     "site": "MLU",
     "products": {
-      "Cards": 0,
+      "Cards": 2,
       "Point": 485,
       "Bobinas": 0,
-      "Others": 2
+      "Others": 0
     },
     "routes": {
-      "Cards": {},
+      "Cards": {
+        "XD-CARDS": 2
+      },
       "Point": {
         "XD-POINT": 485
       },
       "Bobinas": {},
-      "Others": {
-        "XD-CARDS": 2
-      }
+      "Others": {}
     },
     "total_unidades": 487,
     "total_os": 306,
-    "uploadedAt": "2026-04-20T22:26:35.873Z"
+    "uploadedAt": "2026-04-20T22:29:52.797Z"
   }
 }
