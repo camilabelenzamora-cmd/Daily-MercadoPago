@@ -97,12 +97,6 @@
     .token-input:focus { outline: none; border-color: #3483FA; }
     .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid #fff; border-top-color: transparent; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; }
     @keyframes spin { to { transform: rotate(360deg); } }
-    .maquila-header th { background: #f0f4ff; color: #2c3e50; border-bottom: 2px solid #c8d8f8; }
-    .row-maquila-prod td { padding: 10px 16px; background: #fff; border-bottom: 1px solid #eef1f5; text-align: right; color: #2c3e50; }
-    .row-maquila-prod td:first-child { text-align: left; font-weight: 500; }
-    .row-maquila-prod:hover td { background: #f7f9ff; }
-    .row-maquila-total td { padding: 11px 16px; font-weight: 700; background: #eef4ff; border-top: 2px solid #c8d8f8; color: #1a3a6e; text-align: right; }
-    .row-maquila-total td:first-child { text-align: left; }
     .zero-val { color: #bbb; }
   </style>
 </head>
@@ -206,6 +200,7 @@
   const REPO  = 'Daily-MercadoPago';
   const BRANCH = 'main';
   const PRODUCTS = ['Cards', 'Point', 'Bobinas', 'Others'];
+  const MAQUILA_PRODUCTS = ['POINT N953 - PERSONAL Amarillo', 'Point N952 - Claro Amarillo', 'Point N951 - Movistar Amarillo'];
   const DAYS_ES = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
   const MONTHS_ES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
   const SITES = ['MLA','MLM','MLC','MLU'];
@@ -440,18 +435,13 @@
     maquilaEmpty.style.display = 'none';
     maquilaTable.style.display = 'table';
 
-    maquilaHeader.innerHTML = `<th>Producto</th>` + cols.map(c=>`<th>${c.label}</th>`).join('') + `<th>Acumulado</th>`;
+    maquilaHeader.innerHTML = `<th>MAQUILA</th>` + cols.map(c=>`<th>${c.label}</th>`).join('') + `<th>Acumulado</th>`;
 
-    // All known products across entire history (not just visible period)
-    const allProds = new Set();
-    Object.values(maquilaHistory).forEach(d => Object.keys(d.products||{}).forEach(p => allProds.add(p)));
-    const prodsSorted = Array.from(allProds).sort((a,b) => {
-      const ta = Object.values(maquilaHistory).reduce((s,d)=>s+(d.products?.[a]||0),0);
-      const tb = Object.values(maquilaHistory).reduce((s,d)=>s+(d.products?.[b]||0),0);
-      return tb-ta;
-    });
+    // Fixed product list + any extra products found in history not already in the list
+    const extraProds = new Set();
+    Object.values(maquilaHistory).forEach(d => Object.keys(d.products||{}).forEach(p => { if (!MAQUILA_PRODUCTS.includes(p)) extraProds.add(p); }));
+    const allProds = [...MAQUILA_PRODUCTS, ...Array.from(extraProds)];
 
-    // fmt for maquila: show 0 if day has data but product = 0, show — if no data for that day
     function fmtM(val, colDates) {
       const hasUpload = colDates.some(d => maquilaHistory[d]);
       if (!hasUpload) return '<span style="color:#ccc">—</span>';
@@ -459,16 +449,15 @@
     }
 
     maquilaBody.innerHTML = '';
-    prodsSorted.forEach(prod => {
+    allProds.forEach(prod => {
       const vals = cols.map(c => c.dates.reduce((s,d)=>s+(maquilaHistory[d]?.products?.[prod]||0),0));
       const acc = vals.reduce((a,b)=>a+b,0);
       const cells = cols.map((c,i) => `<td>${fmtM(vals[i], c.dates)}</td>`).join('');
-      maquilaBody.innerHTML += `<tr class="row-maquila-prod"><td>${prod}</td>${cells}<td><strong>${fmtN(acc)}</strong></td></tr>`;
+      maquilaBody.innerHTML += `<tr class="row-product"><td>${prod}</td>${cells}<td><strong>${fmtN(acc)}</strong></td></tr>`;
     });
 
     const totVals = cols.map(c => c.dates.reduce((s,d)=>s+(maquilaHistory[d]?.total||0),0));
-    const totCells = cols.map((c,i) => `<td>${fmtM(totVals[i], c.dates)}</td>`).join('');
-    maquilaBody.innerHTML += `<tr class="row-maquila-total"><td>Total Maquilado</td>${totCells}<td>${fmtN(totVals.reduce((a,b)=>a+b,0))}</td></tr>`;
+    maquilaBody.innerHTML += `<tr class="row-total"><td>Total Maquilado</td>${totVals.map((v,i)=>`<td>${fmtM(v,cols[i].dates)}</td>`).join('')}<td>${fmtN(totVals.reduce((a,b)=>a+b,0))}</td></tr>`;
   }
 
   function buildColumns(cols) {
