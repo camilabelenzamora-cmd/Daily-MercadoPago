@@ -5,6 +5,18 @@
       "POINT N953 - PERSONAL Amarillo": 1500,
       "Point N952 - Claro Amarillo": 120
     },
+    "reps": {
+      "POINT N953 - PERSONAL Amarillo": {
+        "nicolassalvm": 450,
+        "pablonahueca": 360,
+        "bmastroberar": 360,
+        "Mmazzoleni": 190,
+        "mcameroni": 140
+      },
+      "Point N952 - Claro Amarillo": {
+        "macalbornoz": 120
+      }
+    },
     "total": 1620
   }
 }
