@@ -1,0 +1,46 @@
+{
+  "2026-04-17": {
+    "fecha": "2026-04-17",
+    "site": "MLU",
+    "products": {
+      "Point N950 - Claro": 360
+    },
+    "reps": {
+      "Point N950 - Claro": {
+        "ext_esteramo": 260,
+        "ext_gonataly": 100
+      }
+    },
+    "total": 360,
+    "uploadedAt": "2026-04-20T22:31:55.332Z"
+  },
+  "2026-04-16": {
+    "fecha": "2026-04-16",
+    "site": "MLU",
+    "products": {
+      "Point N950 - Claro": 180
+    },
+    "reps": {
+      "Point N950 - Claro": {
+        "ext_esteramo": 130,
+        "ext_gonataly": 50
+      }
+    },
+    "total": 180,
+    "uploadedAt": "2026-04-20T22:31:55.332Z"
+  },
+  "2026-04-13": {
+    "fecha": "2026-04-13",
+    "site": "MLU",
+    "products": {
+      "Point N950 - Claro": 177
+    },
+    "reps": {
+      "Point N950 - Claro": {
+        "ext_esteramo": 177
+      }
+    },
+    "total": 177,
+    "uploadedAt": "2026-04-20T22:31:55.332Z"
+  }
+}
