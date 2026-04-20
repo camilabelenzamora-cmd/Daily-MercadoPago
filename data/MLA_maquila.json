@@ -19,5 +19,26 @@
     },
     "total": 1620,
     "uploadedAt": "2026-04-20T15:21:23.831Z"
+  },
+  "2026-04-17": {
+    "fecha": "2026-04-17",
+    "site": "MLA",
+    "products": {
+      "POINT N953 - PERSONAL Amarillo": 880,
+      "Point N952 - Claro Amarillo": 310
+    },
+    "reps": {
+      "POINT N953 - PERSONAL Amarillo": {
+        "mmoalem": 360,
+        "pablonahueca": 360,
+        "marcluna": 160
+      },
+      "Point N952 - Claro Amarillo": {
+        "bpichierri": 190,
+        "jmelian": 120
+      }
+    },
+    "total": 1190,
+    "uploadedAt": "2026-04-20T16:18:02.401Z"
   }
 }
