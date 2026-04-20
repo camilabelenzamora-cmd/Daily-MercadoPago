@@ -101,5 +101,26 @@
     },
     "total": 2069,
     "uploadedAt": "2026-04-20T21:53:01.872Z"
+  },
+  "2026-04-15": {
+    "fecha": "2026-04-15",
+    "site": "MLA",
+    "products": {
+      "POINT N953 - PERSONAL Amarillo": 3490
+    },
+    "reps": {
+      "POINT N953 - PERSONAL Amarillo": {
+        "jmelian": 500,
+        "marcluna": 500,
+        "mmoalem": 480,
+        "mcameroni": 470,
+        "Iocampohuall": 460,
+        "nicolassalvm": 360,
+        "pazaracho": 360,
+        "lucashervazq": 360
+      }
+    },
+    "total": 3490,
+    "uploadedAt": "2026-04-20T21:53:56.754Z"
   }
 }
