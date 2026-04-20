@@ -280,7 +280,15 @@
   }
 
   // ── FILE TYPE DETECTION ───────────────────────────────
-  function detectSite(filename) { return SITES.find(s => filename.toUpperCase().includes(s)) || null; }
+  function detectSiteFromFilename(filename) { return SITES.find(s => filename.toUpperCase().includes(s)) || null; }
+  function detectSiteFromValue(value) {
+    const v = (value || '').toUpperCase();
+    if (v.includes('ARGENTINA') || v.includes('ARBA')) return 'MLA';
+    if (v.includes('MEXICO') || v.includes('MÉXI') || v.includes('MEXI')) return 'MLM';
+    if (v.includes('CHILE')) return 'MLC';
+    if (v.includes('URUGUAY')) return 'MLU';
+    return null;
+  }
   function isMaquila(filename) { return filename.toLowerCase().includes('maquila'); }
   function isASN(filename) { return filename.toLowerCase().includes('asn'); }
   function isExcel(filename) { return filename.match(/\.xlsx?$/i); }
@@ -312,7 +320,8 @@
       reps[p] = Object.fromEntries(Object.entries(reps[p]).sort((a,b) => b[1]-a[1]));
     }
     const sorted = Object.fromEntries(Object.entries(products).sort((a,b) => b[1]-a[1]));
-    return { fecha, products: sorted, reps, total: Object.values(sorted).reduce((a,b)=>a+b,0), uploadedAt: new Date().toISOString() };
+    const site = detectSiteFromValue(rows.find(r => r['DESCRIPCION SITIO'])?.['DESCRIPCION SITIO'] || '');
+    return { fecha, site, products: sorted, reps, total: Object.values(sorted).reduce((a,b)=>a+b,0), uploadedAt: new Date().toISOString() };
   }
 
   async function readFileAsRows(file) {
@@ -360,8 +369,9 @@
     // Sort suppliers by total desc
     const sortedInbound = Object.fromEntries(Object.entries(inboundSuppliers).sort((a,b) => b[1].total - a[1].total));
 
+    const site = detectSiteFromValue(rows.find(r => r['NOM SITIO'])?.['NOM SITIO'] || '');
     return {
-      fecha,
+      fecha, site,
       devoluciones: { products: devoluciones, total: Object.values(devoluciones).reduce((a,b)=>a+b,0) },
       inbound: { suppliers: sortedInbound, total: Object.values(inboundSuppliers).reduce((s,v)=>s+v.total,0) },
       uploadedAt: new Date().toISOString()
@@ -426,7 +436,8 @@
       routes[p] = Object.fromEntries(Object.entries(routes[p]).sort((a,b) => b[1]-a[1]));
     }
 
-    return { fecha, products, routes, total_unidades: Object.values(products).reduce((a,b)=>a+b,0), total_os: osIds.size, uploadedAt: new Date().toISOString() };
+    const site = detectSiteFromValue(rows.find(r => r['SITIO FUENTE'])?.['SITIO FUENTE'] || '');
+    return { fecha, site, products, routes, total_unidades: Object.values(products).reduce((a,b)=>a+b,0), total_os: osIds.size, uploadedAt: new Date().toISOString() };
   }
 
   // ── SITE ──────────────────────────────────────────────
@@ -740,12 +751,7 @@
   async function doUpload() {
     const file = document.getElementById('fileInput').files[0];
     if (!file) return;
-    const site = detectSite(file.name);
-    if (!site) {
-      document.getElementById('uploadFeedback').className='feedback err';
-      document.getElementById('uploadFeedback').textContent='✗ No se detectó el país. El nombre debe incluir MLA, MLM, MLC o MLU';
-      return;
-    }
+    let site = detectSiteFromFilename(file.name);
     const btn = document.getElementById('uploadBtn');
     const fb = document.getElementById('uploadFeedback');
     btn.innerHTML = '<span class="spinner"></span> Procesando...';
@@ -754,6 +760,8 @@
       const rows = await readFileAsRows(file);
       if (isASN(file.name)) {
         const data = processASNRows(rows);
+        site = site || data.site;
+        if (!site) throw new Error('No se pudo detectar el país. Revisá el archivo.');
         const h = await loadASNHistory(site);
         h[data.fecha] = data;
         await saveASNHistory(site, h);
@@ -761,6 +769,8 @@
         fb.textContent=`✓ ASN ${site} · ${data.fecha} · Dev: ${Number(data.devoluciones.total).toLocaleString('es-AR')} · Inbound: ${Number(data.inbound.total).toLocaleString('es-AR')} uds`;
       } else if (isMaquila(file.name)) {
         const data = processMaquilaRows(rows);
+        site = site || data.site;
+        if (!site) throw new Error('No se pudo detectar el país. Revisá el archivo.');
         const h = await loadMaquilaHistory(site);
         h[data.fecha] = data;
         await saveMaquilaHistory(site, h);
@@ -768,7 +778,11 @@
         fb.textContent=`✓ Maquila ${site} · ${data.fecha} · ${Number(data.total).toLocaleString('es-AR')} uds guardadas`;
       } else {
         const data = processRows(rows);
+        site = site || data.site;
+        if (!site) throw new Error('No se pudo detectar el país. Revisá el archivo.');
         const h = await loadHistory(site);
+        site = site || data.site;
+        if (!site) throw new Error('No se pudo detectar el país. Revisá el archivo.');
         h[data.fecha] = data;
         await saveHistory(site, h);
         fb.className='feedback ok';
