@@ -293,7 +293,7 @@
   }
   function isMaquila(filename) { const f = filename.toLowerCase(); return f.includes('maquila') || f.includes('caja'); }
   function isASN(filename) { return filename.toLowerCase().includes('asn'); }
-  function isDespachos(filename) { return filename.toLowerCase().includes('detalleos'); }
+  function isDespachos(filename) { const f = filename.toLowerCase(); return f.includes('detalleos') || f.includes('detalleorden'); }
   function isExcel(filename) { return filename.match(/\.xlsx?$/i); }
 
   // ── MAQUILA PROCESSING ────────────────────────────────
