@@ -313,7 +313,7 @@
       const prod = (r['NOM PRODUCTO'] || '').trim();
       const uds = parseInt(r['UNIDADES MOVIMIENTO'] || '0') || 0;
       const rep = (r['USUARIO ULT MOD.'] || r['USUARIO ULT MOD'] || '').trim() || 'Sin usuario';
-      if (!prod) continue;
+      if (!prod || prod.toLowerCase().includes('etiquetas places')) continue;
       products[prod] = (products[prod] || 0) + uds;
       if (!reps[prod]) reps[prod] = {};
       reps[prod][rep] = (reps[prod][rep] || 0) + uds;
