@@ -298,33 +298,29 @@
 
   // ── MAQUILA PROCESSING ────────────────────────────────
   function processMaquilaRows(rows) {
-    let fecha = null;
+    const site = detectSiteFromValue(rows.find(r => r['DESCRIPCION SITIO'])?.['DESCRIPCION SITIO'] || '');
+    const byDate = {};
     for (const r of rows) {
       const raw = (r['FECHA MOD.'] || r['FECHA MOD'] || '').toString().trim();
-      if (raw && raw !== 'NaN') {
-        try { const [d,m,y] = raw.split(' ')[0].split('/'); fecha = `${y}-${m.padStart(2,'0')}-${d.padStart(2,'0')}`; break; } catch {}
+      const fecha = (raw && raw !== 'NaN') ? (parseDate(raw) || new Date().toISOString().slice(0,10)) : new Date().toISOString().slice(0,10);
+      if (!byDate[fecha]) byDate[fecha] = [];
+      byDate[fecha].push(r);
+    }
+    return Object.entries(byDate).map(([fecha, dRows]) => {
+      const products = {}, reps = {};
+      for (const r of dRows) {
+        const prod = (r['NOM PRODUCTO'] || '').trim();
+        const uds = parseInt(r['UNIDADES MOVIMIENTO'] || '0') || 0;
+        const rep = (r['USUARIO ULT MOD.'] || r['USUARIO ULT MOD'] || '').trim() || 'Sin usuario';
+        if (!prod || prod.toLowerCase().includes('etiquetas places')) continue;
+        products[prod] = (products[prod] || 0) + uds;
+        if (!reps[prod]) reps[prod] = {};
+        reps[prod][rep] = (reps[prod][rep] || 0) + uds;
       }
-    }
-    if (!fecha) fecha = new Date().toISOString().slice(0,10);
-
-    const products = {};
-    const reps = {};
-    for (const r of rows) {
-      const prod = (r['NOM PRODUCTO'] || '').trim();
-      const uds = parseInt(r['UNIDADES MOVIMIENTO'] || '0') || 0;
-      const rep = (r['USUARIO ULT MOD.'] || r['USUARIO ULT MOD'] || '').trim() || 'Sin usuario';
-      if (!prod || prod.toLowerCase().includes('etiquetas places')) continue;
-      products[prod] = (products[prod] || 0) + uds;
-      if (!reps[prod]) reps[prod] = {};
-      reps[prod][rep] = (reps[prod][rep] || 0) + uds;
-    }
-    // Sort reps per product by units desc
-    for (const p of Object.keys(reps)) {
-      reps[p] = Object.fromEntries(Object.entries(reps[p]).sort((a,b) => b[1]-a[1]));
-    }
-    const sorted = Object.fromEntries(Object.entries(products).sort((a,b) => b[1]-a[1]));
-    const site = detectSiteFromValue(rows.find(r => r['DESCRIPCION SITIO'])?.['DESCRIPCION SITIO'] || '');
-    return { fecha, site, products: sorted, reps, total: Object.values(sorted).reduce((a,b)=>a+b,0), uploadedAt: new Date().toISOString() };
+      for (const p of Object.keys(reps)) reps[p] = Object.fromEntries(Object.entries(reps[p]).sort((a,b) => b[1]-a[1]));
+      const sorted = Object.fromEntries(Object.entries(products).sort((a,b) => b[1]-a[1]));
+      return { fecha, site, products: sorted, reps, total: Object.values(sorted).reduce((a,b)=>a+b,0), uploadedAt: new Date().toISOString() };
+    });
   }
 
   async function readFileAsRows(file) {
@@ -341,44 +337,38 @@
 
   // ── ASN PROCESSING ───────────────────────────────────
   function processASNRows(rows) {
-    let fecha = null;
+    const site = detectSiteFromValue(rows.find(r => r['NOM SITIO'])?.['NOM SITIO'] || '');
+    const byDate = {};
     for (const r of rows) {
       const raw = (r['FECHA ASIG PUERTA'] || '').toString().trim();
-      if (raw && raw !== 'NaN') {
-        try { const [d,m,y] = raw.split(' ')[0].split('/'); fecha = `${y}-${m.padStart(2,'0')}-${d.padStart(2,'0')}`; break; } catch {}
-      }
+      const fecha = (raw && raw !== 'NaN') ? (parseDate(raw) || new Date().toISOString().slice(0,10)) : new Date().toISOString().slice(0,10);
+      if (!byDate[fecha]) byDate[fecha] = [];
+      byDate[fecha].push(r);
     }
-    if (!fecha) fecha = new Date().toISOString().slice(0,10);
-
-    const devoluciones = {};
-    const inboundSuppliers = {};
-
-    for (const r of rows) {
-      const tipo = (r['TIPO ASN'] || '').trim();
-      const prod = (r['NOM PROD'] || '').trim();
-      const prov = (r['ASN NOM PROV'] || '').trim() || 'Sin proveedor';
-      const uds = parseInt(r['UN RECIBIDAS'] || '0') || 0;
-      if (!prod || !uds) continue;
-
-      if (tipo === 'DEVCLI') {
-        devoluciones[prod] = (devoluciones[prod] || 0) + uds;
-      } else {
-        if (!inboundSuppliers[prov]) inboundSuppliers[prov] = { total: 0, products: {} };
-        inboundSuppliers[prov].total += uds;
-        inboundSuppliers[prov].products[prod] = (inboundSuppliers[prov].products[prod] || 0) + uds;
+    return Object.entries(byDate).map(([fecha, dRows]) => {
+      const devoluciones = {}, inboundSuppliers = {};
+      for (const r of dRows) {
+        const tipo = (r['TIPO ASN'] || '').trim();
+        const prod = (r['NOM PROD'] || '').trim();
+        const prov = (r['ASN NOM PROV'] || '').trim() || 'Sin proveedor';
+        const uds = parseInt(r['UN RECIBIDAS'] || '0') || 0;
+        if (!prod || !uds) continue;
+        if (tipo === 'DEVCLI') {
+          devoluciones[prod] = (devoluciones[prod] || 0) + uds;
+        } else {
+          if (!inboundSuppliers[prov]) inboundSuppliers[prov] = { total: 0, products: {} };
+          inboundSuppliers[prov].total += uds;
+          inboundSuppliers[prov].products[prod] = (inboundSuppliers[prov].products[prod] || 0) + uds;
+        }
       }
-    }
-
-    // Sort suppliers by total desc
-    const sortedInbound = Object.fromEntries(Object.entries(inboundSuppliers).sort((a,b) => b[1].total - a[1].total));
-
-    const site = detectSiteFromValue(rows.find(r => r['NOM SITIO'])?.['NOM SITIO'] || '');
-    return {
-      fecha, site,
-      devoluciones: { products: devoluciones, total: Object.values(devoluciones).reduce((a,b)=>a+b,0) },
-      inbound: { suppliers: sortedInbound, total: Object.values(inboundSuppliers).reduce((s,v)=>s+v.total,0) },
-      uploadedAt: new Date().toISOString()
-    };
+      const sortedInbound = Object.fromEntries(Object.entries(inboundSuppliers).sort((a,b) => b[1].total - a[1].total));
+      return {
+        fecha, site,
+        devoluciones: { products: devoluciones, total: Object.values(devoluciones).reduce((a,b)=>a+b,0) },
+        inbound: { suppliers: sortedInbound, total: Object.values(inboundSuppliers).reduce((s,v)=>s+v.total,0) },
+        uploadedAt: new Date().toISOString()
+      };
+    });
   }
 
   // ── CSV PROCESSING ────────────────────────────────────
@@ -413,34 +403,32 @@
     });
   }
 
+  function parseDate(raw) {
+    try { const [d,m,y] = raw.toString().trim().split(' ')[0].split('/'); return `${y}-${m.padStart(2,'0')}-${d.padStart(2,'0')}`; } catch { return null; }
+  }
+
   function processRows(rows) {
-    let fecha = null;
-    for (const r of rows) {
-      const raw = (r['FECHA DESPACHO'] || '').trim();
-      if (raw) { try { const [d,m,y] = raw.split(' ')[0].split('/'); fecha = `${y}-${m.padStart(2,'0')}-${d.padStart(2,'0')}`; break; } catch {} }
-    }
-    if (!fecha) fecha = new Date().toISOString().slice(0,10);
-
-    const products = { Cards:0, Point:0, Bobinas:0, Others:0 };
-    const routes = { Cards:{}, Point:{}, Bobinas:{}, Others:{} };
-    const osIds = new Set();
-
-    for (const r of rows) {
-      const prod = classifyProduct(r['NOM PROD']);
-      const uds = parseInt(r['UNI DESP'] || '0') || 0;
-      const ruta = (r['RUTA'] || '').trim() || 'Sin ruta';
-      products[prod] += uds;
-      routes[prod][ruta] = (routes[prod][ruta] || 0) + uds;
-      if (r['ID OS']) osIds.add(r['ID OS']);
-    }
-
-    // Sort routes by units desc
-    for (const p of PRODUCTS) {
-      routes[p] = Object.fromEntries(Object.entries(routes[p]).sort((a,b) => b[1]-a[1]));
-    }
-
     const site = detectSiteFromValue(rows.find(r => r['SITIO FUENTE'])?.['SITIO FUENTE'] || '');
-    return { fecha, site, products, routes, total_unidades: Object.values(products).reduce((a,b)=>a+b,0), total_os: osIds.size, uploadedAt: new Date().toISOString() };
+    const byDate = {};
+    for (const r of rows) {
+      const fecha = parseDate(r['FECHA DESPACHO']) || new Date().toISOString().slice(0,10);
+      if (!byDate[fecha]) byDate[fecha] = { rows: [], osIds: new Set() };
+      byDate[fecha].rows.push(r);
+      if (r['ID OS']) byDate[fecha].osIds.add(r['ID OS']);
+    }
+    return Object.entries(byDate).map(([fecha, {rows: dRows, osIds}]) => {
+      const products = { Cards:0, Point:0, Bobinas:0, Others:0 };
+      const routes = { Cards:{}, Point:{}, Bobinas:{}, Others:{} };
+      for (const r of dRows) {
+        const prod = classifyProduct(r['NOM PROD']);
+        const uds = parseInt(r['UNI DESP'] || '0') || 0;
+        const ruta = (r['RUTA'] || '').trim() || 'Sin ruta';
+        products[prod] += uds;
+        routes[prod][ruta] = (routes[prod][ruta] || 0) + uds;
+      }
+      for (const p of PRODUCTS) routes[p] = Object.fromEntries(Object.entries(routes[p]).sort((a,b) => b[1]-a[1]));
+      return { fecha, site, products, routes, total_unidades: Object.values(products).reduce((a,b)=>a+b,0), total_os: osIds.size, uploadedAt: new Date().toISOString() };
+    });
   }
 
   // ── SITE ──────────────────────────────────────────────
@@ -762,32 +750,36 @@
     try {
       const rows = await readFileAsRows(file);
       if (isASN(file.name)) {
-        const data = processASNRows(rows);
-        site = site || data.site;
+        const entries = processASNRows(rows);
+        site = site || entries[0]?.site;
         if (!site) throw new Error('No se pudo detectar el país. Revisá el archivo.');
         const h = await loadASNHistory(site);
-        h[data.fecha] = data;
+        entries.forEach(d => h[d.fecha] = d);
         await saveASNHistory(site, h);
+        const totalDev = entries.reduce((s,d)=>s+d.devoluciones.total,0);
+        const totalInb = entries.reduce((s,d)=>s+d.inbound.total,0);
         fb.className='feedback ok';
-        fb.textContent=`✓ ASN ${site} · ${data.fecha} · Dev: ${Number(data.devoluciones.total).toLocaleString('es-AR')} · Inbound: ${Number(data.inbound.total).toLocaleString('es-AR')} uds`;
+        fb.textContent=`✓ ASN ${site} · ${entries.length} fecha(s) · Dev: ${Number(totalDev).toLocaleString('es-AR')} · Inbound: ${Number(totalInb).toLocaleString('es-AR')} uds`;
       } else if (isMaquila(file.name)) {
-        const data = processMaquilaRows(rows);
-        site = site || data.site;
+        const entries = processMaquilaRows(rows);
+        site = site || entries[0]?.site;
         if (!site) throw new Error('No se pudo detectar el país. Revisá el archivo.');
         const h = await loadMaquilaHistory(site);
-        h[data.fecha] = data;
+        entries.forEach(d => h[d.fecha] = d);
         await saveMaquilaHistory(site, h);
+        const totalUds = entries.reduce((s,d)=>s+d.total,0);
         fb.className='feedback ok';
-        fb.textContent=`✓ Maquila ${site} · ${data.fecha} · ${Number(data.total).toLocaleString('es-AR')} uds guardadas`;
+        fb.textContent=`✓ Maquila ${site} · ${entries.length} fecha(s) · ${Number(totalUds).toLocaleString('es-AR')} uds guardadas`;
       } else if (isDespachos(file.name)) {
-        const data = processRows(rows);
-        site = site || data.site;
+        const entries = processRows(rows);
+        site = site || entries[0]?.site;
         if (!site) throw new Error('No se pudo detectar el país. Revisá el archivo.');
         const h = await loadHistory(site);
-        h[data.fecha] = data;
+        entries.forEach(d => h[d.fecha] = d);
         await saveHistory(site, h);
+        const totalUds = entries.reduce((s,d)=>s+d.total_unidades,0);
         fb.className='feedback ok';
-        fb.textContent=`✓ Despachos ${site} · ${data.fecha} · ${Number(data.total_unidades).toLocaleString('es-AR')} uds guardadas`;
+        fb.textContent=`✓ Despachos ${site} · ${entries.length} fecha(s) · ${Number(totalUds).toLocaleString('es-AR')} uds guardadas`;
       } else {
         throw new Error('No se reconoció el tipo de archivo. El nombre debe contener "detalleOs", "caja" o "asn".');
       }
