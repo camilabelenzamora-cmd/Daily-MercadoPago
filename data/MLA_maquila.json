@@ -48,8 +48,7 @@
     "products": {
       "POINT N953 - PERSONAL Amarillo": 1130,
       "Point N951 - Movistar Amarillo": 810,
-      "Point N952 - Claro Amarillo": 520,
-      "Etiquetas Places": 5
+      "Point N952 - Claro Amarillo": 520
     },
     "reps": {
       "POINT N953 - PERSONAL Amarillo": {
@@ -62,15 +61,12 @@
         "Iocampohuall": 440,
         "mcameroni": 80
       },
-      "Etiquetas Places": {
-        "lcarabajal": 5
-      },
       "Point N951 - Movistar Amarillo": {
         "agaetan": 450,
         "pablonahueca": 360
       }
     },
-    "total": 2465,
+    "total": 2460,
     "uploadedAt": "2026-04-20T22:07:34.661Z"
   },
   "2026-04-14": {
@@ -79,8 +75,7 @@
     "products": {
       "POINT N953 - PERSONAL Amarillo": 1250,
       "Point N951 - Movistar Amarillo": 450,
-      "Point N952 - Claro Amarillo": 361,
-      "Etiquetas Places": 8
+      "Point N952 - Claro Amarillo": 361
     },
     "reps": {
       "POINT N953 - PERSONAL Amarillo": {
@@ -93,14 +88,11 @@
         "macalbornoz": 360,
         "bsanchez": 1
       },
-      "Etiquetas Places": {
-        "lcarabajal": 8
-      },
       "Point N951 - Movistar Amarillo": {
         "nicolassalvm": 450
       }
     },
-    "total": 2069,
+    "total": 2061,
     "uploadedAt": "2026-04-20T22:07:18.267Z"
   },
   "2026-04-15": {
