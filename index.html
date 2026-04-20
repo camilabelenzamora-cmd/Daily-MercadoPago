@@ -98,6 +98,7 @@
     .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid #fff; border-top-color: transparent; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; }
     @keyframes spin { to { transform: rotate(360deg); } }
     .zero-val { color: #bbb; }
+    .row-section td { background: #f4f6f9; font-size: 11px; font-weight: 700; color: #666; letter-spacing: 0.8px; text-transform: uppercase; padding: 14px 16px 8px 16px; border-top: 8px solid #e8ecf0; }
   </style>
 </head>
 <body>
@@ -146,22 +147,6 @@
   </div>
 </div>
 
-  <!-- MAQUILA TABLE -->
-  <div style="margin-top: 28px;">
-    <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px;">
-      <span style="font-size:16px;">🔧</span>
-      <span style="font-size:13px; font-weight:700; color:#555; letter-spacing:0.5px; text-transform:uppercase;">Maquila</span>
-    </div>
-    <div class="table-card">
-      <div id="maquilaEmpty" class="empty-state" style="padding:32px;">
-        <p style="font-size:13px; color:#aaa;">Sin datos de maquila para este período.<br>Subí el archivo con el botón Actualizar.</p>
-      </div>
-      <table id="maquilaTable" style="display:none">
-        <thead><tr id="maquilaHeader" class="maquila-header"></tr></thead>
-        <tbody id="maquilaBody"></tbody>
-      </table>
-    </div>
-  </div>
 </div>
 
 <!-- MODAL UPLOAD -->
@@ -408,57 +393,8 @@
   function fmtN(n) { return n ? Number(n).toLocaleString('es-AR') : '—'; }
 
   // ── RENDER ────────────────────────────────────────────
-  function render() { view==='week' ? renderWeek() : renderMonth(); renderMaquila(); }
+  function render() { view==='week' ? renderWeek() : renderMonth(); }
 
-  function renderMaquila() {
-    const maquilaTable = document.getElementById('maquilaTable');
-    const maquilaEmpty = document.getElementById('maquilaEmpty');
-    const maquilaHeader = document.getElementById('maquilaHeader');
-    const maquilaBody = document.getElementById('maquilaBody');
-
-    let cols = [];
-    if (view === 'week') {
-      const dates = Array.from({length:5}, (_,i) => addDays(cursor || getMonday(new Date()), i));
-      cols = dates.map(d => { const dt=new Date(d+'T12:00:00'); return { label:`${DAYS_ES[dt.getDay()]} ${shortDate(d)}`, dates:[d] }; });
-    } else {
-      const allDates = Object.keys(maquilaHistory).sort();
-      const months = [...new Set(allDates.filter(d => d.startsWith(cursor || String(new Date().getFullYear()))).map(d => d.slice(0,7)))].sort();
-      cols = months.map(m => { const mo=parseInt(m.split('-')[1]); return { label:MONTHS_ES[mo-1], dates:allDates.filter(d=>d.startsWith(m)) }; });
-    }
-
-    const hasData = cols.some(c => c.dates.some(d => maquilaHistory[d]));
-    if (!hasData) {
-      maquilaEmpty.style.display = 'block';
-      maquilaTable.style.display = 'none';
-      return;
-    }
-    maquilaEmpty.style.display = 'none';
-    maquilaTable.style.display = 'table';
-
-    maquilaHeader.innerHTML = `<th>MAQUILA</th>` + cols.map(c=>`<th>${c.label}</th>`).join('') + `<th>Acumulado</th>`;
-
-    // Fixed product list + any extra products found in history not already in the list
-    const extraProds = new Set();
-    Object.values(maquilaHistory).forEach(d => Object.keys(d.products||{}).forEach(p => { if (!MAQUILA_PRODUCTS.includes(p)) extraProds.add(p); }));
-    const allProds = [...MAQUILA_PRODUCTS, ...Array.from(extraProds)];
-
-    function fmtM(val, colDates) {
-      const hasUpload = colDates.some(d => maquilaHistory[d]);
-      if (!hasUpload) return '<span style="color:#ccc">—</span>';
-      return val > 0 ? Number(val).toLocaleString('es-AR') : '<span class="zero-val">0</span>';
-    }
-
-    maquilaBody.innerHTML = '';
-    allProds.forEach(prod => {
-      const vals = cols.map(c => c.dates.reduce((s,d)=>s+(maquilaHistory[d]?.products?.[prod]||0),0));
-      const acc = vals.reduce((a,b)=>a+b,0);
-      const cells = cols.map((c,i) => `<td>${fmtM(vals[i], c.dates)}</td>`).join('');
-      maquilaBody.innerHTML += `<tr class="row-product"><td>${prod}</td>${cells}<td><strong>${fmtN(acc)}</strong></td></tr>`;
-    });
-
-    const totVals = cols.map(c => c.dates.reduce((s,d)=>s+(maquilaHistory[d]?.total||0),0));
-    maquilaBody.innerHTML += `<tr class="row-total"><td>Total Maquilado</td>${totVals.map((v,i)=>`<td>${fmtM(v,cols[i].dates)}</td>`).join('')}<td>${fmtN(totVals.reduce((a,b)=>a+b,0))}</td></tr>`;
-  }
 
   function buildColumns(cols) {
     // cols: array of {label, dates[]}
@@ -511,6 +447,34 @@
     const trOS = document.createElement('tr'); trOS.className='row-total';
     trOS.innerHTML = `<td>Total OS</td>` + osVals.map(v=>`<td>${fmt(v||null)}</td>`).join('') + `<td>${fmtN(osVals.reduce((a,b)=>a+b,0))}</td>`;
     tbody.appendChild(trOS);
+
+    // ── MAQUILA SECTION ───────────────────────────────
+    const trSec = document.createElement('tr'); trSec.className='row-section';
+    trSec.innerHTML = `<td>🔧 Maquila</td>` + cols.map(()=>'<td></td>').join('') + '<td></td>';
+    tbody.appendChild(trSec);
+
+    const extraProds = new Set();
+    Object.values(maquilaHistory).forEach(d => Object.keys(d.products||{}).forEach(p => { if (!MAQUILA_PRODUCTS.includes(p)) extraProds.add(p); }));
+    const allMaqProds = [...MAQUILA_PRODUCTS, ...Array.from(extraProds)];
+
+    function fmtM(val, colDates) {
+      const hasUpload = colDates.some(d => maquilaHistory[d]);
+      if (!hasUpload) return '<span style="color:#ccc">—</span>';
+      return val > 0 ? Number(val).toLocaleString('es-AR') : '<span class="zero-val">0</span>';
+    }
+
+    allMaqProds.forEach(prod => {
+      const vals = cols.map(c => c.dates.reduce((s,d)=>s+(maquilaHistory[d]?.products?.[prod]||0),0));
+      const acc = vals.reduce((a,b)=>a+b,0);
+      const tr = document.createElement('tr'); tr.className='row-product';
+      tr.innerHTML = `<td>${prod}</td>` + cols.map((c,i)=>`<td>${fmtM(vals[i],c.dates)}</td>`).join('') + `<td><strong>${fmtN(acc)}</strong></td>`;
+      tbody.appendChild(tr);
+    });
+
+    const totVals = cols.map(c => c.dates.reduce((s,d)=>s+(maquilaHistory[d]?.total||0),0));
+    const trTot = document.createElement('tr'); trTot.className='row-total';
+    trTot.innerHTML = `<td>Total Maquilado</td>` + cols.map((c,i)=>`<td>${fmtM(totVals[i],c.dates)}</td>`).join('') + `<td>${fmtN(totVals.reduce((a,b)=>a+b,0))}</td>`;
+    tbody.appendChild(trTot);
   }
 
   function toggleProduct(prod) {
