@@ -241,10 +241,19 @@
   }
   async function loadRaw(path) {
     try {
-      const url = `https://raw.githubusercontent.com/${OWNER}/${REPO}/main/${path}?t=${Date.now()}`;
-      const res = await fetch(url);
-      if (!res.ok) return {};
-      return await res.json();
+      const token = getToken();
+      if (token) {
+        // Con token: GitHub API siempre devuelve datos frescos
+        const f = await ghGet(path);
+        if (!f) return {};
+        return JSON.parse(decodeURIComponent(escape(atob(f.content.replace(/\n/g,'')))));
+      } else {
+        // Sin token: raw.githubusercontent.com (puede tener caché breve)
+        const url = `https://raw.githubusercontent.com/${OWNER}/${REPO}/main/${path}?t=${Date.now()}`;
+        const res = await fetch(url);
+        if (!res.ok) return {};
+        return await res.json();
+      }
     } catch { return {}; }
   }
 
