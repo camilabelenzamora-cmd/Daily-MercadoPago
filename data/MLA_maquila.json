@@ -71,5 +71,35 @@
     },
     "total": 2465,
     "uploadedAt": "2026-04-20T21:51:42.001Z"
+  },
+  "2026-04-14": {
+    "fecha": "2026-04-14",
+    "site": "MLA",
+    "products": {
+      "POINT N953 - PERSONAL Amarillo": 1250,
+      "Point N951 - Movistar Amarillo": 450,
+      "Point N952 - Claro Amarillo": 361,
+      "Etiquetas Places": 8
+    },
+    "reps": {
+      "POINT N953 - PERSONAL Amarillo": {
+        "mmoscato": 440,
+        "marcluna": 440,
+        "macalbornoz": 270,
+        "jmelian": 100
+      },
+      "Point N952 - Claro Amarillo": {
+        "macalbornoz": 360,
+        "bsanchez": 1
+      },
+      "Etiquetas Places": {
+        "lcarabajal": 8
+      },
+      "Point N951 - Movistar Amarillo": {
+        "nicolassalvm": 450
+      }
+    },
+    "total": 2069,
+    "uploadedAt": "2026-04-20T21:53:01.872Z"
   }
 }
