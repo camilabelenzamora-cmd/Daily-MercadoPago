@@ -1,0 +1,29 @@
+{
+  "2026-04-16": {
+    "fecha": "2026-04-16",
+    "devoluciones": {
+      "products": {
+        "Point Smart - Pendiente de Reparación": 2592
+      },
+      "total": 2592
+    },
+    "inbound": {
+      "suppliers": {
+        "THALES": {
+          "total": 50000,
+          "products": {
+            "Tarjeta de Crédito Comercial": 50000
+          }
+        },
+        "GPC": {
+          "total": 20050,
+          "products": {
+            "Tarjeta de Crédito": 10000,
+            "Tarjetas Prepagadas": 10050
+          }
+        }
+      },
+      "total": 70050
+    }
+  }
+}
