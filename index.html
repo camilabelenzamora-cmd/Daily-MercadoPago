@@ -461,7 +461,7 @@
   }
 
   // ── DATE UTILS ────────────────────────────────────────
-  function isoDate(d) { return d.toISOString().slice(0,10); }
+  function isoDate(d) { const y=d.getFullYear(); const m=String(d.getMonth()+1).padStart(2,'0'); const day=String(d.getDate()).padStart(2,'0'); return `${y}-${m}-${day}`; }
   function addDays(s, n) { const d=new Date(s+'T12:00:00'); d.setDate(d.getDate()+n); return isoDate(d); }
   function getMonday(d) { const dt=new Date(d); const day=dt.getDay(); dt.setDate(dt.getDate()+(day===0?-6:1-day)); return isoDate(dt); }
   function shortDate(s) { const [,m,d]=s.split('-'); return `${d}/${m}`; }
