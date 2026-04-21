@@ -113,5 +113,30 @@
     "total_unidades": 487,
     "total_os": 306,
     "uploadedAt": "2026-04-20T22:29:52.797Z"
+  },
+  "2026-04-20": {
+    "fecha": "2026-04-20",
+    "site": "MLU",
+    "products": {
+      "Cards": 19,
+      "Point": 300,
+      "Bobinas": 20,
+      "Others": 0
+    },
+    "routes": {
+      "Cards": {
+        "XD-CARDS": 19
+      },
+      "Point": {
+        "XD-POINT": 300
+      },
+      "Bobinas": {
+        "XD-POINT": 20
+      },
+      "Others": {}
+    },
+    "total_unidades": 339,
+    "total_os": 318,
+    "uploadedAt": "2026-04-21T18:57:17.508Z"
   }
 }
