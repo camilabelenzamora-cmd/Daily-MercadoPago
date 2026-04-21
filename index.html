@@ -384,12 +384,14 @@
   }
 
   function parseCSV(text) {
+    const firstLine = text.split('\n')[0];
+    const delim = (firstLine.split(';').length > firstLine.split(',').length) ? ';' : ',';
     function splitLine(line) {
       const vals = []; let cur = ''; let inQ = false;
       for (let i = 0; i < line.length; i++) {
         const c = line[i];
         if (c === '"') { inQ = !inQ; }
-        else if (c === ',' && !inQ) { vals.push(cur.trim()); cur = ''; }
+        else if (c === delim && !inQ) { vals.push(cur.trim()); cur = ''; }
         else { cur += c; }
       }
       vals.push(cur.trim());
