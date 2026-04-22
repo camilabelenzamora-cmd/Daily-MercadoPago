@@ -912,7 +912,7 @@
       sel.appendChild(opt);
     });
 
-    if (!dates.some(d => history[d])) { showEmpty(); return; }
+    if (!dates.some(d => history[d] || maquilaHistory[d] || asnHistory[d] || headcountData.days?.[d])) { showEmpty(); return; }
     showTable();
 
     document.getElementById('tableHeader').innerHTML =
