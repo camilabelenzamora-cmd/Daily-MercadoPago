@@ -639,9 +639,6 @@
     if (view !== 'week') {
       // Skip people section in monthly view
     } else {
-    const trPeople = document.createElement('tr'); trPeople.className='row-section';
-    trPeople.innerHTML = `<td>People</td>` + cols.map(()=>'<td></td>').join('') + '<td></td>';
-    tbody.insertBefore(trPeople, tbody.firstChild);
 
     // Presentes
     const presVals = cols.map(c => { const hasD = c.dates.some(d=>headcountData.days[d]); if(!hasD) return null; return c.dates.reduce((s,d)=>s+(headcountData.days[d]?.presentes||0),0); });
@@ -672,10 +669,12 @@
 
     } // end people section
 
-    // OUTBOUND header — siempre visible
-    const trOutbound = document.createElement('tr'); trOutbound.className='row-section';
-    trOutbound.innerHTML = `<td>${sectionLabel('OUTBOUND', history)}</td>` + cols.map(()=>'<td></td>').join('') + '<td></td>';
-    tbody.insertBefore(trOutbound, view === 'week' ? tbody.children[6] : tbody.firstChild);
+    // OUTBOUND section row — solo en semanal (mensual lo tiene en el thead)
+    if (view === 'week') {
+      const trOutbound = document.createElement('tr'); trOutbound.className='row-section';
+      trOutbound.innerHTML = `<td>${sectionLabel('OUTBOUND', history)}</td>` + cols.map(()=>'<td></td>').join('') + '<td></td>';
+      tbody.insertBefore(trOutbound, tbody.children[6]);
+    }
 
     // ── MAQUILA SECTION ───────────────────────────────
     const trSec = document.createElement('tr'); trSec.className='row-section';
@@ -919,7 +918,7 @@
     showTable();
 
     document.getElementById('tableHeader').innerHTML =
-      `<th></th>` +
+      `<th>PEOPLE</th>` +
       dates.map(d => { const dt=new Date(d+'T12:00:00'); return `<th>${DAYS_ES[dt.getDay()]} ${shortDate(d)}</th>`; }).join('') +
       `<th>Acumulado</th>`;
 
@@ -945,7 +944,7 @@
     });
 
     document.getElementById('tableHeader').innerHTML =
-      `<th></th>` + cols.map(c=>`<th>${c.label}</th>`).join('') + `<th>Acumulado</th>`;
+      `<th>${sectionLabel('OUTBOUND', history)}</th>` + cols.map(c=>`<th>${c.label}</th>`).join('') + `<th>Acumulado</th>`;
 
     buildColumns(cols);
   }
