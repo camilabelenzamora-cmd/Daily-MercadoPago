@@ -141,5 +141,35 @@
       "total": 0
     },
     "uploadedAt": "2026-04-21T18:54:33.088Z"
+  },
+  "2026-04-21": {
+    "fecha": "2026-04-21",
+    "site": "MLA",
+    "devoluciones": {
+      "products": {
+        "Tarjetas Prepagadas": 325,
+        "Tarjeta de Crédito": 165
+      },
+      "total": 490
+    },
+    "inbound": {
+      "suppliers": {
+        "GPC": {
+          "total": 40100,
+          "products": {
+            "Tarjetas Prepagadas": 20100,
+            "Tarjeta de Crédito": 20000
+          }
+        },
+        "CHOZAS": {
+          "total": 17500,
+          "products": {
+            "Bobinas de Papel": 17500
+          }
+        }
+      },
+      "total": 57600
+    },
+    "uploadedAt": "2026-04-22T22:00:30.758Z"
   }
 }
