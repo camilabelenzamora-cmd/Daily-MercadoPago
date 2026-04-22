@@ -121,6 +121,7 @@
   <div class="country-tab" data-site="MLM" onclick="selectSite('MLM')">🇲🇽 MLM</div>
   <div class="country-tab" data-site="MLC" onclick="selectSite('MLC')">🇨🇱 MLC</div>
   <div class="country-tab" data-site="MLU" onclick="selectSite('MLU')">🇺🇾 MLU</div>
+  <button class="upload-btn" onclick="openHeadcountModal()" style="margin-right:16px;">👥 Headcount</button>
   <button class="upload-btn" onclick="openUploadModal()">⬆️ Actualizar</button>
 </div>
 
@@ -172,6 +173,54 @@
   </div>
 </div>
 
+<!-- MODAL HEADCOUNT -->
+<div class="modal-overlay" id="headcountModal">
+  <div class="modal">
+    <h2>👥 Cargar Headcount</h2>
+    <p>Completá los datos del día para <strong id="hcSite"></strong>.</p>
+    <div style="display:grid;gap:12px;margin-bottom:16px;">
+      <div>
+        <label style="font-size:12px;font-weight:600;color:#666;display:block;margin-bottom:4px;">Fecha</label>
+        <input type="date" id="hcFecha" style="width:100%;border:1px solid #dce3ea;border-radius:6px;padding:8px 10px;font-size:14px;">
+      </div>
+      <div>
+        <label style="font-size:12px;font-weight:600;color:#666;display:block;margin-bottom:4px;">Presentes</label>
+        <input type="number" id="hcPresentes" min="0" style="width:100%;border:1px solid #dce3ea;border-radius:6px;padding:8px 10px;font-size:14px;">
+      </div>
+      <div>
+        <label style="font-size:12px;font-weight:600;color:#666;display:block;margin-bottom:4px;">Ausentes Gestionables</label>
+        <input type="number" id="hcGestionables" min="0" style="width:100%;border:1px solid #dce3ea;border-radius:6px;padding:8px 10px;font-size:14px;">
+      </div>
+      <div>
+        <label style="font-size:12px;font-weight:600;color:#666;display:block;margin-bottom:4px;">Ausentes No Gestionables</label>
+        <input type="number" id="hcNoGestionables" min="0" style="width:100%;border:1px solid #dce3ea;border-radius:6px;padding:8px 10px;font-size:14px;">
+      </div>
+    </div>
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closeHeadcountModal()">Cancelar</button>
+      <button class="btn-primary" onclick="saveHeadcount()">Guardar</button>
+    </div>
+    <div class="feedback" id="hcFeedback"></div>
+  </div>
+</div>
+
+<!-- MODAL EDIT TOTAL -->
+<div class="modal-overlay" id="editTotalModal">
+  <div class="modal">
+    <h2>✏️ Editar Total</h2>
+    <p>Total de personas en el equipo para <strong id="etSite"></strong>. Solo cambialo cuando el equipo cambie de tamaño.</p>
+    <div style="margin-bottom:16px;">
+      <label style="font-size:12px;font-weight:600;color:#666;display:block;margin-bottom:4px;">Total headcount</label>
+      <input type="number" id="etTotal" min="0" style="width:100%;border:1px solid #dce3ea;border-radius:6px;padding:8px 10px;font-size:14px;">
+    </div>
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closeEditTotalModal()">Cancelar</button>
+      <button class="btn-primary" onclick="saveTotal()">Guardar</button>
+    </div>
+    <div class="feedback" id="etFeedback"></div>
+  </div>
+</div>
+
 <!-- MODAL TOKEN -->
 <div class="modal-overlay" id="tokenModal">
   <div class="modal">
@@ -206,6 +255,7 @@
   let expandedMaquilaProds = new Set();
   let expandedInboundSuppliers = new Set();
   let asnHistory = {};
+  let headcountData = { total: null, days: {} };
 
   // ── TOKEN ─────────────────────────────────────────────
   function getToken() { return localStorage.getItem('gh_token'); }
@@ -258,6 +308,17 @@
         return await res.json();
       }
     } catch { return {}; }
+  }
+
+  async function loadHeadcountData(site) {
+    const d = await loadRaw(`data/${site}_headcount.json`);
+    return (d && typeof d === 'object') ? { total: d.total || null, days: d.days || {} } : { total: null, days: {} };
+  }
+  async function saveHeadcountData(site, data) {
+    const content = JSON.stringify(data, null, 2);
+    const existing = await ghGet(`data/${site}_headcount.json`);
+    const today = new Date().toISOString().slice(0,10);
+    await ghPut(`data/${site}_headcount.json`, content, existing?.sha||null, `Update headcount ${site} - ${today}`);
   }
 
   async function loadASNHistory(site) { return loadRaw(`data/${site}_asn.json`); }
@@ -452,7 +513,7 @@
     document.querySelectorAll('.country-tab').forEach(t => t.classList.remove('active'));
     document.querySelector(`[data-site="${site}"]`).classList.add('active');
     showLoading();
-    [history, maquilaHistory, asnHistory] = await Promise.all([loadHistory(site), loadMaquilaHistory(site), loadASNHistory(site)]);
+    [history, maquilaHistory, asnHistory, headcountData] = await Promise.all([loadHistory(site), loadMaquilaHistory(site), loadASNHistory(site), loadHeadcountData(site)]);
     cursor = null;
     render();
   }
@@ -549,6 +610,45 @@
     const trOS = document.createElement('tr'); trOS.className='row-total';
     trOS.innerHTML = `<td>Total OS</td>` + osVals.map(v=>`<td>${fmt(v||null)}</td>`).join('') + `<td>${fmtN(osVals.reduce((a,b)=>a+b,0))}</td>`;
     tbody.appendChild(trOS);
+
+    // ── PEOPLE SECTION ───────────────────────────────
+    const trPeople = document.createElement('tr'); trPeople.className='row-section';
+    trPeople.innerHTML = `<td>People</td>` + cols.map(()=>'<td></td>').join('') + '<td></td>';
+    tbody.insertBefore(trPeople, tbody.firstChild);
+
+    // Presentes
+    const presVals = cols.map(c => { const hasD = c.dates.some(d=>headcountData.days[d]); if(!hasD) return null; return c.dates.reduce((s,d)=>s+(headcountData.days[d]?.presentes||0),0); });
+    const trPres = document.createElement('tr'); trPres.className='row-product';
+    trPres.innerHTML = `<td>Presentes</td>` + presVals.map(v=>`<td>${fmt(v)}</td>`).join('') + `<td></td>`;
+    tbody.insertBefore(trPres, tbody.children[1]);
+
+    // Ausentes (expandable)
+    const gestVals = cols.map(c => { const hasD = c.dates.some(d=>headcountData.days[d]); if(!hasD) return null; return c.dates.reduce((s,d)=>s+(headcountData.days[d]?.ausentes_gestionables||0),0); });
+    const noGestVals = cols.map(c => { const hasD = c.dates.some(d=>headcountData.days[d]); if(!hasD) return null; return c.dates.reduce((s,d)=>s+(headcountData.days[d]?.ausentes_no_gestionables||0),0); });
+    const ausVals = cols.map((c,i) => { if(gestVals[i]===null && noGestVals[i]===null) return null; return (gestVals[i]||0)+(noGestVals[i]||0); });
+
+    const trAus = document.createElement('tr'); trAus.className='row-product';
+    trAus.innerHTML = `<td onclick="toggleAusentes()"><span class="toggle-icon ${expandedAusentes?'open':''}">▶</span> Ausentes</td>` + ausVals.map(v=>`<td>${fmt(v)}</td>`).join('') + `<td></td>`;
+    tbody.insertBefore(trAus, tbody.children[2]);
+
+    const trGest = document.createElement('tr'); trGest.className='row-route' + (expandedAusentes?' visible':'');
+    trGest.innerHTML = `<td>Gestionables</td>` + gestVals.map(v=>`<td>${fmt(v)}</td>`).join('') + `<td></td>`;
+    tbody.insertBefore(trGest, tbody.children[3]);
+
+    const trNoGest = document.createElement('tr'); trNoGest.className='row-route' + (expandedAusentes?' visible':'');
+    trNoGest.innerHTML = `<td>No Gestionables</td>` + noGestVals.map(v=>`<td>${fmt(v)}</td>`).join('') + `<td></td>`;
+    tbody.insertBefore(trNoGest, tbody.children[4]);
+
+    // Total (editable)
+    const total = headcountData.total;
+    const trTotalHC = document.createElement('tr'); trTotalHC.className='row-product';
+    trTotalHC.innerHTML = `<td>Total <span onclick="openEditTotalModal()" style="cursor:pointer;font-size:12px;color:#3483FA;margin-left:6px;">✏️</span></td>` + cols.map(()=>`<td>${total ? Number(total).toLocaleString('es-AR') : '<span style="color:#ccc">—</span>'}</td>`).join('') + `<td></td>`;
+    tbody.insertBefore(trTotalHC, tbody.children[5]);
+
+    // ── OUTBOUND separator
+    const trOutbound = document.createElement('tr'); trOutbound.className='row-section';
+    trOutbound.innerHTML = `<td>${sectionLabel('OUTBOUND', history)}</td>` + cols.map(()=>'<td></td>').join('') + '<td></td>';
+    tbody.insertBefore(trOutbound, tbody.children[6]);
 
     // ── MAQUILA SECTION ───────────────────────────────
     const trSec = document.createElement('tr'); trSec.className='row-section';
@@ -664,6 +764,71 @@
     tbody.appendChild(trInbTot);
   }
 
+  // ── HEADCOUNT ─────────────────────────────────────────
+  let expandedAusentes = false;
+
+  function openHeadcountModal() {
+    if (!getToken()) { openTokenModal(); return; }
+    const today = isoDate(new Date());
+    document.getElementById('hcSite').textContent = currentSite;
+    document.getElementById('hcFecha').value = today;
+    const existing = headcountData.days[today];
+    document.getElementById('hcPresentes').value = existing?.presentes || '';
+    document.getElementById('hcGestionables').value = existing?.ausentes_gestionables || '';
+    document.getElementById('hcNoGestionables').value = existing?.ausentes_no_gestionables || '';
+    document.getElementById('hcFeedback').textContent = '';
+    document.getElementById('headcountModal').classList.add('active');
+  }
+  function closeHeadcountModal() { document.getElementById('headcountModal').classList.remove('active'); }
+
+  async function saveHeadcount() {
+    const fecha = document.getElementById('hcFecha').value;
+    const presentes = parseInt(document.getElementById('hcPresentes').value) || 0;
+    const gestionables = parseInt(document.getElementById('hcGestionables').value) || 0;
+    const noGestionables = parseInt(document.getElementById('hcNoGestionables').value) || 0;
+    if (!fecha) { document.getElementById('hcFeedback').textContent = 'Ingresá una fecha'; return; }
+    const fb = document.getElementById('hcFeedback');
+    fb.textContent = '';
+    try {
+      headcountData.days[fecha] = { fecha, presentes, ausentes_gestionables: gestionables, ausentes_no_gestionables: noGestionables, savedAt: new Date().toISOString() };
+      await saveHeadcountData(currentSite, headcountData);
+      fb.className = 'feedback ok';
+      fb.textContent = `✓ Guardado — ${fecha}`;
+      setTimeout(() => { closeHeadcountModal(); render(); }, 1000);
+    } catch(e) {
+      fb.className = 'feedback err';
+      fb.textContent = '✗ ' + (e.message || 'Error');
+    }
+  }
+
+  function openEditTotalModal() {
+    if (!getToken()) { openTokenModal(); return; }
+    document.getElementById('etSite').textContent = currentSite;
+    document.getElementById('etTotal').value = headcountData.total || '';
+    document.getElementById('etFeedback').textContent = '';
+    document.getElementById('editTotalModal').classList.add('active');
+  }
+  function closeEditTotalModal() { document.getElementById('editTotalModal').classList.remove('active'); }
+
+  async function saveTotal() {
+    const total = parseInt(document.getElementById('etTotal').value);
+    if (!total) { document.getElementById('etFeedback').textContent = 'Ingresá un número'; return; }
+    const fb = document.getElementById('etFeedback');
+    try {
+      headcountData.total = total;
+      await saveHeadcountData(currentSite, headcountData);
+      fb.className = 'feedback ok';
+      fb.textContent = '✓ Total actualizado';
+      setTimeout(() => { closeEditTotalModal(); render(); }, 1000);
+    } catch(e) {
+      fb.className = 'feedback err';
+      fb.textContent = '✗ ' + (e.message || 'Error');
+    }
+  }
+
+  document.getElementById('headcountModal').addEventListener('click', e => { if(e.target===e.currentTarget) closeHeadcountModal(); });
+  document.getElementById('editTotalModal').addEventListener('click', e => { if(e.target===e.currentTarget) closeEditTotalModal(); });
+
   function jumpToWeek(monday) {
     cursor = monday;
     render();
@@ -679,6 +844,7 @@
     else expandedMaquilaProds.add(prod);
     render();
   }
+  function toggleAusentes() { expandedAusentes = !expandedAusentes; render(); }
   function toggleInboundSupplier(sup) {
     if (expandedInboundSuppliers.has(sup)) expandedInboundSuppliers.delete(sup);
     else expandedInboundSuppliers.add(sup);
@@ -708,7 +874,7 @@
     showTable();
 
     document.getElementById('tableHeader').innerHTML =
-      `<th>${sectionLabel('OUTBOUND', history)}</th>` +
+      `<th></th>` +
       dates.map(d => { const dt=new Date(d+'T12:00:00'); return `<th>${DAYS_ES[dt.getDay()]} ${shortDate(d)}</th>`; }).join('') +
       `<th>Acumulado</th>`;
 
@@ -734,7 +900,7 @@
     });
 
     document.getElementById('tableHeader').innerHTML =
-      `<th>${sectionLabel('OUTBOUND', history)}</th>` + cols.map(c=>`<th>${c.label}</th>`).join('') + `<th>Acumulado</th>`;
+      `<th></th>` + cols.map(c=>`<th>${c.label}</th>`).join('') + `<th>Acumulado</th>`;
 
     buildColumns(cols);
   }
