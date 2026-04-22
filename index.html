@@ -670,11 +670,12 @@
       cols.map(c => { const t = getTotalForDate(c.dates[c.dates.length-1]); return `<td>${t ? Number(t).toLocaleString('es-AR') : '<span style="color:#ccc">—</span>'}</td>`; }).join('') + `<td></td>`;
     tbody.insertBefore(trTotalHC, tbody.children[5]);
 
+    } // end people section
+
+    // OUTBOUND header — siempre visible
     const trOutbound = document.createElement('tr'); trOutbound.className='row-section';
     trOutbound.innerHTML = `<td>${sectionLabel('OUTBOUND', history)}</td>` + cols.map(()=>'<td></td>').join('') + '<td></td>';
-    tbody.insertBefore(trOutbound, tbody.children[6]);
-
-    } // end people section
+    tbody.insertBefore(trOutbound, view === 'week' ? tbody.children[6] : tbody.firstChild);
 
     // ── MAQUILA SECTION ───────────────────────────────
     const trSec = document.createElement('tr'); trSec.className='row-section';
