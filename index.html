@@ -135,6 +135,7 @@
       <span class="nav-label" id="navLabel">—</span>
       <button class="nav-btn" onclick="navigate(1)">&#8250;</button>
     </div>
+    <select id="weekSelector" onchange="jumpToWeek(this.value)" style="display:none; border:1px solid #dce3ea; border-radius:6px; padding:6px 10px; font-size:13px; color:#333; cursor:pointer; background:#fff;"></select>
   </div>
 
   <div class="table-card">
@@ -656,6 +657,11 @@
     tbody.appendChild(trInbTot);
   }
 
+  function jumpToWeek(monday) {
+    cursor = monday;
+    render();
+  }
+
   function toggleProduct(prod) {
     if (expandedProducts.has(prod)) expandedProducts.delete(prod);
     else expandedProducts.add(prod);
@@ -676,6 +682,15 @@
     if (!cursor) cursor = getMonday(new Date());
     const dates = Array.from({length:5}, (_,i) => addDays(cursor, i));
     document.getElementById('navLabel').textContent = `Semana ${shortDate(cursor)} — ${shortDate(addDays(cursor,4))}`;
+
+    // Populate week selector with all weeks that have data
+    const allDates = Object.keys(history).sort();
+    const weeksWithData = [...new Set(allDates.map(d => getMonday(new Date(d+'T12:00:00'))))].sort();
+    const sel = document.getElementById('weekSelector');
+    sel.style.display = weeksWithData.length > 1 ? 'block' : 'none';
+    sel.innerHTML = weeksWithData.map((m, i) =>
+      `<option value="${m}" ${m===cursor?'selected':''>Sem ${i+1} · ${shortDate(m)}–${shortDate(addDays(m,4))}</option>`
+    ).join('');
 
     if (!dates.some(d => history[d])) { showEmpty(); return; }
     showTable();
