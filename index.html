@@ -121,8 +121,8 @@
   <div class="country-tab" data-site="MLM" onclick="selectSite('MLM')">🇲🇽 MLM</div>
   <div class="country-tab" data-site="MLC" onclick="selectSite('MLC')">🇨🇱 MLC</div>
   <div class="country-tab" data-site="MLU" onclick="selectSite('MLU')">🇺🇾 MLU</div>
-  <button class="upload-btn" onclick="openHeadcountModal()" style="margin-right:16px;">👥 Headcount</button>
-  <button class="upload-btn" onclick="openUploadModal()">⬆️ Actualizar</button>
+  <button class="upload-btn" onclick="openHeadcountModal()">👥 Headcount</button>
+  <button class="upload-btn" onclick="openUploadModal()" style="margin-left:16px;">⬆️ Actualizar</button>
 </div>
 
 <div class="content">
@@ -177,8 +177,17 @@
 <div class="modal-overlay" id="headcountModal">
   <div class="modal">
     <h2>👥 Cargar Headcount</h2>
-    <p>Completá los datos del día para <strong id="hcSite"></strong>.</p>
+    <p>Completá los datos del día.</p>
     <div style="display:grid;gap:12px;margin-bottom:16px;">
+      <div>
+        <label style="font-size:12px;font-weight:600;color:#666;display:block;margin-bottom:4px;">Site</label>
+        <select id="hcSiteSelect" style="width:100%;border:1px solid #dce3ea;border-radius:6px;padding:8px 10px;font-size:14px;">
+          <option value="MLA">🇦🇷 MLA — Argentina</option>
+          <option value="MLM">🇲🇽 MLM — México</option>
+          <option value="MLC">🇨🇱 MLC — Chile</option>
+          <option value="MLU">🇺🇾 MLU — Uruguay</option>
+        </select>
+      </div>
       <div>
         <label style="font-size:12px;font-weight:600;color:#666;display:block;margin-bottom:4px;">Fecha</label>
         <input type="date" id="hcFecha" style="width:100%;border:1px solid #dce3ea;border-radius:6px;padding:8px 10px;font-size:14px;">
@@ -208,10 +217,16 @@
 <div class="modal-overlay" id="editTotalModal">
   <div class="modal">
     <h2>✏️ Editar Total</h2>
-    <p>Total de personas en el equipo para <strong id="etSite"></strong>. Solo cambialo cuando el equipo cambie de tamaño.</p>
-    <div style="margin-bottom:16px;">
-      <label style="font-size:12px;font-weight:600;color:#666;display:block;margin-bottom:4px;">Total headcount</label>
-      <input type="number" id="etTotal" min="0" style="width:100%;border:1px solid #dce3ea;border-radius:6px;padding:8px 10px;font-size:14px;">
+    <p>Total de personas en el equipo para <strong id="etSite"></strong>. El cambio aplica desde la fecha que indiques.</p>
+    <div style="display:grid;gap:12px;margin-bottom:16px;">
+      <div>
+        <label style="font-size:12px;font-weight:600;color:#666;display:block;margin-bottom:4px;">Nuevo total</label>
+        <input type="number" id="etTotal" min="0" style="width:100%;border:1px solid #dce3ea;border-radius:6px;padding:8px 10px;font-size:14px;">
+      </div>
+      <div>
+        <label style="font-size:12px;font-weight:600;color:#666;display:block;margin-bottom:4px;">Desde</label>
+        <input type="date" id="etDesde" style="width:100%;border:1px solid #dce3ea;border-radius:6px;padding:8px 10px;font-size:14px;">
+      </div>
     </div>
     <div class="modal-btns">
       <button class="btn-cancel" onclick="closeEditTotalModal()">Cancelar</button>
@@ -619,7 +634,7 @@
     // Presentes
     const presVals = cols.map(c => { const hasD = c.dates.some(d=>headcountData.days[d]); if(!hasD) return null; return c.dates.reduce((s,d)=>s+(headcountData.days[d]?.presentes||0),0); });
     const trPres = document.createElement('tr'); trPres.className='row-product';
-    trPres.innerHTML = `<td>Presentes</td>` + presVals.map(v=>`<td>${fmt(v)}</td>`).join('') + `<td></td>`;
+    trPres.innerHTML = `<td><span style="display:inline-block;width:18px;"></span> Presentes</td>` + presVals.map(v=>`<td>${fmt(v)}</td>`).join('') + `<td></td>`;
     tbody.insertBefore(trPres, tbody.children[1]);
 
     // Ausentes (expandable)
@@ -639,10 +654,10 @@
     trNoGest.innerHTML = `<td>No Gestionables</td>` + noGestVals.map(v=>`<td>${fmt(v)}</td>`).join('') + `<td></td>`;
     tbody.insertBefore(trNoGest, tbody.children[4]);
 
-    // Total (editable)
-    const total = headcountData.total;
+    // Total (editable, per-date)
     const trTotalHC = document.createElement('tr'); trTotalHC.className='row-product';
-    trTotalHC.innerHTML = `<td>Total <span onclick="openEditTotalModal()" style="cursor:pointer;font-size:12px;color:#3483FA;margin-left:6px;">✏️</span></td>` + cols.map(()=>`<td>${total ? Number(total).toLocaleString('es-AR') : '<span style="color:#ccc">—</span>'}</td>`).join('') + `<td></td>`;
+    trTotalHC.innerHTML = `<td>Total <span onclick="openEditTotalModal()" style="cursor:pointer;font-size:12px;color:#3483FA;margin-left:6px;">✏️</span></td>` +
+      cols.map(c => { const t = getTotalForDate(c.dates[c.dates.length-1]); return `<td>${t ? Number(t).toLocaleString('es-AR') : '<span style="color:#ccc">—</span>'}</td>`; }).join('') + `<td></td>`;
     tbody.insertBefore(trTotalHC, tbody.children[5]);
 
     // ── OUTBOUND separator
@@ -767,10 +782,16 @@
   // ── HEADCOUNT ─────────────────────────────────────────
   let expandedAusentes = false;
 
+  function getTotalForDate(fecha) {
+    const totals = headcountData.totals || [];
+    const applicable = totals.filter(t => t.desde <= fecha).sort((a,b) => b.desde.localeCompare(a.desde));
+    return applicable.length > 0 ? applicable[0].total : (headcountData.total || null);
+  }
+
   function openHeadcountModal() {
     if (!getToken()) { openTokenModal(); return; }
     const today = isoDate(new Date());
-    document.getElementById('hcSite').textContent = currentSite;
+    document.getElementById('hcSiteSelect').value = currentSite;
     document.getElementById('hcFecha').value = today;
     const existing = headcountData.days[today];
     document.getElementById('hcPresentes').value = existing?.presentes || '';
@@ -782,6 +803,7 @@
   function closeHeadcountModal() { document.getElementById('headcountModal').classList.remove('active'); }
 
   async function saveHeadcount() {
+    const site = document.getElementById('hcSiteSelect').value;
     const fecha = document.getElementById('hcFecha').value;
     const presentes = parseInt(document.getElementById('hcPresentes').value) || 0;
     const gestionables = parseInt(document.getElementById('hcGestionables').value) || 0;
@@ -790,10 +812,12 @@
     const fb = document.getElementById('hcFeedback');
     fb.textContent = '';
     try {
-      headcountData.days[fecha] = { fecha, presentes, ausentes_gestionables: gestionables, ausentes_no_gestionables: noGestionables, savedAt: new Date().toISOString() };
-      await saveHeadcountData(currentSite, headcountData);
+      const siteData = await loadHeadcountData(site);
+      siteData.days[fecha] = { fecha, presentes, ausentes_gestionables: gestionables, ausentes_no_gestionables: noGestionables, savedAt: new Date().toISOString() };
+      await saveHeadcountData(site, siteData);
+      if (site === currentSite) headcountData = siteData;
       fb.className = 'feedback ok';
-      fb.textContent = `✓ Guardado — ${fecha}`;
+      fb.textContent = `✓ Guardado — ${site} · ${fecha}`;
       setTimeout(() => { closeHeadcountModal(); render(); }, 1000);
     } catch(e) {
       fb.className = 'feedback err';
@@ -804,7 +828,9 @@
   function openEditTotalModal() {
     if (!getToken()) { openTokenModal(); return; }
     document.getElementById('etSite').textContent = currentSite;
-    document.getElementById('etTotal').value = headcountData.total || '';
+    const lastTotal = getTotalForDate(isoDate(new Date()));
+    document.getElementById('etTotal').value = lastTotal || '';
+    document.getElementById('etDesde').value = isoDate(new Date());
     document.getElementById('etFeedback').textContent = '';
     document.getElementById('editTotalModal').classList.add('active');
   }
@@ -812,13 +838,17 @@
 
   async function saveTotal() {
     const total = parseInt(document.getElementById('etTotal').value);
-    if (!total) { document.getElementById('etFeedback').textContent = 'Ingresá un número'; return; }
+    const desde = document.getElementById('etDesde').value;
+    if (!total || !desde) { document.getElementById('etFeedback').textContent = 'Completá todos los campos'; return; }
     const fb = document.getElementById('etFeedback');
     try {
-      headcountData.total = total;
+      if (!headcountData.totals) headcountData.totals = [];
+      headcountData.totals = headcountData.totals.filter(t => t.desde !== desde);
+      headcountData.totals.push({ desde, total });
+      headcountData.totals.sort((a,b) => a.desde.localeCompare(b.desde));
       await saveHeadcountData(currentSite, headcountData);
       fb.className = 'feedback ok';
-      fb.textContent = '✓ Total actualizado';
+      fb.textContent = `✓ Total ${total} desde ${desde}`;
       setTimeout(() => { closeEditTotalModal(); render(); }, 1000);
     } catch(e) {
       fb.className = 'feedback err';
