@@ -217,10 +217,19 @@
 <div class="modal-overlay" id="editTotalModal">
   <div class="modal">
     <h2>✏️ Editar Total</h2>
-    <p>Total de personas en el equipo para <strong id="etSite"></strong>. El cambio aplica desde la fecha que indiques.</p>
+    <p>Total de personas en el equipo. El cambio aplica desde la fecha que indiques.</p>
     <div style="display:grid;gap:12px;margin-bottom:16px;">
       <div>
-        <label style="font-size:12px;font-weight:600;color:#666;display:block;margin-bottom:4px;">Nuevo total</label>
+        <label style="font-size:12px;font-weight:600;color:#666;display:block;margin-bottom:4px;">Site</label>
+        <select id="etSiteSelect" style="width:100%;border:1px solid #dce3ea;border-radius:6px;padding:8px 10px;font-size:14px;">
+          <option value="MLA">🇦🇷 MLA — Argentina</option>
+          <option value="MLM">🇲🇽 MLM — México</option>
+          <option value="MLC">🇨🇱 MLC — Chile</option>
+          <option value="MLU">🇺🇾 MLU — Uruguay</option>
+        </select>
+      </div>
+      <div>
+        <label style="font-size:12px;font-weight:600;color:#666;display:block;margin-bottom:4px;">Total headcount</label>
         <input type="number" id="etTotal" min="0" style="width:100%;border:1px solid #dce3ea;border-radius:6px;padding:8px 10px;font-size:14px;">
       </div>
       <div>
@@ -626,7 +635,10 @@
     trOS.innerHTML = `<td>Total OS</td>` + osVals.map(v=>`<td>${fmt(v||null)}</td>`).join('') + `<td>${fmtN(osVals.reduce((a,b)=>a+b,0))}</td>`;
     tbody.appendChild(trOS);
 
-    // ── PEOPLE SECTION ───────────────────────────────
+    // ── PEOPLE SECTION (solo en vista semanal) ───────
+    if (view !== 'week') {
+      // Skip people section in monthly view
+    } else {
     const trPeople = document.createElement('tr'); trPeople.className='row-section';
     trPeople.innerHTML = `<td>People</td>` + cols.map(()=>'<td></td>').join('') + '<td></td>';
     tbody.insertBefore(trPeople, tbody.firstChild);
@@ -637,7 +649,6 @@
     trPres.innerHTML = `<td><span style="display:inline-block;width:18px;"></span> Presentes</td>` + presVals.map(v=>`<td>${fmt(v)}</td>`).join('') + `<td></td>`;
     tbody.insertBefore(trPres, tbody.children[1]);
 
-    // Ausentes (expandable)
     const gestVals = cols.map(c => { const hasD = c.dates.some(d=>headcountData.days[d]); if(!hasD) return null; return c.dates.reduce((s,d)=>s+(headcountData.days[d]?.ausentes_gestionables||0),0); });
     const noGestVals = cols.map(c => { const hasD = c.dates.some(d=>headcountData.days[d]); if(!hasD) return null; return c.dates.reduce((s,d)=>s+(headcountData.days[d]?.ausentes_no_gestionables||0),0); });
     const ausVals = cols.map((c,i) => { if(gestVals[i]===null && noGestVals[i]===null) return null; return (gestVals[i]||0)+(noGestVals[i]||0); });
@@ -654,16 +665,16 @@
     trNoGest.innerHTML = `<td>No Gestionables</td>` + noGestVals.map(v=>`<td>${fmt(v)}</td>`).join('') + `<td></td>`;
     tbody.insertBefore(trNoGest, tbody.children[4]);
 
-    // Total (editable, per-date)
     const trTotalHC = document.createElement('tr'); trTotalHC.className='row-product';
     trTotalHC.innerHTML = `<td>Total <span onclick="openEditTotalModal()" style="cursor:pointer;font-size:12px;color:#3483FA;margin-left:6px;">✏️</span></td>` +
       cols.map(c => { const t = getTotalForDate(c.dates[c.dates.length-1]); return `<td>${t ? Number(t).toLocaleString('es-AR') : '<span style="color:#ccc">—</span>'}</td>`; }).join('') + `<td></td>`;
     tbody.insertBefore(trTotalHC, tbody.children[5]);
 
-    // ── OUTBOUND separator
     const trOutbound = document.createElement('tr'); trOutbound.className='row-section';
     trOutbound.innerHTML = `<td>${sectionLabel('OUTBOUND', history)}</td>` + cols.map(()=>'<td></td>').join('') + '<td></td>';
     tbody.insertBefore(trOutbound, tbody.children[6]);
+
+    } // end people section
 
     // ── MAQUILA SECTION ───────────────────────────────
     const trSec = document.createElement('tr'); trSec.className='row-section';
@@ -827,7 +838,7 @@
 
   function openEditTotalModal() {
     if (!getToken()) { openTokenModal(); return; }
-    document.getElementById('etSite').textContent = currentSite;
+    document.getElementById('etSiteSelect').value = currentSite;
     const lastTotal = getTotalForDate(isoDate(new Date()));
     document.getElementById('etTotal').value = lastTotal || '';
     document.getElementById('etDesde').value = isoDate(new Date());
@@ -837,16 +848,19 @@
   function closeEditTotalModal() { document.getElementById('editTotalModal').classList.remove('active'); }
 
   async function saveTotal() {
+    const site = document.getElementById('etSiteSelect').value;
     const total = parseInt(document.getElementById('etTotal').value);
     const desde = document.getElementById('etDesde').value;
     if (!total || !desde) { document.getElementById('etFeedback').textContent = 'Completá todos los campos'; return; }
     const fb = document.getElementById('etFeedback');
     try {
-      if (!headcountData.totals) headcountData.totals = [];
-      headcountData.totals = headcountData.totals.filter(t => t.desde !== desde);
-      headcountData.totals.push({ desde, total });
-      headcountData.totals.sort((a,b) => a.desde.localeCompare(b.desde));
-      await saveHeadcountData(currentSite, headcountData);
+      const siteData = site === currentSite ? headcountData : await loadHeadcountData(site);
+      if (!siteData.totals) siteData.totals = [];
+      siteData.totals = siteData.totals.filter(t => t.desde !== desde);
+      siteData.totals.push({ desde, total });
+      siteData.totals.sort((a,b) => a.desde.localeCompare(b.desde));
+      if (site === currentSite) headcountData = siteData;
+      await saveHeadcountData(site, siteData);
       fb.className = 'feedback ok';
       fb.textContent = `✓ Total ${total} desde ${desde}`;
       setTimeout(() => { closeEditTotalModal(); render(); }, 1000);
