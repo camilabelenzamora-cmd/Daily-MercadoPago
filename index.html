@@ -716,6 +716,7 @@
   }
 
   function renderMonth() {
+    document.getElementById('weekSelector').style.display = 'none';
     if (!cursor) { const n=new Date(); cursor=String(n.getFullYear()); }
 
     // All months with data for the selected year
