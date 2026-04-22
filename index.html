@@ -689,7 +689,7 @@
     const sel = document.getElementById('weekSelector');
     sel.style.display = weeksWithData.length > 1 ? 'block' : 'none';
     sel.innerHTML = weeksWithData.map((m, i) =>
-      `<option value="${m}" ${m===cursor?'selected':''>Sem ${i+1} · ${shortDate(m)}–${shortDate(addDays(m,4))}</option>`
+      `<option value="${m}" ${m===cursor?'selected':''}">Sem ${i+1} · ${shortDate(m)}–${shortDate(addDays(m,4))}</option>`
     ).join('');
 
     if (!dates.some(d => history[d])) { showEmpty(); return; }
