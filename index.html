@@ -736,7 +736,7 @@
     tbody.appendChild(trDev);
 
     const allDevProds = new Set();
-    Object.values(asnHistory).forEach(d => Object.keys(d.devoluciones?.products||{}).forEach(p => allDevProds.add(p)));
+    cols.forEach(c => c.dates.forEach(d => Object.keys(asnHistory[d]?.devoluciones?.products||{}).forEach(p => allDevProds.add(p))));
 
     allDevProds.forEach(prod => {
       const vals = cols.map(c => c.dates.reduce((s,d)=>s+(asnHistory[d]?.devoluciones?.products?.[prod]||0),0));
