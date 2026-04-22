@@ -672,7 +672,10 @@
 
     } // end people section
 
-    // OUTBOUND title goes in thead first column (set after building cols)
+    // OUTBOUND header — siempre visible
+    const trOutbound = document.createElement('tr'); trOutbound.className='row-section';
+    trOutbound.innerHTML = `<td>${sectionLabel('OUTBOUND', history)}</td>` + cols.map(()=>'<td></td>').join('') + '<td></td>';
+    tbody.insertBefore(trOutbound, view === 'week' ? tbody.children[6] : tbody.firstChild);
 
     // ── MAQUILA SECTION ───────────────────────────────
     const trSec = document.createElement('tr'); trSec.className='row-section';
@@ -916,7 +919,7 @@
     showTable();
 
     document.getElementById('tableHeader').innerHTML =
-      `<th>${sectionLabel('OUTBOUND', history)}</th>` +
+      `<th></th>` +
       dates.map(d => { const dt=new Date(d+'T12:00:00'); return `<th>${DAYS_ES[dt.getDay()]} ${shortDate(d)}</th>`; }).join('') +
       `<th>Acumulado</th>`;
 
@@ -942,7 +945,7 @@
     });
 
     document.getElementById('tableHeader').innerHTML =
-      `<th>${sectionLabel('OUTBOUND', history)}</th>` + cols.map(c=>`<th>${c.label}</th>`).join('') + `<th>Acumulado</th>`;
+      `<th></th>` + cols.map(c=>`<th>${c.label}</th>`).join('') + `<th>Acumulado</th>`;
 
     buildColumns(cols);
   }
