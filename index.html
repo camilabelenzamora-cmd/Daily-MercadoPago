@@ -821,7 +821,7 @@
     const fb = document.getElementById('hcFeedback');
     fb.textContent = '';
     try {
-      const siteData = await loadHeadcountData(site);
+      const siteData = site === currentSite ? headcountData : await loadHeadcountData(site);
       siteData.days[fecha] = { fecha, ausentes_gestionables: gestionables, ausentes_no_gestionables: noGestionables, savedAt: new Date().toISOString() };
       await saveHeadcountData(site, siteData);
       if (site === currentSite) headcountData = siteData;
