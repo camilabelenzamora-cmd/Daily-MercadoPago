@@ -145,8 +145,8 @@
   <!-- CHARTS (Regional only) -->
   <div id="regionalCharts" style="display:none; margin-bottom:20px;">
     <div style="font-size:14px;font-weight:700;color:#2c3e50;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:12px;">Outbound & Maquila</div>
-    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:16px;" id="chartsGrid"></div>
-    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px;" id="chartsMaquilaGrid"></div>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:12px;" id="chartsGrid"></div>
+    <div style="display:flex; justify-content:center; gap:12px;" id="chartsMaquilaGrid"></div>
   </div>
 
   <div class="table-card">
@@ -1231,12 +1231,13 @@
       const targetGrid = topProds.includes(prod) ? grid : maqGrid;
 
       const card = document.createElement('div');
-      card.style.cssText = 'background:#fff;border-radius:10px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,0.07);';
+      const isBottom = !topProds.includes(prod);
+      card.style.cssText = `background:#fff;border-radius:10px;padding:12px;box-shadow:0 2px 8px rgba(0,0,0,0.07);${isBottom ? 'width:calc(33.33% - 6px);flex-shrink:0;' : ''}`;
       card.innerHTML = `
-        <div style="font-size:11px;font-weight:700;color:#888;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:6px;">TOTAL ${prod.toUpperCase()} <span style="font-weight:400;color:#bbb;">${weekLabel}</span></div>
-        <div style="font-size:30px;font-weight:700;color:#1a1a2e;line-height:1;">${Number(total).toLocaleString('es-AR')}</div>
-        <div style="font-size:11px;color:#aaa;margin-bottom:14px;">uds</div>
-        <canvas id="chart_${prod}" height="160"></canvas>`;
+        <div style="font-size:10px;font-weight:700;color:#888;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:4px;">TOTAL ${prod.toUpperCase()} <span style="font-weight:400;color:#bbb;">${weekLabel}</span></div>
+        <div style="font-size:22px;font-weight:700;color:#1a1a2e;line-height:1;">${Number(total).toLocaleString('es-AR')}</div>
+        <div style="font-size:10px;color:#aaa;margin-bottom:10px;">uds</div>
+        <canvas id="chart_${prod}" height="110"></canvas>`;
       targetGrid.appendChild(card);
 
       setTimeout(() => {
@@ -1250,7 +1251,7 @@
           },
           options: {
             responsive: true,
-            layout: { padding: { top: 36 } },
+            layout: { padding: { top: 24 } },
             plugins: {
               legend: { display: false },
               datalabels: {
@@ -1283,17 +1284,13 @@
     const maqPointTotal = maqPointVals.reduce((a,b)=>a+b,0);
     const weekLabelMaq = weekLabel;
 
-    // Spacer to center Others and Maquila in 3-col grid
-    const spacer = document.createElement('div');
-    maqGrid.appendChild(spacer);
-
     const maqCard = document.createElement('div');
-    maqCard.style.cssText = 'background:#fff;border-radius:10px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,0.07);';
+    maqCard.style.cssText = 'background:#fff;border-radius:10px;padding:12px;box-shadow:0 2px 8px rgba(0,0,0,0.07);width:calc(33.33% - 6px);flex-shrink:0;';
     maqCard.innerHTML = `
-      <div style="font-size:11px;font-weight:700;color:#888;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:6px;">MAQUILA <span style="font-weight:400;color:#bbb;">${weekLabelMaq}</span></div>
-      <div style="font-size:30px;font-weight:700;color:#1a1a2e;line-height:1;">${Number(maqPointTotal).toLocaleString('es-AR')}</div>
-      <div style="font-size:11px;color:#aaa;margin-bottom:14px;">uds</div>
-      <canvas id="chart_maq_point" height="120"></canvas>`;
+      <div style="font-size:10px;font-weight:700;color:#888;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:4px;">MAQUILA <span style="font-weight:400;color:#bbb;">${weekLabelMaq}</span></div>
+      <div style="font-size:22px;font-weight:700;color:#1a1a2e;line-height:1;">${Number(maqPointTotal).toLocaleString('es-AR')}</div>
+      <div style="font-size:10px;color:#aaa;margin-bottom:10px;">uds</div>
+      <canvas id="chart_maq_point" height="110"></canvas>`;
     maqGrid.appendChild(maqCard);
 
     setTimeout(() => {
