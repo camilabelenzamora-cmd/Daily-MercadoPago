@@ -144,11 +144,9 @@
 
   <!-- CHARTS (Regional only) -->
   <div id="regionalCharts" style="display:none; margin-bottom:20px;">
-    <div style="font-size:14px;font-weight:700;color:#2c3e50;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:12px;">Outbound</div>
-    <div style="display:flex;justify-content:center;gap:12px;margin-bottom:12px;" id="chartsGridTop"></div>
+    <div style="font-size:14px;font-weight:700;color:#2c3e50;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:12px;">Outbound & Maquila</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px;" id="chartsGridTop"></div>
     <div style="display:flex;justify-content:center;gap:12px;margin-bottom:12px;" id="chartsGridBottom"></div>
-    <div style="font-size:14px;font-weight:700;color:#2c3e50;letter-spacing:0.5px;text-transform:uppercase;margin:16px 0 12px;">Maquila</div>
-    <div style="display:flex;justify-content:center;gap:12px;margin-bottom:12px;" id="chartsMaquilaGrid"></div>
     <div style="font-size:14px;font-weight:700;color:#2c3e50;letter-spacing:0.5px;text-transform:uppercase;margin:16px 0 12px;">Devoluciones</div>
     <div style="display:flex;justify-content:center;gap:12px;margin-bottom:12px;" id="chartsDevGrid"></div>
     <div style="display:flex;justify-content:center;gap:12px;" id="chartsDevBottomGrid"></div>
@@ -1215,17 +1213,16 @@
 
     const gridTop = document.getElementById('chartsGridTop'); gridTop.innerHTML = '';
     const gridBottom = document.getElementById('chartsGridBottom'); gridBottom.innerHTML = '';
-    const maqGrid = document.getElementById('chartsMaquilaGrid'); maqGrid.innerHTML = '';
     const devGrid = document.getElementById('chartsDevGrid'); devGrid.innerHTML = '';
     const devBottomGrid = document.getElementById('chartsDevBottomGrid'); devBottomGrid.innerHTML = '';
 
     const weekLabel = view === 'week' ? `· Week ${getISOWeek(regionalCursor)}` : '';
     const cardW = 'flex:0 0 calc(33.33% - 6px);max-width:calc(33.33% - 6px);';
     const prodIcons = {Cards:'💳', Point:'📱', Bobinas:'🧻', Others:'📦'};
-    ['Point','Cards','Bobinas','Others'].forEach(prod => {
+    ['Cards','Point','Bobinas','Others'].forEach(prod => {
       const vals = REGIONAL_SITES.map(s => sumDates(regionalData[s.code].despachos, d => d?.products?.[prod]));
       const total = vals.reduce((a,b)=>a+b,0);
-      const targetGrid = ['Point','Cards'].includes(prod) ? gridTop : gridBottom;
+      const targetGrid = ['Cards','Point','Bobinas'].includes(prod) ? gridTop : gridBottom;
 
       const card = document.createElement('div');
       card.style.cssText = `background:#fff;border-radius:12px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,0.08);${cardW}`;
@@ -1285,7 +1282,7 @@
       <div style="font-size:10px;font-weight:700;color:#888;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">🔧 MAQUILA POINT <span style="font-weight:400;color:#ccc;">${weekLabelMaq}</span></div>
       <div style="font-size:26px;font-weight:700;color:#1a1a2e;line-height:1.1;">${Number(maqPointTotal).toLocaleString('es-AR')} <span style="font-size:13px;font-weight:400;color:#aaa;">unds</span></div>
       <div style="margin-top:12px;"><canvas id="chart_maq_point" height="110"></canvas></div>`;
-    maqGrid.appendChild(maqCard);
+    gridBottom.appendChild(maqCard);
 
     setTimeout(() => {
       const ctx = document.getElementById('chart_maq_point');
