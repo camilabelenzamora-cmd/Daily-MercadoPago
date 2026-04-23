@@ -144,12 +144,14 @@
 
   <!-- CHARTS (Regional only) -->
   <div id="regionalCharts" style="display:none; margin-bottom:20px;">
-    <div style="font-size:14px;font-weight:700;color:#2c3e50;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:12px;">Outbound & Maquila</div>
-    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:12px;" id="chartsGrid"></div>
-    <div style="display:flex; justify-content:center; gap:12px;" id="chartsMaquilaGrid"></div>
-    <div style="font-size:14px;font-weight:700;color:#2c3e50;letter-spacing:0.5px;text-transform:uppercase;margin:20px 0 12px;">Devoluciones</div>
-    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:12px;" id="chartsDevGrid"></div>
-    <div style="display:flex; justify-content:center; gap:12px;" id="chartsDevBottomGrid"></div>
+    <div style="font-size:14px;font-weight:700;color:#2c3e50;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:12px;">Outbound</div>
+    <div style="display:flex;justify-content:center;gap:12px;margin-bottom:12px;" id="chartsGridTop"></div>
+    <div style="display:flex;justify-content:center;gap:12px;margin-bottom:12px;" id="chartsGridBottom"></div>
+    <div style="font-size:14px;font-weight:700;color:#2c3e50;letter-spacing:0.5px;text-transform:uppercase;margin:16px 0 12px;">Maquila</div>
+    <div style="display:flex;justify-content:center;gap:12px;margin-bottom:12px;" id="chartsMaquilaGrid"></div>
+    <div style="font-size:14px;font-weight:700;color:#2c3e50;letter-spacing:0.5px;text-transform:uppercase;margin:16px 0 12px;">Devoluciones</div>
+    <div style="display:flex;justify-content:center;gap:12px;margin-bottom:12px;" id="chartsDevGrid"></div>
+    <div style="display:flex;justify-content:center;gap:12px;" id="chartsDevBottomGrid"></div>
   </div>
 
   <div class="table-card">
@@ -1211,26 +1213,22 @@
     Object.values(regionalCharts).forEach(c => c.destroy());
     regionalCharts = {};
 
-    const grid = document.getElementById('chartsGrid');
-    grid.innerHTML = '';
-    const maqGrid = document.getElementById('chartsMaquilaGrid');
-    maqGrid.innerHTML = '';
-    const devGrid = document.getElementById('chartsDevGrid');
-    devGrid.innerHTML = '';
-    const devBottomGrid = document.getElementById('chartsDevBottomGrid');
-    devBottomGrid.innerHTML = '';
+    const gridTop = document.getElementById('chartsGridTop'); gridTop.innerHTML = '';
+    const gridBottom = document.getElementById('chartsGridBottom'); gridBottom.innerHTML = '';
+    const maqGrid = document.getElementById('chartsMaquilaGrid'); maqGrid.innerHTML = '';
+    const devGrid = document.getElementById('chartsDevGrid'); devGrid.innerHTML = '';
+    const devBottomGrid = document.getElementById('chartsDevBottomGrid'); devBottomGrid.innerHTML = '';
 
     const weekLabel = view === 'week' ? `· Week ${getISOWeek(regionalCursor)}` : '';
-    const topProds = ['Cards', 'Point', 'Bobinas'];
-    [...topProds, 'Others'].forEach(prod => {
+    const cardW = 'flex:0 0 calc(33.33% - 6px);max-width:calc(33.33% - 6px);';
+    const prodIcons = {Cards:'💳', Point:'📱', Bobinas:'🧻', Others:'📦'};
+    ['Point','Cards','Bobinas','Others'].forEach(prod => {
       const vals = REGIONAL_SITES.map(s => sumDates(regionalData[s.code].despachos, d => d?.products?.[prod]));
       const total = vals.reduce((a,b)=>a+b,0);
-      const targetGrid = topProds.includes(prod) ? grid : maqGrid;
+      const targetGrid = ['Point','Cards'].includes(prod) ? gridTop : gridBottom;
 
-      const prodIcons = {Cards:'💳', Point:'📱', Bobinas:'🧻', Others:'📦'};
       const card = document.createElement('div');
-      const isBottom = !topProds.includes(prod);
-      card.style.cssText = `background:#fff;border-radius:12px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,0.08);${isBottom ? 'width:calc(33.33% - 6px);flex-shrink:0;' : ''}`;
+      card.style.cssText = `background:#fff;border-radius:12px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,0.08);${cardW}`;
       card.innerHTML = `
         <div style="font-size:10px;font-weight:700;color:#888;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">${prodIcons[prod]||'📦'} TOTAL ${prod.toUpperCase()} <span style="font-weight:400;color:#ccc;">${weekLabel}</span></div>
         <div style="font-size:26px;font-weight:700;color:#1a1a2e;line-height:1.1;">${Number(total).toLocaleString('es-AR')} <span style="font-size:13px;font-weight:400;color:#aaa;">unds</span></div>
@@ -1282,7 +1280,7 @@
     const weekLabelMaq = weekLabel;
 
     const maqCard = document.createElement('div');
-    maqCard.style.cssText = 'background:#fff;border-radius:12px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,0.08);width:calc(33.33% - 6px);flex-shrink:0;';
+    maqCard.style.cssText = `background:#fff;border-radius:12px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,0.08);${cardW}`;
     maqCard.innerHTML = `
       <div style="font-size:10px;font-weight:700;color:#888;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">🔧 MAQUILA POINT <span style="font-weight:400;color:#ccc;">${weekLabelMaq}</span></div>
       <div style="font-size:26px;font-weight:700;color:#1a1a2e;line-height:1.1;">${Number(maqPointTotal).toLocaleString('es-AR')} <span style="font-size:13px;font-weight:400;color:#aaa;">unds</span></div>
@@ -1327,19 +1325,16 @@
       });
     });
 
-    const devIcons = { Point:'📱', Cards:'💳', Bobinas:'🧻', Others:'📦' };
-    const devTopProds = ['Cards', 'Point', 'Bobinas'];
-
-    Object.entries(devGroups).forEach(([group, bySite]) => {
+    ['Point','Cards','Bobinas','Others'].forEach(group => {
+      const bySite = devGroups[group] || {};
       const vals = REGIONAL_SITES.map(s => bySite[s.code] || 0);
       const total = vals.reduce((a,b)=>a+b,0);
-      const isBottom = !devTopProds.includes(group);
-      const targetGrid = isBottom ? devBottomGrid : devGrid;
+      const targetGrid = ['Point','Cards'].includes(group) ? devGrid : devBottomGrid;
 
       const card = document.createElement('div');
-      card.style.cssText = `background:#fff;border-radius:12px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,0.08);${isBottom ? 'width:calc(33.33% - 6px);flex-shrink:0;' : ''}`;
+      card.style.cssText = `background:#fff;border-radius:12px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,0.08);${cardW}`;
       card.innerHTML = `
-        <div style="font-size:10px;font-weight:700;color:#888;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">${devIcons[group]} DEV ${group.toUpperCase()} <span style="font-weight:400;color:#ccc;">${weekLabel}</span></div>
+        <div style="font-size:10px;font-weight:700;color:#888;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">${prodIcons[group]||'📦'} DEV ${group.toUpperCase()} <span style="font-weight:400;color:#ccc;">${weekLabel}</span></div>
         <div style="font-size:26px;font-weight:700;color:#1a1a2e;line-height:1.1;">${Number(total).toLocaleString('es-AR')} <span style="font-size:13px;font-weight:400;color:#aaa;">unds</span></div>
         <div style="margin-top:12px;"><canvas id="chart_dev_${group}" height="110"></canvas></div>`;
       targetGrid.appendChild(card);
