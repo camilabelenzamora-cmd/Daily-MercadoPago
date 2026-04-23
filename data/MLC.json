@@ -1,0 +1,214 @@
+{
+  "2026-04-13": {
+    "fecha": "2026-04-13",
+    "site": "MLC",
+    "products": {
+      "Cards": 0,
+      "Point": 81,
+      "Bobinas": 0,
+      "Others": 8794
+    },
+    "routes": {
+      "Cards": {},
+      "Point": {
+        "MELIENVIOS": 43,
+        "MELIENVIOS-RM": 38
+      },
+      "Bobinas": {},
+      "Others": {
+        "XD-CARDS": 6557,
+        "MELIENVIOS": 1212,
+        "MELIENVIOS-RM": 1025
+      }
+    },
+    "total_unidades": 8875,
+    "total_os": 7606,
+    "uploadedAt": "2026-04-23T23:37:38.115Z"
+  },
+  "2026-04-14": {
+    "fecha": "2026-04-14",
+    "site": "MLC",
+    "products": {
+      "Cards": 0,
+      "Point": 236,
+      "Bobinas": 0,
+      "Others": 5533
+    },
+    "routes": {
+      "Cards": {},
+      "Point": {
+        "FULL": 150,
+        "MELIENVIOS": 51,
+        "MELIENVIOS-RM": 35
+      },
+      "Bobinas": {},
+      "Others": {
+        "XD-CARDS": 3517,
+        "MELIENVIOS": 1149,
+        "MELIENVIOS-RM": 767,
+        "FULL": 100
+      }
+    },
+    "total_unidades": 5769,
+    "total_os": 4419,
+    "uploadedAt": "2026-04-23T23:37:38.119Z"
+  },
+  "2026-04-15": {
+    "fecha": "2026-04-15",
+    "site": "MLC",
+    "products": {
+      "Cards": 0,
+      "Point": 82,
+      "Bobinas": 0,
+      "Others": 5792
+    },
+    "routes": {
+      "Cards": {},
+      "Point": {
+        "MELIENVIOS": 48,
+        "MELIENVIOS-RM": 34
+      },
+      "Bobinas": {},
+      "Others": {
+        "XD-CARDS": 4518,
+        "MELIENVIOS": 823,
+        "MELIENVIOS-RM": 451
+      }
+    },
+    "total_unidades": 5874,
+    "total_os": 5323,
+    "uploadedAt": "2026-04-23T23:37:38.123Z"
+  },
+  "2026-04-16": {
+    "fecha": "2026-04-16",
+    "site": "MLC",
+    "products": {
+      "Cards": 0,
+      "Point": 58,
+      "Bobinas": 0,
+      "Others": 6521
+    },
+    "routes": {
+      "Cards": {},
+      "Point": {
+        "MELIENVIOS": 34,
+        "MELIENVIOS-RM": 24
+      },
+      "Bobinas": {},
+      "Others": {
+        "XD-CARDS": 4294,
+        "MELIENVIOS": 1487,
+        "MELIENVIOS-RM": 718,
+        "OFF": 22
+      }
+    },
+    "total_unidades": 6579,
+    "total_os": 5118,
+    "uploadedAt": "2026-04-23T23:37:38.125Z"
+  },
+  "2026-04-17": {
+    "fecha": "2026-04-17",
+    "site": "MLC",
+    "products": {
+      "Cards": 0,
+      "Point": 66,
+      "Bobinas": 0,
+      "Others": 5527
+    },
+    "routes": {
+      "Cards": {},
+      "Point": {
+        "MELIENVIOS": 33,
+        "MELIENVIOS-RM": 33
+      },
+      "Bobinas": {},
+      "Others": {
+        "XD-CARDS": 3839,
+        "MELIENVIOS": 994,
+        "MELIENVIOS-RM": 694
+      }
+    },
+    "total_unidades": 5593,
+    "total_os": 4534,
+    "uploadedAt": "2026-04-23T23:37:38.127Z"
+  },
+  "2026-04-18": {
+    "fecha": "2026-04-18",
+    "site": "MLC",
+    "products": {
+      "Cards": 0,
+      "Point": 27,
+      "Bobinas": 0,
+      "Others": 4301
+    },
+    "routes": {
+      "Cards": {},
+      "Point": {
+        "MELIENVIOS": 15,
+        "MELIENVIOS-RM": 12
+      },
+      "Bobinas": {},
+      "Others": {
+        "XD-CARDS": 3594,
+        "MELIENVIOS": 383,
+        "MELIENVIOS-RM": 324
+      }
+    },
+    "total_unidades": 4328,
+    "total_os": 4037,
+    "uploadedAt": "2026-04-23T23:37:38.129Z"
+  },
+  "2026-04-20": {
+    "fecha": "2026-04-20",
+    "site": "MLC",
+    "products": {
+      "Cards": 0,
+      "Point": 78,
+      "Bobinas": 0,
+      "Others": 8416
+    },
+    "routes": {
+      "Cards": {},
+      "Point": {
+        "MELIENVIOS": 47,
+        "MELIENVIOS-RM": 31
+      },
+      "Bobinas": {},
+      "Others": {
+        "XD-CARDS": 6902,
+        "MELIENVIOS": 961,
+        "MELIENVIOS-RM": 553
+      }
+    },
+    "total_unidades": 8494,
+    "total_os": 7714,
+    "uploadedAt": "2026-04-23T23:37:38.132Z"
+  },
+  "2026-04-21": {
+    "fecha": "2026-04-21",
+    "site": "MLC",
+    "products": {
+      "Cards": 0,
+      "Point": 71,
+      "Bobinas": 0,
+      "Others": 6888
+    },
+    "routes": {
+      "Cards": {},
+      "Point": {
+        "MELIENVIOS": 71
+      },
+      "Bobinas": {},
+      "Others": {
+        "XD-CARDS": 3804,
+        "MELIENVIOS": 2574,
+        "FULL": 500,
+        "99-MINUTOS": 7,
+        "MELIENVIOS-RM": 3
+      }
+    },
+    "total_unidades": 6959,
+    "total_os": 4809,
+    "uploadedAt": "2026-04-23T23:37:38.136Z"
+  }
+}
