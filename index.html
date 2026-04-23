@@ -147,6 +147,9 @@
     <div style="font-size:14px;font-weight:700;color:#2c3e50;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:12px;">Outbound & Maquila</div>
     <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:12px;" id="chartsGrid"></div>
     <div style="display:flex; justify-content:center; gap:12px;" id="chartsMaquilaGrid"></div>
+    <div style="font-size:14px;font-weight:700;color:#2c3e50;letter-spacing:0.5px;text-transform:uppercase;margin:20px 0 12px;">Devoluciones</div>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:12px;" id="chartsDevGrid"></div>
+    <div style="display:flex; justify-content:center; gap:12px;" id="chartsDevBottomGrid"></div>
   </div>
 
   <div class="table-card">
@@ -1161,25 +1164,7 @@
 
     // MAQUILA — shown as chart, not in table
 
-    // DEVOLUCIONES section
-    const trDev = document.createElement('tr'); trDev.className='row-section';
-    trDev.innerHTML = `<td>DEVOLUCIONES</td>` + REGIONAL_SITES.map(()=>'<td></td>').join('') + '<td></td>';
-    tbody.appendChild(trDev);
-
-    const allDevProds = new Set();
-    REGIONAL_SITES.forEach(s => dates.forEach(d => Object.keys(regionalData[s.code].asn[d]?.devoluciones?.products||{}).forEach(p => allDevProds.add(p))));
-    allDevProds.forEach(prod => {
-      const vals = REGIONAL_SITES.map(s => sumDates(regionalData[s.code].asn, d => d?.devoluciones?.products?.[prod]));
-      const total = vals.reduce((a,b)=>a+b,0);
-      const tr = document.createElement('tr'); tr.className='row-product';
-      tr.innerHTML = `<td>${prod}</td>` + vals.map(v=>`<td>${fmt(v||null)}</td>`).join('') + `<td><strong>${fmtN(total)}</strong></td>`;
-      tbody.appendChild(tr);
-    });
-
-    const devTotVals = REGIONAL_SITES.map(s => sumDates(regionalData[s.code].asn, d => d?.devoluciones?.total));
-    const trDevTot = document.createElement('tr'); trDevTot.className='row-maquila-total';
-    trDevTot.innerHTML = `<td>Total Devoluciones</td>` + devTotVals.map(v=>`<td>${fmt(v||null)}</td>`).join('') + `<td>${fmtN(devTotVals.reduce((a,b)=>a+b,0))}</td>`;
-    tbody.appendChild(trDevTot);
+    // DEVOLUCIONES — shown as charts
 
     // INBOUND section
     const trInb = document.createElement('tr'); trInb.className='row-section';
@@ -1207,6 +1192,14 @@
       return name;
     }
 
+    function groupDevProd(name) {
+      const n = (name || '').toLowerCase();
+      if (n.includes('point') || n.includes('n950') || n.includes('smart')) return 'Point';
+      if (n.startsWith('card') || n.includes('tarjeta')) return 'Cards';
+      if (n.includes('bobina') || n.includes('rollo')) return 'Bobinas';
+      return 'Others';
+    }
+
     // ── OUTBOUND CHARTS ───────────────────────────────
     document.getElementById('regionalCharts').style.display = 'block';
     document.getElementById('emptyState').style.display = 'none';
@@ -1222,6 +1215,10 @@
     grid.innerHTML = '';
     const maqGrid = document.getElementById('chartsMaquilaGrid');
     maqGrid.innerHTML = '';
+    const devGrid = document.getElementById('chartsDevGrid');
+    devGrid.innerHTML = '';
+    const devBottomGrid = document.getElementById('chartsDevBottomGrid');
+    devBottomGrid.innerHTML = '';
 
     const weekLabel = view === 'week' ? `· Week ${getISOWeek(regionalCursor)}` : '';
     const topProds = ['Cards', 'Point', 'Bobinas'];
@@ -1318,6 +1315,62 @@
         plugins: [ChartDataLabels]
       });
     }, 50);
+
+    // ── DEVOLUCIONES CHARTS ───────────────────────────
+    const devGroups = { Point: {}, Cards: {}, Bobinas: {}, Others: {} };
+    REGIONAL_SITES.forEach(s => {
+      dates.forEach(d => {
+        Object.entries(regionalData[s.code].asn[d]?.devoluciones?.products || {}).forEach(([prod, uds]) => {
+          const group = groupDevProd(prod);
+          devGroups[group][s.code] = (devGroups[group][s.code] || 0) + uds;
+        });
+      });
+    });
+
+    const devIcons = { Point:'📱', Cards:'💳', Bobinas:'🧻', Others:'📦' };
+    const devTopProds = ['Cards', 'Point', 'Bobinas'];
+
+    Object.entries(devGroups).forEach(([group, bySite]) => {
+      const vals = REGIONAL_SITES.map(s => bySite[s.code] || 0);
+      const total = vals.reduce((a,b)=>a+b,0);
+      const isBottom = !devTopProds.includes(group);
+      const targetGrid = isBottom ? devBottomGrid : devGrid;
+
+      const card = document.createElement('div');
+      card.style.cssText = `background:#fff;border-radius:12px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,0.08);${isBottom ? 'width:calc(33.33% - 6px);flex-shrink:0;' : ''}`;
+      card.innerHTML = `
+        <div style="font-size:10px;font-weight:700;color:#888;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">${devIcons[group]} DEV ${group.toUpperCase()} <span style="font-weight:400;color:#ccc;">${weekLabel}</span></div>
+        <div style="font-size:26px;font-weight:700;color:#1a1a2e;line-height:1.1;">${Number(total).toLocaleString('es-AR')} <span style="font-size:13px;font-weight:400;color:#aaa;">unds</span></div>
+        <div style="margin-top:12px;"><canvas id="chart_dev_${group}" height="110"></canvas></div>`;
+      targetGrid.appendChild(card);
+
+      setTimeout(() => {
+        const ctx = document.getElementById('chart_dev_' + group);
+        if (!ctx) return;
+        if (regionalCharts['dev_'+group]) regionalCharts['dev_'+group].destroy();
+        regionalCharts['dev_'+group] = new Chart(ctx, {
+          type: 'bar',
+          data: { labels: flags, datasets: [{ data: vals, backgroundColor: barColors, borderRadius: 6, borderSkipped: false }] },
+          options: {
+            responsive: true,
+            layout: { padding: { top: 24 } },
+            plugins: {
+              legend: { display: false },
+              datalabels: {
+                anchor: 'end', align: 'end',
+                formatter: v => v > 0 ? Number(v).toLocaleString('es-AR') : '',
+                font: { weight: '700', size: 11 }, color: '#2c3e50'
+              }
+            },
+            scales: {
+              y: { display: false, beginAtZero: true },
+              x: { ticks: { font: { size: 18 } }, grid: { display: false }, border: { display: false } }
+            }
+          },
+          plugins: [ChartDataLabels]
+        });
+      }, 50);
+    });
   }
 
   // ── INIT ──────────────────────────────────────────────
