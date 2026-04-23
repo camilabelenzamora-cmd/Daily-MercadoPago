@@ -544,14 +544,24 @@
   }
 
   function setView(v) {
-    view = v; cursor = null; expandedProducts.clear(); expandedMaquilaProds.clear(); expandedInboundSuppliers.clear();
+    view = v; cursor = null; regionalCursor = null; expandedProducts.clear(); expandedMaquilaProds.clear(); expandedInboundSuppliers.clear();
     document.getElementById('btnWeek').classList.toggle('active', v==='week');
     document.getElementById('btnMonth').classList.toggle('active', v==='month');
+    if (isRegional) { selectRegional(); return; }
     render();
   }
 
   function navigate(dir) {
-    if (isRegional) { regionalCursor = addDays(regionalCursor, dir*7); renderRegional(); return; }
+    if (isRegional) {
+      if (view === 'month') {
+        const [y, m] = regionalCursor.split('-').map(Number);
+        const d = new Date(y, m - 1 + dir, 1);
+        regionalCursor = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+      } else {
+        regionalCursor = addDays(regionalCursor, dir*7);
+      }
+      renderRegional(); return;
+    }
     if (view === 'week') cursor = addDays(cursor, dir*7);
     else cursor = String(parseInt(cursor) + dir);
     render();
@@ -1060,8 +1070,15 @@
     document.getElementById('btnMonth').classList.remove('active');
     showLoading();
 
-    // Default cursor = previous week
-    if (!regionalCursor) regionalCursor = getMonday(addDays(isoDate(new Date()), -7));
+    // Default cursor = previous week or previous month
+    if (!regionalCursor) {
+      if (view === 'month') {
+        const n = new Date(); n.setMonth(n.getMonth()-1);
+        regionalCursor = `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}`;
+      } else {
+        regionalCursor = getMonday(addDays(isoDate(new Date()), -7));
+      }
+    }
 
     const results = await Promise.all(REGIONAL_SITES.map(s =>
       Promise.all([loadHistory(s.code), loadMaquilaHistory(s.code), loadASNHistory(s.code)])
@@ -1073,9 +1090,20 @@
   }
 
   function renderRegional() {
-    if (!regionalCursor) regionalCursor = getMonday(addDays(isoDate(new Date()), -7));
-    const dates = Array.from({length:5}, (_,i) => addDays(regionalCursor, i));
-    document.getElementById('navLabel').textContent = `Semana ${shortDate(regionalCursor)} — ${shortDate(addDays(regionalCursor,4))}`;
+    if (!regionalCursor) return;
+    document.getElementById('weekSelector').style.display = 'none';
+
+    let dates = [];
+    if (view === 'month') {
+      const [year, month] = regionalCursor.split('-').map(Number);
+      document.getElementById('navLabel').textContent = `${MONTHS_ES[month-1]} ${year}`;
+      // All days in the month
+      const daysInMonth = new Date(year, month, 0).getDate();
+      dates = Array.from({length: daysInMonth}, (_, i) => `${year}-${String(month).padStart(2,'0')}-${String(i+1).padStart(2,'0')}`);
+    } else {
+      dates = Array.from({length:5}, (_,i) => addDays(regionalCursor, i));
+      document.getElementById('navLabel').textContent = `Semana ${shortDate(regionalCursor)} — ${shortDate(addDays(regionalCursor,4))}`;
+    }
 
     const hasAny = REGIONAL_SITES.some(s =>
       dates.some(d => regionalData[s.code]?.despachos[d] || regionalData[s.code]?.maquila[d] || regionalData[s.code]?.asn[d])
