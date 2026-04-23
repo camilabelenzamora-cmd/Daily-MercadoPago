@@ -143,12 +143,7 @@
 
   <!-- CHARTS (Regional only) -->
   <div id="regionalCharts" style="display:none; margin-bottom:20px;">
-    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px;">
-      <div class="table-card" style="padding:16px;"><canvas id="chartCards"></canvas></div>
-      <div class="table-card" style="padding:16px;"><canvas id="chartPoint"></canvas></div>
-      <div class="table-card" style="padding:16px;"><canvas id="chartBobinas"></canvas></div>
-      <div class="table-card" style="padding:16px;"><canvas id="chartOthers"></canvas></div>
-    </div>
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px;" id="chartsGrid"></div>
   </div>
 
   <div class="table-card">
@@ -1263,36 +1258,47 @@
     // ── OUTBOUND CHARTS ───────────────────────────────
     document.getElementById('regionalCharts').style.display = 'block';
     const flags = REGIONAL_SITES.map(s => s.flag);
-    const colors = ['#3483FA', '#00a650', '#FF6B35', '#9B59B6'];
+    const barColors = ['#3483FA', '#00a650', '#FF6B35', '#9B59B6'];
+
+    // Destroy existing charts
+    Object.values(regionalCharts).forEach(c => c.destroy());
+    regionalCharts = {};
+
+    const grid = document.getElementById('chartsGrid');
+    grid.innerHTML = '';
 
     PRODUCTS.forEach(prod => {
-      const canvasId = 'chart' + prod;
       const vals = REGIONAL_SITES.map(s => sumDates(regionalData[s.code].despachos, d => d?.products?.[prod]));
-      if (regionalCharts[prod]) regionalCharts[prod].destroy();
-      regionalCharts[prod] = new Chart(document.getElementById(canvasId), {
-        type: 'bar',
-        data: {
-          labels: flags,
-          datasets: [{
-            label: prod,
-            data: vals,
-            backgroundColor: colors,
-            borderRadius: 6,
-            borderSkipped: false
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            legend: { display: false },
-            title: { display: true, text: prod, font: { size: 13, weight: '700' }, color: '#2c3e50' }
+      const total = vals.reduce((a,b)=>a+b,0);
+
+      const card = document.createElement('div');
+      card.style.cssText = 'background:#fff;border-radius:10px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,0.07);';
+      card.innerHTML = `
+        <div style="font-size:11px;font-weight:700;color:#888;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:4px;">OUTBOUND · ${prod}</div>
+        <div style="font-size:26px;font-weight:700;color:#1a1a2e;line-height:1;">${Number(total).toLocaleString('es-AR')}</div>
+        <div style="font-size:11px;color:#aaa;margin-bottom:12px;">uds totales</div>
+        <canvas id="chart_${prod}" height="140"></canvas>`;
+      grid.appendChild(card);
+
+      setTimeout(() => {
+        const ctx = document.getElementById('chart_' + prod);
+        if (!ctx) return;
+        regionalCharts[prod] = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: flags,
+            datasets: [{ data: vals, backgroundColor: barColors, borderRadius: 6, borderSkipped: false }]
           },
-          scales: {
-            y: { beginAtZero: true, ticks: { callback: v => Number(v).toLocaleString('es-AR') } },
-            x: { ticks: { font: { size: 16 } } }
+          options: {
+            responsive: true,
+            plugins: { legend: { display: false } },
+            scales: {
+              y: { beginAtZero: true, ticks: { font:{size:10}, callback: v => Number(v).toLocaleString('es-AR') }, grid: { color: '#f0f0f0' } },
+              x: { ticks: { font: { size: 18 } }, grid: { display: false } }
+            }
           }
-        }
-      });
+        });
+      }, 50);
     });
   }
 
