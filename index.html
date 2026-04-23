@@ -140,6 +140,16 @@
     <select id="weekSelector" onchange="jumpToWeek(this.value)" style="display:none; border:1px solid #dce3ea; border-radius:6px; padding:6px 10px; font-size:13px; color:#333; cursor:pointer; background:#fff;"></select>
   </div>
 
+  <!-- CHARTS (Regional only) -->
+  <div id="regionalCharts" style="display:none; margin-bottom:20px;">
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px;">
+      <div class="table-card" style="padding:16px;"><canvas id="chartCards"></canvas></div>
+      <div class="table-card" style="padding:16px;"><canvas id="chartPoint"></canvas></div>
+      <div class="table-card" style="padding:16px;"><canvas id="chartBobinas"></canvas></div>
+      <div class="table-card" style="padding:16px;"><canvas id="chartOthers"></canvas></div>
+    </div>
+  </div>
+
   <div class="table-card">
     <div id="emptyState" class="empty-state">
       <div class="icon">📊</div>
@@ -273,6 +283,7 @@
   let history = {};
   let maquilaHistory = {};
   let isRegional = false;
+  let regionalCharts = {};
   let regionalData = {};
   let regionalCursor = null;
   let expandedProducts = new Set();
@@ -532,6 +543,7 @@
   async function selectSite(site) {
     currentSite = site;
     isRegional = false;
+    document.getElementById('regionalCharts').style.display = 'none';
     expandedProducts.clear();
     expandedMaquilaProds.clear();
     expandedInboundSuppliers.clear();
@@ -1246,6 +1258,41 @@
     const trInbTot = document.createElement('tr'); trInbTot.className='row-maquila-total';
     trInbTot.innerHTML = `<td>Total Inbound</td>` + inbTotVals.map(v=>`<td>${fmt(v||null)}</td>`).join('') + `<td>${fmtN(inbTotVals.reduce((a,b)=>a+b,0))}</td>`;
     tbody.appendChild(trInbTot);
+
+    // ── OUTBOUND CHARTS ───────────────────────────────
+    document.getElementById('regionalCharts').style.display = 'block';
+    const flags = REGIONAL_SITES.map(s => s.flag);
+    const colors = ['#3483FA', '#00a650', '#FF6B35', '#9B59B6'];
+
+    PRODUCTS.forEach(prod => {
+      const canvasId = 'chart' + prod;
+      const vals = REGIONAL_SITES.map(s => sumDates(regionalData[s.code].despachos, d => d?.products?.[prod]));
+      if (regionalCharts[prod]) regionalCharts[prod].destroy();
+      regionalCharts[prod] = new Chart(document.getElementById(canvasId), {
+        type: 'bar',
+        data: {
+          labels: flags,
+          datasets: [{
+            label: prod,
+            data: vals,
+            backgroundColor: colors,
+            borderRadius: 6,
+            borderSkipped: false
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: false },
+            title: { display: true, text: prod, font: { size: 13, weight: '700' }, color: '#2c3e50' }
+          },
+          scales: {
+            y: { beginAtZero: true, ticks: { callback: v => Number(v).toLocaleString('es-AR') } },
+            x: { ticks: { font: { size: 16 } } }
+          }
+        }
+      });
+    });
   }
 
   // ── INIT ──────────────────────────────────────────────
