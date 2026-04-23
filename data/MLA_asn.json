@@ -171,5 +171,29 @@
       "total": 57600
     },
     "uploadedAt": "2026-04-22T22:00:30.758Z"
+  },
+  "2026-04-22": {
+    "fecha": "2026-04-22",
+    "site": "MLA",
+    "devoluciones": {
+      "products": {
+        "Tarjetas Prepagadas": 210,
+        "Tarjeta de Crédito": 650
+      },
+      "total": 860
+    },
+    "inbound": {
+      "suppliers": {
+        "GPC": {
+          "total": 20050,
+          "products": {
+            "Tarjeta de Crédito": 10000,
+            "Tarjetas Prepagadas": 10050
+          }
+        }
+      },
+      "total": 20050
+    },
+    "uploadedAt": "2026-04-23T01:35:49.574Z"
   }
 }
