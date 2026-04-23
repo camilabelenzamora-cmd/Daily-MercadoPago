@@ -949,7 +949,7 @@
     if (!cursor) { const n=new Date(); cursor=String(n.getFullYear()); }
 
     // All months with data for the selected year
-    const allDates = Object.keys(history).sort();
+    const allDates = [...new Set([...Object.keys(history), ...Object.keys(maquilaHistory), ...Object.keys(asnHistory)])].sort();
     const months = [...new Set(allDates.filter(d => d.startsWith(cursor)).map(d => d.slice(0,7)))].sort();
 
     document.getElementById('navLabel').textContent = `Año ${cursor}`;
