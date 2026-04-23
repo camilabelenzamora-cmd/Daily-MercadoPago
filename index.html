@@ -1212,7 +1212,7 @@
     document.getElementById('emptyState').style.display = 'none';
     showTable();
     const flags = REGIONAL_SITES.map(s => s.flag);
-    const barColors = ['#3483FA', '#00a650', '#FF6B35', '#9B59B6'];
+    const barColors = ['#00b386', '#00b386', '#00b386', '#00b386'];
 
     // Destroy existing charts
     Object.values(regionalCharts).forEach(c => c.destroy());
@@ -1230,14 +1230,14 @@
       const total = vals.reduce((a,b)=>a+b,0);
       const targetGrid = topProds.includes(prod) ? grid : maqGrid;
 
+      const prodIcons = {Cards:'💳', Point:'📱', Bobinas:'🧻', Others:'📦'};
       const card = document.createElement('div');
       const isBottom = !topProds.includes(prod);
-      card.style.cssText = `background:#fff;border-radius:10px;padding:12px;box-shadow:0 2px 8px rgba(0,0,0,0.07);${isBottom ? 'width:calc(33.33% - 6px);flex-shrink:0;' : ''}`;
+      card.style.cssText = `background:#fff;border-radius:12px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,0.08);${isBottom ? 'width:calc(33.33% - 6px);flex-shrink:0;' : ''}`;
       card.innerHTML = `
-        <div style="font-size:10px;font-weight:700;color:#888;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:4px;">TOTAL ${prod.toUpperCase()} <span style="font-weight:400;color:#bbb;">${weekLabel}</span></div>
-        <div style="font-size:22px;font-weight:700;color:#1a1a2e;line-height:1;">${Number(total).toLocaleString('es-AR')}</div>
-        <div style="font-size:10px;color:#aaa;margin-bottom:10px;">uds</div>
-        <canvas id="chart_${prod}" height="110"></canvas>`;
+        <div style="font-size:10px;font-weight:700;color:#888;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">${prodIcons[prod]||'📦'} TOTAL ${prod.toUpperCase()} <span style="font-weight:400;color:#ccc;">${weekLabel}</span></div>
+        <div style="font-size:26px;font-weight:700;color:#1a1a2e;line-height:1.1;">${Number(total).toLocaleString('es-AR')} <span style="font-size:13px;font-weight:400;color:#aaa;">unds</span></div>
+        <div style="margin-top:12px;"><canvas id="chart_${prod}" height="110"></canvas></div>`;
       targetGrid.appendChild(card);
 
       setTimeout(() => {
@@ -1285,12 +1285,11 @@
     const weekLabelMaq = weekLabel;
 
     const maqCard = document.createElement('div');
-    maqCard.style.cssText = 'background:#fff;border-radius:10px;padding:12px;box-shadow:0 2px 8px rgba(0,0,0,0.07);width:calc(33.33% - 6px);flex-shrink:0;';
+    maqCard.style.cssText = 'background:#fff;border-radius:12px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,0.08);width:calc(33.33% - 6px);flex-shrink:0;';
     maqCard.innerHTML = `
-      <div style="font-size:10px;font-weight:700;color:#888;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:4px;">MAQUILA <span style="font-weight:400;color:#bbb;">${weekLabelMaq}</span></div>
-      <div style="font-size:22px;font-weight:700;color:#1a1a2e;line-height:1;">${Number(maqPointTotal).toLocaleString('es-AR')}</div>
-      <div style="font-size:10px;color:#aaa;margin-bottom:10px;">uds</div>
-      <canvas id="chart_maq_point" height="110"></canvas>`;
+      <div style="font-size:10px;font-weight:700;color:#888;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">🔧 MAQUILA POINT <span style="font-weight:400;color:#ccc;">${weekLabelMaq}</span></div>
+      <div style="font-size:26px;font-weight:700;color:#1a1a2e;line-height:1.1;">${Number(maqPointTotal).toLocaleString('es-AR')} <span style="font-size:13px;font-weight:400;color:#aaa;">unds</span></div>
+      <div style="margin-top:12px;"><canvas id="chart_maq_point" height="110"></canvas></div>`;
     maqGrid.appendChild(maqCard);
 
     setTimeout(() => {
