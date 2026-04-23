@@ -1066,8 +1066,8 @@
     document.querySelectorAll('.country-tab').forEach(t => t.classList.remove('active'));
     document.querySelector('[data-site="REGIONAL"]').classList.add('active');
     document.getElementById('weekSelector').style.display = 'none';
-    document.getElementById('btnWeek').classList.add('active');
-    document.getElementById('btnMonth').classList.remove('active');
+    document.getElementById('btnWeek').classList.toggle('active', view === 'week');
+    document.getElementById('btnMonth').classList.toggle('active', view === 'month');
     showLoading();
 
     // Default cursor = previous week or previous month
