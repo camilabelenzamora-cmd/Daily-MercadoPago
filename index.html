@@ -146,6 +146,8 @@
   <div id="regionalCharts" style="display:none; margin-bottom:20px;">
     <div style="font-size:14px;font-weight:700;color:#2c3e50;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:12px;">Outbound</div>
     <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px;" id="chartsGrid"></div>
+    <div style="font-size:14px;font-weight:700;color:#2c3e50;letter-spacing:0.5px;text-transform:uppercase;margin:20px 0 12px;">Maquila</div>
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px;" id="chartsMaquilaGrid"></div>
   </div>
 
   <div class="table-card">
@@ -1158,45 +1160,7 @@
     // Helper: sum across dates for a site
     const sumDates = (data, fn) => dates.reduce((s, d) => s + (fn(data[d]) || 0), 0);
 
-    // MAQUILA section
-    const trMaq = document.createElement('tr'); trMaq.className='row-section';
-    trMaq.innerHTML = `<td>MAQUILA</td>` + REGIONAL_SITES.map(()=>'<td></td>').join('') + '<td></td>';
-    tbody.appendChild(trMaq);
-
-    function groupMaquilaProd(name) {
-      const n = (name || '').toLowerCase();
-      if (n.includes('point') || n.includes('n950') || n.includes('smart')) return 'Point';
-      return name;
-    }
-
-    // Build grouped maquila products
-    const maqGrouped = {};
-    REGIONAL_SITES.forEach(s => {
-      dates.forEach(d => {
-        Object.entries(regionalData[s.code].maquila[d]?.products || {}).forEach(([prod, uds]) => {
-          const group = groupMaquilaProd(prod);
-          if (!maqGrouped[group]) maqGrouped[group] = {};
-          maqGrouped[group][s.code] = (maqGrouped[group][s.code] || 0) + uds;
-        });
-      });
-    });
-
-    Object.entries(maqGrouped).sort((a,b) => {
-      const ta = Object.values(a[1]).reduce((s,v)=>s+v,0);
-      const tb = Object.values(b[1]).reduce((s,v)=>s+v,0);
-      return tb - ta;
-    }).forEach(([prod, bySite]) => {
-      const vals = REGIONAL_SITES.map(s => bySite[s.code] || 0);
-      const total = vals.reduce((a,b)=>a+b,0);
-      const tr = document.createElement('tr'); tr.className='row-product';
-      tr.innerHTML = `<td>${prod}</td>` + vals.map(v=>`<td>${fmt(v||null)}</td>`).join('') + `<td><strong>${fmtN(total)}</strong></td>`;
-      tbody.appendChild(tr);
-    });
-
-    const maqTotVals = REGIONAL_SITES.map(s => sumDates(regionalData[s.code].maquila, d => d?.total));
-    const trMaqTot = document.createElement('tr'); trMaqTot.className='row-maquila-total';
-    trMaqTot.innerHTML = `<td>Total Maquilado</td>` + maqTotVals.map(v=>`<td>${fmt(v||null)}</td>`).join('') + `<td>${fmtN(maqTotVals.reduce((a,b)=>a+b,0))}</td>`;
-    tbody.appendChild(trMaqTot);
+    // MAQUILA — shown as chart, not in table
 
     // DEVOLUCIONES section
     const trDev = document.createElement('tr'); trDev.className='row-section';
@@ -1238,6 +1202,12 @@
     trInbTot.innerHTML = `<td>Total Inbound</td>` + inbTotVals.map(v=>`<td>${fmt(v||null)}</td>`).join('') + `<td>${fmtN(inbTotVals.reduce((a,b)=>a+b,0))}</td>`;
     tbody.appendChild(trInbTot);
 
+    function groupMaquilaProd(name) {
+      const n = (name || '').toLowerCase();
+      if (n.includes('point') || n.includes('n950') || n.includes('smart')) return 'Point';
+      return name;
+    }
+
     // ── OUTBOUND CHARTS ───────────────────────────────
     document.getElementById('regionalCharts').style.display = 'block';
     document.getElementById('emptyState').style.display = 'none';
@@ -1251,6 +1221,8 @@
 
     const grid = document.getElementById('chartsGrid');
     grid.innerHTML = '';
+    const maqGrid = document.getElementById('chartsMaquilaGrid');
+    maqGrid.innerHTML = '';
 
     PRODUCTS.forEach(prod => {
       const vals = REGIONAL_SITES.map(s => sumDates(regionalData[s.code].despachos, d => d?.products?.[prod]));
@@ -1296,6 +1268,55 @@
         });
       }, 50);
     });
+
+    // ── MAQUILA POINT CHART ───────────────────────────
+    const maqPointVals = REGIONAL_SITES.map(s => {
+      let total = 0;
+      dates.forEach(d => {
+        Object.entries(regionalData[s.code].maquila[d]?.products || {}).forEach(([prod, uds]) => {
+          if (groupMaquilaProd(prod) === 'Point') total += uds;
+        });
+      });
+      return total;
+    });
+    const maqPointTotal = maqPointVals.reduce((a,b)=>a+b,0);
+    const weekLabelMaq = view === 'week' ? `· Week ${getISOWeek(regionalCursor)}` : '';
+
+    const maqCard = document.createElement('div');
+    maqCard.style.cssText = 'background:#fff;border-radius:10px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,0.07);';
+    maqCard.innerHTML = `
+      <div style="font-size:11px;font-weight:700;color:#888;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:6px;">TOTAL POINT <span style="font-weight:400;color:#bbb;">${weekLabelMaq}</span></div>
+      <div style="font-size:30px;font-weight:700;color:#1a1a2e;line-height:1;">${Number(maqPointTotal).toLocaleString('es-AR')}</div>
+      <div style="font-size:11px;color:#aaa;margin-bottom:14px;">uds</div>
+      <canvas id="chart_maq_point" height="160"></canvas>`;
+    maqGrid.appendChild(maqCard);
+
+    setTimeout(() => {
+      const ctx = document.getElementById('chart_maq_point');
+      if (!ctx) return;
+      if (regionalCharts['maq_point']) regionalCharts['maq_point'].destroy();
+      regionalCharts['maq_point'] = new Chart(ctx, {
+        type: 'bar',
+        data: { labels: flags, datasets: [{ data: maqPointVals, backgroundColor: barColors, borderRadius: 6, borderSkipped: false }] },
+        options: {
+          responsive: true,
+          layout: { padding: { top: 36 } },
+          plugins: {
+            legend: { display: false },
+            datalabels: {
+              anchor: 'end', align: 'end',
+              formatter: v => v > 0 ? Number(v).toLocaleString('es-AR') : '',
+              font: { weight: '700', size: 11 }, color: '#2c3e50'
+            }
+          },
+          scales: {
+            y: { display: false, beginAtZero: true },
+            x: { ticks: { font: { size: 18 } }, grid: { display: false }, border: { display: false } }
+          }
+        },
+        plugins: [ChartDataLabels]
+      });
+    }, 50);
   }
 
   // ── INIT ──────────────────────────────────────────────
