@@ -476,9 +476,9 @@
 
   function classifyProduct(nom) {
     const n = (nom || '').trim().toLowerCase();
-    if (n.includes('tarjeta')) return 'Cards';
-    if (n.startsWith('point')) return 'Point';
-    if (n.includes('bobina') || n.includes('kit rollo')) return 'Bobinas';
+    if (n.includes('tarjeta') || n.includes('card') || n.includes('prepaid')) return 'Cards';
+    if (n.startsWith('point') || n.includes('n950') || (n.includes('smart') && !n.startsWith('funda'))) return 'Point';
+    if (n.includes('bobina') || n.includes('kit rollo') || n.startsWith('rollo')) return 'Bobinas';
     return 'Others';
   }
 
