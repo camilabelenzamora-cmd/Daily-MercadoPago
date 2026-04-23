@@ -149,5 +149,36 @@
       "total": 0
     },
     "uploadedAt": "2026-04-22T23:07:01.048Z"
+  },
+  "2026-04-22": {
+    "fecha": "2026-04-22",
+    "site": "MLC",
+    "devoluciones": {
+      "products": {
+        "Prepaid Card SCRAP": 2,
+        "Rollos Caja 50": 9,
+        "Rollos Display 10": 52,
+        "Prepaid Card": 123,
+        "Point Mini Scrap": 2,
+        "Point Mini": 1,
+        "Smart Servicio Técnico": 10,
+        "N950 Servicio Tecnico": 20,
+        "N950 Maquilado": 16
+      },
+      "total": 235
+    },
+    "inbound": {
+      "suppliers": {
+        "IBM": {
+          "total": 16,
+          "products": {
+            "N950 Servicio Tecnico": 1,
+            "Smart Refurbish Entel": 15
+          }
+        }
+      },
+      "total": 16
+    },
+    "uploadedAt": "2026-04-23T01:47:33.428Z"
   }
 }
