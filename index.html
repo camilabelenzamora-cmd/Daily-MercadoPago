@@ -676,8 +676,7 @@
 
     // Total Presentes = Headcount - Ausentes
     const totPresVals = cols.map((c, i) => {
-      const hasD = c.dates.some(d=>headcountData.days[d]);
-      if (!hasD || headcountVals[i] == null) return null;
+      if (headcountVals[i] == null) return null;
       const gest = c.dates.reduce((s,d)=>s+(headcountData.days[d]?.ausentes_gestionables||0),0);
       const noGest = c.dates.reduce((s,d)=>s+(headcountData.days[d]?.ausentes_no_gestionables||0),0);
       return headcountVals[i] - gest - noGest;
