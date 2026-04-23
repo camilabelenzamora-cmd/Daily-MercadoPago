@@ -336,7 +336,7 @@
 
   async function loadHeadcountData(site) {
     const d = await loadRaw(`data/${site}_headcount.json`);
-    return (d && typeof d === 'object') ? { total: d.total || null, days: d.days || {} } : { total: null, days: {} };
+    return (d && typeof d === 'object') ? { total: d.total || null, totals: d.totals || [], days: d.days || {} } : { total: null, totals: [], days: {} };
   }
   async function saveHeadcountData(site, data) {
     const content = JSON.stringify(data, null, 2);
