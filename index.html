@@ -146,7 +146,7 @@
   <div id="regionalCharts" style="display:none; margin-bottom:20px;">
     <div style="font-size:14px;font-weight:700;color:#2c3e50;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:12px;">Outbound & Maquila</div>
     <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:16px;" id="chartsGrid"></div>
-    <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:16px;" id="chartsMaquilaGrid"></div>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px;" id="chartsMaquilaGrid"></div>
   </div>
 
   <div class="table-card">
@@ -1283,10 +1283,14 @@
     const maqPointTotal = maqPointVals.reduce((a,b)=>a+b,0);
     const weekLabelMaq = weekLabel;
 
+    // Spacer to center Others and Maquila in 3-col grid
+    const spacer = document.createElement('div');
+    maqGrid.appendChild(spacer);
+
     const maqCard = document.createElement('div');
     maqCard.style.cssText = 'background:#fff;border-radius:10px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,0.07);';
     maqCard.innerHTML = `
-      <div style="font-size:11px;font-weight:700;color:#888;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:6px;">TOTAL POINT <span style="font-weight:400;color:#bbb;">${weekLabelMaq}</span></div>
+      <div style="font-size:11px;font-weight:700;color:#888;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:6px;">MAQUILA <span style="font-weight:400;color:#bbb;">${weekLabelMaq}</span></div>
       <div style="font-size:30px;font-weight:700;color:#1a1a2e;line-height:1;">${Number(maqPointTotal).toLocaleString('es-AR')}</div>
       <div style="font-size:11px;color:#aaa;margin-bottom:14px;">uds</div>
       <canvas id="chart_maq_point" height="120"></canvas>`;
