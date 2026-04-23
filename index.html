@@ -542,7 +542,6 @@
     currentSite = site;
     isRegional = false;
     document.getElementById('regionalCharts').style.display = 'none';
-    document.getElementById('mainTable').style.display = 'none';
     expandedProducts.clear();
     expandedMaquilaProds.clear();
     expandedInboundSuppliers.clear();
@@ -1149,7 +1148,7 @@
 
     // Header: first col label + site flags + Total
     document.getElementById('tableHeader').innerHTML =
-      `<th>OUTBOUND</th>` +
+      `<th></th>` +
       REGIONAL_SITES.map(s => `<th>${s.flag}</th>`).join('') +
       `<th>Total</th>`;
 
@@ -1158,25 +1157,6 @@
 
     // Helper: sum across dates for a site
     const sumDates = (data, fn) => dates.reduce((s, d) => s + (fn(data[d]) || 0), 0);
-
-    // OUTBOUND section
-    PRODUCTS.forEach(prod => {
-      const vals = REGIONAL_SITES.map(s => sumDates(regionalData[s.code].despachos, d => d?.products?.[prod]));
-      const total = vals.reduce((a,b)=>a+b,0);
-      const tr = document.createElement('tr'); tr.className='row-product';
-      tr.innerHTML = `<td>${prod}</td>` + vals.map(v=>`<td>${fmt(v||null)}</td>`).join('') + `<td><strong>${fmtN(total)}</strong></td>`;
-      tbody.appendChild(tr);
-    });
-
-    const tuVals = REGIONAL_SITES.map(s => sumDates(regionalData[s.code].despachos, d => d?.total_unidades));
-    const trTU = document.createElement('tr'); trTU.className='row-total';
-    trTU.innerHTML = `<td>Total Unidades</td>` + tuVals.map(v=>`<td>${fmt(v||null)}</td>`).join('') + `<td>${fmtN(tuVals.reduce((a,b)=>a+b,0))}</td>`;
-    tbody.appendChild(trTU);
-
-    const osVals = REGIONAL_SITES.map(s => sumDates(regionalData[s.code].despachos, d => d?.total_os));
-    const trOS = document.createElement('tr'); trOS.className='row-total';
-    trOS.innerHTML = `<td>Total OS</td>` + osVals.map(v=>`<td>${fmt(v||null)}</td>`).join('') + `<td>${fmtN(osVals.reduce((a,b)=>a+b,0))}</td>`;
-    tbody.appendChild(trOS);
 
     // MAQUILA section
     const trMaq = document.createElement('tr'); trMaq.className='row-section';
@@ -1260,8 +1240,8 @@
 
     // ── OUTBOUND CHARTS ───────────────────────────────
     document.getElementById('regionalCharts').style.display = 'block';
-    document.getElementById('mainTable').style.display = 'none';
     document.getElementById('emptyState').style.display = 'none';
+    showTable();
     const flags = REGIONAL_SITES.map(s => s.flag);
     const barColors = ['#3483FA', '#00a650', '#FF6B35', '#9B59B6'];
 
