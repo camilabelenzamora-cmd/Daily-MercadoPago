@@ -144,6 +144,7 @@
 
   <!-- CHARTS (Regional only) -->
   <div id="regionalCharts" style="display:none; margin-bottom:20px;">
+    <div style="font-size:14px;font-weight:700;color:#2c3e50;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:12px;">Outbound</div>
     <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px;" id="chartsGrid"></div>
   </div>
 
@@ -541,6 +542,7 @@
     currentSite = site;
     isRegional = false;
     document.getElementById('regionalCharts').style.display = 'none';
+    document.getElementById('mainTable').style.display = 'none';
     expandedProducts.clear();
     expandedMaquilaProds.clear();
     expandedInboundSuppliers.clear();
@@ -1258,6 +1260,8 @@
 
     // ── OUTBOUND CHARTS ───────────────────────────────
     document.getElementById('regionalCharts').style.display = 'block';
+    document.getElementById('mainTable').style.display = 'none';
+    document.getElementById('emptyState').style.display = 'none';
     const flags = REGIONAL_SITES.map(s => s.flag);
     const barColors = ['#3483FA', '#00a650', '#FF6B35', '#9B59B6'];
 
