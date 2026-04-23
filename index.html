@@ -1274,11 +1274,12 @@
 
       const card = document.createElement('div');
       card.style.cssText = 'background:#fff;border-radius:10px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,0.07);';
+      const weekLabel = view === 'week' ? `· Week ${getISOWeek(regionalCursor)}` : '';
       card.innerHTML = `
-        <div style="font-size:11px;font-weight:700;color:#888;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:6px;">TOTAL ${prod.toUpperCase()}</div>
+        <div style="font-size:11px;font-weight:700;color:#888;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:6px;">TOTAL ${prod.toUpperCase()} <span style="font-weight:400;color:#bbb;">${weekLabel}</span></div>
         <div style="font-size:30px;font-weight:700;color:#1a1a2e;line-height:1;">${Number(total).toLocaleString('es-AR')}</div>
         <div style="font-size:11px;color:#aaa;margin-bottom:14px;">uds</div>
-        <canvas id="chart_${prod}" height="150"></canvas>`;
+        <canvas id="chart_${prod}" height="160"></canvas>`;
       grid.appendChild(card);
 
       setTimeout(() => {
@@ -1292,14 +1293,20 @@
           },
           options: {
             responsive: true,
-            layout: { padding: { top: 20 } },
+            layout: { padding: { top: 36 } },
             plugins: {
               legend: { display: false },
               datalabels: {
                 anchor: 'end', align: 'end',
-                formatter: v => v > 0 ? Number(v).toLocaleString('es-AR') : '',
-                font: { weight: '700', size: 11 },
-                color: '#2c3e50'
+                formatter: (v, ctx) => {
+                  if (!v) return '';
+                  const total = ctx.dataset.data.reduce((a,b)=>a+b,0);
+                  const pct = total > 0 ? Math.round(v/total*100) : 0;
+                  return Number(v).toLocaleString('es-AR') + '\n' + pct + '%';
+                },
+                font: { weight: '700', size: 10 },
+                color: '#2c3e50',
+                textAlign: 'center'
               }
             },
             scales: {
