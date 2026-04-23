@@ -144,10 +144,9 @@
 
   <!-- CHARTS (Regional only) -->
   <div id="regionalCharts" style="display:none; margin-bottom:20px;">
-    <div style="font-size:14px;font-weight:700;color:#2c3e50;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:12px;">Outbound</div>
-    <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:16px;" id="chartsGrid"></div>
-    <div style="font-size:14px;font-weight:700;color:#2c3e50;letter-spacing:0.5px;text-transform:uppercase;margin:20px 0 12px;">Maquila</div>
-    <div style="display:grid; grid-template-columns:1fr; gap:16px;" id="chartsMaquilaGrid"></div>
+    <div style="font-size:14px;font-weight:700;color:#2c3e50;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:12px;">Outbound & Maquila</div>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:16px;" id="chartsGrid"></div>
+    <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:16px;" id="chartsMaquilaGrid"></div>
   </div>
 
   <div class="table-card">
@@ -1224,19 +1223,21 @@
     const maqGrid = document.getElementById('chartsMaquilaGrid');
     maqGrid.innerHTML = '';
 
-    PRODUCTS.forEach(prod => {
+    const weekLabel = view === 'week' ? `· Week ${getISOWeek(regionalCursor)}` : '';
+    const topProds = ['Cards', 'Point', 'Bobinas'];
+    [...topProds, 'Others'].forEach(prod => {
       const vals = REGIONAL_SITES.map(s => sumDates(regionalData[s.code].despachos, d => d?.products?.[prod]));
       const total = vals.reduce((a,b)=>a+b,0);
+      const targetGrid = topProds.includes(prod) ? grid : maqGrid;
 
       const card = document.createElement('div');
       card.style.cssText = 'background:#fff;border-radius:10px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,0.07);';
-      const weekLabel = view === 'week' ? `· Week ${getISOWeek(regionalCursor)}` : '';
       card.innerHTML = `
         <div style="font-size:11px;font-weight:700;color:#888;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:6px;">TOTAL ${prod.toUpperCase()} <span style="font-weight:400;color:#bbb;">${weekLabel}</span></div>
         <div style="font-size:30px;font-weight:700;color:#1a1a2e;line-height:1;">${Number(total).toLocaleString('es-AR')}</div>
         <div style="font-size:11px;color:#aaa;margin-bottom:14px;">uds</div>
         <canvas id="chart_${prod}" height="160"></canvas>`;
-      grid.appendChild(card);
+      targetGrid.appendChild(card);
 
       setTimeout(() => {
         const ctx = document.getElementById('chart_' + prod);
@@ -1280,7 +1281,7 @@
       return total;
     });
     const maqPointTotal = maqPointVals.reduce((a,b)=>a+b,0);
-    const weekLabelMaq = view === 'week' ? `· Week ${getISOWeek(regionalCursor)}` : '';
+    const weekLabelMaq = weekLabel;
 
     const maqCard = document.createElement('div');
     maqCard.style.cssText = 'background:#fff;border-radius:10px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,0.07);';
