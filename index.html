@@ -121,6 +121,7 @@
   <div class="country-tab" data-site="MLM" onclick="selectSite('MLM')">🇲🇽 MLM</div>
   <div class="country-tab" data-site="MLC" onclick="selectSite('MLC')">🇨🇱 MLC</div>
   <div class="country-tab" data-site="MLU" onclick="selectSite('MLU')">🇺🇾 MLU</div>
+  <div class="country-tab" data-site="REGIONAL" onclick="selectRegional()">🌎 Regional</div>
   <button class="upload-btn" onclick="openHeadcountModal()">👥 Headcount</button>
   <button class="upload-btn" onclick="openUploadModal()" style="margin-left:16px;">⬆️ Actualizar</button>
 </div>
@@ -271,6 +272,9 @@
   let cursor = null;
   let history = {};
   let maquilaHistory = {};
+  let isRegional = false;
+  let regionalData = {};
+  let regionalCursor = null;
   let expandedProducts = new Set();
   let expandedMaquilaProds = new Set();
   let expandedInboundSuppliers = new Set();
@@ -527,6 +531,7 @@
   // ── SITE ──────────────────────────────────────────────
   async function selectSite(site) {
     currentSite = site;
+    isRegional = false;
     expandedProducts.clear();
     expandedMaquilaProds.clear();
     expandedInboundSuppliers.clear();
@@ -546,6 +551,7 @@
   }
 
   function navigate(dir) {
+    if (isRegional) { regionalCursor = addDays(regionalCursor, dir*7); renderRegional(); return; }
     if (view === 'week') cursor = addDays(cursor, dir*7);
     else cursor = String(parseInt(cursor) + dir);
     render();
@@ -1036,6 +1042,138 @@
   document.getElementById('uploadModal').addEventListener('click', e => { if(e.target===e.currentTarget) closeUploadModal(); });
   document.getElementById('tokenModal').addEventListener('click', e => { if(e.target===e.currentTarget) closeTokenModal(); });
   document.getElementById('tokenInput').addEventListener('keydown', e => { if(e.key==='Enter') saveToken(); });
+
+  // ── REGIONAL ──────────────────────────────────────────
+  const REGIONAL_SITES = [
+    { code: 'MLA', flag: '🇦🇷' },
+    { code: 'MLM', flag: '🇲🇽' },
+    { code: 'MLC', flag: '🇨🇱' },
+    { code: 'MLU', flag: '🇺🇾' }
+  ];
+
+  async function selectRegional() {
+    isRegional = true;
+    document.querySelectorAll('.country-tab').forEach(t => t.classList.remove('active'));
+    document.querySelector('[data-site="REGIONAL"]').classList.add('active');
+    document.getElementById('weekSelector').style.display = 'none';
+    document.getElementById('btnWeek').classList.add('active');
+    document.getElementById('btnMonth').classList.remove('active');
+    showLoading();
+
+    // Default cursor = previous week
+    if (!regionalCursor) regionalCursor = getMonday(addDays(isoDate(new Date()), -7));
+
+    const results = await Promise.all(REGIONAL_SITES.map(s =>
+      Promise.all([loadHistory(s.code), loadMaquilaHistory(s.code), loadASNHistory(s.code)])
+        .then(([h, m, a]) => ({ code: s.code, flag: s.flag, despachos: h, maquila: m, asn: a }))
+    ));
+    regionalData = {};
+    results.forEach(r => { regionalData[r.code] = r; });
+    renderRegional();
+  }
+
+  function renderRegional() {
+    if (!regionalCursor) regionalCursor = getMonday(addDays(isoDate(new Date()), -7));
+    const dates = Array.from({length:5}, (_,i) => addDays(regionalCursor, i));
+    document.getElementById('navLabel').textContent = `Semana ${shortDate(regionalCursor)} — ${shortDate(addDays(regionalCursor,4))}`;
+
+    const hasAny = REGIONAL_SITES.some(s =>
+      dates.some(d => regionalData[s.code]?.despachos[d] || regionalData[s.code]?.maquila[d] || regionalData[s.code]?.asn[d])
+    );
+    if (!hasAny) { showEmpty(); return; }
+    showTable();
+
+    // Header: first col label + site flags + Total
+    document.getElementById('tableHeader').innerHTML =
+      `<th>OUTBOUND</th>` +
+      REGIONAL_SITES.map(s => `<th>${s.flag}</th>`).join('') +
+      `<th>Total</th>`;
+
+    const tbody = document.getElementById('tableBody');
+    tbody.innerHTML = '';
+
+    // Helper: sum across dates for a site
+    const sumDates = (data, fn) => dates.reduce((s, d) => s + (fn(data[d]) || 0), 0);
+
+    // OUTBOUND section
+    PRODUCTS.forEach(prod => {
+      const vals = REGIONAL_SITES.map(s => sumDates(regionalData[s.code].despachos, d => d?.products?.[prod]));
+      const total = vals.reduce((a,b)=>a+b,0);
+      const tr = document.createElement('tr'); tr.className='row-product';
+      tr.innerHTML = `<td>${prod}</td>` + vals.map(v=>`<td>${fmt(v||null)}</td>`).join('') + `<td><strong>${fmtN(total)}</strong></td>`;
+      tbody.appendChild(tr);
+    });
+
+    const tuVals = REGIONAL_SITES.map(s => sumDates(regionalData[s.code].despachos, d => d?.total_unidades));
+    const trTU = document.createElement('tr'); trTU.className='row-total';
+    trTU.innerHTML = `<td>Total Unidades</td>` + tuVals.map(v=>`<td>${fmt(v||null)}</td>`).join('') + `<td>${fmtN(tuVals.reduce((a,b)=>a+b,0))}</td>`;
+    tbody.appendChild(trTU);
+
+    const osVals = REGIONAL_SITES.map(s => sumDates(regionalData[s.code].despachos, d => d?.total_os));
+    const trOS = document.createElement('tr'); trOS.className='row-total';
+    trOS.innerHTML = `<td>Total OS</td>` + osVals.map(v=>`<td>${fmt(v||null)}</td>`).join('') + `<td>${fmtN(osVals.reduce((a,b)=>a+b,0))}</td>`;
+    tbody.appendChild(trOS);
+
+    // MAQUILA section
+    const trMaq = document.createElement('tr'); trMaq.className='row-section';
+    trMaq.innerHTML = `<td>MAQUILA</td>` + REGIONAL_SITES.map(()=>'<td></td>').join('') + '<td></td>';
+    tbody.appendChild(trMaq);
+
+    const allMaqProds = new Set();
+    REGIONAL_SITES.forEach(s => dates.forEach(d => Object.keys(regionalData[s.code].maquila[d]?.products||{}).forEach(p => allMaqProds.add(p))));
+    allMaqProds.forEach(prod => {
+      const vals = REGIONAL_SITES.map(s => sumDates(regionalData[s.code].maquila, d => d?.products?.[prod]));
+      const total = vals.reduce((a,b)=>a+b,0);
+      const tr = document.createElement('tr'); tr.className='row-product';
+      tr.innerHTML = `<td>${prod}</td>` + vals.map(v=>`<td>${fmt(v||null)}</td>`).join('') + `<td><strong>${fmtN(total)}</strong></td>`;
+      tbody.appendChild(tr);
+    });
+
+    const maqTotVals = REGIONAL_SITES.map(s => sumDates(regionalData[s.code].maquila, d => d?.total));
+    const trMaqTot = document.createElement('tr'); trMaqTot.className='row-maquila-total';
+    trMaqTot.innerHTML = `<td>Total Maquilado</td>` + maqTotVals.map(v=>`<td>${fmt(v||null)}</td>`).join('') + `<td>${fmtN(maqTotVals.reduce((a,b)=>a+b,0))}</td>`;
+    tbody.appendChild(trMaqTot);
+
+    // DEVOLUCIONES section
+    const trDev = document.createElement('tr'); trDev.className='row-section';
+    trDev.innerHTML = `<td>DEVOLUCIONES</td>` + REGIONAL_SITES.map(()=>'<td></td>').join('') + '<td></td>';
+    tbody.appendChild(trDev);
+
+    const allDevProds = new Set();
+    REGIONAL_SITES.forEach(s => dates.forEach(d => Object.keys(regionalData[s.code].asn[d]?.devoluciones?.products||{}).forEach(p => allDevProds.add(p))));
+    allDevProds.forEach(prod => {
+      const vals = REGIONAL_SITES.map(s => sumDates(regionalData[s.code].asn, d => d?.devoluciones?.products?.[prod]));
+      const total = vals.reduce((a,b)=>a+b,0);
+      const tr = document.createElement('tr'); tr.className='row-product';
+      tr.innerHTML = `<td>${prod}</td>` + vals.map(v=>`<td>${fmt(v||null)}</td>`).join('') + `<td><strong>${fmtN(total)}</strong></td>`;
+      tbody.appendChild(tr);
+    });
+
+    const devTotVals = REGIONAL_SITES.map(s => sumDates(regionalData[s.code].asn, d => d?.devoluciones?.total));
+    const trDevTot = document.createElement('tr'); trDevTot.className='row-maquila-total';
+    trDevTot.innerHTML = `<td>Total Devoluciones</td>` + devTotVals.map(v=>`<td>${fmt(v||null)}</td>`).join('') + `<td>${fmtN(devTotVals.reduce((a,b)=>a+b,0))}</td>`;
+    tbody.appendChild(trDevTot);
+
+    // INBOUND section
+    const trInb = document.createElement('tr'); trInb.className='row-section';
+    trInb.innerHTML = `<td>INBOUND</td>` + REGIONAL_SITES.map(()=>'<td></td>').join('') + '<td></td>';
+    tbody.appendChild(trInb);
+
+    const allSuppliers = new Set();
+    REGIONAL_SITES.forEach(s => dates.forEach(d => Object.keys(regionalData[s.code].asn[d]?.inbound?.suppliers||{}).forEach(p => allSuppliers.add(p))));
+    allSuppliers.forEach(sup => {
+      const vals = REGIONAL_SITES.map(s => sumDates(regionalData[s.code].asn, d => d?.inbound?.suppliers?.[sup]?.total));
+      const total = vals.reduce((a,b)=>a+b,0);
+      const tr = document.createElement('tr'); tr.className='row-product';
+      tr.innerHTML = `<td>${sup}</td>` + vals.map(v=>`<td>${fmt(v||null)}</td>`).join('') + `<td><strong>${fmtN(total)}</strong></td>`;
+      tbody.appendChild(tr);
+    });
+
+    const inbTotVals = REGIONAL_SITES.map(s => sumDates(regionalData[s.code].asn, d => d?.inbound?.total));
+    const trInbTot = document.createElement('tr'); trInbTot.className='row-maquila-total';
+    trInbTot.innerHTML = `<td>Total Inbound</td>` + inbTotVals.map(v=>`<td>${fmt(v||null)}</td>`).join('') + `<td>${fmtN(inbTotVals.reduce((a,b)=>a+b,0))}</td>`;
+    tbody.appendChild(trInbTot);
+  }
 
   // ── INIT ──────────────────────────────────────────────
   updateTokenStatus();
