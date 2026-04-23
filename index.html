@@ -1298,15 +1298,9 @@
               legend: { display: false },
               datalabels: {
                 anchor: 'end', align: 'end',
-                formatter: (v, ctx) => {
-                  if (!v) return '';
-                  const total = ctx.dataset.data.reduce((a,b)=>a+b,0);
-                  const pct = total > 0 ? Math.round(v/total*100) : 0;
-                  return Number(v).toLocaleString('es-AR') + '\n' + pct + '%';
-                },
-                font: { weight: '700', size: 10 },
-                color: '#2c3e50',
-                textAlign: 'center'
+                formatter: v => v > 0 ? Number(v).toLocaleString('es-AR') : '',
+                font: { weight: '700', size: 11 },
+                color: '#2c3e50'
               }
             },
             scales: {
