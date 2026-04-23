@@ -1170,10 +1170,30 @@
     trMaq.innerHTML = `<td>MAQUILA</td>` + REGIONAL_SITES.map(()=>'<td></td>').join('') + '<td></td>';
     tbody.appendChild(trMaq);
 
-    const allMaqProds = new Set();
-    REGIONAL_SITES.forEach(s => dates.forEach(d => Object.keys(regionalData[s.code].maquila[d]?.products||{}).forEach(p => allMaqProds.add(p))));
-    allMaqProds.forEach(prod => {
-      const vals = REGIONAL_SITES.map(s => sumDates(regionalData[s.code].maquila, d => d?.products?.[prod]));
+    function groupMaquilaProd(name) {
+      const n = (name || '').toLowerCase();
+      if (n.includes('point') || n.includes('n950') || n.includes('smart')) return 'Point';
+      return name;
+    }
+
+    // Build grouped maquila products
+    const maqGrouped = {};
+    REGIONAL_SITES.forEach(s => {
+      dates.forEach(d => {
+        Object.entries(regionalData[s.code].maquila[d]?.products || {}).forEach(([prod, uds]) => {
+          const group = groupMaquilaProd(prod);
+          if (!maqGrouped[group]) maqGrouped[group] = {};
+          maqGrouped[group][s.code] = (maqGrouped[group][s.code] || 0) + uds;
+        });
+      });
+    });
+
+    Object.entries(maqGrouped).sort((a,b) => {
+      const ta = Object.values(a[1]).reduce((s,v)=>s+v,0);
+      const tb = Object.values(b[1]).reduce((s,v)=>s+v,0);
+      return tb - ta;
+    }).forEach(([prod, bySite]) => {
+      const vals = REGIONAL_SITES.map(s => bySite[s.code] || 0);
       const total = vals.reduce((a,b)=>a+b,0);
       const tr = document.createElement('tr'); tr.className='row-product';
       tr.innerHTML = `<td>${prod}</td>` + vals.map(v=>`<td>${fmt(v||null)}</td>`).join('') + `<td><strong>${fmtN(total)}</strong></td>`;
