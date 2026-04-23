@@ -1073,7 +1073,7 @@
     // Default cursor = previous week or previous month
     if (!regionalCursor) {
       if (view === 'month') {
-        const n = new Date(); n.setMonth(n.getMonth()-1);
+        const n = new Date();
         regionalCursor = `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}`;
       } else {
         regionalCursor = getMonday(addDays(isoDate(new Date()), -7));
