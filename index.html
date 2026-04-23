@@ -1255,7 +1255,7 @@
               }
             },
             scales: {
-              y: { display: false, beginAtZero: true },
+              y: { beginAtZero: true, grid: { color: '#f0f0f0' }, ticks: { font:{size:10}, color:'#aaa', callback: v => v >= 1000 ? (v/1000).toFixed(0)+'k' : v }, border: { display: false } },
               x: { ticks: { font: { size: 18 } }, grid: { display: false }, border: { display: false } }
             }
           },
@@ -1356,7 +1356,7 @@
               }
             },
             scales: {
-              y: { display: false, beginAtZero: true },
+              y: { beginAtZero: true, grid: { color: '#f0f0f0' }, ticks: { font:{size:10}, color:'#aaa', callback: v => v >= 1000 ? (v/1000).toFixed(0)+'k' : v }, border: { display: false } },
               x: { ticks: { font: { size: 18 } }, grid: { display: false }, border: { display: false } }
             }
           },
