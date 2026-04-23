@@ -1,6 +1,13 @@
 {
   "total": null,
-  "days": {},
+  "days": {
+    "2026-04-21": {
+      "fecha": "2026-04-21",
+      "ausentes_gestionables": 2,
+      "ausentes_no_gestionables": 0,
+      "savedAt": "2026-04-23T01:01:18.197Z"
+    }
+  },
   "totals": [
     {
       "desde": "2026-04-13",
