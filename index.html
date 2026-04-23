@@ -888,6 +888,7 @@
   document.getElementById('editTotalModal').addEventListener('click', e => { if(e.target===e.currentTarget) closeEditTotalModal(); });
 
   function jumpToWeek(monday) {
+    if (isRegional) { regionalCursor = monday; renderRegional(); return; }
     cursor = monday;
     render();
   }
@@ -914,8 +915,12 @@
     const dates = Array.from({length:5}, (_,i) => addDays(cursor, i));
     document.getElementById('navLabel').textContent = `Semana ${shortDate(cursor)} — ${shortDate(addDays(cursor,4))}`;
 
-    // Populate week selector
-    const allDates = Object.keys(history).sort();
+    // Populate week selector — combine all data sources
+    const allDates = [...new Set([
+      ...Object.keys(history),
+      ...Object.keys(maquilaHistory),
+      ...Object.keys(asnHistory)
+    ])].sort();
     const weeksWithData = [...new Set(allDates.map(d => getMonday(new Date(d+'T12:00:00'))))].sort();
     const sel = document.getElementById('weekSelector');
     sel.style.display = weeksWithData.length > 1 ? 'block' : 'none';
@@ -1095,14 +1100,32 @@
 
     let dates = [];
     if (view === 'month') {
+      document.getElementById('weekSelector').style.display = 'none';
       const [year, month] = regionalCursor.split('-').map(Number);
       document.getElementById('navLabel').textContent = `${MONTHS_ES[month-1]} ${year}`;
-      // All days in the month
       const daysInMonth = new Date(year, month, 0).getDate();
       dates = Array.from({length: daysInMonth}, (_, i) => `${year}-${String(month).padStart(2,'0')}-${String(i+1).padStart(2,'0')}`);
     } else {
       dates = Array.from({length:5}, (_,i) => addDays(regionalCursor, i));
       document.getElementById('navLabel').textContent = `Semana ${shortDate(regionalCursor)} — ${shortDate(addDays(regionalCursor,4))}`;
+
+      // Week selector for Regional
+      const allRegDates = [...new Set(REGIONAL_SITES.flatMap(s => [
+        ...Object.keys(regionalData[s.code]?.despachos||{}),
+        ...Object.keys(regionalData[s.code]?.maquila||{}),
+        ...Object.keys(regionalData[s.code]?.asn||{})
+      ]))].sort();
+      const weeksWithData = [...new Set(allRegDates.map(d => getMonday(new Date(d+'T12:00:00'))))].sort();
+      const sel = document.getElementById('weekSelector');
+      sel.style.display = weeksWithData.length > 1 ? 'block' : 'none';
+      sel.innerHTML = '';
+      weeksWithData.forEach(m => {
+        const opt = document.createElement('option');
+        opt.value = m;
+        opt.textContent = 'Week ' + getISOWeek(m);
+        if (m === regionalCursor) opt.selected = true;
+        sel.appendChild(opt);
+      });
     }
 
     const hasAny = REGIONAL_SITES.some(s =>
