@@ -127,6 +127,7 @@
 <div class="top-bar">
   <div class="country-tab" data-site="REGIONAL" onclick="selectRegional()">🌎 Regional</div>
   <div class="country-tab active" data-site="MLA" onclick="selectSite('MLA')">🇦🇷 AR</div>
+  <div class="country-tab" data-site="MLB" onclick="selectSite('MLB')">🇧🇷 BR</div>
   <div class="country-tab" data-site="MLM" onclick="selectSite('MLM')">🇲🇽 MX</div>
   <div class="country-tab" data-site="MLC" onclick="selectSite('MLC')">🇨🇱 CL</div>
   <div class="country-tab" data-site="MLU" onclick="selectSite('MLU')">🇺🇾 UY</div>
@@ -205,6 +206,7 @@
         <label style="font-size:12px;font-weight:600;color:#666;display:block;margin-bottom:4px;">Site</label>
         <select id="hcSiteSelect" style="width:100%;border:1px solid #dce3ea;border-radius:6px;padding:8px 10px;font-size:14px;">
           <option value="MLA">🇦🇷 MLA — Argentina</option>
+          <option value="MLB">🇧🇷 MLB — Brasil</option>
           <option value="MLM">🇲🇽 MLM — México</option>
           <option value="MLC">🇨🇱 MLC — Chile</option>
           <option value="MLU">🇺🇾 MLU — Uruguay</option>
@@ -241,6 +243,7 @@
         <label style="font-size:12px;font-weight:600;color:#666;display:block;margin-bottom:4px;">Site</label>
         <select id="etSiteSelect" style="width:100%;border:1px solid #dce3ea;border-radius:6px;padding:8px 10px;font-size:14px;">
           <option value="MLA">🇦🇷 MLA — Argentina</option>
+          <option value="MLB">🇧🇷 MLB — Brasil</option>
           <option value="MLM">🇲🇽 MLM — México</option>
           <option value="MLC">🇨🇱 MLC — Chile</option>
           <option value="MLU">🇺🇾 MLU — Uruguay</option>
@@ -286,7 +289,7 @@
   };
   const DAYS_ES = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
   const MONTHS_ES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
-  const SITES = ['MLA','MLM','MLC','MLU'];
+  const SITES = ['MLA','MLB','MLM','MLC','MLU'];
 
   let currentSite = 'MLA';
   let view = 'week';
@@ -397,6 +400,7 @@
   function detectSiteFromValue(value) {
     const v = (value || '').toUpperCase();
     if (v.includes('ARGENTINA') || v.includes('ARBA')) return 'MLA';
+    if (v.includes('BRSP') || v.includes('BRASIL') || v.includes('BRAZIL')) return 'MLB';
     if (v.includes('MEXICO') || v.includes('MÉXI') || v.includes('MEXI')) return 'MLM';
     if (v.includes('CHILE')) return 'MLC';
     if (v.includes('URUGUAY')) return 'MLU';
@@ -404,7 +408,7 @@
   }
   function isMaquila(filename) { const f = filename.toLowerCase(); return f.includes('maquila') || f.includes('caja'); }
   function isASN(filename) { return filename.toLowerCase().includes('asn'); }
-  function isDespachos(filename) { const f = filename.toLowerCase(); return f.includes('detalleos') || f.includes('detalleorden'); }
+  function isDespachos(filename) { const f = filename.toLowerCase(); return f.includes('detalleos') || f.includes('detalleorden') || f.includes('ordem de salida') || f.includes('ordemdesalida'); }
   function isExcel(filename) { return filename.match(/\.xlsx?$/i); }
 
   // ── MAQUILA PROCESSING ────────────────────────────────
@@ -486,7 +490,7 @@
 
   function classifyProduct(nom) {
     const n = (nom || '').trim().toLowerCase();
-    if (n.includes('tarjeta') || n.includes('card') || n.includes('prepaid')) return 'Cards';
+    if (n.includes('tarjeta') || n.includes('card') || n.includes('prepaid') || n.includes('cartao') || n.includes('cart\u00e3o')) return 'Cards';
     if (n.startsWith('point') || n.includes('n950') || (n.includes('smart') && !n.startsWith('funda'))) return 'Point';
     if (n.includes('bobina') || n.includes('kit rollo') || n.startsWith('rollo')) return 'Bobinas';
     return 'Others';
@@ -528,21 +532,23 @@
   }
 
   function processRows(rows) {
-    const site = detectSiteFromValue(rows.find(r => r['SITIO FUENTE'])?.['SITIO FUENTE'] || '');
+    const siteVal = rows.find(r => r['SITIO FUENTE'] || r['LOCAL'])?.[rows[0]?.['SITIO FUENTE'] !== undefined ? 'SITIO FUENTE' : 'LOCAL'] || '';
+    const site = detectSiteFromValue(siteVal);
     const byDate = {};
     for (const r of rows) {
-      const fecha = parseDate(r['FECHA DESPACHO']) || new Date().toISOString().slice(0,10);
+      const fecha = parseDate(r['FECHA DESPACHO'] || r['DATA ENVIO'] || r['DATA ENVIO ']) || new Date().toISOString().slice(0,10);
       if (!byDate[fecha]) byDate[fecha] = { rows: [], osIds: new Set() };
       byDate[fecha].rows.push(r);
-      if (r['ID OS']) byDate[fecha].osIds.add(r['ID OS']);
+      const osId = r['ID OS'] || r['CODIGO PEDIDO EXPEDICAO'] || r['CÓDIGO PEDIDO EXPEDIÇÃO'];
+      if (osId) byDate[fecha].osIds.add(String(osId));
     }
     return Object.entries(byDate).map(([fecha, {rows: dRows, osIds}]) => {
       const products = { Cards:0, Point:0, Bobinas:0, Others:0 };
       const routes = { Cards:{}, Point:{}, Bobinas:{}, Others:{} };
       for (const r of dRows) {
-        const prod = classifyProduct(r['NOM PROD']);
-        const uds = parseInt(r['UNI DESP'] || '0') || 0;
-        const ruta = (r['RUTA'] || '').trim() || 'Sin ruta';
+        const prod = classifyProduct(r['NOM PROD'] || r['NOME PROD']);
+        const uds = parseInt(r['UNI DESP'] || r['UN ENVIADAS'] || '0') || 0;
+        const ruta = (r['RUTA'] || r['ROTA'] || '').trim() || 'Sin ruta';
         products[prod] += uds;
         routes[prod][ruta] = (routes[prod][ruta] || 0) + uds;
       }
@@ -1096,6 +1102,7 @@
   // ── REGIONAL ──────────────────────────────────────────
   const REGIONAL_SITES = [
     { code: 'MLA', flag: '🇦🇷' },
+    { code: 'MLB', flag: '🇧🇷' },
     { code: 'MLM', flag: '🇲🇽' },
     { code: 'MLC', flag: '🇨🇱' },
     { code: 'MLU', flag: '🇺🇾' }
@@ -1202,7 +1209,7 @@
     function groupDevProd(name) {
       const n = (name || '').toLowerCase();
       if (n.includes('point') || n.includes('n950') || (n.includes('smart') && !n.startsWith('funda'))) return 'Point';
-      if (n.includes('tarjeta') || n.includes('card') || n.includes('prepaid')) return 'Cards';
+      if (n.includes('tarjeta') || n.includes('card') || n.includes('prepaid') || n.includes('cartao') || n.includes('cart\u00e3o')) return 'Cards';
       if (n.includes('bobina') || n.includes('rollo')) return 'Bobinas';
       return 'Others';
     }
