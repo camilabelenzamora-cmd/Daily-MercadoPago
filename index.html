@@ -150,6 +150,9 @@
     <div style="font-size:14px;font-weight:700;color:#2c3e50;letter-spacing:0.5px;text-transform:uppercase;margin:16px 0 12px;">Devoluciones</div>
     <div style="display:flex;justify-content:center;gap:12px;margin-bottom:12px;" id="chartsDevGrid"></div>
     <div style="display:flex;justify-content:center;gap:12px;" id="chartsDevBottomGrid"></div>
+    <div style="font-size:14px;font-weight:700;color:#2c3e50;letter-spacing:0.5px;text-transform:uppercase;margin:20px 0 12px;">Inbound</div>
+    <div style="display:flex;justify-content:center;gap:12px;margin-bottom:12px;" id="chartsInbGrid"></div>
+    <div style="display:flex;justify-content:center;gap:12px;" id="chartsInbBottomGrid"></div>
   </div>
 
   <div class="table-card">
@@ -1182,25 +1185,7 @@
 
     // DEVOLUCIONES — shown as charts
 
-    // INBOUND section
-    const trInb = document.createElement('tr'); trInb.className='row-section';
-    trInb.innerHTML = `<td>INBOUND</td>` + REGIONAL_SITES.map(()=>'<td></td>').join('') + '<td></td>';
-    tbody.appendChild(trInb);
-
-    const allSuppliers = new Set();
-    REGIONAL_SITES.forEach(s => dates.forEach(d => Object.keys(regionalData[s.code].asn[d]?.inbound?.suppliers||{}).forEach(p => allSuppliers.add(p))));
-    allSuppliers.forEach(sup => {
-      const vals = REGIONAL_SITES.map(s => sumDates(regionalData[s.code].asn, d => d?.inbound?.suppliers?.[sup]?.total));
-      const total = vals.reduce((a,b)=>a+b,0);
-      const tr = document.createElement('tr'); tr.className='row-product';
-      tr.innerHTML = `<td>${sup}</td>` + vals.map(v=>`<td>${fmt(v||null)}</td>`).join('') + `<td><strong>${fmtN(total)}</strong></td>`;
-      tbody.appendChild(tr);
-    });
-
-    const inbTotVals = REGIONAL_SITES.map(s => sumDates(regionalData[s.code].asn, d => d?.inbound?.total));
-    const trInbTot = document.createElement('tr'); trInbTot.className='row-maquila-total';
-    trInbTot.innerHTML = `<td>Total Inbound</td>` + inbTotVals.map(v=>`<td>${fmt(v||null)}</td>`).join('') + `<td>${fmtN(inbTotVals.reduce((a,b)=>a+b,0))}</td>`;
-    tbody.appendChild(trInbTot);
+    // INBOUND — shown as charts
 
     function groupMaquilaProd(name) {
       const n = (name || '').toLowerCase();
@@ -1231,6 +1216,8 @@
     const gridBottom = document.getElementById('chartsGridBottom'); gridBottom.innerHTML = '';
     const devGrid = document.getElementById('chartsDevGrid'); devGrid.innerHTML = '';
     const devBottomGrid = document.getElementById('chartsDevBottomGrid'); devBottomGrid.innerHTML = '';
+    const inbGrid = document.getElementById('chartsInbGrid'); inbGrid.innerHTML = '';
+    const inbBottomGrid = document.getElementById('chartsInbBottomGrid'); inbBottomGrid.innerHTML = '';
 
     const weekLabel = view === 'week' ? `· Week ${getISOWeek(regionalCursor)}` : '';
     const cardWFlex = 'flex:0 0 calc(33.33% - 6px);max-width:calc(33.33% - 6px);';
@@ -1361,6 +1348,62 @@
         if (!ctx) return;
         if (regionalCharts['dev_'+group]) regionalCharts['dev_'+group].destroy();
         regionalCharts['dev_'+group] = new Chart(ctx, {
+          type: 'bar',
+          data: { labels: flags, datasets: [{ data: vals, backgroundColor: barColors, borderRadius: 6, borderSkipped: false }] },
+          options: {
+            responsive: true,
+            layout: { padding: { top: 24 } },
+            plugins: {
+              legend: { display: false },
+              datalabels: {
+                anchor: 'end', align: 'end',
+                formatter: v => v > 0 ? Number(v).toLocaleString('es-AR') : '',
+                font: { weight: '700', size: 11 }, color: '#2c3e50'
+              }
+            },
+            scales: {
+              y: { beginAtZero: true, grid: { color: '#f0f0f0' }, ticks: { font:{size:10}, color:'#aaa', callback: v => v >= 1000 ? (v/1000).toFixed(0)+'k' : v }, border: { display: false } },
+              x: { ticks: { font: { size: 18 } }, grid: { display: false }, border: { display: false } }
+            }
+          },
+          plugins: [ChartDataLabels]
+        });
+      }, 50);
+    });
+
+    // ── INBOUND CHARTS ───────────────────────────────
+    const inbGroups = { Point:{}, Cards:{}, Bobinas:{}, Others:{} };
+    REGIONAL_SITES.forEach(s => {
+      dates.forEach(d => {
+        Object.values(regionalData[s.code].asn[d]?.inbound?.suppliers || {}).forEach(sup => {
+          Object.entries(sup.products || {}).forEach(([prod, uds]) => {
+            const group = groupDevProd(prod);
+            inbGroups[group][s.code] = (inbGroups[group][s.code] || 0) + uds;
+          });
+        });
+      });
+    });
+
+    ['Point','Cards','Bobinas','Others'].forEach(group => {
+      const bySite = inbGroups[group] || {};
+      const vals = REGIONAL_SITES.map(s => bySite[s.code] || 0);
+      const total = vals.reduce((a,b)=>a+b,0);
+      const targetGrid = ['Point','Cards'].includes(group) ? inbGrid : inbBottomGrid;
+
+      const card = document.createElement('div');
+      card.style.cssText = `background:#fff;border-radius:12px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,0.08);${cardWFlex}`;
+      card.innerHTML = `
+        <div style="font-size:10px;font-weight:700;color:#888;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">${prodIcons[group]||'📦'} INB ${group.toUpperCase()} <span style="font-weight:400;color:#ccc;">${weekLabel}</span></div>
+        <div style="font-size:26px;font-weight:700;color:#1a1a2e;line-height:1.1;">${Number(total).toLocaleString('es-AR')} <span style="font-size:13px;font-weight:400;color:#aaa;">unds</span></div>
+        <div style="margin-top:12px;"><canvas id="chart_inb_${group}" height="110"></canvas></div>`;
+      targetGrid.appendChild(card);
+
+      setTimeout(() => {
+        if (regionalRenderID !== renderID) return;
+        const ctx = document.getElementById('chart_inb_' + group);
+        if (!ctx) return;
+        if (regionalCharts['inb_'+group]) regionalCharts['inb_'+group].destroy();
+        regionalCharts['inb_'+group] = new Chart(ctx, {
           type: 'bar',
           data: { labels: flags, datasets: [{ data: vals, backgroundColor: barColors, borderRadius: 6, borderSkipped: false }] },
           options: {
