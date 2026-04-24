@@ -26,8 +26,7 @@
       }
     },
     "total_unidades": 56532,
-    "total_os": 36914,
-    "uploadedAt": "2026-04-24T23:19:42.162Z"
+    "total_os": 36914
   },
   "2026-04-02": {
     "fecha": "2026-04-02",
@@ -56,8 +55,7 @@
       }
     },
     "total_unidades": 38610,
-    "total_os": 31650,
-    "uploadedAt": "2026-04-24T23:19:42.183Z"
+    "total_os": 31650
   },
   "2026-04-04": {
     "fecha": "2026-04-04",
@@ -84,40 +82,43 @@
       }
     },
     "total_unidades": 25889,
-    "total_os": 23707,
-    "uploadedAt": "2026-04-24T23:19:42.197Z"
+    "total_os": 23707
   },
   "2026-04-03": {
     "fecha": "2026-04-03",
     "site": "MLM",
     "products": {
-      "Cards": 1,
-      "Point": 3,
-      "Bobinas": 0,
-      "Others": 0
+      "Cards": 24725,
+      "Point": 3208,
+      "Bobinas": 641,
+      "Others": 22
     },
     "routes": {
       "Cards": {
-        "XD - POINT": 1
+        "XD - CARDS": 23370,
+        "XD - POINT": 1355
       },
       "Point": {
-        "XD - POINT": 3
+        "XD - POINT": 3208
       },
-      "Bobinas": {},
-      "Others": {}
+      "Bobinas": {
+        "XD - POINT": 641
+      },
+      "Others": {
+        "XD - POINT": 22
+      }
     },
-    "total_unidades": 4,
-    "total_os": 1,
-    "uploadedAt": "2026-04-24T23:20:07.588Z"
+    "total_unidades": 28596,
+    "total_os": 25708
   },
   "2026-04-06": {
     "fecha": "2026-04-06",
     "site": "MLM",
     "products": {
       "Cards": 23175,
-      "Point": 3206,
+      "Point": 3226,
       "Bobinas": 833,
-      "Others": 36
+      "Others": 16
     },
     "routes": {
       "Cards": {
@@ -127,19 +128,17 @@
       },
       "Point": {
         "XD - POINT": 2658,
-        "GEODIS": 548
+        "GEODIS": 568
       },
       "Bobinas": {
         "XD - POINT": 833
       },
       "Others": {
-        "GEODIS": 20,
         "XD - POINT": 16
       }
     },
     "total_unidades": 27250,
-    "total_os": 23878,
-    "uploadedAt": "2026-04-24T23:19:42.226Z"
+    "total_os": 23878
   },
   "2026-04-05": {
     "fecha": "2026-04-05",
@@ -166,8 +165,7 @@
       }
     },
     "total_unidades": 14145,
-    "total_os": 12974,
-    "uploadedAt": "2026-04-24T23:19:42.234Z"
+    "total_os": 12974
   },
   "2026-04-07": {
     "fecha": "2026-04-07",
@@ -196,8 +194,7 @@
       }
     },
     "total_unidades": 53393,
-    "total_os": 47921,
-    "uploadedAt": "2026-04-24T23:19:42.262Z"
+    "total_os": 47921
   },
   "2026-04-08": {
     "fecha": "2026-04-08",
@@ -225,17 +222,16 @@
       }
     },
     "total_unidades": 38754,
-    "total_os": 33573,
-    "uploadedAt": "2026-04-24T23:19:42.282Z"
+    "total_os": 33573
   },
   "2026-04-10": {
     "fecha": "2026-04-10",
     "site": "MLM",
     "products": {
       "Cards": 24693,
-      "Point": 11546,
+      "Point": 11636,
       "Bobinas": 1173,
-      "Others": 613
+      "Others": 523
     },
     "routes": {
       "Cards": {
@@ -243,20 +239,18 @@
         "XD - POINT": 1632
       },
       "Point": {
-        "GEODIS": 7408,
+        "GEODIS": 7498,
         "XD - POINT": 4138
       },
       "Bobinas": {
         "XD - POINT": 1173
       },
       "Others": {
-        "XD - POINT": 523,
-        "GEODIS": 90
+        "XD - POINT": 523
       }
     },
     "total_unidades": 38025,
-    "total_os": 26653,
-    "uploadedAt": "2026-04-24T23:19:42.303Z"
+    "total_os": 26653
   },
   "2026-04-09": {
     "fecha": "2026-04-09",
@@ -283,36 +277,34 @@
       }
     },
     "total_unidades": 30512,
-    "total_os": 26489,
-    "uploadedAt": "2026-04-24T23:19:42.318Z"
+    "total_os": 26489
   },
   "2026-04-11": {
     "fecha": "2026-04-11",
     "site": "MLM",
     "products": {
-      "Cards": 17046,
-      "Point": 1649,
-      "Bobinas": 1044,
-      "Others": 14
+      "Cards": 26492,
+      "Point": 2563,
+      "Bobinas": 1376,
+      "Others": 19
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 16366,
-        "XD - POINT": 680
+        "XD - CARDS": 25499,
+        "XD - POINT": 993
       },
       "Point": {
-        "XD - POINT": 1649
+        "XD - POINT": 2563
       },
       "Bobinas": {
-        "XD - POINT": 1044
+        "XD - POINT": 1376
       },
       "Others": {
-        "XD - POINT": 14
+        "XD - POINT": 19
       }
     },
-    "total_unidades": 19753,
-    "total_os": 18386,
-    "uploadedAt": "2026-04-24T23:20:07.626Z"
+    "total_unidades": 30450,
+    "total_os": 28290
   },
   "2026-04-23": {
     "fecha": "2026-04-23",
@@ -341,8 +333,7 @@
       }
     },
     "total_unidades": 30336,
-    "total_os": 27097,
-    "uploadedAt": "2026-04-24T23:20:07.544Z"
+    "total_os": 27097
   },
   "2026-04-14": {
     "fecha": "2026-04-14",
@@ -375,8 +366,7 @@
       }
     },
     "total_unidades": 57846,
-    "total_os": 46803,
-    "uploadedAt": "2026-04-24T23:20:07.588Z"
+    "total_os": 46803
   },
   "2026-04-12": {
     "fecha": "2026-04-12",
@@ -404,8 +394,7 @@
       }
     },
     "total_unidades": 23164,
-    "total_os": 10232,
-    "uploadedAt": "2026-04-24T23:20:07.595Z"
+    "total_os": 10232
   },
   "2026-04-16": {
     "fecha": "2026-04-16",
@@ -434,17 +423,16 @@
       }
     },
     "total_unidades": 37571,
-    "total_os": 34791,
-    "uploadedAt": "2026-04-24T23:20:07.616Z"
+    "total_os": 34791
   },
   "2026-04-17": {
     "fecha": "2026-04-17",
     "site": "MLM",
     "products": {
       "Cards": 35836,
-      "Point": 5087,
+      "Point": 5105,
       "Bobinas": 1444,
-      "Others": 295
+      "Others": 277
     },
     "routes": {
       "Cards": {
@@ -453,19 +441,17 @@
       },
       "Point": {
         "XD - POINT": 3825,
-        "GEODIS": 1262
+        "GEODIS": 1280
       },
       "Bobinas": {
         "XD - POINT": 1444
       },
       "Others": {
-        "XD - POINT": 277,
-        "GEODIS": 18
+        "XD - POINT": 277
       }
     },
     "total_unidades": 42662,
-    "total_os": 38148,
-    "uploadedAt": "2026-04-24T23:20:07.647Z"
+    "total_os": 38148
   },
   "2026-04-13": {
     "fecha": "2026-04-13",
@@ -492,8 +478,7 @@
       }
     },
     "total_unidades": 24858,
-    "total_os": 23450,
-    "uploadedAt": "2026-04-24T23:20:07.660Z"
+    "total_os": 23450
   },
   "2026-04-18": {
     "fecha": "2026-04-18",
@@ -521,8 +506,7 @@
       }
     },
     "total_unidades": 41042,
-    "total_os": 33881,
-    "uploadedAt": "2026-04-24T23:20:07.682Z"
+    "total_os": 33881
   },
   "2026-04-22": {
     "fecha": "2026-04-22",
@@ -555,8 +539,7 @@
       }
     },
     "total_unidades": 57978,
-    "total_os": 32503,
-    "uploadedAt": "2026-04-24T23:20:07.701Z"
+    "total_os": 32503
   },
   "2026-04-15": {
     "fecha": "2026-04-15",
@@ -583,8 +566,7 @@
       }
     },
     "total_unidades": 39893,
-    "total_os": 37691,
-    "uploadedAt": "2026-04-24T23:20:07.721Z"
+    "total_os": 37691
   },
   "2026-04-20": {
     "fecha": "2026-04-20",
@@ -611,8 +593,7 @@
       }
     },
     "total_unidades": 31180,
-    "total_os": 29751,
-    "uploadedAt": "2026-04-24T23:20:07.737Z"
+    "total_os": 29751
   },
   "2026-04-21": {
     "fecha": "2026-04-21",
@@ -639,7 +620,6 @@
       }
     },
     "total_unidades": 63133,
-    "total_os": 59559,
-    "uploadedAt": "2026-04-24T23:20:07.776Z"
+    "total_os": 59559
   }
 }
