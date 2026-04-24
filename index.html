@@ -532,7 +532,9 @@
   }
 
   function processRows(rows) {
-    const siteVal = rows.find(r => r['SITIO FUENTE'] || r['LOCAL'])?.[rows[0]?.['SITIO FUENTE'] !== undefined ? 'SITIO FUENTE' : 'LOCAL'] || '';
+    const firstRow = rows[0] || {};
+    const siteCol = 'SITIO FUENTE' in firstRow ? 'SITIO FUENTE' : 'LOCAL DE ORIGEM' in firstRow ? 'LOCAL DE ORIGEM' : 'LOCAL';
+    const siteVal = rows.find(r => r[siteCol])?.[siteCol] || '';
     const site = detectSiteFromValue(siteVal);
     const byDate = {};
     for (const r of rows) {
