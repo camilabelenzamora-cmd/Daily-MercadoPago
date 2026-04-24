@@ -1084,6 +1084,7 @@
 
   async function selectRegional() {
     isRegional = true;
+    regionalCursor = null;
     document.querySelectorAll('.country-tab').forEach(t => t.classList.remove('active'));
     document.querySelector('[data-site="REGIONAL"]').classList.add('active');
     document.getElementById('weekSelector').style.display = 'none';
@@ -1091,13 +1092,17 @@
     document.getElementById('btnMonth').classList.toggle('active', view === 'month');
     showLoading();
 
-    // Default cursor = previous week or previous month
+    // Default cursor = most recent week/month with data
     if (!regionalCursor) {
+      const allDts = [...new Set(REGIONAL_SITES.flatMap(s =>
+        [...Object.keys(regionalData[s.code]?.despachos||{}), ...Object.keys(regionalData[s.code]?.maquila||{}), ...Object.keys(regionalData[s.code]?.asn||{})]
+      ))].sort();
       if (view === 'month') {
-        const n = new Date();
-        regionalCursor = `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}`;
+        const months = [...new Set(allDts.map(d=>d.slice(0,7)))].sort();
+        regionalCursor = months.length ? months[months.length-1] : (() => { const n=new Date(); return `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}`; })();
       } else {
-        regionalCursor = getMonday(addDays(isoDate(new Date()), -7));
+        const weeks = [...new Set(allDts.map(d=>getMonday(new Date(d+'T12:00:00'))))].sort();
+        regionalCursor = weeks.length ? weeks[weeks.length-1] : getMonday(addDays(isoDate(new Date()), -7));
       }
     }
 
