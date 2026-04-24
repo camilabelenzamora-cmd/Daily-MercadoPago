@@ -407,7 +407,7 @@
     return null;
   }
   function isMaquila(filename) { const f = filename.toLowerCase(); return f.includes('maquila') || f.includes('caja'); }
-  function isASN(filename) { return filename.toLowerCase().includes('asn'); }
+  function isASN(filename) { const f = filename.toLowerCase(); return f.includes('asn') || f.includes('detalhe asn'); }
   function isDespachos(filename) { const f = filename.toLowerCase(); return f.includes('detalleos') || f.includes('detalleorden') || f.includes('ordem de salida') || f.includes('ordemdesalida'); }
   function isExcel(filename) { return filename.match(/\.xlsx?$/i); }
 
@@ -452,23 +452,27 @@
 
   // ── ASN PROCESSING ───────────────────────────────────
   function processASNRows(rows) {
-    const site = detectSiteFromValue(rows.find(r => r['NOM SITIO'])?.['NOM SITIO'] || '');
+    const firstRow = rows[0] || {};
+    const siteCol = 'NOM SITIO' in firstRow ? 'NOM SITIO' : 'LOCAL DESTINO';
+    const site = detectSiteFromValue(rows.find(r => r[siteCol])?.[siteCol] || '');
     const byDate = {};
     for (const r of rows) {
-      const raw = (r['FECHA ASIG PUERTA'] || '').toString().trim();
-      const fecha = (raw && raw !== 'NaN') ? (parseDate(raw) || new Date().toISOString().slice(0,10)) : new Date().toISOString().slice(0,10);
+      const raw = (r['FECHA ASIG PUERTA'] || r['DATA ALOCAÇÃO DOCA'] || r['DATA ALOCA\u00c7\u00c3O DOCA'] || '').toString().trim();
+      const fecha = (raw && raw !== 'NaN') ? parseDate(raw) : null;
+      if (!fecha) continue;
       if (!byDate[fecha]) byDate[fecha] = [];
       byDate[fecha].push(r);
     }
     return Object.entries(byDate).map(([fecha, dRows]) => {
       const devoluciones = {}, inboundSuppliers = {};
       for (const r of dRows) {
-        const tipo = (r['TIPO ASN'] || '').trim();
-        const prod = (r['NOM PROD'] || '').trim();
-        const prov = (r['ASN NOM PROV'] || '').trim() || 'Sin proveedor';
-        const uds = parseInt(r['UN RECIBIDAS'] || '0') || 0;
+        const tipo = (r['TIPO ASN'] || r['TIPO DE ASN'] || '').trim();
+        const prod = (r['NOM PROD'] || r['NOME PROD'] || '').trim();
+        const prov = (r['ASN NOM PROV'] || r['ASN NOM FORN'] || '').trim() || 'Sin proveedor';
+        const uds = parseInt(r['UN RECIBIDAS'] || r['UN RECEBIDAS'] || '0') || 0;
         if (!prod || !uds) continue;
-        if (tipo === 'DEVCLI') {
+        const isDevolucion = tipo === 'DEVCLI' || tipo === 'INS';
+        if (isDevolucion) {
           devoluciones[prod] = (devoluciones[prod] || 0) + uds;
         } else {
           if (!inboundSuppliers[prov]) inboundSuppliers[prov] = { total: 0, products: {} };
