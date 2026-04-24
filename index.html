@@ -1204,7 +1204,7 @@
     // ── OUTBOUND CHARTS ───────────────────────────────
     document.getElementById('regionalCharts').style.display = 'block';
     document.getElementById('emptyState').style.display = 'none';
-    showTable();
+    document.getElementById('mainTable').style.display = 'none';
     const flags = REGIONAL_SITES.map(s => s.flag);
     const barColors = ['#009EE3', '#009EE3', '#009EE3', '#009EE3'];
 
