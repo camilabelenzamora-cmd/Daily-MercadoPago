@@ -401,7 +401,7 @@
     const v = (value || '').toUpperCase();
     if (v.includes('ARGENTINA') || v.includes('ARBA')) return 'MLA';
     if (v.includes('BRSP') || v.includes('BRASIL') || v.includes('BRAZIL')) return 'MLB';
-    if (v.includes('MEXICO') || v.includes('MÉXI') || v.includes('MEXI')) return 'MLM';
+    if (v.includes('MEXICO') || v.includes('MÉXI') || v.includes('MEXI') || v.includes('MEX') || v.includes('MLM')) return 'MLM';
     if (v.includes('CHILE')) return 'MLC';
     if (v.includes('URUGUAY')) return 'MLU';
     return null;
