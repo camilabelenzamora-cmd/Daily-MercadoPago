@@ -938,8 +938,8 @@
 
   function renderWeek() {
     if (!cursor) cursor = getMonday(new Date());
-    const dates = Array.from({length:5}, (_,i) => addDays(cursor, i));
-    document.getElementById('navLabel').textContent = `Semana ${shortDate(cursor)} — ${shortDate(addDays(cursor,4))}`;
+    const dates = Array.from({length:7}, (_,i) => addDays(cursor, i));
+    document.getElementById('navLabel').textContent = `Semana ${shortDate(cursor)} — ${shortDate(addDays(cursor,6))}`;
 
     // Populate week selector — combine all data sources
     const allDates = [...new Set([
@@ -954,7 +954,7 @@
     weeksWithData.forEach(m => {
       const opt = document.createElement('option');
       opt.value = m;
-      opt.textContent = 'Week ' + getISOWeek(m);
+      opt.textContent = `Week ${getISOWeek(m)} · ${shortDate(m)}–${shortDate(addDays(m,6))}`;
       if (m === cursor) opt.selected = true;
       sel.appendChild(opt);
     });
@@ -1138,8 +1138,8 @@
       const daysInMonth = new Date(year, month, 0).getDate();
       dates = Array.from({length: daysInMonth}, (_, i) => `${year}-${String(month).padStart(2,'0')}-${String(i+1).padStart(2,'0')}`);
     } else {
-      dates = Array.from({length:5}, (_,i) => addDays(regionalCursor, i));
-      document.getElementById('navLabel').textContent = `Semana ${shortDate(regionalCursor)} — ${shortDate(addDays(regionalCursor,4))}`;
+      dates = Array.from({length:7}, (_,i) => addDays(regionalCursor, i));
+      document.getElementById('navLabel').textContent = `Semana ${shortDate(regionalCursor)} — ${shortDate(addDays(regionalCursor,6))}`;
 
       // Week selector for Regional
       const allRegDates = [...new Set(REGIONAL_SITES.flatMap(s => [
@@ -1154,7 +1154,7 @@
       weeksWithData.forEach(m => {
         const opt = document.createElement('option');
         opt.value = m;
-        opt.textContent = 'Week ' + getISOWeek(m);
+        opt.textContent = `Week ${getISOWeek(m)} · ${shortDate(m)}–${shortDate(addDays(m,6))}`;
         if (m === regionalCursor) opt.selected = true;
         sel.appendChild(opt);
       });
