@@ -542,8 +542,8 @@
 
   function processRows(rows) {
     const firstRow = rows[0] || {};
-    const siteCol = 'SITIO FUENTE' in firstRow ? 'SITIO FUENTE' : 'LOCAL DE ORIGEM' in firstRow ? 'LOCAL DE ORIGEM' : 'LOCAL';
-    const siteVal = rows.find(r => r[siteCol])?.[siteCol] || '';
+    const siteCol = 'SITIO FUENTE' in firstRow ? 'SITIO FUENTE' : 'LOCAL DE ORIGEM' in firstRow ? 'LOCAL DE ORIGEM' : 'LOCAL' in firstRow ? 'LOCAL' : 'SITIO';
+    const siteVal = rows.find(r => r[siteCol])?.[siteCol] || rows.find(r => r['DESCR SITIO'])?.['DESCR SITIO'] || '';
     const site = detectSiteFromValue(siteVal);
     const byDate = {};
     for (const r of rows) {
