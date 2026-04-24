@@ -9,7 +9,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #EBEBEB; color: #333; font-size: 14px; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #F8F9FA; color: #333; font-size: 14px; }
 
     /* HEADER */
     .header { background: #FFE600; padding: 12px 24px; display: flex; justify-content: space-between; align-items: center; }
@@ -106,7 +106,7 @@
     .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid #fff; border-top-color: transparent; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; }
     @keyframes spin { to { transform: rotate(360deg); } }
     .zero-val { color: #ccc; }
-    .row-section td { background: #FFE600; font-size: 13px; font-weight: 700; color: #00253C; letter-spacing: 0.3px; text-transform: uppercase; padding: 10px 16px; border-top: 8px solid #EBEBEB; }
+    .row-section td { background: #FFE600; font-size: 13px; font-weight: 700; color: #00253C; letter-spacing: 0.3px; text-transform: uppercase; padding: 10px 16px; border-top: 8px solid #F8F9FA; }
     .row-maquila-total td { padding: 11px 16px; font-weight: 700; background: #F5F5F5; color: #333; text-align: right; border-top: 1px solid #E5E5E5; }
     .row-maquila-total td:first-child { text-align: left; }
   </style>
@@ -114,17 +114,6 @@
 <body>
 
 <div class="header">
-  <div class="header-logo">
-    <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="19" cy="19" r="19" fill="#009EE3"/>
-      <path d="M11 22c0-1.1.9-2 2-2h2v-3a4 4 0 018 0v3h2a2 2 0 012 2v3a2 2 0 01-2 2H13a2 2 0 01-2-2v-3z" fill="white"/>
-      <circle cx="19" cy="14" r="3" fill="white"/>
-    </svg>
-    <div class="logo-text">
-      <span>mercado</span>
-      <strong>pago</strong>
-    </div>
-  </div>
   <div class="header-title">
     <h1>Daily Mercado Pago</h1>
     <p>Operación diaria · Outbound & Inbound</p>
@@ -137,10 +126,10 @@
 
 <div class="top-bar">
   <div class="country-tab" data-site="REGIONAL" onclick="selectRegional()">🌎 Regional</div>
-  <div class="country-tab active" data-site="MLA" onclick="selectSite('MLA')">🇦🇷</div>
-  <div class="country-tab" data-site="MLM" onclick="selectSite('MLM')">🇲🇽</div>
-  <div class="country-tab" data-site="MLC" onclick="selectSite('MLC')">🇨🇱</div>
-  <div class="country-tab" data-site="MLU" onclick="selectSite('MLU')">🇺🇾</div>
+  <div class="country-tab active" data-site="MLA" onclick="selectSite('MLA')">🇦🇷 AR</div>
+  <div class="country-tab" data-site="MLM" onclick="selectSite('MLM')">🇲🇽 MX</div>
+  <div class="country-tab" data-site="MLC" onclick="selectSite('MLC')">🇨🇱 CL</div>
+  <div class="country-tab" data-site="MLU" onclick="selectSite('MLU')">🇺🇾 UY</div>
   <button class="upload-btn" onclick="openHeadcountModal()">👥 Headcount</button>
   <button class="upload-btn" onclick="openUploadModal()" style="margin-left:16px;">⬆️ Actualizar</button>
 </div>
