@@ -568,12 +568,21 @@
 
   function navigate(dir) {
     if (isRegional) {
+      const allDts = [...new Set(REGIONAL_SITES.flatMap(s =>
+        [...Object.keys(regionalData[s.code]?.despachos||{}), ...Object.keys(regionalData[s.code]?.maquila||{}), ...Object.keys(regionalData[s.code]?.asn||{})]
+      ))].sort();
       if (view === 'month') {
-        const [y, m] = regionalCursor.split('-').map(Number);
-        const d = new Date(y, m - 1 + dir, 1);
-        regionalCursor = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+        const months = [...new Set(allDts.map(d=>d.slice(0,7)))].sort();
+        const idx = months.indexOf(regionalCursor);
+        const newIdx = idx + dir;
+        if (newIdx < 0 || newIdx >= months.length) return;
+        regionalCursor = months[newIdx];
       } else {
-        regionalCursor = addDays(regionalCursor, dir*7);
+        const weeks = [...new Set(allDts.map(d=>getMonday(new Date(d+'T12:00:00'))))].sort();
+        const idx = weeks.indexOf(regionalCursor);
+        const newIdx = idx + dir;
+        if (newIdx < 0 || newIdx >= weeks.length) return;
+        regionalCursor = weeks[newIdx];
       }
       renderRegional(); return;
     }
