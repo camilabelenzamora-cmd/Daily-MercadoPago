@@ -1,0 +1,1367 @@
+{
+  "2026-04-01": {
+    "fecha": "2026-04-01",
+    "site": "MLB",
+    "products": {
+      "Point Pro 3 Claro": 1800,
+      "Point Pro 3 Vivo": 1440,
+      "Point Smart 2 Vivo": 720,
+      "Point Smart 2 Claro": 480,
+      "Point Pro2 Claro": 432,
+      "Point Smart 2 Tim": 240,
+      "Point Smart A910 Vivo": 192,
+      "Point Smart A910 Claro": 96,
+      "Point Smart A910 Tim": 96
+    },
+    "reps": {
+      "Point Pro2 Claro": {
+        "adrianosanto": 120,
+        "aaffranca": 120,
+        "tvdsantos": 120,
+        "ajsantana": 72
+      },
+      "Point Smart 2 Tim": {
+        "llffarias": 240
+      },
+      "Point Pro 3 Claro": {
+        "ludfranca": 360,
+        "sdgodoy": 360,
+        "ext_amafirmi": 360,
+        "edirlanssilv": 180,
+        "ext_clpedrei": 180,
+        "alinecoalves": 120,
+        "ggmmatos": 120,
+        "ludmoura": 120
+      },
+      "Point Smart A910 Vivo": {
+        "edivnascimen": 96,
+        "pdopinto": 96
+      },
+      "Point Pro 3 Vivo": {
+        "ssazevedo": 360,
+        "ajsantana": 360,
+        "llffarias": 360,
+        "adrianosanto": 120,
+        "ludfranca": 120,
+        "edivnascimen": 120
+      },
+      "Point Smart A910 Claro": {
+        "tvdsantos": 32,
+        "ludfranca": 16,
+        "llffarias": 16,
+        "adrianosanto": 16,
+        "ajsantana": 16
+      },
+      "Point Smart A910 Tim": {
+        "egmagalhaes": 64,
+        "pdopinto": 16,
+        "ssazevedo": 16
+      },
+      "Point Smart 2 Claro": {
+        "ggmmatos": 240,
+        "alinecoalves": 240
+      },
+      "Point Smart 2 Vivo": {
+        "ext_clpedrei": 240,
+        "edirlanssilv": 240,
+        "ludmoura": 240
+      }
+    },
+    "total": 5496,
+    "uploadedAt": "2026-04-24T22:14:47.070Z"
+  },
+  "2026-04-02": {
+    "fecha": "2026-04-02",
+    "site": "MLB",
+    "products": {
+      "Point Pro 3 Vivo": 1091,
+      "Point Air 2 Vivo": 840,
+      "Point Pro 3 Claro": 720,
+      "Point Smart 2 Vivo": 480,
+      "Point Pro 3 Tim": 361,
+      "Point Smart 2 Claro": 240,
+      "Point Air Vivo Nano": 6,
+      "Point Air Claro Nano": 4,
+      "Point Smart 2 Tim": 2,
+      "Point Mini Chip Claro": 1
+    },
+    "reps": {
+      "Point Air 2 Vivo": {
+        "pdopinto": 420,
+        "llffarias": 420
+      },
+      "Point Pro 3 Vivo": {
+        "ludfranca": 360,
+        "sdgodoy": 360,
+        "ajsantana": 180,
+        "edivnascimen": 180,
+        "egmagalhaes": 11
+      },
+      "Point Pro 3 Claro": {
+        "ajsantana": 360,
+        "edivnascimen": 360
+      },
+      "Point Smart 2 Claro": {
+        "ludfranca": 240
+      },
+      "Point Smart 2 Tim": {
+        "egmagalhaes": 2
+      },
+      "Point Smart 2 Vivo": {
+        "edirlanssilv": 240,
+        "ext_clpedrei": 240
+      },
+      "Point Mini Chip Claro": {
+        "egmagalhaes": 1
+      },
+      "Point Air Claro Nano": {
+        "egmagalhaes": 4
+      },
+      "Point Air Vivo Nano": {
+        "egmagalhaes": 6
+      },
+      "Point Pro 3 Tim": {
+        "edirlanssilv": 180,
+        "ext_clpedrei": 180,
+        "egmagalhaes": 1
+      }
+    },
+    "total": 3745,
+    "uploadedAt": "2026-04-24T22:14:47.072Z"
+  },
+  "2026-04-03": {
+    "fecha": "2026-04-03",
+    "site": "MLB",
+    "products": {
+      "Point Air 2 Vivo": 840,
+      "Point Smart 2 Claro": 480,
+      "Point Smart A910 Vivo": 382,
+      "Point Pro2 Claro": 360,
+      "Point Smart 2 Vivo": 293,
+      "Point Air 2 Tim": 168,
+      "Point Smart A910 Claro": 160,
+      "Point Smart A910 Tim": 96
+    },
+    "reps": {
+      "Point Pro2 Claro": {
+        "jjeernandes": 60,
+        "jjmmickenson": 60,
+        "ext_nicserra": 60,
+        "ereggoncalve": 60,
+        "ddiimura": 60,
+        "llssena": 60
+      },
+      "Point Smart A910 Tim": {
+        "ccmmatias": 64,
+        "jjeernandes": 16,
+        "ereggoncalve": 16
+      },
+      "Point Smart 2 Claro": {
+        "ajsantana": 240,
+        "sdgodoy": 240
+      },
+      "Point Smart A910 Vivo": {
+        "ssazevedo": 96,
+        "ludfranca": 96,
+        "ext_clpedrei": 94,
+        "ddiimura": 32,
+        "ereggoncalve": 32,
+        "ext_nicserra": 32
+      },
+      "Point Smart 2 Vivo": {
+        "ext_amafirmi": 240,
+        "edivnascimen": 53
+      },
+      "Point Air 2 Vivo": {
+        "pdopinto": 420,
+        "llffarias": 420
+      },
+      "Point Smart A910 Claro": {
+        "agdsilva": 96,
+        "ffccabral": 32,
+        "jjeernandes": 32
+      },
+      "Point Air 2 Tim": {
+        "nnccorrea": 84,
+        "ccmmatias": 84
+      }
+    },
+    "total": 2779,
+    "uploadedAt": "2026-04-24T22:14:47.073Z"
+  },
+  "2026-04-04": {
+    "fecha": "2026-04-04",
+    "site": "MLB",
+    "products": {
+      "Point Pro2 Claro": 1080,
+      "Point Air 2 Vivo": 420,
+      "Point Air 2 Tim": 252,
+      "Point Pro 3 Vivo": 180,
+      "Point Pro 3 Claro": 180,
+      "Point Smart A910 Tim": 96,
+      "Point Smart A910 Vivo": 82,
+      "Point Smart A910 Claro": 80
+    },
+    "reps": {
+      "Point Air 2 Tim": {
+        "ccerqueirads": 84,
+        "jjmmickenson": 84,
+        "rorccruz": 84
+      },
+      "Point Smart A910 Tim": {
+        "ext_nicserra": 32,
+        "jjeernandes": 32,
+        "ccmmatias": 32
+      },
+      "Point Air 2 Vivo": {
+        "nnccorrea": 84,
+        "ffccabral": 84,
+        "ccerqueirads": 84,
+        "jjmmickenson": 84,
+        "ext_nicserra": 84
+      },
+      "Point Smart A910 Vivo": {
+        "egmagalhaes": 48,
+        "ddiimura": 34
+      },
+      "Point Smart A910 Claro": {
+        "egmagalhaes": 48,
+        "ereggoncalve": 32
+      },
+      "Point Pro2 Claro": {
+        "edirlanssilv": 360,
+        "ccmmatias": 120,
+        "ffccabral": 120,
+        "nnccorrea": 120,
+        "jjeernandes": 120,
+        "ddiimura": 60,
+        "rorccruz": 60,
+        "ereggoncalve": 60,
+        "ccerqueirads": 60
+      },
+      "Point Pro 3 Vivo": {
+        "ext_clpedrei": 180
+      },
+      "Point Pro 3 Claro": {
+        "ext_clpedrei": 180
+      }
+    },
+    "total": 2370,
+    "uploadedAt": "2026-04-24T22:14:47.074Z"
+  },
+  "2026-04-06": {
+    "fecha": "2026-04-06",
+    "site": "MLB",
+    "products": {
+      "Point Air 2 Vivo": 893,
+      "Point Pro2 Vivo": 360,
+      "Point Smart 2 Vivo": 240,
+      "Point Smart A910 Vivo": 153,
+      "Point Smart A910 Tim": 100,
+      "Point Smart A910 Claro": 51,
+      "Point Pro 3 Vivo": 48,
+      "Point Pro 3 Claro": 45,
+      "Point Air Claro Nano": 22,
+      "Point Air 2 Claro": 22,
+      "Point Air 2 Tim": 6,
+      "Point Mini Chip Claro": 4,
+      "Point Pro2 Tim": 3,
+      "Point Pro2 Claro": 2
+    },
+    "reps": {
+      "Point Smart A910 Claro": {
+        "aaffranca": 48,
+        "ludmoura": 3
+      },
+      "Point Smart A910 Tim": {
+        "ludfranca": 96,
+        "ludmoura": 4
+      },
+      "Point Air 2 Vivo": {
+        "pdopinto": 420,
+        "sdgodoy": 420,
+        "carolynearau": 53
+      },
+      "Point Pro2 Vivo": {
+        "edivnascimen": 180,
+        "ajsantana": 180
+      },
+      "Point Smart A910 Vivo": {
+        "ludfranca": 48,
+        "aaffranca": 48,
+        "pdopinto": 48,
+        "ludmoura": 9
+      },
+      "Point Smart 2 Vivo": {
+        "ext_clpedrei": 240
+      },
+      "Point Pro 3 Claro": {
+        "edirlanssilv": 45
+      },
+      "Point Pro 3 Vivo": {
+        "edirlanssilv": 32,
+        "carolynearau": 16
+      },
+      "Point Air Claro Nano": {
+        "edirlanssilv": 22
+      },
+      "Point Air 2 Claro": {
+        "carolynearau": 22
+      },
+      "Point Air 2 Tim": {
+        "carolynearau": 6
+      },
+      "Point Mini Chip Claro": {
+        "edirlanssilv": 4
+      },
+      "Point Pro2 Tim": {
+        "ludmoura": 3
+      },
+      "Point Pro2 Claro": {
+        "ludmoura": 2
+      }
+    },
+    "total": 1949,
+    "uploadedAt": "2026-04-24T22:14:47.075Z"
+  },
+  "2026-04-07": {
+    "fecha": "2026-04-07",
+    "site": "MLB",
+    "products": {
+      "Point Pro 3 Tim": 1139,
+      "Point Pro 3 Vivo": 839,
+      "Point Pro 3 Claro": 790,
+      "Point Smart 2 Vivo": 98,
+      "Point Smart 2 Claro": 56,
+      "Point Pro2 Claro": 49,
+      "Point Smart 2 Tim": 34,
+      "Point Pro2 Vivo": 27,
+      "Point Pro2 Tim": 1
+    },
+    "reps": {
+      "Point Pro 3 Tim": {
+        "llssena": 180,
+        "jjeernandes": 180,
+        "ddiimura": 180,
+        "pdopinto": 180,
+        "jjmmickenson": 60,
+        "ccerqueirads": 60,
+        "ext_nicserra": 60,
+        "ffccabral": 60,
+        "mmiimura": 60,
+        "dsevangelist": 60,
+        "ext_clpedrei": 58,
+        "egmagalhaes": 1
+      },
+      "Point Pro 3 Vivo": {
+        "pdopinto": 430,
+        "edivnascimen": 360,
+        "ext_clpedrei": 49
+      },
+      "Point Pro 3 Claro": {
+        "sdgodoy": 360,
+        "ajsantana": 360,
+        "ext_clpedrei": 70
+      },
+      "Point Smart 2 Vivo": {
+        "sdgodoy": 52,
+        "ajsantana": 46
+      },
+      "Point Smart 2 Claro": {
+        "edivnascimen": 52,
+        "ext_clpedrei": 4
+      },
+      "Point Smart 2 Tim": {
+        "ext_clpedrei": 34
+      },
+      "Point Pro2 Claro": {
+        "ext_clpedrei": 49
+      },
+      "Point Pro2 Vivo": {
+        "ext_clpedrei": 27
+      },
+      "Point Pro2 Tim": {
+        "ext_clpedrei": 1
+      }
+    },
+    "total": 3033,
+    "uploadedAt": "2026-04-24T22:14:47.077Z"
+  },
+  "2026-04-08": {
+    "fecha": "2026-04-08",
+    "site": "MLB",
+    "products": {
+      "Point Smart 2 Vivo": 980,
+      "Point Smart 2 Claro": 492,
+      "Point Pro 3 Claro": 384,
+      "Point Pro2 Claro": 360,
+      "Point Pro 3 Vivo": 233,
+      "Point Smart 2 Tim": 71,
+      "Point Pro 3 Tim": 23,
+      "Point Air 2 Claro": 2,
+      "Point Smart A910 Claro": 1
+    },
+    "reps": {
+      "Point Pro2 Claro": {
+        "ext_nicserra": 60,
+        "jjeernandes": 60,
+        "ereggoncalve": 60,
+        "alincsilva": 60,
+        "dsevangelist": 60,
+        "ludfranca": 60
+      },
+      "Point Smart 2 Vivo": {
+        "pdopinto": 360,
+        "aaffranca": 240,
+        "adrianosanto": 240,
+        "ajsantana": 60,
+        "ludfranca": 60,
+        "ext_clpedrei": 20
+      },
+      "Point Smart 2 Claro": {
+        "sdgodoy": 240,
+        "ajsantana": 240,
+        "ext_clpedrei": 12
+      },
+      "Point Pro 3 Vivo": {
+        "ludfranca": 180,
+        "ext_clpedrei": 53
+      },
+      "Point Pro 3 Claro": {
+        "ssazevedo": 360,
+        "ext_clpedrei": 24
+      },
+      "Point Smart 2 Tim": {
+        "sdgodoy": 60,
+        "ext_clpedrei": 11
+      },
+      "Point Pro 3 Tim": {
+        "ext_clpedrei": 23
+      },
+      "Point Smart A910 Claro": {
+        "ext_clpedrei": 1
+      },
+      "Point Air 2 Claro": {
+        "ext_clpedrei": 2
+      }
+    },
+    "total": 2546,
+    "uploadedAt": "2026-04-24T22:14:47.088Z"
+  },
+  "2026-04-09": {
+    "fecha": "2026-04-09",
+    "site": "MLB",
+    "products": {
+      "Point Pro 3 Claro": 1080,
+      "Point Pro 3 Vivo": 720,
+      "Point Air Claro Nano": 650,
+      "Point Pro 3 Tim": 360
+    },
+    "reps": {
+      "Point Pro 3 Claro": {
+        "pdopinto": 420,
+        "llssena": 180,
+        "alincsilva": 180,
+        "ffccabral": 120,
+        "mmiimura": 120,
+        "rorssantana": 60
+      },
+      "Point Air Claro Nano": {
+        "jjeernandes": 146,
+        "jjmmickenson": 144,
+        "ccerqueirads": 144,
+        "ereggoncalve": 144,
+        "ddiimura": 72
+      },
+      "Point Pro 3 Vivo": {
+        "sdgodoy": 360,
+        "edivnascimen": 360
+      },
+      "Point Pro 3 Tim": {
+        "ajsantana": 360
+      }
+    },
+    "total": 2810,
+    "uploadedAt": "2026-04-24T22:14:47.090Z"
+  },
+  "2026-04-10": {
+    "fecha": "2026-04-10",
+    "site": "MLB",
+    "products": {
+      "Point Smart 2 Vivo": 960,
+      "Point Smart 2 Claro": 486,
+      "Point Pro 3 Tim": 360,
+      "Point Pro 3 Claro": 360,
+      "Point Smart 2 Tim": 241,
+      "Point Smart A910 Claro": 192,
+      "Point Air 2 Vivo": 18,
+      "Point Air 2 Tim": 7,
+      "Point Air 2 Claro": 5,
+      "Point Pro2 Claro": 4,
+      "Point Pro2 Tim": 2,
+      "Point Pro2 Vivo": 1,
+      "Point Mini Chip Claro": 1
+    },
+    "reps": {
+      "Point Pro 3 Tim": {
+        "alincsilva": 120,
+        "dsevangelist": 72,
+        "ddiimura": 72,
+        "jjeernandes": 72,
+        "llssena": 24
+      },
+      "Point Smart A910 Claro": {
+        "llssena": 112,
+        "ddiimura": 80
+      },
+      "Point Smart 2 Claro": {
+        "dsevangelist": 120,
+        "jjeernandes": 120,
+        "alincsilva": 120,
+        "ddiimura": 120,
+        "egmagalhaes": 6
+      },
+      "Point Smart 2 Tim": {
+        "dsevangelist": 60,
+        "llssena": 60,
+        "jjeernandes": 60,
+        "alincsilva": 60,
+        "egmagalhaes": 1
+      },
+      "Point Smart 2 Vivo": {
+        "pdopinto": 240,
+        "edivnascimen": 240,
+        "sdgodoy": 240,
+        "ajsantana": 240
+      },
+      "Point Pro 3 Claro": {
+        "ext_clpedrei": 360
+      },
+      "Point Pro2 Tim": {
+        "egmagalhaes": 2
+      },
+      "Point Pro2 Vivo": {
+        "egmagalhaes": 1
+      },
+      "Point Pro2 Claro": {
+        "egmagalhaes": 4
+      },
+      "Point Air 2 Vivo": {
+        "egmagalhaes": 18
+      },
+      "Point Air 2 Claro": {
+        "egmagalhaes": 5
+      },
+      "Point Air 2 Tim": {
+        "egmagalhaes": 7
+      },
+      "Point Mini Chip Claro": {
+        "egmagalhaes": 1
+      }
+    },
+    "total": 2637,
+    "uploadedAt": "2026-04-24T22:14:47.091Z"
+  },
+  "2026-04-11": {
+    "fecha": "2026-04-11",
+    "site": "MLB",
+    "products": {
+      "Point Pro 3 Vivo": 1080,
+      "Point Smart 2 Vivo": 960,
+      "Point Pro 3 Claro": 720,
+      "Point Air 2 Vivo": 420,
+      "Point Air 2 Claro": 420,
+      "Point Pro 3 Tim": 360,
+      "Point Air Claro Nano": 4
+    },
+    "reps": {
+      "Point Pro 3 Claro": {
+        "edivnascimen": 360,
+        "ffccabral": 60,
+        "dsevangelist": 60,
+        "ddiimura": 60,
+        "jjmmickenson": 60,
+        "jjeernandes": 60,
+        "alincsilva": 60
+      },
+      "Point Pro 3 Tim": {
+        "edivnascimen": 216,
+        "ffccabral": 48,
+        "dsevangelist": 48,
+        "ddiimura": 48
+      },
+      "Point Smart 2 Vivo": {
+        "llffarias": 240,
+        "sdgodoy": 240,
+        "ext_amafirmi": 240,
+        "tvdsantos": 240
+      },
+      "Point Pro 3 Vivo": {
+        "pdopinto": 480,
+        "ajsantana": 480,
+        "tvdsantos": 120
+      },
+      "Point Air 2 Vivo": {
+        "pdopinto": 280,
+        "ext_amafirmi": 140
+      },
+      "Point Air 2 Claro": {
+        "llffarias": 280,
+        "sdgodoy": 140
+      },
+      "Point Air Claro Nano": {
+        "egmagalhaes": 4
+      }
+    },
+    "total": 3964,
+    "uploadedAt": "2026-04-24T22:14:47.093Z"
+  },
+  "2026-04-13": {
+    "fecha": "2026-04-13",
+    "site": "MLB",
+    "products": {
+      "Point Pro 3 Tim": 1656,
+      "Point Air Claro Nano": 660,
+      "Point Smart 2 Claro": 480,
+      "Point Smart 2 Vivo": 480,
+      "Point Pro2 Claro": 360,
+      "Point Smart A910 Claro": 288
+    },
+    "reps": {
+      "Point Smart 2 Claro": {
+        "pdopinto": 240,
+        "llffarias": 240
+      },
+      "Point Smart 2 Vivo": {
+        "edivnascimen": 240,
+        "ajsantana": 240
+      },
+      "Point Smart A910 Claro": {
+        "pdopinto": 96,
+        "llffarias": 96,
+        "edivnascimen": 96
+      },
+      "Point Pro2 Claro": {
+        "sdgodoy": 360
+      },
+      "Point Air Claro Nano": {
+        "ggmmatos": 380,
+        "llffarias": 120,
+        "pdopinto": 100,
+        "ajsantana": 40,
+        "egmagalhaes": 20
+      },
+      "Point Pro 3 Tim": {
+        "ludmoura": 576,
+        "ext_clpedrei": 540,
+        "alinecoalves": 540
+      }
+    },
+    "total": 3924,
+    "uploadedAt": "2026-04-24T22:14:47.095Z"
+  },
+  "2026-04-14": {
+    "fecha": "2026-04-14",
+    "site": "MLB",
+    "products": {
+      "Point Air Claro Nano": 648,
+      "Point Pro 3 Tim": 511,
+      "Point Smart 2 Claro": 480,
+      "Point Pro 3 Claro": 360,
+      "Point Pro 3 Vivo": 360,
+      "Point Pro2 Claro": 360,
+      "Point Smart 2 Tim": 240,
+      "Point Smart A910 Tim": 96
+    },
+    "reps": {
+      "Point Air Claro Nano": {
+        "agdsilva": 400,
+        "nvparra": 248
+      },
+      "Point Smart 2 Claro": {
+        "ludfranca": 480
+      },
+      "Point Pro 3 Claro": {
+        "llffarias": 360
+      },
+      "Point Smart A910 Tim": {
+        "ajsantana": 96
+      },
+      "Point Pro 3 Vivo": {
+        "sdgodoy": 360
+      },
+      "Point Pro 3 Tim": {
+        "pdopinto": 360,
+        "llffarias": 144,
+        "egmagalhaes": 7
+      },
+      "Point Smart 2 Tim": {
+        "sdgodoy": 120,
+        "ajsantana": 120
+      },
+      "Point Pro2 Claro": {
+        "ludmoura": 240,
+        "pdopinto": 120
+      }
+    },
+    "total": 3055,
+    "uploadedAt": "2026-04-24T22:14:47.096Z"
+  },
+  "2026-04-15": {
+    "fecha": "2026-04-15",
+    "site": "MLB",
+    "products": {
+      "Point Pro 3 Vivo": 3240,
+      "Point Pro 3 Tim": 1080,
+      "Point Smart 2 Vivo": 722,
+      "Point Pro 3 Claro": 720,
+      "Point Air Claro Nano": 476,
+      "Point Smart A910 Claro": 336,
+      "Point Smart A910 Tim": 96
+    },
+    "reps": {
+      "Point Smart A910 Claro": {
+        "wwffrancisco": 128,
+        "ddiimura": 80,
+        "jjeernandes": 80,
+        "ludmoura": 48
+      },
+      "Point Pro 3 Claro": {
+        "ext_clpedrei": 432,
+        "pdopinto": 120,
+        "daidlima": 72,
+        "nnccorrea": 24,
+        "ccmmatias": 24,
+        "jjggabriel": 24,
+        "llffarias": 24
+      },
+      "Point Pro 3 Tim": {
+        "edivnascimen": 360,
+        "daidlima": 300,
+        "ccerqueirads": 120,
+        "jjggabriel": 96,
+        "ext_nicserra": 84,
+        "giggoncalves": 60,
+        "wwffrancisco": 60
+      },
+      "Point Pro 3 Vivo": {
+        "llffarias": 720,
+        "pdopinto": 720,
+        "ajsantana": 360,
+        "agdsilva": 360,
+        "sdgodoy": 360,
+        "jjeernandes": 180,
+        "ccmmatias": 156,
+        "edivnascimen": 144,
+        "nnccorrea": 120,
+        "ddiimura": 120
+      },
+      "Point Smart A910 Tim": {
+        "rosbribeiro": 96
+      },
+      "Point Smart 2 Vivo": {
+        "sdgodoy": 240,
+        "agdsilva": 240,
+        "ajsantana": 240,
+        "egmagalhaes": 2
+      },
+      "Point Air Claro Nano": {
+        "ggmmatos": 250,
+        "alinecoalves": 225,
+        "egmagalhaes": 1
+      }
+    },
+    "total": 6670,
+    "uploadedAt": "2026-04-24T22:14:47.099Z"
+  },
+  "2026-04-16": {
+    "fecha": "2026-04-16",
+    "site": "MLB",
+    "products": {
+      "Point Smart 2 Vivo": 1649,
+      "Point Air Claro Nano": 1096,
+      "Point Pro 3 Claro": 777,
+      "Point Pro2 Claro": 747,
+      "Point Smart 2 Claro": 263,
+      "Point Smart A910 Vivo": 200,
+      "Point Smart A910 Claro": 150,
+      "Point Pro 3 Vivo": 96,
+      "Point Pro 3 Tim": 41,
+      "Point Air 2 Vivo": 37,
+      "Point Smart 2 Tim": 24,
+      "Point Air 2 Claro": 16,
+      "Point Air 2 Tim": 7,
+      "Point Air Vivo Nano": 7,
+      "Point Smart A910 Tim": 5,
+      "Point Pro2 Vivo": 4,
+      "Point Pro2 Tim": 4
+    },
+    "reps": {
+      "Point Air Claro Nano": {
+        "alinecoalves": 200,
+        "sdgodoy": 160,
+        "agdsilva": 140,
+        "ccerqueirads": 125,
+        "jjeernandes": 118,
+        "ddiimura": 105,
+        "pdopinto": 93,
+        "edivnascimen": 60,
+        "giggoncalves": 50,
+        "ccmmatias": 25,
+        "ffccabral": 20
+      },
+      "Point Pro2 Claro": {
+        "rosbribeiro": 180,
+        "dendsouza": 180,
+        "nnccorrea": 120,
+        "ffccabral": 60,
+        "ccmmatias": 60,
+        "giggoncalves": 60,
+        "ajsantana": 60,
+        "elmgonzalez": 15,
+        "edirlanssilv": 12
+      },
+      "Point Pro 3 Claro": {
+        "pdopinto": 360,
+        "llffarias": 360,
+        "edirlanssilv": 43,
+        "ludmoura": 13,
+        "egmagalhaes": 1
+      },
+      "Point Smart 2 Claro": {
+        "agdsilva": 240,
+        "egmagalhaes": 23
+      },
+      "Point Smart 2 Vivo": {
+        "ext_clpedrei": 480,
+        "edivnascimen": 240,
+        "sdgodoy": 240,
+        "ajsantana": 240,
+        "ext_amafirmi": 240,
+        "alinecoalves": 60,
+        "edirlanssilv": 60,
+        "egmagalhaes": 59,
+        "ludmoura": 30
+      },
+      "Point Smart A910 Claro": {
+        "tvdsantos": 96,
+        "llffarias": 48,
+        "edirlanssilv": 5,
+        "elmgonzalez": 1
+      },
+      "Point Smart A910 Vivo": {
+        "ludmoura": 128,
+        "rosbribeiro": 32,
+        "agdsilva": 32,
+        "elmgonzalez": 8
+      },
+      "Point Smart 2 Tim": {
+        "egmagalhaes": 24
+      },
+      "Point Pro 3 Vivo": {
+        "elmgonzalez": 65,
+        "ludmoura": 31
+      },
+      "Point Pro 3 Tim": {
+        "ludmoura": 25,
+        "edirlanssilv": 16
+      },
+      "Point Air 2 Claro": {
+        "edirlanssilv": 16
+      },
+      "Point Air 2 Tim": {
+        "edirlanssilv": 6,
+        "alinecoalves": 1
+      },
+      "Point Pro2 Vivo": {
+        "elmgonzalez": 4
+      },
+      "Point Pro2 Tim": {
+        "elmgonzalez": 4
+      },
+      "Point Air 2 Vivo": {
+        "alinecoalves": 37
+      },
+      "Point Air Vivo Nano": {
+        "ludmoura": 7
+      },
+      "Point Smart A910 Tim": {
+        "elmgonzalez": 5
+      }
+    },
+    "total": 5123,
+    "uploadedAt": "2026-04-24T22:14:47.101Z"
+  },
+  "2026-04-17": {
+    "fecha": "2026-04-17",
+    "site": "MLB",
+    "products": {
+      "Point Pro 3 Vivo": 1620,
+      "Point Pro 3 Claro": 1500,
+      "Point Pro 3 Tim": 1080,
+      "Point Pro2 Claro": 720,
+      "Point Smart 2 Vivo": 570,
+      "Point Smart 2 Claro": 480,
+      "Point Smart A910 Claro": 288,
+      "Point Smart A910 Tim": 96,
+      "Point Mini Chip Claro": 2
+    },
+    "reps": {
+      "Point Smart 2 Vivo": {
+        "anacarodoliv_1": 240,
+        "ddiimura": 180,
+        "mmiimura": 90,
+        "ccmmatias": 60
+      },
+      "Point Pro2 Claro": {
+        "ext_thjones": 120,
+        "bpontes_1": 120,
+        "jdslima_1": 120,
+        "pegpassanha_1": 120,
+        "jjmmickenson": 60,
+        "ereggoncalve": 60,
+        "ccmmatias": 60,
+        "mmiimura": 60
+      },
+      "Point Smart A910 Tim": {
+        "jjeernandes": 48,
+        "jjmmickenson": 48
+      },
+      "Point Smart 2 Claro": {
+        "kkllira_1": 240,
+        "rosbribeiro": 180,
+        "ereggoncalve": 60
+      },
+      "Point Pro 3 Tim": {
+        "ajsantana": 360,
+        "tvdsantos": 360,
+        "ext_clpedrei": 360
+      },
+      "Point Pro 3 Claro": {
+        "aocavalari_1": 480,
+        "llffarias": 360,
+        "jdslima_1": 360,
+        "ext_clpedrei": 180,
+        "anacarodoliv_1": 120
+      },
+      "Point Pro 3 Vivo": {
+        "ludmoura": 540,
+        "agdsilva": 360,
+        "ludfranca": 360,
+        "ajsantana": 360
+      },
+      "Point Smart A910 Claro": {
+        "jdslima_1": 96,
+        "agdsilva": 96,
+        "egmagalhaes": 96
+      },
+      "Point Mini Chip Claro": {
+        "egmagalhaes": 2
+      }
+    },
+    "total": 6356,
+    "uploadedAt": "2026-04-24T22:14:47.103Z"
+  },
+  "2026-04-18": {
+    "fecha": "2026-04-18",
+    "site": "MLB",
+    "products": {
+      "Point Pro 3 Claro": 1782,
+      "Point Smart 2 Vivo": 1486,
+      "Point Pro2 Claro": 723,
+      "Point Smart 2 Claro": 488,
+      "Point Pro 3 Tim": 381,
+      "Point Air Claro Nano": 337,
+      "Point Pro 3 Vivo": 266,
+      "Point Air 2 Vivo": 22,
+      "Point Smart 2 Tim": 11,
+      "Point Air 2 Claro": 11,
+      "Point Air 2 Tim": 6,
+      "Point Air Vivo Nano": 2,
+      "Point Smart A910 Vivo": 1
+    },
+    "reps": {
+      "Point Pro 3 Claro": {
+        "alinecoalves": 408,
+        "ext_clpedrei": 360,
+        "ccmmatias": 240,
+        "ext_shaypere": 216,
+        "jjeernandes": 180,
+        "ccerqueirads": 120,
+        "ext_thjones": 120,
+        "ludmoura": 96,
+        "ggmmatos": 42
+      },
+      "Point Pro 3 Vivo": {
+        "ggmmatos": 86,
+        "ext_thjones": 60,
+        "wwffrancisco": 60,
+        "nnccorrea": 60
+      },
+      "Point Pro 3 Tim": {
+        "ajsantana": 240,
+        "wwffrancisco": 120,
+        "ggmmatos": 21
+      },
+      "Point Smart 2 Claro": {
+        "sdgodoy": 240,
+        "pdopinto": 240,
+        "ggmmatos": 8
+      },
+      "Point Smart 2 Vivo": {
+        "rosbribeiro": 240,
+        "tvdsantos": 240,
+        "agdsilva": 240,
+        "ludfranca": 240,
+        "daidlima": 240,
+        "sdgodoy": 240,
+        "ggmmatos": 46
+      },
+      "Point Air Claro Nano": {
+        "ajsantana": 125,
+        "pdopinto": 100,
+        "rosbribeiro": 100,
+        "ggmmatos": 12
+      },
+      "Point Pro2 Claro": {
+        "ludmoura": 312,
+        "agdsilva": 120,
+        "ludfranca": 120,
+        "alinecoalves": 96,
+        "daidlima": 72,
+        "ggmmatos": 3
+      },
+      "Point Air Vivo Nano": {
+        "ggmmatos": 2
+      },
+      "Point Smart A910 Vivo": {
+        "ggmmatos": 1
+      },
+      "Point Smart 2 Tim": {
+        "ggmmatos": 11
+      },
+      "Point Air 2 Vivo": {
+        "ggmmatos": 22
+      },
+      "Point Air 2 Claro": {
+        "ggmmatos": 11
+      },
+      "Point Air 2 Tim": {
+        "ggmmatos": 6
+      }
+    },
+    "total": 5516,
+    "uploadedAt": "2026-04-24T22:14:47.105Z"
+  },
+  "2026-04-20": {
+    "fecha": "2026-04-20",
+    "site": "MLB",
+    "products": {
+      "Point Pro 3 Vivo": 2430,
+      "Point Pro 3 Tim": 2160,
+      "Point Smart 2 Claro": 961,
+      "Point Smart 2 Vivo": 960,
+      "Point Pro 3 Claro": 720,
+      "Point Smart 2 Tim": 480,
+      "Point Pro2 Claro": 180
+    },
+    "reps": {
+      "Point Smart 2 Claro": {
+        "sdgodoy": 240,
+        "jssimao": 240,
+        "ext_amafirmi": 240,
+        "dendsouza": 240,
+        "egmagalhaes": 1
+      },
+      "Point Pro 3 Vivo": {
+        "ggggabriele": 396,
+        "ludfranca": 360,
+        "agdsilva": 360,
+        "alinecoalves": 360,
+        "ggmmatos": 327,
+        "anaddsilva": 144,
+        "egmagalhaes": 123,
+        "ajsantana": 72,
+        "edivnascimen": 72,
+        "ext_clpedrei": 72,
+        "dendsouza": 36,
+        "rosbribeiro": 36,
+        "jssimao": 36,
+        "ludmoura": 36
+      },
+      "Point Smart 2 Tim": {
+        "tvdsantos": 240,
+        "pobarbosa": 240
+      },
+      "Point Pro 3 Tim": {
+        "edivnascimen": 360,
+        "ajsantana": 360,
+        "rosbribeiro": 360,
+        "ludmoura": 360,
+        "ext_clpedrei": 360,
+        "edirlanssilv": 180,
+        "anaddsilva": 180
+      },
+      "Point Smart 2 Vivo": {
+        "ludfranca": 240,
+        "sdgodoy": 240,
+        "jssimao": 240,
+        "daidlima": 240
+      },
+      "Point Pro 3 Claro": {
+        "ext_amafirmi": 360,
+        "agdsilva": 360
+      },
+      "Point Pro2 Claro": {
+        "edirlanssilv": 60,
+        "ext_clpedrei": 60,
+        "ludmoura": 60
+      }
+    },
+    "total": 7891,
+    "uploadedAt": "2026-04-24T22:14:47.108Z"
+  },
+  "2026-04-21": {
+    "fecha": "2026-04-21",
+    "site": "MLB",
+    "products": {
+      "Point Smart 2 Vivo": 2440,
+      "Point Smart 2 Claro": 1455,
+      "Point Pro2 Claro": 540,
+      "Point Pro 3 Claro": 398,
+      "Point Smart A910 Vivo": 288,
+      "Point Smart 2 Tim": 256,
+      "Point Smart A910 Claro": 192,
+      "Point Smart A910 Tim": 96,
+      "Point Pro 3 Vivo": 48,
+      "Point Pro 3 Tim": 11,
+      "Point Mini Chip Claro": 1
+    },
+    "reps": {
+      "Point Pro2 Claro": {
+        "ajsantana": 180,
+        "rosbribeiro": 180,
+        "nnccorrea": 60,
+        "wwffrancisco": 60,
+        "ffccabral": 60
+      },
+      "Point Smart A910 Claro": {
+        "llffarias": 96,
+        "sdgodoy": 96
+      },
+      "Point Smart A910 Vivo": {
+        "bbpavao": 96,
+        "ggggabriele": 96,
+        "jssimao": 96
+      },
+      "Point Smart A910 Tim": {
+        "ludfranca": 96
+      },
+      "Point Smart 2 Claro": {
+        "llffarias": 240,
+        "agdsilva": 240,
+        "ludfranca": 240,
+        "bbpavao": 240,
+        "ajsantana": 240,
+        "ggggabriele": 240,
+        "kevinansilva": 15
+      },
+      "Point Smart 2 Tim": {
+        "sdgodoy": 120,
+        "rosbribeiro": 120,
+        "kevinansilva": 16
+      },
+      "Point Smart 2 Vivo": {
+        "ext_clpedrei": 480,
+        "ggmmatos": 480,
+        "alinecoalves": 480,
+        "anaddsilva": 480,
+        "kevinansilva": 280,
+        "ludmoura": 240
+      },
+      "Point Pro 3 Vivo": {
+        "kevinansilva": 48
+      },
+      "Point Pro 3 Tim": {
+        "kevinansilva": 11
+      },
+      "Point Pro 3 Claro": {
+        "ludmoura": 324,
+        "kevinansilva": 38,
+        "ddiimura": 36
+      },
+      "Point Mini Chip Claro": {
+        "kevinansilva": 1
+      }
+    },
+    "total": 5725,
+    "uploadedAt": "2026-04-24T22:14:47.112Z"
+  },
+  "2026-04-22": {
+    "fecha": "2026-04-22",
+    "site": "MLB",
+    "products": {
+      "Point Pro 3 Vivo": 4683,
+      "Point Pro 3 Claro": 1442,
+      "Point Smart 2 Vivo": 1203,
+      "Point Smart 2 Claro": 975,
+      "Point Smart 2 Tim": 960,
+      "Point Pro 3 Tim": 720,
+      "Point Pro2 Claro": 373,
+      "Point Smart A910 Vivo": 36,
+      "Point Air 2 Vivo": 16,
+      "Point Air Claro Nano": 12,
+      "Point Air 2 Claro": 9,
+      "Point Air 2 Tim": 4,
+      "Point Smart A910 Claro": 3,
+      "Point Air Vivo Nano": 3,
+      "Point Pro2 Vivo": 2,
+      "Point Smart A910 Tim": 1
+    },
+    "reps": {
+      "Point Pro 3 Vivo": {
+        "ludmoura": 720,
+        "ddiimura": 540,
+        "ccmmatias": 360,
+        "ajsantana": 360,
+        "anaddsilva": 360,
+        "ext_clpedrei": 360,
+        "nnccorrea": 300,
+        "ffccabral": 300,
+        "wwffrancisco": 300,
+        "llssena": 300,
+        "ext_wellibar": 240,
+        "ccerqueirads": 180,
+        "alincsilva": 180,
+        "jjmmickenson": 180,
+        "egmagalhaes": 3
+      },
+      "Point Pro 3 Claro": {
+        "anaddsilva": 360,
+        "wwffrancisco": 180,
+        "nnccorrea": 180,
+        "pdopinto": 180,
+        "ext_clpedrei": 180,
+        "llffarias": 120,
+        "sdgodoy": 120,
+        "edivnascimen": 120,
+        "egmagalhaes": 2
+      },
+      "Point Pro 3 Tim": {
+        "llssena": 180,
+        "ffccabral": 180,
+        "ccmmatias": 180,
+        "jjmmickenson": 180
+      },
+      "Point Smart 2 Vivo": {
+        "llffarias": 240,
+        "ludfranca": 240,
+        "pdopinto": 240,
+        "daidlima": 240,
+        "rosbribeiro": 240,
+        "egmagalhaes": 3
+      },
+      "Point Smart 2 Claro": {
+        "sdgodoy": 240,
+        "edivnascimen": 240,
+        "dendsouza": 240,
+        "adrianosanto": 240,
+        "egmagalhaes": 15
+      },
+      "Point Smart 2 Tim": {
+        "llffarias": 240,
+        "sdgodoy": 240,
+        "pobarbosa": 240,
+        "tvdsantos": 240
+      },
+      "Point Pro2 Claro": {
+        "ludfranca": 180,
+        "ajsantana": 180,
+        "egmagalhaes": 13
+      },
+      "Point Air 2 Tim": {
+        "egmagalhaes": 4
+      },
+      "Point Air 2 Claro": {
+        "egmagalhaes": 9
+      },
+      "Point Air 2 Vivo": {
+        "egmagalhaes": 16
+      },
+      "Point Pro2 Vivo": {
+        "egmagalhaes": 2
+      },
+      "Point Smart A910 Tim": {
+        "egmagalhaes": 1
+      },
+      "Point Smart A910 Claro": {
+        "egmagalhaes": 3
+      },
+      "Point Smart A910 Vivo": {
+        "anaddsilva": 32,
+        "egmagalhaes": 4
+      },
+      "Point Air Vivo Nano": {
+        "egmagalhaes": 3
+      },
+      "Point Air Claro Nano": {
+        "egmagalhaes": 12
+      }
+    },
+    "total": 10442,
+    "uploadedAt": "2026-04-24T22:14:47.116Z"
+  },
+  "2026-04-23": {
+    "fecha": "2026-04-23",
+    "site": "MLB",
+    "products": {
+      "Point Smart 2 Vivo": 1200,
+      "Point Smart 2 Claro": 721,
+      "Point Pro 3 Vivo": 396,
+      "Point Pro 3 Claro": 360,
+      "Point Smart 2 Tim": 240,
+      "Point Smart A910 Claro": 183,
+      "Point Smart A910 Vivo": 160
+    },
+    "reps": {
+      "Point Smart 2 Claro": {
+        "alincsilva": 240,
+        "ddiimura": 240,
+        "ext_wellibar": 240,
+        "egmagalhaes": 1
+      },
+      "Point Smart A910 Vivo": {
+        "wwffrancisco": 160
+      },
+      "Point Smart 2 Vivo": {
+        "llssena": 300,
+        "ccmmatias": 300,
+        "ffccabral": 300,
+        "jjmmickenson": 240,
+        "ext_wellibar": 60
+      },
+      "Point Smart 2 Tim": {
+        "alincsilva": 120,
+        "wwffrancisco": 60,
+        "ddiimura": 60
+      },
+      "Point Pro 3 Vivo": {
+        "ludmoura": 360,
+        "egmagalhaes": 36
+      },
+      "Point Smart A910 Claro": {
+        "ludmoura": 48,
+        "alinecoalves": 32,
+        "ddiimura": 32,
+        "wwffrancisco": 32,
+        "edirlanssilv": 23,
+        "ext_clpedrei": 16
+      },
+      "Point Pro 3 Claro": {
+        "ext_clpedrei": 360
+      }
+    },
+    "total": 3260,
+    "uploadedAt": "2026-04-24T22:14:47.117Z"
+  }
+}
