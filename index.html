@@ -457,7 +457,8 @@
     const site = detectSiteFromValue(rows.find(r => r[siteCol])?.[siteCol] || '');
     const byDate = {};
     for (const r of rows) {
-      const raw = (r['FECHA ASIG PUERTA'] || r['DATA ALOCAÇÃO DOCA'] || r['DATA ALOCA\u00c7\u00c3O DOCA'] || '').toString().trim();
+      const dateVal = r['FECHA ASIG PUERTA'] || Object.entries(r).find(([k]) => k.toUpperCase().includes('DATA ALOCA') || k.toUpperCase().includes('DOCA'))?.[1] || '';
+      const raw = dateVal.toString().trim();
       const fecha = (raw && raw !== 'NaN') ? parseDate(raw) : null;
       if (!fecha) continue;
       if (!byDate[fecha]) byDate[fecha] = [];
