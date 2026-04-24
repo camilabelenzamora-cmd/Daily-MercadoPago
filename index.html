@@ -288,6 +288,7 @@
   let regionalCharts = {};
   let regionalData = {};
   let regionalCursor = null;
+  let regionalRenderID = 0;
   let expandedProducts = new Set();
   let expandedMaquilaProds = new Set();
   let expandedInboundSuppliers = new Set();
@@ -1117,6 +1118,7 @@
 
   function renderRegional() {
     if (!regionalCursor) return;
+    const renderID = ++regionalRenderID;
     document.getElementById('weekSelector').style.display = 'none';
 
     let dates = [];
@@ -1239,6 +1241,7 @@
       targetGrid.appendChild(card);
 
       setTimeout(() => {
+        if (regionalRenderID !== renderID) return;
         const ctx = document.getElementById('chart_' + prod);
         if (!ctx) return;
         regionalCharts[prod] = new Chart(ctx, {
@@ -1291,6 +1294,7 @@
     gridBottom.appendChild(maqCard);
 
     setTimeout(() => {
+      if (regionalRenderID !== renderID) return;
       const ctx = document.getElementById('chart_maq_point');
       if (!ctx) return;
       if (regionalCharts['maq_point']) regionalCharts['maq_point'].destroy();
@@ -1343,6 +1347,7 @@
       targetGrid.appendChild(card);
 
       setTimeout(() => {
+        if (regionalRenderID !== renderID) return;
         const ctx = document.getElementById('chart_dev_' + group);
         if (!ctx) return;
         if (regionalCharts['dev_'+group]) regionalCharts['dev_'+group].destroy();
