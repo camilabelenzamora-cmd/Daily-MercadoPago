@@ -91,29 +91,24 @@
     "fecha": "2026-04-03",
     "site": "MLM",
     "products": {
-      "Cards": 24724,
-      "Point": 3205,
-      "Bobinas": 641,
-      "Others": 22
+      "Cards": 1,
+      "Point": 3,
+      "Bobinas": 0,
+      "Others": 0
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 23370,
-        "XD - POINT": 1354
+        "XD - POINT": 1
       },
       "Point": {
-        "XD - POINT": 3205
+        "XD - POINT": 3
       },
-      "Bobinas": {
-        "XD - POINT": 641
-      },
-      "Others": {
-        "XD - POINT": 22
-      }
+      "Bobinas": {},
+      "Others": {}
     },
-    "total_unidades": 28592,
-    "total_os": 25707,
-    "uploadedAt": "2026-04-24T23:19:42.212Z"
+    "total_unidades": 4,
+    "total_os": 1,
+    "uploadedAt": "2026-04-24T23:20:07.588Z"
   },
   "2026-04-06": {
     "fecha": "2026-04-06",
@@ -295,28 +290,356 @@
     "fecha": "2026-04-11",
     "site": "MLM",
     "products": {
-      "Cards": 9446,
-      "Point": 914,
-      "Bobinas": 332,
-      "Others": 5
+      "Cards": 17046,
+      "Point": 1649,
+      "Bobinas": 1044,
+      "Others": 14
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 9133,
-        "XD - POINT": 313
+        "XD - CARDS": 16366,
+        "XD - POINT": 680
       },
       "Point": {
-        "XD - POINT": 914
+        "XD - POINT": 1649
       },
       "Bobinas": {
-        "XD - POINT": 332
+        "XD - POINT": 1044
       },
       "Others": {
-        "XD - POINT": 5
+        "XD - POINT": 14
       }
     },
-    "total_unidades": 10697,
-    "total_os": 9904,
-    "uploadedAt": "2026-04-24T23:19:42.323Z"
+    "total_unidades": 19753,
+    "total_os": 18386,
+    "uploadedAt": "2026-04-24T23:20:07.626Z"
+  },
+  "2026-04-23": {
+    "fecha": "2026-04-23",
+    "site": "MLM",
+    "products": {
+      "Cards": 26591,
+      "Point": 2497,
+      "Bobinas": 1206,
+      "Others": 42
+    },
+    "routes": {
+      "Cards": {
+        "XD - CARDS": 24910,
+        "XD - POINT": 1272,
+        "GEODIS": 409
+      },
+      "Point": {
+        "XD - POINT": 2088,
+        "GEODIS": 409
+      },
+      "Bobinas": {
+        "XD - POINT": 1206
+      },
+      "Others": {
+        "XD - POINT": 42
+      }
+    },
+    "total_unidades": 30336,
+    "total_os": 27097,
+    "uploadedAt": "2026-04-24T23:20:07.544Z"
+  },
+  "2026-04-14": {
+    "fecha": "2026-04-14",
+    "site": "MLM",
+    "products": {
+      "Cards": 44848,
+      "Point": 10871,
+      "Bobinas": 2078,
+      "Others": 49
+    },
+    "routes": {
+      "Cards": {
+        "XD - CARDS": 40659,
+        "XD - POINT": 2367,
+        "PICKIT": 1350,
+        "DHL": 440,
+        "GEODIS": 32
+      },
+      "Point": {
+        "XD - POINT": 5668,
+        "PICKIT": 4347,
+        "DHL": 440,
+        "GEODIS": 416
+      },
+      "Bobinas": {
+        "XD - POINT": 2078
+      },
+      "Others": {
+        "XD - POINT": 49
+      }
+    },
+    "total_unidades": 57846,
+    "total_os": 46803,
+    "uploadedAt": "2026-04-24T23:20:07.588Z"
+  },
+  "2026-04-12": {
+    "fecha": "2026-04-12",
+    "site": "MLM",
+    "products": {
+      "Cards": 9597,
+      "Point": 13083,
+      "Bobinas": 474,
+      "Others": 10
+    },
+    "routes": {
+      "Cards": {
+        "XD - CARDS": 9056,
+        "XD - POINT": 541
+      },
+      "Point": {
+        "GEODIS": 12015,
+        "XD - POINT": 1068
+      },
+      "Bobinas": {
+        "XD - POINT": 474
+      },
+      "Others": {
+        "XD - POINT": 10
+      }
+    },
+    "total_unidades": 23164,
+    "total_os": 10232,
+    "uploadedAt": "2026-04-24T23:20:07.595Z"
+  },
+  "2026-04-16": {
+    "fecha": "2026-04-16",
+    "site": "MLM",
+    "products": {
+      "Cards": 33350,
+      "Point": 3284,
+      "Bobinas": 911,
+      "Others": 26
+    },
+    "routes": {
+      "Cards": {
+        "XD - CARDS": 31694,
+        "XD - POINT": 1303,
+        "GEODIS": 353
+      },
+      "Point": {
+        "XD - POINT": 2931,
+        "GEODIS": 353
+      },
+      "Bobinas": {
+        "XD - POINT": 911
+      },
+      "Others": {
+        "XD - POINT": 26
+      }
+    },
+    "total_unidades": 37571,
+    "total_os": 34791,
+    "uploadedAt": "2026-04-24T23:20:07.616Z"
+  },
+  "2026-04-17": {
+    "fecha": "2026-04-17",
+    "site": "MLM",
+    "products": {
+      "Cards": 35836,
+      "Point": 5087,
+      "Bobinas": 1444,
+      "Others": 295
+    },
+    "routes": {
+      "Cards": {
+        "XD - CARDS": 33950,
+        "XD - POINT": 1886
+      },
+      "Point": {
+        "XD - POINT": 3825,
+        "GEODIS": 1262
+      },
+      "Bobinas": {
+        "XD - POINT": 1444
+      },
+      "Others": {
+        "XD - POINT": 277,
+        "GEODIS": 18
+      }
+    },
+    "total_unidades": 42662,
+    "total_os": 38148,
+    "uploadedAt": "2026-04-24T23:20:07.647Z"
+  },
+  "2026-04-13": {
+    "fecha": "2026-04-13",
+    "site": "MLM",
+    "products": {
+      "Cards": 22127,
+      "Point": 1829,
+      "Bobinas": 880,
+      "Others": 22
+    },
+    "routes": {
+      "Cards": {
+        "XD - CARDS": 21287,
+        "XD - POINT": 840
+      },
+      "Point": {
+        "XD - POINT": 1829
+      },
+      "Bobinas": {
+        "XD - POINT": 880
+      },
+      "Others": {
+        "XD - POINT": 22
+      }
+    },
+    "total_unidades": 24858,
+    "total_os": 23450,
+    "uploadedAt": "2026-04-24T23:20:07.660Z"
+  },
+  "2026-04-18": {
+    "fecha": "2026-04-18",
+    "site": "MLM",
+    "products": {
+      "Cards": 32557,
+      "Point": 7826,
+      "Bobinas": 635,
+      "Others": 24
+    },
+    "routes": {
+      "Cards": {
+        "XD - CARDS": 31611,
+        "XD - POINT": 946
+      },
+      "Point": {
+        "GEODIS": 5753,
+        "XD - POINT": 2073
+      },
+      "Bobinas": {
+        "XD - POINT": 635
+      },
+      "Others": {
+        "XD - POINT": 24
+      }
+    },
+    "total_unidades": 41042,
+    "total_os": 33881,
+    "uploadedAt": "2026-04-24T23:20:07.682Z"
+  },
+  "2026-04-22": {
+    "fecha": "2026-04-22",
+    "site": "MLM",
+    "products": {
+      "Cards": 38892,
+      "Point": 17996,
+      "Bobinas": 1053,
+      "Others": 37
+    },
+    "routes": {
+      "Cards": {
+        "XD - CARDS": 30255,
+        "GEODIS": 5738,
+        "PICKIT": 1350,
+        "XD - POINT": 1239,
+        "DHL": 310
+      },
+      "Point": {
+        "GEODIS": 10475,
+        "PICKIT": 5025,
+        "XD - POINT": 2109,
+        "DHL": 387
+      },
+      "Bobinas": {
+        "XD - POINT": 1053
+      },
+      "Others": {
+        "XD - POINT": 37
+      }
+    },
+    "total_unidades": 57978,
+    "total_os": 32503,
+    "uploadedAt": "2026-04-24T23:20:07.701Z"
+  },
+  "2026-04-15": {
+    "fecha": "2026-04-15",
+    "site": "MLM",
+    "products": {
+      "Cards": 35905,
+      "Point": 2885,
+      "Bobinas": 1070,
+      "Others": 33
+    },
+    "routes": {
+      "Cards": {
+        "XD - CARDS": 34607,
+        "XD - POINT": 1298
+      },
+      "Point": {
+        "XD - POINT": 2885
+      },
+      "Bobinas": {
+        "XD - POINT": 1070
+      },
+      "Others": {
+        "XD - POINT": 33
+      }
+    },
+    "total_unidades": 39893,
+    "total_os": 37691,
+    "uploadedAt": "2026-04-24T23:20:07.721Z"
+  },
+  "2026-04-20": {
+    "fecha": "2026-04-20",
+    "site": "MLM",
+    "products": {
+      "Cards": 28214,
+      "Point": 1904,
+      "Bobinas": 1039,
+      "Others": 23
+    },
+    "routes": {
+      "Cards": {
+        "XD - CARDS": 27316,
+        "XD - POINT": 898
+      },
+      "Point": {
+        "XD - POINT": 1904
+      },
+      "Bobinas": {
+        "XD - POINT": 1039
+      },
+      "Others": {
+        "XD - POINT": 23
+      }
+    },
+    "total_unidades": 31180,
+    "total_os": 29751,
+    "uploadedAt": "2026-04-24T23:20:07.737Z"
+  },
+  "2026-04-21": {
+    "fecha": "2026-04-21",
+    "site": "MLM",
+    "products": {
+      "Cards": 57898,
+      "Point": 3584,
+      "Bobinas": 1604,
+      "Others": 47
+    },
+    "routes": {
+      "Cards": {
+        "XD - CARDS": 55958,
+        "XD - POINT": 1940
+      },
+      "Point": {
+        "XD - POINT": 3584
+      },
+      "Bobinas": {
+        "XD - POINT": 1604
+      },
+      "Others": {
+        "XD - POINT": 47
+      }
+    },
+    "total_unidades": 63133,
+    "total_os": 59559,
+    "uploadedAt": "2026-04-24T23:20:07.776Z"
   }
 }
