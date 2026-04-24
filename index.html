@@ -1210,8 +1210,8 @@
 
     function groupDevProd(name) {
       const n = (name || '').toLowerCase();
-      if (n.includes('point') || n.includes('n950') || n.includes('smart')) return 'Point';
-      if (n.startsWith('card') || n.includes('tarjeta')) return 'Cards';
+      if (n.includes('point') || n.includes('n950') || (n.includes('smart') && !n.startsWith('funda'))) return 'Point';
+      if (n.includes('tarjeta') || n.includes('card') || n.includes('prepaid')) return 'Cards';
       if (n.includes('bobina') || n.includes('rollo')) return 'Bobinas';
       return 'Others';
     }
