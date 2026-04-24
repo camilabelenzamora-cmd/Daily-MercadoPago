@@ -413,18 +413,22 @@
 
   // ── MAQUILA PROCESSING ────────────────────────────────
   function processMaquilaRows(rows) {
-    const site = detectSiteFromValue(rows.find(r => r['DESCRIPCION SITIO'])?.['DESCRIPCION SITIO'] || '');
+    const firstRowM = rows[0] || {};
+    const siteMaqCol = 'DESCRIPCION SITIO' in firstRowM ? 'DESCRIPCION SITIO' : 'DESCRICAO LOCAL' in firstRowM ? 'DESCRICAO LOCAL' : 'LOCAL';
+    const site = detectSiteFromValue(rows.find(r => r[siteMaqCol])?.[siteMaqCol] || '');
     const byDate = {};
     for (const r of rows) {
-      const raw = (r['FECHA MOD.'] || r['FECHA MOD'] || '').toString().trim();
-      const fecha = (raw && raw !== 'NaN') ? (parseDate(raw) || new Date().toISOString().slice(0,10)) : new Date().toISOString().slice(0,10);
+      const rawDate = r['FECHA MOD.'] || r['FECHA MOD'] || Object.entries(r).find(([k]) => k.toUpperCase().includes('DATA MOD') || k.toUpperCase().includes('DATA MODIF'))?.[1] || '';
+      const raw = rawDate.toString().trim();
+      const fecha = (raw && raw !== 'NaN') ? parseDate(raw) : null;
+      if (!fecha) continue;
       if (!byDate[fecha]) byDate[fecha] = [];
       byDate[fecha].push(r);
     }
     return Object.entries(byDate).map(([fecha, dRows]) => {
       const products = {}, reps = {};
       for (const r of dRows) {
-        const prod = (r['NOM PRODUCTO'] || '').trim();
+        const prod = (r['NOM PRODUCTO'] || r['NOM PRODUTO'] || '').trim();
         const uds = parseInt(r['UNIDADES MOVIMIENTO'] || '0') || 0;
         const rep = (r['USUARIO ULT MOD.'] || r['USUARIO ULT MOD'] || '').trim() || 'Sin usuario';
         if (!prod || prod.toLowerCase().includes('etiquetas places')) continue;
