@@ -542,7 +542,7 @@
       if (!fecha) continue;
       if (!byDate[fecha]) byDate[fecha] = { rows: [], osIds: new Set() };
       byDate[fecha].rows.push(r);
-      const osId = r['ID OS'] || r['CODIGO PEDIDO EXPEDICAO'] || r['CÓDIGO PEDIDO EXPEDIÇÃO'];
+      const osId = r['ID OS'] || Object.entries(r).find(([k]) => k.toUpperCase().includes('PEDIDO'))?.[1];
       if (osId) byDate[fecha].osIds.add(String(osId));
     }
     return Object.entries(byDate).map(([fecha, {rows: dRows, osIds}]) => {
