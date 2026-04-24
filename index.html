@@ -538,7 +538,8 @@
     const site = detectSiteFromValue(siteVal);
     const byDate = {};
     for (const r of rows) {
-      const fecha = parseDate(r['FECHA DESPACHO'] || r['DATA ENVIO'] || r['DATA ENVIO ']) || new Date().toISOString().slice(0,10);
+      const fecha = parseDate(r['FECHA DESPACHO'] || r['DATA ENVIO'] || r['DATA ENVIO ']);
+      if (!fecha) continue;
       if (!byDate[fecha]) byDate[fecha] = { rows: [], osIds: new Set() };
       byDate[fecha].rows.push(r);
       const osId = r['ID OS'] || r['CODIGO PEDIDO EXPEDICAO'] || r['CÓDIGO PEDIDO EXPEDIÇÃO'];
