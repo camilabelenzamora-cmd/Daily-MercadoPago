@@ -938,8 +938,8 @@
 
   function renderWeek() {
     if (!cursor) cursor = getMonday(new Date());
-    const dates = Array.from({length:7}, (_,i) => addDays(cursor, i));
-    document.getElementById('navLabel').textContent = `Semana ${shortDate(cursor)} — ${shortDate(addDays(cursor,6))}`;
+    const dates = Array.from({length:5}, (_,i) => addDays(cursor, i));
+    document.getElementById('navLabel').textContent = `Semana ${shortDate(cursor)} — ${shortDate(addDays(cursor,4))}`;
 
     // Populate week selector — combine all data sources
     const allDates = [...new Set([
@@ -954,7 +954,7 @@
     weeksWithData.forEach(m => {
       const opt = document.createElement('option');
       opt.value = m;
-      opt.textContent = `Week ${getISOWeek(m)} · ${shortDate(m)}–${shortDate(addDays(m,6))}`;
+      opt.textContent = `Week ${getISOWeek(m)}`;
       if (m === cursor) opt.selected = true;
       sel.appendChild(opt);
     });
@@ -1154,7 +1154,7 @@
       weeksWithData.forEach(m => {
         const opt = document.createElement('option');
         opt.value = m;
-        opt.textContent = `Week ${getISOWeek(m)} · ${shortDate(m)}–${shortDate(addDays(m,6))}`;
+        opt.textContent = `Week ${getISOWeek(m)}`;
         if (m === regionalCursor) opt.selected = true;
         sel.appendChild(opt);
       });
