@@ -1206,7 +1206,45 @@
       return { flag: s.flag, code: s.code, total };
     }).filter(c => c.total != null);
 
-    peopleDiv.style.display = 'none';
+    if (peopleCards.length) {
+      peopleDiv.style.display = 'none';
+      const totalHC = peopleCards.reduce((s, c) => s + c.total, 0);
+      const peopleCard = document.createElement('div');
+      peopleCard.style.cssText = `background:#fff;border-radius:12px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,0.08);${cardWFlex}`;
+      peopleCard.innerHTML = `
+        <div style="font-size:10px;font-weight:700;color:#888;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">👥 HEADCOUNT TOTAL</div>
+        <div style="font-size:26px;font-weight:700;color:#1a1a2e;line-height:1.1;">${Number(totalHC).toLocaleString('es-AR')} <span style="font-size:13px;font-weight:400;color:#aaa;">personas</span></div>
+        <div style="margin-top:12px;"><canvas id="chart_people_hc" height="110"></canvas></div>`;
+      setTimeout(() => {
+        if (regionalRenderID !== renderID) return;
+        const ctx = document.getElementById('chart_people_hc');
+        if (!ctx) return;
+        if (regionalCharts['people_hc']) regionalCharts['people_hc'].destroy();
+        regionalCharts['people_hc'] = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: peopleCards.map(c => c.flag),
+            datasets: [{ data: peopleCards.map(c => c.total), backgroundColor: barColors, borderRadius: 6, borderSkipped: false }]
+          },
+          options: {
+            responsive: true,
+            layout: { padding: { top: 24 } },
+            plugins: {
+              legend: { display: false },
+              datalabels: {
+                anchor: 'end', align: 'end',
+                formatter: v => v > 0 ? Number(v).toLocaleString('es-AR') : '',
+                font: { weight: '700', size: 11 }, color: '#2c3e50'
+              }
+            },
+            scales: {
+              y: { beginAtZero: true, grid: { color: '#f0f0f0' }, ticks: { font:{size:10}, color:'#aaa', callback: v => v }, border: { display: false } },
+              x: { ticks: { font: { size: 18 } }, grid: { display: false }, border: { display: false } }
+            }
+          },
+          plugins: [ChartDataLabels]
+        });
+      }, 50);
 
     const hasAny = REGIONAL_SITES.some(s =>
       dates.some(d => regionalData[s.code]?.despachos[d] || regionalData[s.code]?.maquila[d] || regionalData[s.code]?.asn[d])
@@ -1267,16 +1305,9 @@
     const weekLabel = view === 'week' ? `· Week ${getISOWeek(regionalCursor)}` : '';
     const cardWFlex = 'flex:0 0 calc(33.33% - 6px);max-width:calc(33.33% - 6px);';
     const prodIcons = {Cards:'💳', Point:'📱', Bobinas:'🧻', Others:'📦'};
-    // People card — first in top row
+    // People card goes first in gridTop
     if (peopleCards.length) {
-      const totalHC = peopleCards.reduce((s, c) => s + c.total, 0);
-      const pCard = document.createElement('div');
-      pCard.style.cssText = `background:#fff;border-radius:12px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,0.08);`;
-      pCard.innerHTML = `
-        <div style="font-size:10px;font-weight:700;color:#888;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">👥 HEADCOUNT TOTAL</div>
-        <div style="font-size:26px;font-weight:700;color:#1a1a2e;line-height:1.1;">${Number(totalHC).toLocaleString('es-AR')} <span style="font-size:13px;font-weight:400;color:#aaa;">personas</span></div>
-        <div style="margin-top:12px;"><canvas id="chart_people_hc" height="110"></canvas></div>`;
-      gridTop.appendChild(pCard);
+      gridTop.appendChild(peopleCard);
       setTimeout(() => {
         if (regionalRenderID !== renderID) return;
         const ctx = document.getElementById('chart_people_hc');
