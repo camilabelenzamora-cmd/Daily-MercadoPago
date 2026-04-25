@@ -1305,10 +1305,30 @@
     const weekLabel = view === 'week' ? `· Week ${getISOWeek(regionalCursor)}` : '';
     const cardWFlex = 'flex:0 0 calc(33.33% - 6px);max-width:calc(33.33% - 6px);';
     const prodIcons = {Cards:'💳', Point:'📱', Bobinas:'🧻', Others:'📦'};
+    // People card goes first in gridTop
+    if (peopleCards.length) {
+      gridTop.appendChild(peopleCard);
+      setTimeout(() => {
+        if (regionalRenderID !== renderID) return;
+        const ctx = document.getElementById('chart_people_hc');
+        if (!ctx) return;
+        if (regionalCharts['people_hc']) regionalCharts['people_hc'].destroy();
+        regionalCharts['people_hc'] = new Chart(ctx, {
+          type: 'bar',
+          data: { labels: peopleCards.map(c => c.flag), datasets: [{ data: peopleCards.map(c => c.total), backgroundColor: barColors, borderRadius: 6, borderSkipped: false }] },
+          options: {
+            responsive: true, layout: { padding: { top: 24 } },
+            plugins: { legend: { display: false }, datalabels: { anchor:'end', align:'end', formatter: v => v > 0 ? Number(v).toLocaleString('es-AR') : '', font:{weight:'700',size:11}, color:'#2c3e50' } },
+            scales: { y: { beginAtZero:true, grid:{color:'#f0f0f0'}, ticks:{font:{size:10},color:'#aaa'}, border:{display:false} }, x: { ticks:{font:{size:18}}, grid:{display:false}, border:{display:false} } }
+          }, plugins: [ChartDataLabels]
+        });
+      }, 50);
+    }
+
     ['Cards','Point','Bobinas','Others'].forEach(prod => {
       const vals = REGIONAL_SITES.map(s => sumDates(regionalData[s.code].despachos, d => d?.products?.[prod]));
       const total = vals.reduce((a,b)=>a+b,0);
-      const isGrid = ['Cards','Point','Bobinas'].includes(prod);
+      const isGrid = ['Cards','Point'].includes(prod);
       const targetGrid = isGrid ? gridTop : gridBottom;
 
       const card = document.createElement('div');
@@ -1400,26 +1420,6 @@
       });
     }, 50);
 
-    // Add People card to gridBottom (alongside Others and Maquila)
-      gridBottom.appendChild(peopleCard);
-      setTimeout(() => {
-        if (regionalRenderID !== renderID) return;
-        const ctx = document.getElementById('chart_people_hc');
-        if (!ctx) return;
-        if (regionalCharts['people_hc']) regionalCharts['people_hc'].destroy();
-        regionalCharts['people_hc'] = new Chart(ctx, {
-          type: 'bar',
-          data: { labels: peopleCards.map(c => c.flag), datasets: [{ data: peopleCards.map(c => c.total), backgroundColor: barColors, borderRadius: 6, borderSkipped: false }] },
-          options: {
-            responsive: true, layout: { padding: { top: 24 } },
-            plugins: { legend: { display: false }, datalabels: { anchor:'end', align:'end', formatter: v => v > 0 ? Number(v).toLocaleString('es-AR') : '', font:{weight:'700',size:11}, color:'#2c3e50' } },
-            scales: { y: { beginAtZero:true, grid:{color:'#f0f0f0'}, ticks:{font:{size:10},color:'#aaa'}, border:{display:false} }, x: { ticks:{font:{size:18}}, grid:{display:false}, border:{display:false} } }
-          }, plugins: [ChartDataLabels]
-        });
-      }, 50);
-    } else {
-      peopleDiv.style.display = 'none';
-    }
 
     // ── DEVOLUCIONES CHARTS ───────────────────────────
     const devGroups = { Point: {}, Cards: {}, Bobinas: {}, Others: {} };
