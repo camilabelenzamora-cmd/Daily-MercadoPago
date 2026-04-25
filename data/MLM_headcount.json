@@ -1,8 +1,9 @@
 {
+  "total": null,
   "totals": [
     {
       "desde": "2026-04-01",
-      "total": 55
+      "total": 58
     }
   ],
   "days": {}
