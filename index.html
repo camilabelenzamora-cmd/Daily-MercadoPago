@@ -624,6 +624,7 @@
     view = v; cursor = null; regionalCursor = null; expandedProducts.clear(); expandedMaquilaProds.clear(); expandedInboundSuppliers.clear();
     document.getElementById('btnWeek').classList.toggle('active', v==='week');
     document.getElementById('btnMonth').classList.toggle('active', v==='month');
+    if (isWeeklyReview) return;
     if (isRegional) { selectRegional(); return; }
     render();
   }
