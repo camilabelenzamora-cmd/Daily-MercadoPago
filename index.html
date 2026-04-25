@@ -152,8 +152,8 @@
   <!-- CHARTS (Regional only) -->
   <div id="regionalCharts" style="display:none; margin-bottom:20px;">
     <!-- People chart -->
-    <div id="regionalPeople" style="margin-bottom:20px;"></div>
-    <div id="regionalPeopleChart" style="display:none;margin-bottom:20px;"></div>
+    <div id="regionalPeople" style="display:none;"></div>
+    <div id="regionalPeopleChart" style="display:none;"></div>
     <div style="font-size:14px;font-weight:700;color:#2c3e50;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:12px;">Outbound & Maquila</div>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px;" id="chartsGridTop"></div>
     <div style="display:flex;justify-content:center;gap:12px;margin-bottom:12px;" id="chartsGridBottom"></div>
@@ -1317,11 +1317,37 @@
     const weekLabel = view === 'week' ? `· Week ${getISOWeek(regionalCursor)}` : '';
     const cardWFlex = 'flex:0 0 calc(33.33% - 6px);max-width:calc(33.33% - 6px);';
     const prodIcons = {Cards:'💳', Point:'📱', Bobinas:'🧻', Others:'📦'};
+
+    // People card → first in gridTop
+    if (peopleCards.length) {
+      const totalHC = peopleCards.reduce((s, c) => s + c.total, 0);
+      const pCard = document.createElement('div');
+      pCard.style.cssText = 'background:#fff;border-radius:12px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,0.08);';
+      pCard.innerHTML = `
+        <div style="font-size:10px;font-weight:700;color:#888;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">👥 HEADCOUNT TOTAL <span style="font-weight:400;color:#ccc;">${weekLabel}</span></div>
+        <div style="font-size:26px;font-weight:700;color:#1a1a2e;line-height:1.1;">${Number(totalHC).toLocaleString('es-AR')} <span style="font-size:13px;font-weight:400;color:#aaa;">personas</span></div>
+        <div style="margin-top:12px;"><canvas id="chart_hc_inline" height="110"></canvas></div>`;
+      gridTop.appendChild(pCard);
+      setTimeout(() => {
+        if (regionalRenderID !== renderID) return;
+        const ctx = document.getElementById('chart_hc_inline');
+        if (!ctx) return;
+        regionalCharts['hc_inline'] = new Chart(ctx, {
+          type: 'bar',
+          data: { labels: peopleCards.map(c => c.flag), datasets: [{ data: peopleCards.map(c => c.total), backgroundColor: peopleCards.map(() => '#009EE3'), borderRadius: 6, borderSkipped: false }] },
+          options: {
+            responsive: true, layout: { padding: { top: 24 } },
+            plugins: { legend:{display:false}, datalabels:{ anchor:'end', align:'end', formatter: v => v > 0 ? Number(v).toLocaleString('es-AR') : '', font:{weight:'700',size:11}, color:'#2c3e50' } },
+            scales: { y:{beginAtZero:true,grid:{color:'#f0f0f0'},ticks:{font:{size:10},color:'#aaa'},border:{display:false}}, x:{ticks:{font:{size:18}},grid:{display:false},border:{display:false}} }
+          }, plugins: [ChartDataLabels]
+        });
+      }, 50);
+    }
+
     ['Cards','Point','Bobinas','Others'].forEach(prod => {
       const vals = REGIONAL_SITES.map(s => sumDates(regionalData[s.code].despachos, d => d?.products?.[prod]));
       const total = vals.reduce((a,b)=>a+b,0);
-      const isGrid = ['Cards','Point','Bobinas'].includes(prod);
-      const targetGrid = isGrid ? gridTop : gridBottom;
+      const targetGrid = ['Cards','Point'].includes(prod) ? gridTop : gridBottom;
 
       const card = document.createElement('div');
       card.style.cssText = `background:#fff;border-radius:12px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,0.08);${isGrid ? '' : cardWFlex}`;
