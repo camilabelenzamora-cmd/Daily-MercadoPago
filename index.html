@@ -1301,7 +1301,7 @@
     document.getElementById('emptyState').style.display = 'none';
     document.getElementById('mainTable').style.display = 'none';
     const flags = REGIONAL_SITES.map(s => s.flag);
-    const barColors = ['#009EE3', '#009EE3', '#009EE3', '#009EE3'];
+    const barColors = REGIONAL_SITES.map(() => '#009EE3');
 
     // Destroy existing charts
     Object.values(regionalCharts).forEach(c => c.destroy());
