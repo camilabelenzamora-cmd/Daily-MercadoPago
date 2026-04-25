@@ -87,5 +87,64 @@
     },
     "total": 500,
     "uploadedAt": "2026-04-23T01:45:30.252Z"
+  },
+  "2026-04-10": {
+    "fecha": "2026-04-10",
+    "site": "MLU",
+    "products": {
+      "Point N950 - Claro": 170
+    },
+    "reps": {
+      "Point N950 - Claro": {
+        "ext_esteramo": 60,
+        "ext_gonataly": 110
+      }
+    },
+    "total": 170,
+    "uploadedAt": "2026-04-25T14:23:12.589074"
+  },
+  "2026-04-09": {
+    "fecha": "2026-04-09",
+    "site": "MLU",
+    "products": {
+      "Point N950 - Claro": 150
+    },
+    "reps": {
+      "Point N950 - Claro": {
+        "ext_esteramo": 150
+      }
+    },
+    "total": 150,
+    "uploadedAt": "2026-04-25T14:23:12.589074"
+  },
+  "2026-04-08": {
+    "fecha": "2026-04-08",
+    "site": "MLU",
+    "products": {
+      "Point N950 - Claro": 230
+    },
+    "reps": {
+      "Point N950 - Claro": {
+        "ext_esteramo": 100,
+        "ext_gonataly": 130
+      }
+    },
+    "total": 230,
+    "uploadedAt": "2026-04-25T14:23:12.589074"
+  },
+  "2026-04-07": {
+    "fecha": "2026-04-07",
+    "site": "MLU",
+    "products": {
+      "Point N950 - Claro": 230
+    },
+    "reps": {
+      "Point N950 - Claro": {
+        "ext_gonataly": 40,
+        "ext_esteramo": 190
+      }
+    },
+    "total": 230,
+    "uploadedAt": "2026-04-25T14:23:12.589074"
   }
 }
