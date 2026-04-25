@@ -195,5 +195,186 @@
       "total": 20050
     },
     "uploadedAt": "2026-04-23T01:35:49.574Z"
+  },
+  "2026-04-10": {
+    "fecha": "2026-04-10",
+    "site": "MLA",
+    "devoluciones": {
+      "products": {
+        "Chip - Movistar": 6,
+        "Chip - Claro 3G": 8,
+        "Bobinas de Papel": 100
+      },
+      "total": 114
+    },
+    "inbound": {
+      "suppliers": {
+        "GPC": {
+          "total": 41000,
+          "products": {
+            "Tarjetas Prepagadas": 11000,
+            "Tarjeta de Crédito": 30000
+          }
+        },
+        "TRAMA": {
+          "total": 10000,
+          "products": {
+            "Sticker Rojo - Claro": 10000
+          }
+        },
+        "CAD": {
+          "total": 41,
+          "products": {
+            "Merchandising Tarjeta MercadoPago - Carry Ons": 41
+          }
+        }
+      },
+      "total": 51041
+    },
+    "uploadedAt": "2026-04-25T01:05:49.330Z"
+  },
+  "2026-04-09": {
+    "fecha": "2026-04-09",
+    "site": "MLA",
+    "devoluciones": {
+      "products": {
+        "Tarjetas Prepagadas": 1350
+      },
+      "total": 1350
+    },
+    "inbound": {
+      "suppliers": {
+        "GPC": {
+          "total": 20000,
+          "products": {
+            "Tarjeta de Crédito": 10000,
+            "Tarjetas Prepagadas": 10000
+          }
+        }
+      },
+      "total": 20000
+    },
+    "uploadedAt": "2026-04-25T01:05:49.330Z"
+  },
+  "2026-04-08": {
+    "fecha": "2026-04-08",
+    "site": "MLA",
+    "devoluciones": {
+      "products": {
+        "Tarjetas Prepagadas": 850,
+        "Tarjeta de Crédito": 130
+      },
+      "total": 980
+    },
+    "inbound": {
+      "suppliers": {
+        "THALES": {
+          "total": 51240,
+          "products": {
+            "Tarjetas Prepagadas": 51240
+          }
+        },
+        "GPC": {
+          "total": 20000,
+          "products": {
+            "Tarjeta de Crédito": 10000,
+            "Tarjetas Prepagadas": 10000
+          }
+        },
+        "ROLL PAPER": {
+          "total": 10000,
+          "products": {
+            "Bobinas de Papel": 10000
+          }
+        }
+      },
+      "total": 81240
+    },
+    "uploadedAt": "2026-04-25T01:05:49.330Z"
+  },
+  "2026-04-07": {
+    "fecha": "2026-04-07",
+    "site": "MLA",
+    "devoluciones": {
+      "products": {
+        "Tarjetas Prepagadas": 2350,
+        "Tarjeta de Crédito": 360
+      },
+      "total": 2710
+    },
+    "inbound": {
+      "suppliers": {
+        "GPC": {
+          "total": 40000,
+          "products": {
+            "Tarjetas Prepagadas": 20000,
+            "Tarjeta de Crédito": 20000
+          }
+        },
+        "ROLL PAPER": {
+          "total": 15000,
+          "products": {
+            "Bobinas de Papel": 15000
+          }
+        }
+      },
+      "total": 55000
+    },
+    "uploadedAt": "2026-04-25T01:05:49.330Z"
+  },
+  "2026-04-06": {
+    "fecha": "2026-04-06",
+    "site": "MLA",
+    "devoluciones": {
+      "products": {
+        "Tarjetas Prepagadas": 175,
+        "Tarjeta de Crédito": 400
+      },
+      "total": 575
+    },
+    "inbound": {
+      "suppliers": {
+        "THALES": {
+          "total": 50240,
+          "products": {
+            "Tarjeta de Crédito": 50240
+          }
+        }
+      },
+      "total": 50240
+    },
+    "uploadedAt": "2026-04-25T01:05:49.330Z"
+  },
+  "2026-04-01": {
+    "fecha": "2026-04-01",
+    "site": "MLA",
+    "devoluciones": {
+      "products": {
+        "Tarjetas Prepagadas": 625,
+        "Tarjeta de Crédito": 290
+      },
+      "total": 915
+    },
+    "inbound": {
+      "suppliers": {
+        "GPC": {
+          "total": 30000,
+          "products": {
+            "Tarjetas Prepagadas Rebranding": 20000,
+            "Tarjeta de Crédito": 10000
+          }
+        },
+        "ENOFIR": {
+          "total": 836,
+          "products": {
+            "Scrap Point N950": 452,
+            "Point N950 Amarillo Refurbished Sin Maquilar": 160,
+            "Point N950 Refurbished Sin Maquilar Azul": 224
+          }
+        }
+      },
+      "total": 30836
+    },
+    "uploadedAt": "2026-04-25T01:05:49.331Z"
   }
 }
