@@ -287,6 +287,9 @@
   const MAQUILA_PRODUCTS_BY_SITE = {
     MLA: ['POINT N953 - PERSONAL Amarillo', 'Point N952 - Claro Amarillo', 'Point N951 - Movistar Amarillo']
   };
+  const MAQUILA_SKUS_BY_SITE = {
+    MLM: ['40AMA', '40AMT', '81AMA']
+  };
   const DAYS_ES = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
   const MONTHS_ES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
   const SITES = ['MLA','MLB','MLM','MLC','MLU'];
@@ -430,6 +433,9 @@
       for (const r of dRows) {
         const codigoRazon = (r['CODIGO RAZON'] || '').trim().toUpperCase();
         if (codigoRazon && !codigoRazon.startsWith('MAQUIL')) continue;
+        const skuFilter = site ? MAQUILA_SKUS_BY_SITE[site] : null;
+        const sku = (r['PRODUCTO'] || r['SKU'] || '').trim().toUpperCase();
+        if (skuFilter && sku && !skuFilter.includes(sku)) continue;
         const prod = (r['NOM PRODUCTO'] || r['NOM PRODUTO'] || '').trim();
         const uds = parseInt(r['UNIDADES MOVIMIENTO'] || '0') || 0;
         const rep = (r['USUARIO ULT MOD.'] || r['USUARIO ULT MOD'] || '').trim() || 'Sin usuario';
