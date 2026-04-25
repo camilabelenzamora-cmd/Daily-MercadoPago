@@ -1,0 +1,366 @@
+{
+  "2026-04-01": {
+    "fecha": "2026-04-01",
+    "site": "MLM",
+    "devoluciones": {
+      "products": {},
+      "total": 0
+    },
+    "inbound": {
+      "suppliers": {
+        "Thales": {
+          "total": 203368,
+          "products": {
+            "Tarjeta debito con bolsa": 143368,
+            "Tarjeta de credito Monza": 60000
+          }
+        }
+      },
+      "total": 203368
+    },
+    "uploadedAt": "2026-04-25T00:41:43.576Z"
+  },
+  "2026-04-06": {
+    "fecha": "2026-04-06",
+    "site": "MLM",
+    "devoluciones": {
+      "products": {},
+      "total": 0
+    },
+    "inbound": {
+      "suppliers": {
+        "DHL": {
+          "total": 229,
+          "products": {
+            "Smart N950 Devolucion": 229
+          }
+        }
+      },
+      "total": 229
+    },
+    "uploadedAt": "2026-04-25T00:41:43.576Z"
+  },
+  "2026-04-07": {
+    "fecha": "2026-04-07",
+    "site": "MLM",
+    "devoluciones": {
+      "products": {},
+      "total": 0
+    },
+    "inbound": {
+      "suppliers": {
+        "Geodis": {
+          "total": 4360,
+          "products": {
+            "Pont Smart N950 Amarillo": 1360,
+            "Point MINI": 3000
+          }
+        }
+      },
+      "total": 4360
+    },
+    "uploadedAt": "2026-04-25T00:41:43.578Z"
+  },
+  "2026-04-09": {
+    "fecha": "2026-04-09",
+    "site": "MLM",
+    "devoluciones": {
+      "products": {},
+      "total": 0
+    },
+    "inbound": {
+      "suppliers": {
+        "Geodis": {
+          "total": 340,
+          "products": {
+            "Pont Smart N950 Amarillo": 340
+          }
+        }
+      },
+      "total": 340
+    },
+    "uploadedAt": "2026-04-25T00:41:43.579Z"
+  },
+  "2026-04-10": {
+    "fecha": "2026-04-10",
+    "site": "MLM",
+    "devoluciones": {
+      "products": {},
+      "total": 0
+    },
+    "inbound": {
+      "suppliers": {
+        "Thales": {
+          "total": 340840,
+          "products": {
+            "Tarjeta debito con bolsa": 230400,
+            "Tarjeta de credito Monza": 60040,
+            "Tarjeta debito sin bolsa": 50400
+          }
+        }
+      },
+      "total": 340840
+    },
+    "uploadedAt": "2026-04-25T00:41:43.579Z"
+  },
+  "2026-04-11": {
+    "fecha": "2026-04-11",
+    "site": "MLM",
+    "devoluciones": {
+      "products": {},
+      "total": 0
+    },
+    "inbound": {
+      "suppliers": {
+        "Geodis": {
+          "total": 7080,
+          "products": {
+            "Pont Smart N950 Amarillo": 4080,
+            "Point MINI": 3000
+          }
+        },
+        "Solopagos": {
+          "total": 798,
+          "products": {
+            "Smart N950 Refurbished": 798
+          }
+        }
+      },
+      "total": 7878
+    },
+    "uploadedAt": "2026-04-25T00:41:43.581Z"
+  },
+  "2026-04-12": {
+    "fecha": "2026-04-12",
+    "site": "MLM",
+    "devoluciones": {
+      "products": {
+        "MINI Devolucion": 18,
+        "Smart Air Devolucion": 97,
+        "Smart N950 Devolucion": 171
+      },
+      "total": 286
+    },
+    "inbound": {
+      "suppliers": {},
+      "total": 0
+    },
+    "uploadedAt": "2026-04-25T00:41:43.581Z"
+  },
+  "2026-04-13": {
+    "fecha": "2026-04-13",
+    "site": "MLM",
+    "devoluciones": {
+      "products": {
+        "Smart N950 Devolucion": 4
+      },
+      "total": 4
+    },
+    "inbound": {
+      "suppliers": {
+        "Geodis": {
+          "total": 505,
+          "products": {
+            "SIM Telcel": 505
+          }
+        }
+      },
+      "total": 505
+    },
+    "uploadedAt": "2026-04-25T00:41:43.581Z"
+  },
+  "2026-04-14": {
+    "fecha": "2026-04-14",
+    "site": "MLM",
+    "devoluciones": {
+      "products": {
+        "Smart N950 Devolucion": 49,
+        "MINI Devolucion": 31,
+        "Smart Air Devolucion": 5
+      },
+      "total": 85
+    },
+    "inbound": {
+      "suppliers": {
+        "Geodis": {
+          "total": 11640,
+          "products": {
+            "Pont Smart N950 Amarillo": 7140,
+            "Point MINI": 4500
+          }
+        }
+      },
+      "total": 11640
+    },
+    "uploadedAt": "2026-04-25T00:41:43.586Z"
+  },
+  "2026-04-15": {
+    "fecha": "2026-04-15",
+    "site": "MLM",
+    "devoluciones": {
+      "products": {
+        "Tarjeta debito de devolución": 986,
+        "Smart N950 Devolucion": 233,
+        "Smart Grado A Devolucion": 232,
+        "Smart Air Devolucion": 52
+      },
+      "total": 1503
+    },
+    "inbound": {
+      "suppliers": {
+        "Geodis": {
+          "total": 40000,
+          "products": {
+            "SIM AT&T": 40000
+          }
+        }
+      },
+      "total": 40000
+    },
+    "uploadedAt": "2026-04-25T00:41:43.586Z"
+  },
+  "2026-04-16": {
+    "fecha": "2026-04-16",
+    "site": "MLM",
+    "devoluciones": {
+      "products": {
+        "Tarjeta debito de devolución": 1000,
+        "Tarjeta de credito Monza devolucion": 233,
+        "Smart Air Devolucion": 32
+      },
+      "total": 1265
+    },
+    "inbound": {
+      "suppliers": {
+        "Geodis": {
+          "total": 43760,
+          "products": {
+            "Pont Smart N950 Amarillo": 7140,
+            "Point MINI": 7500,
+            "Rollo Termico": 29120
+          }
+        }
+      },
+      "total": 43760
+    },
+    "uploadedAt": "2026-04-25T00:41:43.590Z"
+  },
+  "2026-04-17": {
+    "fecha": "2026-04-17",
+    "site": "MLM",
+    "devoluciones": {
+      "products": {
+        "Smart Grado A Devolucion": 79,
+        "Smart N950 Devolucion": 62,
+        "Smart Air Devolucion": 34
+      },
+      "total": 175
+    },
+    "inbound": {
+      "suppliers": {
+        "Thales": {
+          "total": 355420,
+          "products": {
+            "Tarjeta de credito Monza": 60100,
+            "Tarjeta debito sin bolsa": 50160,
+            "Tarjeta debito con bolsa": 230160,
+            "SIM Telcel": 15000
+          }
+        }
+      },
+      "total": 355420
+    },
+    "uploadedAt": "2026-04-25T00:41:43.590Z"
+  },
+  "2026-04-18": {
+    "fecha": "2026-04-18",
+    "site": "MLM",
+    "devoluciones": {
+      "products": {
+        "Smart Grado A Devolucion": 115,
+        "Smart N950 Devolucion": 105
+      },
+      "total": 220
+    },
+    "inbound": {
+      "suppliers": {
+        "Geodis": {
+          "total": 18330,
+          "products": {
+            "Pont Smart N950 Amarillo": 4530,
+            "Point MINI": 9000,
+            "Point Air Amarillo": 4800
+          }
+        },
+        "Solopagos": {
+          "total": 504,
+          "products": {
+            "Smart N950 Refurbished": 504
+          }
+        }
+      },
+      "total": 18834
+    },
+    "uploadedAt": "2026-04-25T00:41:43.596Z"
+  },
+  "2026-04-20": {
+    "fecha": "2026-04-20",
+    "site": "MLM",
+    "devoluciones": {
+      "products": {
+        "Smart Air Devolucion": 23,
+        "MINI Devolucion": 15,
+        "Smart N950 Devolucion": 76
+      },
+      "total": 114
+    },
+    "inbound": {
+      "suppliers": {},
+      "total": 0
+    },
+    "uploadedAt": "2026-04-25T00:41:43.596Z"
+  },
+  "2026-04-21": {
+    "fecha": "2026-04-21",
+    "site": "MLM",
+    "devoluciones": {
+      "products": {
+        "Tarjeta de credito Monza devolucion": 721,
+        "Tarjeta debito de devolución": 1298
+      },
+      "total": 2019
+    },
+    "inbound": {
+      "suppliers": {
+        "Geodis": {
+          "total": 23600,
+          "products": {
+            "Point Air Amarillo": 14400,
+            "Point MINI": 6000,
+            "Rollo Termico": 3200
+          }
+        }
+      },
+      "total": 23600
+    },
+    "uploadedAt": "2026-04-25T00:41:43.602Z"
+  },
+  "2026-04-22": {
+    "fecha": "2026-04-22",
+    "site": "MLM",
+    "devoluciones": {
+      "products": {
+        "Smart Grado A Devolucion": 187,
+        "Smart N950 Devolucion": 304,
+        "MINI Devolucion": 158,
+        "Smart Air Devolucion": 36
+      },
+      "total": 685
+    },
+    "inbound": {
+      "suppliers": {},
+      "total": 0
+    },
+    "uploadedAt": "2026-04-25T00:41:43.602Z"
+  }
+}
