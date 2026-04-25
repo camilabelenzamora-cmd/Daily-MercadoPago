@@ -1300,7 +1300,7 @@
       const targetGrid = ['Cards','Point'].includes(prod) ? gridTop : gridBottom;
 
       const card = document.createElement('div');
-      card.style.cssText = `background:#fff;border-radius:12px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,0.08);${isGrid ? '' : cardWFlex}`;
+      card.style.cssText = `background:#fff;border-radius:12px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,0.08);${['Cards','Point'].includes(prod) ? '' : cardWFlex}`;
       card.innerHTML = `
         <div style="font-size:10px;font-weight:700;color:#888;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">${prodIcons[prod]||'📦'} TOTAL ${prod.toUpperCase()} <span style="font-weight:400;color:#ccc;">${weekLabel}</span></div>
         <div style="font-size:26px;font-weight:700;color:#1a1a2e;line-height:1.1;">${Number(total).toLocaleString('es-AR')} <span style="font-size:13px;font-weight:400;color:#aaa;">unds</span></div>
