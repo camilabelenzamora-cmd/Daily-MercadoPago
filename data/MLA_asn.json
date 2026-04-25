@@ -376,5 +376,30 @@
       "total": 30836
     },
     "uploadedAt": "2026-04-25T01:05:49.331Z"
+  },
+  "2026-04-23": {
+    "fecha": "2026-04-23",
+    "site": "MLA",
+    "devoluciones": {
+      "products": {
+        "Point N950 - Pendiente de Reparación": 540,
+        "Tarjetas Prepagadas": 157,
+        "Tarjeta de Crédito": 427
+      },
+      "total": 1124
+    },
+    "inbound": {
+      "suppliers": {
+        "GPC": {
+          "total": 20050,
+          "products": {
+            "Tarjeta de Crédito": 10000,
+            "Tarjetas Prepagadas": 10050
+          }
+        }
+      },
+      "total": 20050
+    },
+    "uploadedAt": "2026-04-25T01:07:12.059Z"
   }
 }
