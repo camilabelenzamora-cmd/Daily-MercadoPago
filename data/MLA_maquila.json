@@ -348,5 +348,19 @@
     },
     "total": 2960,
     "uploadedAt": "2026-04-25T01:03:46.393Z"
+  },
+  "2026-04-24": {
+    "fecha": "2026-04-24",
+    "site": "MLA",
+    "products": {
+      "POINT N953 - PERSONAL": 8
+    },
+    "reps": {
+      "POINT N953 - PERSONAL": {
+        "lcarabajal": 8
+      }
+    },
+    "total": 8,
+    "uploadedAt": "2026-04-25T23:08:56.867Z"
   }
 }
