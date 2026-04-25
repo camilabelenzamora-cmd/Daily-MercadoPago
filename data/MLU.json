@@ -184,5 +184,120 @@
     "total_unidades": 300,
     "total_os": 300,
     "uploadedAt": "2026-04-23T01:38:15.694Z"
+  },
+  "2026-04-10": {
+    "fecha": "2026-04-10",
+    "site": "MLU",
+    "products": {
+      "Cards": 4,
+      "Point": 177,
+      "Bobinas": 0,
+      "Others": 0
+    },
+    "routes": {
+      "Cards": {
+        "XD-CARDS": 4
+      },
+      "Point": {
+        "XD-POINT": 177
+      },
+      "Bobinas": {},
+      "Others": {}
+    },
+    "total_unidades": 181,
+    "total_os": 179,
+    "uploadedAt": "2026-04-25T14:19:38.371992"
+  },
+  "2026-04-09": {
+    "fecha": "2026-04-09",
+    "site": "MLU",
+    "products": {
+      "Cards": 1,
+      "Point": 149,
+      "Bobinas": 0,
+      "Others": 0
+    },
+    "routes": {
+      "Cards": {
+        "XD-CARDS": 1
+      },
+      "Point": {
+        "XD-POINT": 149
+      },
+      "Bobinas": {},
+      "Others": {}
+    },
+    "total_unidades": 150,
+    "total_os": 150,
+    "uploadedAt": "2026-04-25T14:19:38.371992"
+  },
+  "2026-04-08": {
+    "fecha": "2026-04-08",
+    "site": "MLU",
+    "products": {
+      "Cards": 59,
+      "Point": 56,
+      "Bobinas": 0,
+      "Others": 0
+    },
+    "routes": {
+      "Cards": {
+        "XD-CARDS": 59
+      },
+      "Point": {
+        "XD-POINT": 56
+      },
+      "Bobinas": {},
+      "Others": {}
+    },
+    "total_unidades": 115,
+    "total_os": 66,
+    "uploadedAt": "2026-04-25T14:19:38.371992"
+  },
+  "2026-04-07": {
+    "fecha": "2026-04-07",
+    "site": "MLU",
+    "products": {
+      "Cards": 5,
+      "Point": 85,
+      "Bobinas": 0,
+      "Others": 0
+    },
+    "routes": {
+      "Cards": {
+        "XD-CARDS": 5
+      },
+      "Point": {
+        "XD-POINT": 85
+      },
+      "Bobinas": {},
+      "Others": {}
+    },
+    "total_unidades": 90,
+    "total_os": 90,
+    "uploadedAt": "2026-04-25T14:19:38.371992"
+  },
+  "2026-04-06": {
+    "fecha": "2026-04-06",
+    "site": "MLU",
+    "products": {
+      "Cards": 2,
+      "Point": 4,
+      "Bobinas": 0,
+      "Others": 0
+    },
+    "routes": {
+      "Cards": {
+        "XD-CARDS": 2
+      },
+      "Point": {
+        "XD-POINT": 4
+      },
+      "Bobinas": {},
+      "Others": {}
+    },
+    "total_unidades": 6,
+    "total_os": 6,
+    "uploadedAt": "2026-04-25T14:19:38.371992"
   }
 }
