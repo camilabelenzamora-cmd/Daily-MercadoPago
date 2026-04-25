@@ -1569,25 +1569,41 @@
     const content = document.getElementById('weeklyReviewContent');
     content.innerHTML = '';
 
+    const weekNum = getISOWeek(weeklyCursor);
+    const title = document.createElement('div');
+    title.style.cssText = 'font-size:13px;color:#888;font-weight:600;margin-bottom:14px;letter-spacing:0.3px;text-transform:uppercase;';
+    title.textContent = `Semana ${shortDate(weeklyCursor)} — ${shortDate(addDays(weeklyCursor,6))} · Week ${weekNum}`;
+    content.appendChild(title);
+
+    const SITE_NAMES = {MLA:'Argentina', MLB:'Brasil', MLM:'México', MLC:'Chile', MLU:'Uruguay'};
+    const grid = document.createElement('div');
+    grid.style.cssText = 'display:grid;grid-template-columns:repeat(3,1fr);gap:16px;';
+
     REGIONAL_SITES.forEach(s => {
       const notes = weeklyData[s.code]?.notes?.[weeklyCursor] || null;
       const bullets = notes?.bullets || [];
 
       const card = document.createElement('div');
-      card.style.cssText = 'background:#fff;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,0.08);padding:20px 24px;margin-bottom:14px;';
+      card.style.cssText = 'background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.07);padding:20px;display:flex;flex-direction:column;min-height:160px;';
 
-      const header = `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:${bullets.length ? '14px' : '0'};">
-        <div style="font-size:15px;font-weight:700;color:#333;">${s.flag} ${s.code === 'MLA' ? 'Argentina' : s.code === 'MLB' ? 'Brasil' : s.code === 'MLM' ? 'México' : s.code === 'MLC' ? 'Chile' : 'Uruguay'}</div>
-        <button onclick="openWeeklyEdit('${s.code}')" style="background:none;border:none;cursor:pointer;color:#3483FA;font-size:13px;font-weight:600;">✏️ Editar</button>
-      </div>`;
+      const bulletsHTML = bullets.length
+        ? bullets.map(b => `<div style="display:flex;gap:8px;margin-bottom:8px;align-items:flex-start;"><span style="flex-shrink:0;margin-top:1px;">📌</span><span style="font-size:13px;color:#444;line-height:1.5;">${b}</span></div>`).join('')
+        : `<span style="font-size:13px;color:#ccc;font-style:italic;">Sin novedades</span>`;
 
-      const body = bullets.length
-        ? bullets.map(b => `<div style="display:flex;gap:8px;margin-bottom:8px;"><span>📌</span><span style="font-size:14px;color:#444;line-height:1.4;">${b}</span></div>`).join('')
-        : `<span style="font-size:13px;color:#bbb;font-style:italic;">Sin novedades esta semana</span>`;
+      card.innerHTML = `
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid #F5F5F5;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="font-size:22px;">${s.flag}</span>
+            <span style="font-size:14px;font-weight:700;color:#2c3e50;">${SITE_NAMES[s.code]}</span>
+          </div>
+          <button onclick="openWeeklyEdit('${s.code}')" style="background:none;border:none;cursor:pointer;color:#3483FA;font-size:12px;font-weight:600;padding:4px 8px;border-radius:4px;transition:background 0.2s;" onmouseover="this.style.background='#f0f7ff'" onmouseout="this.style.background='none'">✏️ Editar</button>
+        </div>
+        <div style="flex:1;">${bulletsHTML}</div>`;
 
-      card.innerHTML = header + body;
-      content.appendChild(card);
+      grid.appendChild(card);
     });
+
+    content.appendChild(grid);
   }
 
   function openWeeklyEdit(site) {
