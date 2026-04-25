@@ -1576,6 +1576,7 @@
     content.appendChild(title);
 
     const SITE_NAMES = {MLA:'Argentina', MLB:'Brasil', MLM:'México', MLC:'Chile', MLU:'Uruguay'};
+    const FLAG_CODES = {MLA:'ar', MLB:'br', MLM:'mx', MLC:'cl', MLU:'uy'};
     const grid = document.createElement('div');
     grid.style.cssText = 'display:grid;grid-template-columns:repeat(3,1fr);gap:16px;';
 
@@ -1592,8 +1593,8 @@
 
       card.innerHTML = `
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid #F5F5F5;">
-          <div style="display:flex;align-items:center;gap:8px;">
-            <span style="font-size:22px;">${s.flag}</span>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <img src="https://flagcdn.com/w40/${FLAG_CODES[s.code]}.png" style="width:28px;height:auto;border-radius:2px;box-shadow:0 1px 3px rgba(0,0,0,0.15);" alt="${SITE_NAMES[s.code]}">
             <span style="font-size:14px;font-weight:700;color:#2c3e50;">${SITE_NAMES[s.code]}</span>
           </div>
           <button onclick="openWeeklyEdit('${s.code}')" style="background:none;border:none;cursor:pointer;color:#3483FA;font-size:12px;font-weight:600;padding:4px 8px;border-radius:4px;transition:background 0.2s;" onmouseover="this.style.background='#f0f7ff'" onmouseout="this.style.background='none'">✏️ Editar</button>
