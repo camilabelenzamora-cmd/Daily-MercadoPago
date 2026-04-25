@@ -643,5 +643,36 @@
     "total_unidades": 63133,
     "total_os": 59559,
     "uploadedAt": "2026-04-24T20:38:35.348854"
+  },
+  "2026-04-24": {
+    "fecha": "2026-04-24",
+    "site": "MLM",
+    "products": {
+      "Cards": 15051,
+      "Point": 8775,
+      "Bobinas": 1221,
+      "Others": 19
+    },
+    "routes": {
+      "Cards": {
+        "XD - CARDS": 12690,
+        "XD - POINT": 1386,
+        "PICKIT": 975
+      },
+      "Point": {
+        "PICKIT": 5098,
+        "XD - POINT": 2501,
+        "GEODIS": 1176
+      },
+      "Bobinas": {
+        "XD - POINT": 1221
+      },
+      "Others": {
+        "XD - POINT": 19
+      }
+    },
+    "total_unidades": 25066,
+    "total_os": 15348,
+    "uploadedAt": "2026-04-25T23:30:19.207Z"
   }
 }
