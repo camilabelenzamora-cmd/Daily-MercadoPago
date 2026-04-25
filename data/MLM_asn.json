@@ -362,5 +362,40 @@
       "total": 0
     },
     "uploadedAt": "2026-04-25T00:41:43.602Z"
+  },
+  "2026-04-24": {
+    "fecha": "2026-04-24",
+    "site": "MLM",
+    "devoluciones": {
+      "products": {
+        "Rollo Termico Devolución": 38,
+        "Smart Air Devolucion": 69,
+        "MINI Devolucion": 15,
+        "Smart N950 Devolucion": 198,
+        "Smart Grado A Devolucion": 209
+      },
+      "total": 529
+    },
+    "inbound": {
+      "suppliers": {
+        "Thales": {
+          "total": 308320,
+          "products": {
+            "Tarjeta de credito Monza": 60000,
+            "Tarjeta debito sin bolsa": 50320,
+            "Tarjeta debito con bolsa": 198000
+          }
+        },
+        "Geodis": {
+          "total": 24763,
+          "products": {
+            "Rollo Termico": 23963,
+            "Point Air Amarillo": 800
+          }
+        }
+      },
+      "total": 333083
+    },
+    "uploadedAt": "2026-04-25T23:36:01.529Z"
   }
 }
