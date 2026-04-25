@@ -180,5 +180,137 @@
       "total": 16
     },
     "uploadedAt": "2026-04-23T01:47:33.428Z"
+  },
+  "2026-04-09": {
+    "fecha": "2026-04-09",
+    "site": "MLC",
+    "devoluciones": {
+      "products": {},
+      "total": 0
+    },
+    "inbound": {
+      "suppliers": {
+        "MERCADO LIBRE": {
+          "total": 1,
+          "products": {
+            "Smart Refurbish Entel": 1
+          }
+        }
+      },
+      "total": 1
+    },
+    "uploadedAt": "2026-04-25T14:05:31.424669"
+  },
+  "2026-04-08": {
+    "fecha": "2026-04-08",
+    "site": "MLC",
+    "devoluciones": {
+      "products": {
+        "N950 Servicio Tecnico": 4,
+        "N950 Maquilado": 1
+      },
+      "total": 5
+    },
+    "inbound": {
+      "suppliers": {
+        "IBM": {
+          "total": 75,
+          "products": {
+            "Smart Servicio Técnico": 32,
+            "Smart SCRAP": 4,
+            "Smart Pro SCRAP": 15,
+            "Smart Refurbish Entel": 24
+          }
+        }
+      },
+      "total": 75
+    },
+    "uploadedAt": "2026-04-25T14:05:31.424669"
+  },
+  "2026-04-07": {
+    "fecha": "2026-04-07",
+    "site": "MLC",
+    "devoluciones": {
+      "products": {},
+      "total": 0
+    },
+    "inbound": {
+      "suppliers": {
+        "IBM": {
+          "total": 326,
+          "products": {
+            "Smart SCRAP": 7,
+            "Smart Servicio Técnico": 142,
+            "Smart 920 SCRAP": 8,
+            "Smart Refurbish Entel": 34,
+            "Smart Refurbish Movistar": 1,
+            "D210  SCRAP": 4,
+            "N950 Servicio Tecnico": 130
+          }
+        },
+        "MERCADO LIBRE": {
+          "total": 21,
+          "products": {
+            "Rollo QR devolución": 1,
+            "Rollos Display 10": 14,
+            "N950 Maquilado": 5,
+            "Point Mini": 1
+          }
+        }
+      },
+      "total": 347
+    },
+    "uploadedAt": "2026-04-25T14:05:31.424669"
+  },
+  "2026-04-06": {
+    "fecha": "2026-04-06",
+    "site": "MLC",
+    "devoluciones": {
+      "products": {
+        "Smart Servicio Técnico": 13,
+        "N950 Servicio Tecnico": 15,
+        "Point Mini": 5,
+        "N950 Maquilado": 15,
+        "Point Mini Scrap": 1,
+        "Rollos Display 10": 12,
+        "Prepaid Card": 75
+      },
+      "total": 136
+    },
+    "inbound": {
+      "suppliers": {
+        "TRANSFORMAPP": {
+          "total": 129,
+          "products": {
+            "Smart Refurbish Entel": 129
+          }
+        },
+        "MERCADO LIBRE": {
+          "total": 40,
+          "products": {
+            "Prepaid Card": 40
+          }
+        }
+      },
+      "total": 169
+    },
+    "uploadedAt": "2026-04-25T14:05:31.424669"
+  },
+  "2026-04-02": {
+    "fecha": "2026-04-02",
+    "site": "MLC",
+    "devoluciones": {
+      "products": {
+        "N950 Maquilado": 7,
+        "Smart Servicio Técnico": 4,
+        "N950 Servicio Tecnico": 15
+      },
+      "total": 26
+    },
+    "inbound": {
+      "suppliers": {},
+      "total": 0
+    },
+    "uploadedAt": "2026-04-25T14:05:31.424669"
   }
 }
