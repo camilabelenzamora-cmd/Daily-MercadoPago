@@ -189,5 +189,164 @@
     },
     "total": 2700,
     "uploadedAt": "2026-04-23T01:35:18.830Z"
+  },
+  "2026-04-01": {
+    "fecha": "2026-04-01",
+    "site": "MLA",
+    "products": {
+      "POINT N953 - PERSONAL Amarillo": 2679,
+      "Point N952 - Claro Amarillo": 1360,
+      "Point N951 - Movistar Amarillo": 811,
+      "Point N950 Sin Maquilar Amarillo": 10
+    },
+    "reps": {
+      "POINT N953 - PERSONAL Amarillo": {
+        "bmastroberar": 450,
+        "jnavas": 450,
+        "pazaracho": 450,
+        "lpenzkofer": 450,
+        "mmoalem": 440,
+        "marcluna": 439
+      },
+      "Point N951 - Movistar Amarillo": {
+        "nicolassalvm": 450,
+        "agaetan": 360,
+        "bsanchez": 1
+      },
+      "Point N952 - Claro Amarillo": {
+        "Mmazzoleni": 480,
+        "mmoscato": 440,
+        "bpichierri": 440
+      },
+      "Point N950 Sin Maquilar Amarillo": {
+        "lcarabajal": 10
+      }
+    },
+    "total": 4860,
+    "uploadedAt": "2026-04-25T01:03:46.389Z"
+  },
+  "2026-04-06": {
+    "fecha": "2026-04-06",
+    "site": "MLA",
+    "products": {
+      "POINT N953 - PERSONAL Amarillo": 981,
+      "Point N952 - Claro Amarillo": 120
+    },
+    "reps": {
+      "POINT N953 - PERSONAL Amarillo": {
+        "jmelian": 440,
+        "marcluna": 440,
+        "Iocampohuall": 100,
+        "lcarabajal": 1
+      },
+      "Point N952 - Claro Amarillo": {
+        "mmoscato": 120
+      }
+    },
+    "total": 1101,
+    "uploadedAt": "2026-04-25T01:03:46.390Z"
+  },
+  "2026-04-07": {
+    "fecha": "2026-04-07",
+    "site": "MLA",
+    "products": {
+      "Point N951 - Movistar Amarillo": 720,
+      "POINT N953 - PERSONAL Amarillo": 130,
+      "Point N952 - Claro Amarillo": 60
+    },
+    "reps": {
+      "Point N951 - Movistar Amarillo": {
+        "mmoscato": 660,
+        "bpichierri": 60
+      },
+      "Point N952 - Claro Amarillo": {
+        "Mmazzoleni": 60
+      },
+      "POINT N953 - PERSONAL Amarillo": {
+        "mcameroni": 130
+      }
+    },
+    "total": 910,
+    "uploadedAt": "2026-04-25T01:03:46.390Z"
+  },
+  "2026-04-08": {
+    "fecha": "2026-04-08",
+    "site": "MLA",
+    "products": {
+      "POINT N953 - PERSONAL Amarillo": 582,
+      "Point N952 - Claro Amarillo": 580,
+      "Point N951 - Movistar Amarillo": 20
+    },
+    "reps": {
+      "POINT N953 - PERSONAL Amarillo": {
+        "jmelian": 360,
+        "Iocampohuall": 220,
+        "bsanchez": 2
+      },
+      "Point N952 - Claro Amarillo": {
+        "Iocampohuall": 360,
+        "jmelian": 220
+      },
+      "Point N951 - Movistar Amarillo": {
+        "marcluna": 20
+      }
+    },
+    "total": 1182,
+    "uploadedAt": "2026-04-25T01:03:46.391Z"
+  },
+  "2026-04-09": {
+    "fecha": "2026-04-09",
+    "site": "MLA",
+    "products": {
+      "Point N951 - Movistar Amarillo": 1350,
+      "POINT N953 - PERSONAL Amarillo": 1160,
+      "Point N952 - Claro Amarillo": 620
+    },
+    "reps": {
+      "POINT N953 - PERSONAL Amarillo": {
+        "jmelian": 440,
+        "nicolassalvm": 360,
+        "bmastroberar": 360
+      },
+      "Point N951 - Movistar Amarillo": {
+        "marcluna": 630,
+        "lucashervazq": 360,
+        "pablonahueca": 360
+      },
+      "Point N952 - Claro Amarillo": {
+        "mmoalem": 440,
+        "bpichierri": 180
+      }
+    },
+    "total": 3130,
+    "uploadedAt": "2026-04-25T01:03:46.392Z"
+  },
+  "2026-04-10": {
+    "fecha": "2026-04-10",
+    "site": "MLA",
+    "products": {
+      "POINT N953 - PERSONAL Amarillo": 1260,
+      "Point N951 - Movistar Amarillo": 1080,
+      "Point N952 - Claro Amarillo": 620
+    },
+    "reps": {
+      "Point N951 - Movistar Amarillo": {
+        "nicolassalvm": 360,
+        "agaetan": 360,
+        "mcameroni": 360
+      },
+      "POINT N953 - PERSONAL Amarillo": {
+        "bpichierri": 420,
+        "bmastroberar": 360,
+        "pazaracho": 360,
+        "mmoalem": 120
+      },
+      "Point N952 - Claro Amarillo": {
+        "mmoscato": 470,
+        "jmelian": 150
+      }
+    },
+    "total": 2960,
+    "uploadedAt": "2026-04-25T01:03:46.393Z"
   }
 }
