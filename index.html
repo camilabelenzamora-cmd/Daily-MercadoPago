@@ -1279,12 +1279,16 @@
     document.getElementById('mainTable').style.display = 'none';
     const flagCodes = REGIONAL_SITES.map(s => ({MLA:'ar',MLB:'br',MLM:'mx',MLC:'cl',MLU:'uy'})[s.code]);
     const flags = REGIONAL_SITES.map(s => s.code);
-    const barColors = REGIONAL_SITES.map(() => '#C8D6E5');
+    const barColors = REGIONAL_SITES.map(() => '#7090AA');
 
     // Preload flag images for chart labels
     const flagImgs = {};
+    let flagsLoaded = 0;
     flagCodes.forEach(code => {
-      const img = new Image(); img.src = `https://flagcdn.com/w40/${code}.png`;
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = () => { flagsLoaded++; Object.values(regionalCharts).forEach(c => { try { c.update(); } catch(e){} }); };
+      img.src = `https://flagcdn.com/w40/${code}.png`;
       flagImgs[code] = img;
     });
     const flagLabelPlugin = {
@@ -1296,16 +1300,11 @@
         xAxis.ticks.forEach((tick, i) => {
           const code = flagCodes[i];
           const img = flagImgs[code];
-          if (!img || !img.complete) return;
+          if (!img || !img.complete || !img.naturalWidth) return;
           const x = xAxis.getPixelForTick(i);
           const y = xAxis.bottom + 4;
-          const w = 28, h = 20;
-          ctx.save();
-          ctx.beginPath();
-          ctx.roundRect(x - w/2, y, w, h, 3);
-          ctx.clip();
+          const w = 30, h = 20;
           ctx.drawImage(img, x - w/2, y, w, h);
-          ctx.restore();
         });
       }
     };
