@@ -397,5 +397,36 @@
       "total": 333083
     },
     "uploadedAt": "2026-04-25T23:36:01.529Z"
+  },
+  "2026-04-23": {
+    "fecha": "2026-04-23",
+    "site": "MLM",
+    "devoluciones": {
+      "products": {
+        "Smart Air Devolucion": 87,
+        "Smart Grado A Devolucion": 118,
+        "Smart N950 Devolucion": 188,
+        "MINI Devolucion": 17,
+        "Tarjeta debito de devolución": 2568,
+        "Tarjeta de credito Monza devolucion": 222
+      },
+      "total": 3200
+    },
+    "inbound": {
+      "suppliers": {
+        "Geodis": {
+          "total": 23600,
+          "products": {
+            "Point MINI": 7500,
+            "Point Air Amarillo": 12800,
+            "Rollo Termico": 3200,
+            "Smart N950 Refurbished": 50,
+            "Point Smart N950 Maquilado Telcel amarillo": 50
+          }
+        }
+      },
+      "total": 23600
+    },
+    "uploadedAt": "2026-04-25T23:39:00.551Z"
   }
 }
