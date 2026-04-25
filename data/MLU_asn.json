@@ -38,5 +38,25 @@
       "total": 3000
     },
     "uploadedAt": "2026-04-20T22:42:03.833Z"
+  },
+  "2026-04-06": {
+    "fecha": "2026-04-06",
+    "site": "MLU",
+    "devoluciones": {
+      "products": {},
+      "total": 0
+    },
+    "inbound": {
+      "suppliers": {
+        "CLARO S.A.": {
+          "total": 1000,
+          "products": {
+            "Chip Claro 4G": 1000
+          }
+        }
+      },
+      "total": 1000
+    },
+    "uploadedAt": "2026-04-25T14:25:38.528279"
   }
 }
