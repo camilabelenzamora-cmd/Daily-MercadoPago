@@ -1277,38 +1277,8 @@
     document.getElementById('regionalCharts').style.display = 'block';
     document.getElementById('emptyState').style.display = 'none';
     document.getElementById('mainTable').style.display = 'none';
-    const flagCodes = REGIONAL_SITES.map(s => ({MLA:'ar',MLB:'br',MLM:'mx',MLC:'cl',MLU:'uy'})[s.code]);
-    const flags = REGIONAL_SITES.map(s => s.code);
-    const barColors = REGIONAL_SITES.map(() => '#C8D6E5');
-
-    // Preload flag images for chart labels
-    const flagImgs = {};
-    flagCodes.forEach(code => {
-      const img = new Image(); img.src = `https://flagcdn.com/w40/${code}.png`;
-      flagImgs[code] = img;
-    });
-    const flagLabelPlugin = {
-      id: 'flagLabels',
-      afterDraw(chart) {
-        const ctx = chart.ctx;
-        const xAxis = chart.scales.x;
-        if (!xAxis) return;
-        xAxis.ticks.forEach((tick, i) => {
-          const code = flagCodes[i];
-          const img = flagImgs[code];
-          if (!img || !img.complete) return;
-          const x = xAxis.getPixelForTick(i);
-          const y = xAxis.bottom + 4;
-          const w = 28, h = 20;
-          ctx.save();
-          ctx.beginPath();
-          ctx.roundRect(x - w/2, y, w, h, 3);
-          ctx.clip();
-          ctx.drawImage(img, x - w/2, y, w, h);
-          ctx.restore();
-        });
-      }
-    };
+    const flags = REGIONAL_SITES.map(s => s.flag);
+    const barColors = REGIONAL_SITES.map(() => '#009EE3');
 
     // Destroy existing charts
     Object.values(regionalCharts).forEach(c => c.destroy());
@@ -1388,10 +1358,10 @@
             },
             scales: {
               y: { beginAtZero: true, grid: { color: '#f0f0f0' }, ticks: { font:{size:10}, color:'#aaa', callback: v => v >= 1000 ? (v/1000).toFixed(0)+'k' : v }, border: { display: false } },
-              x: { ticks: { color: 'transparent', font:{size:1} }, grid: { display: false }, border: { display: false } }
+              x: { ticks: { font: { size: 18 } }, grid: { display: false }, border: { display: false } }
             }
           },
-          plugins: [ChartDataLabels, flagLabelPlugin]
+          plugins: [ChartDataLabels]
         });
       }, 50);
     });
@@ -1491,10 +1461,10 @@
             },
             scales: {
               y: { beginAtZero: true, grid: { color: '#f0f0f0' }, ticks: { font:{size:10}, color:'#aaa', callback: v => v >= 1000 ? (v/1000).toFixed(0)+'k' : v }, border: { display: false } },
-              x: { ticks: { color: 'transparent', font:{size:1} }, grid: { display: false }, border: { display: false } }
+              x: { ticks: { font: { size: 18 } }, grid: { display: false }, border: { display: false } }
             }
           },
-          plugins: [ChartDataLabels, flagLabelPlugin]
+          plugins: [ChartDataLabels]
         });
       }, 50);
     });
@@ -1547,10 +1517,10 @@
             },
             scales: {
               y: { beginAtZero: true, grid: { color: '#f0f0f0' }, ticks: { font:{size:10}, color:'#aaa', callback: v => v >= 1000 ? (v/1000).toFixed(0)+'k' : v }, border: { display: false } },
-              x: { ticks: { color: 'transparent', font:{size:1} }, grid: { display: false }, border: { display: false } }
+              x: { ticks: { font: { size: 18 } }, grid: { display: false }, border: { display: false } }
             }
           },
-          plugins: [ChartDataLabels, flagLabelPlugin]
+          plugins: [ChartDataLabels]
         });
       }, 50);
     });
