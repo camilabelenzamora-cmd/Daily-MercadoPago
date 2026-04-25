@@ -151,6 +151,8 @@
 
   <!-- CHARTS (Regional only) -->
   <div id="regionalCharts" style="display:none; margin-bottom:20px;">
+    <!-- People summary -->
+    <div id="regionalPeople" style="margin-bottom:20px;"></div>
     <div style="font-size:14px;font-weight:700;color:#2c3e50;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:12px;">Outbound & Maquila</div>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px;" id="chartsGridTop"></div>
     <div style="display:flex;justify-content:center;gap:12px;margin-bottom:12px;" id="chartsGridBottom"></div>
@@ -1153,8 +1155,8 @@
     }
 
     const results = await Promise.all(REGIONAL_SITES.map(s =>
-      Promise.all([loadHistory(s.code), loadMaquilaHistory(s.code), loadASNHistory(s.code)])
-        .then(([h, m, a]) => ({ code: s.code, flag: s.flag, despachos: h, maquila: m, asn: a }))
+      Promise.all([loadHistory(s.code), loadMaquilaHistory(s.code), loadASNHistory(s.code), loadHeadcountData(s.code)])
+        .then(([h, m, a, hc]) => ({ code: s.code, flag: s.flag, despachos: h, maquila: m, asn: a, headcount: hc }))
     ));
     regionalData = {};
     results.forEach(r => { regionalData[r.code] = r; });
@@ -1194,6 +1196,32 @@
         if (m === regionalCursor) opt.selected = true;
         sel.appendChild(opt);
       });
+    }
+
+    // ── PEOPLE SECTION ───────────────────────────────
+    const peopleDiv = document.getElementById('regionalPeople');
+    const refDate = dates[dates.length - 1];
+    const peopleCards = REGIONAL_SITES.map(s => {
+      const hc = regionalData[s.code]?.headcount || { totals: [], total: null };
+      const total = (hc.totals || []).filter(t => t.desde <= refDate).sort((a,b) => b.desde.localeCompare(a.desde))[0]?.total || hc.total || null;
+      return { flag: s.flag, code: s.code, total };
+    }).filter(c => c.total != null);
+
+    if (peopleCards.length) {
+      peopleDiv.innerHTML = `
+        <div style="font-size:14px;font-weight:700;color:#2c3e50;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:12px;">People</div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          ${peopleCards.map(c => `
+            <div style="background:#fff;border-radius:10px;padding:14px 20px;box-shadow:0 1px 4px rgba(0,0,0,0.08);display:flex;align-items:center;gap:10px;">
+              <span style="font-size:22px;">${c.flag}</span>
+              <div>
+                <div style="font-size:11px;color:#999;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Headcount</div>
+                <div style="font-size:24px;font-weight:700;color:#1a1a2e;">${Number(c.total).toLocaleString('es-AR')}</div>
+              </div>
+            </div>`).join('')}
+        </div>`;
+    } else {
+      peopleDiv.innerHTML = '';
     }
 
     const hasAny = REGIONAL_SITES.some(s =>
