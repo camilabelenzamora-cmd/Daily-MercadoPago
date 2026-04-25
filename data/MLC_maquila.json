@@ -330,5 +330,23 @@
     },
     "total": 473,
     "uploadedAt": "2026-04-25T13:57:34.670203"
+  },
+  "2026-04-24": {
+    "fecha": "2026-04-24",
+    "site": "MLC",
+    "products": {
+      "Rollos Display 10": 2405,
+      "N950 Maquilado": 120
+    },
+    "reps": {
+      "N950 Maquilado": {
+        "ext_gaocampo": 120
+      },
+      "Rollos Display 10": {
+        "frosascontre": 2405
+      }
+    },
+    "total": 2525,
+    "uploadedAt": "2026-04-25T23:19:55.939Z"
   }
 }
