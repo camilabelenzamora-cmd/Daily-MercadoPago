@@ -160,5 +160,175 @@
     },
     "total": 2230,
     "uploadedAt": "2026-04-23T01:49:49.777Z"
+  },
+  "2026-04-10": {
+    "fecha": "2026-04-10",
+    "site": "MLC",
+    "products": {
+      "Rollos Display 10": 1100,
+      "N950 Maquilado": 270,
+      "Smart Servicio Técnico": 11
+    },
+    "reps": {
+      "N950 Maquilado": {
+        "ext_gaocampo": 150,
+        "ext_ariduran": 120
+      },
+      "Smart Servicio Técnico": {
+        "JOSMOLINA": 11
+      },
+      "Rollos Display 10": {
+        "frosascontre": 1100
+      }
+    },
+    "total": 1381,
+    "uploadedAt": "2026-04-25T13:57:34.670203"
+  },
+  "2026-04-09": {
+    "fecha": "2026-04-09",
+    "site": "MLC",
+    "products": {
+      "Rollos Display 10": 1100,
+      "N950 Maquilado": 450,
+      "N950 Servicio Tecnico": 2
+    },
+    "reps": {
+      "N950 Maquilado": {
+        "ext_gaocampo": 90,
+        "ext_ariduran": 120,
+        "esmendoza": 240
+      },
+      "N950 Servicio Tecnico": {
+        "JOSMOLINA": 2
+      },
+      "Rollos Display 10": {
+        "frosascontre": 1100
+      }
+    },
+    "total": 1552,
+    "uploadedAt": "2026-04-25T13:57:34.670203"
+  },
+  "2026-04-08": {
+    "fecha": "2026-04-08",
+    "site": "MLC",
+    "products": {
+      "N950 Maquilado": 900,
+      "Smart Pro SCRAP": 8,
+      "Smart Refurbish Entel": 7,
+      "N950 Servicio Tecnico": 2
+    },
+    "reps": {
+      "N950 Maquilado": {
+        "ext_ariduran": 180,
+        "ext_gaocampo": 30,
+        "esmendoza": 210,
+        "ssuarezreyes": 480
+      },
+      "N950 Servicio Tecnico": {
+        "JOSMOLINA": 2
+      },
+      "Smart Refurbish Entel": {
+        "JOSMOLINA": 7
+      },
+      "Smart Pro SCRAP": {
+        "JOSMOLINA": 8
+      }
+    },
+    "total": 917,
+    "uploadedAt": "2026-04-25T13:57:34.670203"
+  },
+  "2026-04-07": {
+    "fecha": "2026-04-07",
+    "site": "MLC",
+    "products": {
+      "Rollos Display 10": 1100,
+      "N950 Maquilado": 719
+    },
+    "reps": {
+      "N950 Maquilado": {
+        "ext_ariduran": 180,
+        "ext_gaocampo": 109,
+        "ssuarezreyes": 220,
+        "esmendoza": 10,
+        "cgonzaleznie": 200
+      },
+      "Rollos Display 10": {
+        "frosascontre": 1100
+      }
+    },
+    "total": 1819,
+    "uploadedAt": "2026-04-25T13:57:34.670203"
+  },
+  "2026-04-06": {
+    "fecha": "2026-04-06",
+    "site": "MLC",
+    "products": {
+      "N950 Maquilado": 70,
+      "N950 Servicio Tecnico": 1
+    },
+    "reps": {
+      "N950 Maquilado": {
+        "ext_ariduran": 50,
+        "ext_gaocampo": 20
+      },
+      "N950 Servicio Tecnico": {
+        "JOSMOLINA": 1
+      }
+    },
+    "total": 71,
+    "uploadedAt": "2026-04-25T13:57:34.670203"
+  },
+  "2026-04-02": {
+    "fecha": "2026-04-02",
+    "site": "MLC",
+    "products": {
+      "Rollos Display 10": 3300,
+      "N950 Maquilado": 439,
+      "N950 Maquilado Movistar": 70
+    },
+    "reps": {
+      "N950 Maquilado": {
+        "ext_iroaranc": 89,
+        "ext_ariduran": 80,
+        "ext_gaocampo": 60,
+        "esmendoza": 210
+      },
+      "N950 Maquilado Movistar": {
+        "ext_ariduran": 40,
+        "rarayaparede": 30
+      },
+      "Rollos Display 10": {
+        "frosascontre": 3300
+      }
+    },
+    "total": 3809,
+    "uploadedAt": "2026-04-25T13:57:34.670203"
+  },
+  "2026-04-01": {
+    "fecha": "2026-04-01",
+    "site": "MLC",
+    "products": {
+      "N950 Maquilado": 442,
+      "N950 Maquilado Movistar": 30,
+      "N950 Servicio Tecnico": 1
+    },
+    "reps": {
+      "N950 Maquilado": {
+        "ext_gaocampo": 120,
+        "ext_ariduran": 70,
+        "ext_iroaranc": 40,
+        "JOSMOLINA": 2,
+        "rarayaparede": 80,
+        "caymaramaite": 130
+      },
+      "N950 Maquilado Movistar": {
+        "ext_ariduran": 30
+      },
+      "N950 Servicio Tecnico": {
+        "JOSMOLINA": 1
+      }
+    },
+    "total": 473,
+    "uploadedAt": "2026-04-25T13:57:34.670203"
   }
 }
