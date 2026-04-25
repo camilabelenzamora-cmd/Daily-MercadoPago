@@ -1569,42 +1569,58 @@
     const content = document.getElementById('weeklyReviewContent');
     content.innerHTML = '';
 
-    const weekNum = getISOWeek(weeklyCursor);
-    const title = document.createElement('div');
-    title.style.cssText = 'font-size:13px;color:#888;font-weight:600;margin-bottom:14px;letter-spacing:0.3px;text-transform:uppercase;';
-    title.textContent = `Semana ${shortDate(weeklyCursor)} — ${shortDate(addDays(weeklyCursor,6))} · Week ${weekNum}`;
-    content.appendChild(title);
-
     const SITE_NAMES = {MLA:'Argentina', MLB:'Brasil', MLM:'México', MLC:'Chile', MLU:'Uruguay'};
     const FLAG_CODES = {MLA:'ar', MLB:'br', MLM:'mx', MLC:'cl', MLU:'uy'};
-    const grid = document.createElement('div');
-    grid.style.cssText = 'display:grid;grid-template-columns:repeat(3,1fr);gap:16px;';
+    const weekNum = getISOWeek(weeklyCursor);
 
-    REGIONAL_SITES.forEach(s => {
+    // Title
+    const titleDiv = document.createElement('div');
+    titleDiv.style.cssText = 'background:#00253C;color:#FFE600;padding:14px 24px;border-radius:8px 8px 0 0;font-size:16px;font-weight:700;display:flex;align-items:center;gap:10px;';
+    titleDiv.innerHTML = `<span>📋 Weekly Review · Mercado Pago</span><span style="margin-left:auto;font-size:13px;font-weight:400;opacity:0.8;">Semana ${shortDate(weeklyCursor)} — ${shortDate(addDays(weeklyCursor,6))} · Week ${weekNum}</span>`;
+    content.appendChild(titleDiv);
+
+    // Table
+    const table = document.createElement('div');
+    table.style.cssText = 'background:#fff;border-radius:0 0 8px 8px;box-shadow:0 2px 8px rgba(0,0,0,0.08);overflow:hidden;';
+
+    // Column header
+    const colHeader = document.createElement('div');
+    colHeader.style.cssText = 'display:grid;grid-template-columns:140px 1fr;background:#F8F9FA;border-bottom:2px solid #E5E5E5;';
+    colHeader.innerHTML = `<div style="padding:10px 20px;font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.5px;">País</div>
+                           <div style="padding:10px 20px;font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.5px;">Puntos de la semana</div>`;
+    table.appendChild(colHeader);
+
+    REGIONAL_SITES.forEach((s, idx) => {
       const notes = weeklyData[s.code]?.notes?.[weeklyCursor] || null;
       const bullets = notes?.bullets || [];
+      const isLast = idx === REGIONAL_SITES.length - 1;
 
-      const card = document.createElement('div');
-      card.style.cssText = 'background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.07);padding:20px;display:flex;flex-direction:column;min-height:160px;';
+      const row = document.createElement('div');
+      row.style.cssText = `display:grid;grid-template-columns:140px 1fr;${isLast ? '' : 'border-bottom:1px solid #F0F0F0;'}`;
 
       const bulletsHTML = bullets.length
-        ? bullets.map(b => `<div style="display:flex;gap:8px;margin-bottom:8px;align-items:flex-start;"><span style="flex-shrink:0;margin-top:1px;">📌</span><span style="font-size:13px;color:#444;line-height:1.5;">${b}</span></div>`).join('')
-        : `<span style="font-size:13px;color:#ccc;font-style:italic;">Sin novedades</span>`;
+        ? bullets.map((b, i) => `<div style="display:flex;gap:10px;margin-bottom:${i < bullets.length-1 ? '10px' : '0'};align-items:flex-start;">
+            <span style="flex-shrink:0;font-weight:700;color:#00253C;font-size:13px;margin-top:1px;">${i+1}.</span>
+            <span style="font-size:13px;color:#333;line-height:1.5;">${b}</span>
+          </div>`).join('')
+        : `<span style="font-size:13px;color:#ccc;font-style:italic;">Sin novedades esta semana</span>`;
 
-      card.innerHTML = `
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid #F5F5F5;">
-          <div style="display:flex;align-items:center;gap:10px;">
-            <img src="https://flagcdn.com/w40/${FLAG_CODES[s.code]}.png" style="width:28px;height:auto;border-radius:2px;box-shadow:0 1px 3px rgba(0,0,0,0.15);" alt="${SITE_NAMES[s.code]}">
-            <span style="font-size:14px;font-weight:700;color:#2c3e50;">${SITE_NAMES[s.code]}</span>
-          </div>
-          <button onclick="openWeeklyEdit('${s.code}')" style="background:none;border:none;cursor:pointer;color:#3483FA;font-size:12px;font-weight:600;padding:4px 8px;border-radius:4px;transition:background 0.2s;" onmouseover="this.style.background='#f0f7ff'" onmouseout="this.style.background='none'">✏️ Editar</button>
+      row.innerHTML = `
+        <div style="padding:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:#FAFAFA;border-right:1px solid #F0F0F0;">
+          <img src="https://flagcdn.com/w80/${FLAG_CODES[s.code]}.png" style="width:56px;height:auto;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,0.15);object-fit:cover;" alt="${SITE_NAMES[s.code]}">
+          <span style="font-size:12px;font-weight:700;color:#333;">${SITE_NAMES[s.code]}</span>
         </div>
-        <div style="flex:1;">${bulletsHTML}</div>`;
+        <div style="padding:20px;display:flex;flex-direction:column;justify-content:space-between;">
+          <div>${bulletsHTML}</div>
+          <div style="margin-top:12px;text-align:right;">
+            <button onclick="openWeeklyEdit('${s.code}')" style="background:#F0F7FF;border:1px solid #D0E8FF;cursor:pointer;color:#3483FA;font-size:12px;font-weight:600;padding:5px 12px;border-radius:6px;">✏️ Editar</button>
+          </div>
+        </div>`;
 
-      grid.appendChild(card);
+      table.appendChild(row);
     });
 
-    content.appendChild(grid);
+    content.appendChild(table);
   }
 
   function openWeeklyEdit(site) {
