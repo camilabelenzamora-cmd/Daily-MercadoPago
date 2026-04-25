@@ -1002,8 +1002,10 @@
 
   function renderWeek() {
     if (!cursor) cursor = getMonday(new Date());
-    const dates = Array.from({length:5}, (_,i) => addDays(cursor, i));
-    document.getElementById('navLabel').textContent = `Semana ${shortDate(cursor)} — ${shortDate(addDays(cursor,4))}`;
+    const allDays = Array.from({length:7}, (_,i) => addDays(cursor, i));
+    const hasWkndData = d => history[d] || maquilaHistory[d] || asnHistory[d] || headcountData.days?.[d];
+    const dates = allDays.filter((d, i) => i < 5 || hasWkndData(d));
+    document.getElementById('navLabel').textContent = `Semana ${shortDate(cursor)} — ${shortDate(dates[dates.length-1])}`;
 
     // Populate week selector — combine all data sources
     const allDates = [...new Set([
