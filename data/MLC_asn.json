@@ -333,5 +333,35 @@
       "total": 0
     },
     "uploadedAt": "2026-04-25T14:12:53.504876"
+  },
+  "2026-04-24": {
+    "fecha": "2026-04-24",
+    "site": "MLC",
+    "devoluciones": {
+      "products": {},
+      "total": 0
+    },
+    "inbound": {
+      "suppliers": {
+        "ENGATEL SA": {
+          "total": 2240,
+          "products": {
+            "Rollos Caja 50": 2240
+          }
+        },
+        "IBM": {
+          "total": 294,
+          "products": {
+            "Smart Refurbish Movistar": 6,
+            "Smart Servicio Técnico": 123,
+            "Smart Pro SCRAP": 1,
+            "N950 Servicio Tecnico": 163,
+            "Smart SCRAP": 1
+          }
+        }
+      },
+      "total": 2534
+    },
+    "uploadedAt": "2026-04-25T23:21:08.787Z"
   }
 }
