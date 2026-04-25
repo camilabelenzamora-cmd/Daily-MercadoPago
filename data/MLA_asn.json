@@ -401,5 +401,34 @@
       "total": 20050
     },
     "uploadedAt": "2026-04-25T01:07:12.059Z"
+  },
+  "2026-04-24": {
+    "fecha": "2026-04-24",
+    "site": "MLA",
+    "devoluciones": {
+      "products": {
+        "Bobinas de Papel": 13
+      },
+      "total": 13
+    },
+    "inbound": {
+      "suppliers": {
+        "GPC": {
+          "total": 37550,
+          "products": {
+            "Tarjeta de Crédito": 20000,
+            "Tarjetas Prepagadas": 17550
+          }
+        },
+        "CLARO": {
+          "total": 10000,
+          "products": {
+            "Chip - Claro 4G": 10000
+          }
+        }
+      },
+      "total": 47550
+    },
+    "uploadedAt": "2026-04-25T23:09:40.903Z"
   }
 }
