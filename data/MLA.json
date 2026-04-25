@@ -273,5 +273,203 @@
     "total_unidades": 13757,
     "total_os": 12128,
     "uploadedAt": "2026-04-23T01:34:45.322Z"
+  },
+  "2026-04-06": {
+    "fecha": "2026-04-06",
+    "site": "MLA",
+    "products": {
+      "Cards": 23616,
+      "Point": 3797,
+      "Bobinas": 2284,
+      "Others": 712
+    },
+    "routes": {
+      "Cards": {
+        "XD - Credit Card": 12052,
+        "XD - CARDS": 8020,
+        "Andreani Credit Cards": 1491,
+        "ANDREANI": 1200,
+        "XD - POINT": 853
+      },
+      "Point": {
+        "XD - POINT": 3795,
+        "OFF": 2
+      },
+      "Bobinas": {
+        "CORREO ARGENTINO": 1418,
+        "XD - POINT": 866
+      },
+      "Others": {
+        "XD - POINT": 656,
+        "CORREO ARGENTINO": 56
+      }
+    },
+    "total_unidades": 30409,
+    "total_os": 28139,
+    "uploadedAt": "2026-04-25T00:55:31.739Z"
+  },
+  "2026-04-01": {
+    "fecha": "2026-04-01",
+    "site": "MLA",
+    "products": {
+      "Cards": 127,
+      "Point": 699,
+      "Bobinas": 211,
+      "Others": 99
+    },
+    "routes": {
+      "Cards": {
+        "XD - POINT": 127
+      },
+      "Point": {
+        "XD - POINT": 699
+      },
+      "Bobinas": {
+        "XD - POINT": 211
+      },
+      "Others": {
+        "XD - POINT": 99
+      }
+    },
+    "total_unidades": 1136,
+    "total_os": 650,
+    "uploadedAt": "2026-04-25T00:55:31.740Z"
+  },
+  "2026-04-07": {
+    "fecha": "2026-04-07",
+    "site": "MLA",
+    "products": {
+      "Cards": 23763,
+      "Point": 2410,
+      "Bobinas": 13449,
+      "Others": 295
+    },
+    "routes": {
+      "Cards": {
+        "XD - CARDS": 16020,
+        "XD - Credit Card": 4008,
+        "ANDREANI": 3100,
+        "Andreani Credit Cards": 340,
+        "XD - POINT": 295
+      },
+      "Point": {
+        "XD - POINT": 1506,
+        "PICKIT": 904
+      },
+      "Bobinas": {
+        "XD - POINT": 13019,
+        "CORREO ARGENTINO": 430
+      },
+      "Others": {
+        "XD - POINT": 279,
+        "CORREO ARGENTINO": 16
+      }
+    },
+    "total_unidades": 39917,
+    "total_os": 25909,
+    "uploadedAt": "2026-04-25T00:55:31.768Z"
+  },
+  "2026-04-08": {
+    "fecha": "2026-04-08",
+    "site": "MLA",
+    "products": {
+      "Cards": 19603,
+      "Point": 3083,
+      "Bobinas": 6604,
+      "Others": 199
+    },
+    "routes": {
+      "Cards": {
+        "XD - CARDS": 13414,
+        "XD - Credit Card": 4766,
+        "ANDREANI": 649,
+        "XD - POINT": 464,
+        "Andreani Credit Cards": 310
+      },
+      "Point": {
+        "XD - POINT": 2177,
+        "PICKIT": 904,
+        "OFF": 2
+      },
+      "Bobinas": {
+        "XD - POINT": 6137,
+        "CORREO ARGENTINO": 467
+      },
+      "Others": {
+        "XD - POINT": 193,
+        "CORREO ARGENTINO": 6
+      }
+    },
+    "total_unidades": 29489,
+    "total_os": 21920,
+    "uploadedAt": "2026-04-25T00:55:31.789Z"
+  },
+  "2026-04-09": {
+    "fecha": "2026-04-09",
+    "site": "MLA",
+    "products": {
+      "Cards": 58901,
+      "Point": 2383,
+      "Bobinas": 3313,
+      "Others": 202
+    },
+    "routes": {
+      "Cards": {
+        "PICKIT": 50000,
+        "XD - CARDS": 5183,
+        "XD - Credit Card": 2339,
+        "ANDREANI": 738,
+        "XD - POINT": 379,
+        "Andreani Credit Cards": 262
+      },
+      "Point": {
+        "XD - POINT": 1479,
+        "PICKIT": 904
+      },
+      "Bobinas": {
+        "XD - POINT": 2837,
+        "CORREO ARGENTINO": 476
+      },
+      "Others": {
+        "XD - POINT": 186,
+        "CORREO ARGENTINO": 16
+      }
+    },
+    "total_unidades": 64799,
+    "total_os": 10833,
+    "uploadedAt": "2026-04-25T00:55:31.801Z"
+  },
+  "2026-04-10": {
+    "fecha": "2026-04-10",
+    "site": "MLA",
+    "products": {
+      "Cards": 8569,
+      "Point": 1325,
+      "Bobinas": 728,
+      "Others": 150
+    },
+    "routes": {
+      "Cards": {
+        "XD - CARDS": 5152,
+        "XD - Credit Card": 2183,
+        "ANDREANI": 652,
+        "XD - POINT": 316,
+        "Andreani Credit Cards": 266
+      },
+      "Point": {
+        "XD - POINT": 1325
+      },
+      "Bobinas": {
+        "CORREO ARGENTINO": 395,
+        "XD - POINT": 333
+      },
+      "Others": {
+        "XD - POINT": 136,
+        "CORREO ARGENTINO": 14
+      }
+    },
+    "total_unidades": 10772,
+    "total_os": 10006,
+    "uploadedAt": "2026-04-25T00:55:31.811Z"
   }
 }
