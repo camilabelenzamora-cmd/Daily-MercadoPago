@@ -1322,12 +1322,7 @@
         pCard.innerHTML = `
           <div style="font-size:10px;font-weight:700;color:#888;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">👥 HEADCOUNT <span style="font-weight:400;color:#ccc;">${weekLabel}</span></div>
           <div style="font-size:26px;font-weight:700;color:#1a1a2e;line-height:1.1;">${Number(totalHC).toLocaleString('es-AR')} <span style="font-size:13px;font-weight:400;color:#aaa;">personas</span></div>
-          <div style="margin-top:12px;"><canvas id="chart_hc_inline" height="130"></canvas></div>
-          <div style="display:flex;justify-content:center;gap:16px;margin-top:8px;flex-wrap:wrap;">
-            <span style="font-size:11px;color:#555;"><span style="display:inline-block;width:10px;height:10px;background:#009EE3;border-radius:2px;margin-right:4px;"></span>Presentes</span>
-            <span style="font-size:11px;color:#555;"><span style="display:inline-block;width:10px;height:10px;background:#FFB142;border-radius:2px;margin-right:4px;"></span>Aus. Gestionables</span>
-            <span style="font-size:11px;color:#555;"><span style="display:inline-block;width:10px;height:10px;background:#FF6B6B;border-radius:2px;margin-right:4px;"></span>Aus. No Gestionables</span>
-          </div>`;
+          <div style="margin-top:12px;"><canvas id="chart_hc_inline" height="110"></canvas></div>`;
         gridTop.appendChild(pCard);
         setTimeout(() => {
           if (regionalRenderID !== renderID) return;
@@ -1345,15 +1340,21 @@
               ]
             },
             options: {
-              responsive:true,
+              responsive: true,
+              layout: { padding: { top: 24 } },
               plugins: {
-                legend:{display:false},
-                datalabels:{ display: (ctx) => ctx.datasetIndex < 3 && ctx.dataset.data[ctx.dataIndex] > 0, anchor:'center', align:'center', formatter:v=>v>0?v:'', font:{size:10,weight:'700'}, color:'#fff' },
-                tooltip:{ callbacks:{ label: (ctx) => ctx.datasetIndex===3 ? `% Ausentismo: ${ctx.raw}%` : `${ctx.dataset.label}: ${ctx.raw}` } }
+                legend: { display: false },
+                datalabels: {
+                  display: (ctx) => ctx.datasetIndex === 2,
+                  anchor: 'end', align: 'end',
+                  formatter: (v, ctx) => hcStats[ctx.dataIndex]?.total > 0 ? hcStats[ctx.dataIndex].total : '',
+                  font: { weight: '700', size: 11 }, color: '#2c3e50'
+                },
+                tooltip: { callbacks: { label: (ctx) => ctx.datasetIndex===3 ? `% Ausentismo: ${ctx.raw}%` : `${ctx.dataset.label}: ${ctx.raw}` } }
               },
               scales: {
                 x: { stacked:true, ticks:{font:{size:16}}, grid:{display:false}, border:{display:false} },
-                y: { stacked:true, beginAtZero:true, grid:{color:'#f0f0f0'}, ticks:{font:{size:9},color:'#aaa'}, border:{display:false} },
+                y: { stacked:true, beginAtZero:true, grid:{color:'#f0f0f0'}, ticks:{font:{size:10},color:'#aaa'}, border:{display:false} },
                 y2: { type:'linear', position:'right', beginAtZero:true, max:30, ticks:{callback:v=>`${v}%`,font:{size:9},color:'#00253C'}, grid:{display:false}, border:{display:false} }
               }
             }, plugins:[ChartDataLabels]
