@@ -1333,9 +1333,12 @@
             data: {
               labels: hcStats.map(c => c.flag),
               datasets: [
-                { label:'Presentes', data: hcStats.map(c=>Math.round(c.presentes)), backgroundColor:'#009EE3', stack:'hc', borderRadius:{topLeft:0,topRight:0,bottomLeft:6,bottomRight:6}, borderSkipped:false },
-                { label:'Aus. Gestionables', data: hcStats.map(c=>parseFloat(c.gest.toFixed(1))), backgroundColor:'#FFB142', stack:'hc', borderRadius:0 },
-                { label:'Aus. No Gestionables', data: hcStats.map(c=>parseFloat(c.noGest.toFixed(1))), backgroundColor:'#FF6B6B', stack:'hc', borderRadius:{topLeft:6,topRight:6,bottomLeft:0,bottomRight:0}, borderSkipped:false },
+                { label:'Presentes', data: hcStats.map(c=>Math.round(c.presentes)), backgroundColor:'#009EE3', stack:'hc',
+                  borderRadius: hcStats.map(c=>({topLeft:c.gest<=0&&c.noGest<=0?6:0, topRight:c.gest<=0&&c.noGest<=0?6:0, bottomLeft:6, bottomRight:6})), borderSkipped:false },
+                { label:'Aus. Gestionables', data: hcStats.map(c=>parseFloat(c.gest.toFixed(1))), backgroundColor:'#FFB142', stack:'hc',
+                  borderRadius: hcStats.map(c=>({topLeft:c.noGest<=0?6:0, topRight:c.noGest<=0?6:0, bottomLeft:0, bottomRight:0})), borderSkipped:false },
+                { label:'Aus. No Gestionables', data: hcStats.map(c=>parseFloat(c.noGest.toFixed(1))), backgroundColor:'#FF6B6B', stack:'hc',
+                  borderRadius: hcStats.map(c=>({topLeft:c.noGest>0?6:0, topRight:c.noGest>0?6:0, bottomLeft:0, bottomRight:0})), borderSkipped:false },
                 { label:'% Ausentismo', data: hcStats.map(c=>parseFloat(c.pct.toFixed(1))), type:'line', yAxisID:'y2', borderColor:'#00253C', backgroundColor:'rgba(0,37,60,0.1)', pointBackgroundColor:'#00253C', pointRadius:5, borderWidth:2, tension:0.3, datalabels:{display:false} }
               ]
             },
