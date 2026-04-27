@@ -1324,9 +1324,9 @@
           <div style="font-size:26px;font-weight:700;color:#1a1a2e;line-height:1.1;">${Number(totalHC).toLocaleString('es-AR')} <span style="font-size:13px;font-weight:400;color:#aaa;">personas</span></div>
           <div style="margin-top:12px;"><canvas id="chart_hc_inline" height="130"></canvas></div>
           <div style="display:flex;justify-content:center;gap:16px;margin-top:8px;flex-wrap:wrap;">
-            <span style="font-size:11px;color:#555;"><span style="display:inline-block;width:10px;height:10px;background:#3483FA;border-radius:2px;margin-right:4px;"></span>Presentes</span>
-            <span style="font-size:11px;color:#555;"><span style="display:inline-block;width:10px;height:10px;background:#FFE600;border-radius:2px;margin-right:4px;"></span>Aus. Gestionables</span>
-            <span style="font-size:11px;color:#555;"><span style="display:inline-block;width:10px;height:10px;background:#FF7675;border-radius:2px;margin-right:4px;"></span>Aus. No Gestionables</span>
+            <span style="font-size:11px;color:#555;"><span style="display:inline-block;width:10px;height:10px;background:#009EE3;border-radius:2px;margin-right:4px;"></span>Presentes</span>
+            <span style="font-size:11px;color:#555;"><span style="display:inline-block;width:10px;height:10px;background:#FFB142;border-radius:2px;margin-right:4px;"></span>Aus. Gestionables</span>
+            <span style="font-size:11px;color:#555;"><span style="display:inline-block;width:10px;height:10px;background:#FF6B6B;border-radius:2px;margin-right:4px;"></span>Aus. No Gestionables</span>
           </div>`;
         gridTop.appendChild(pCard);
         setTimeout(() => {
@@ -1338,9 +1338,9 @@
             data: {
               labels: hcStats.map(c => c.flag),
               datasets: [
-                { label:'Presentes', data: hcStats.map(c=>Math.round(c.presentes)), backgroundColor:'#3483FA', stack:'hc', borderRadius:{topLeft:0,topRight:0,bottomLeft:4,bottomRight:4} },
-                { label:'Aus. Gestionables', data: hcStats.map(c=>parseFloat(c.gest.toFixed(1))), backgroundColor:'#FFE600', stack:'hc', borderRadius:0 },
-                { label:'Aus. No Gestionables', data: hcStats.map(c=>parseFloat(c.noGest.toFixed(1))), backgroundColor:'#FF7675', stack:'hc', borderRadius:{topLeft:4,topRight:4,bottomLeft:0,bottomRight:0} },
+                { label:'Presentes', data: hcStats.map(c=>Math.round(c.presentes)), backgroundColor:'#009EE3', stack:'hc', borderRadius:{topLeft:0,topRight:0,bottomLeft:6,bottomRight:6}, borderSkipped:false },
+                { label:'Aus. Gestionables', data: hcStats.map(c=>parseFloat(c.gest.toFixed(1))), backgroundColor:'#FFB142', stack:'hc', borderRadius:0 },
+                { label:'Aus. No Gestionables', data: hcStats.map(c=>parseFloat(c.noGest.toFixed(1))), backgroundColor:'#FF6B6B', stack:'hc', borderRadius:{topLeft:6,topRight:6,bottomLeft:0,bottomRight:0}, borderSkipped:false },
                 { label:'% Ausentismo', data: hcStats.map(c=>parseFloat(c.pct.toFixed(1))), type:'line', yAxisID:'y2', borderColor:'#00253C', backgroundColor:'rgba(0,37,60,0.1)', pointBackgroundColor:'#00253C', pointRadius:5, borderWidth:2, tension:0.3, datalabels:{display:false} }
               ]
             },
