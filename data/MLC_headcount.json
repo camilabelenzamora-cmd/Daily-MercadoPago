@@ -12,6 +12,12 @@
       "ausentes_gestionables": 2,
       "ausentes_no_gestionables": 1,
       "savedAt": "2026-04-27T02:41:30.590Z"
+    },
+    "2026-04-21": {
+      "fecha": "2026-04-21",
+      "ausentes_gestionables": 2,
+      "ausentes_no_gestionables": 0,
+      "savedAt": "2026-04-27T02:41:38.482Z"
     }
   }
 }
