@@ -428,5 +428,50 @@
       "total": 23600
     },
     "uploadedAt": "2026-04-25T23:39:00.551Z"
+  },
+  "2026-04-25": {
+    "fecha": "2026-04-25",
+    "site": "MLM",
+    "devoluciones": {
+      "products": {
+        "Smart N950 Devolucion": 121,
+        "Rollo Termico Devolución": 15,
+        "Smart Air Devolucion": 25,
+        "MINI Devolucion": 10,
+        "Tarjeta debito de devolución": 480,
+        "Tarjeta de credito Monza devolucion": 59
+      },
+      "total": 710
+    },
+    "inbound": {
+      "suppliers": {
+        "Geodis": {
+          "total": 8840,
+          "products": {
+            "Pont Smart N950 Amarillo": 8840
+          }
+        },
+        "Solopagos": {
+          "total": 342,
+          "products": {
+            "Smart N950 Refurbished": 342
+          }
+        },
+        "Impresos Florida": {
+          "total": 65,
+          "products": {
+            "Labels": 65
+          }
+        },
+        "DHL": {
+          "total": 56,
+          "products": {
+            "Smart Grado A Devolucion": 56
+          }
+        }
+      },
+      "total": 9303
+    },
+    "uploadedAt": "2026-04-27T01:56:35.126Z"
   }
 }
