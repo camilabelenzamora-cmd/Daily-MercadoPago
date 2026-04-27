@@ -473,5 +473,25 @@
       "total": 9303
     },
     "uploadedAt": "2026-04-27T01:56:35.126Z"
+  },
+  "2026-04-26": {
+    "fecha": "2026-04-26",
+    "site": "MLM",
+    "devoluciones": {
+      "products": {
+        "Tarjeta de credito Monza devolucion": 50,
+        "Tarjeta debito de devolución": 200,
+        "Smart N950 Devolucion": 165,
+        "Smart Grado A Devolucion": 60,
+        "MINI Devolucion": 4,
+        "Rollo Termico": 1
+      },
+      "total": 480
+    },
+    "inbound": {
+      "suppliers": {},
+      "total": 0
+    },
+    "uploadedAt": "2026-04-27T01:59:14.758Z"
   }
 }
