@@ -329,6 +329,7 @@
   let regionalCursor = null;
   let regionalRenderID = 0;
   let expandedProducts = new Set();
+  let expandedRouteProds = new Set();
   let expandedMaquilaProds = new Set();
   let expandedInboundSuppliers = new Set();
   let asnHistory = {};
@@ -593,10 +594,18 @@
         const prod = classifyProduct(r['NOM PROD'] || r['NOME PROD']);
         const uds = parseInt(r['UNI DESP'] || r['UN ENVIADAS'] || '0') || 0;
         const ruta = (r['RUTA'] || r['ROTA'] || '').trim() || 'Sin ruta';
+        const nomProd = (r['NOM PROD'] || '').trim();
         products[prod] += uds;
-        routes[prod][ruta] = (routes[prod][ruta] || 0) + uds;
+        if (site === 'MLM' && ruta === 'XD - CARDS' && prod === 'Cards' && nomProd) {
+          if (typeof routes[prod][ruta] !== 'object') routes[prod][ruta] = { total: routes[prod][ruta]||0, products: {} };
+          routes[prod][ruta].total += uds;
+          routes[prod][ruta].products[nomProd] = (routes[prod][ruta].products[nomProd]||0) + uds;
+        } else {
+          if (typeof routes[prod][ruta] !== 'object') routes[prod][ruta] = (routes[prod][ruta]||0) + uds;
+        }
       }
-      for (const p of PRODUCTS) routes[p] = Object.fromEntries(Object.entries(routes[p]).sort((a,b) => b[1]-a[1]));
+      const routeVal = v => typeof v === 'object' ? v.total : v;
+      for (const p of PRODUCTS) routes[p] = Object.fromEntries(Object.entries(routes[p]).sort((a,b) => routeVal(b[1])-routeVal(a[1])));
       return { fecha, site, products, routes, total_unidades: Object.values(products).reduce((a,b)=>a+b,0), total_os: osIds.size, uploadedAt: new Date().toISOString() };
     });
   }
@@ -703,21 +712,46 @@
       // Route sub-rows
       const allRoutes = new Set();
       cols.forEach(c => c.dates.forEach(d => Object.keys(history[d]?.routes?.[prod]||{}).forEach(r => allRoutes.add(r))));
-      // Sort by total desc
+      const getRV = (d,p,r) => { const v = history[d]?.routes?.[p]?.[r]; return typeof v==='object' ? v.total : (v||0); };
       const routesSorted = Array.from(allRoutes).sort((a,b) => {
-        const ta = cols.reduce((s,c) => s+c.dates.reduce((ss,d)=>(ss+(history[d]?.routes?.[prod]?.[a]||0)),0),0);
-        const tb = cols.reduce((s,c) => s+c.dates.reduce((ss,d)=>(ss+(history[d]?.routes?.[prod]?.[b]||0)),0),0);
+        const ta = cols.reduce((s,c)=>s+c.dates.reduce((ss,d)=>ss+getRV(d,prod,a),0),0);
+        const tb = cols.reduce((s,c)=>s+c.dates.reduce((ss,d)=>ss+getRV(d,prod,b),0),0);
         return tb-ta;
       });
 
       routesSorted.forEach(route => {
-        const rVals = cols.map(c => c.dates.reduce((s,d) => s+(history[d]?.routes?.[prod]?.[route]||0), 0));
+        const rVals = cols.map(c => c.dates.reduce((s,d)=>s+getRV(d,prod,route),0));
         const rAcc = rVals.reduce((a,b)=>a+b,0);
+        const hasProds = cols.some(c=>c.dates.some(d=>typeof history[d]?.routes?.[prod]?.[route]==='object'));
+        const rKey = prod+'|'+route;
+        const isRExp = expandedRouteProds.has(rKey);
         const tr2 = document.createElement('tr');
-        tr2.className = 'row-route' + (isExp ? ' visible' : '');
+        tr2.className = 'row-route'+(isExp?' visible':'');
         tr2.dataset.product = prod;
-        tr2.innerHTML = `<td>${route}</td>` + rVals.map(v=>`<td>${fmt(v||null)}</td>`).join('') + `<td>${fmtN(rAcc)}</td>`;
+        if (hasProds) {
+          tr2.innerHTML = `<td onclick="toggleRouteProduct('${rKey}')" style="cursor:pointer;padding-left:24px;"><span class="toggle-icon ${isRExp?'open':''}" style="margin-right:4px;">▶</span>${route}</td>`+rVals.map(v=>`<td>${fmt(v||null)}</td>`).join('')+`<td>${fmtN(rAcc)}</td>`;
+        } else {
+          tr2.innerHTML = `<td style="padding-left:42px;">${route}</td>`+rVals.map(v=>`<td>${fmt(v||null)}</td>`).join('')+`<td>${fmtN(rAcc)}</td>`;
+        }
         tbody.appendChild(tr2);
+
+        if (hasProds && isExp) {
+          const prodNames = new Set();
+          cols.forEach(c=>c.dates.forEach(d=>{const rv=history[d]?.routes?.[prod]?.[route];if(typeof rv==='object')Object.keys(rv.products||{}).forEach(n=>prodNames.add(n));}));
+          const pSorted = Array.from(prodNames).sort((a,b)=>{
+            const ta=cols.reduce((s,c)=>s+c.dates.reduce((ss,d)=>ss+(history[d]?.routes?.[prod]?.[route]?.products?.[a]||0),0),0);
+            const tb=cols.reduce((s,c)=>s+c.dates.reduce((ss,d)=>ss+(history[d]?.routes?.[prod]?.[route]?.products?.[b]||0),0),0);
+            return tb-ta;
+          });
+          pSorted.forEach(pName => {
+            const pVals = cols.map(c=>c.dates.reduce((s,d)=>s+(history[d]?.routes?.[prod]?.[route]?.products?.[pName]||0),0));
+            const tr3 = document.createElement('tr');
+            tr3.className = 'row-route'+(isExp&&isRExp?' visible':'');
+            tr3.style.cssText = 'background:#f7f9ff;';
+            tr3.innerHTML = `<td style="padding-left:58px;font-weight:400;color:#555;">${pName}</td>`+pVals.map(v=>`<td>${fmt(v||null)}</td>`).join('')+`<td>${fmtN(pVals.reduce((a,b)=>a+b,0))}</td>`;
+            tbody.appendChild(tr3);
+          });
+        }
       });
     });
 
@@ -981,6 +1015,10 @@
     render();
   }
 
+  function toggleRouteProduct(key) {
+    if (expandedRouteProds.has(key)) expandedRouteProds.delete(key); else expandedRouteProds.add(key);
+    render();
+  }
   function toggleProduct(prod) {
     if (expandedProducts.has(prod)) expandedProducts.delete(prod);
     else expandedProducts.add(prod);

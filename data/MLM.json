@@ -10,7 +10,13 @@
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 33042,
+        "XD - CARDS": {
+          "total": 33042,
+          "products": {
+            "Tarjeta debito con bolsa": 29577,
+            "Tarjeta de credito Monza": 3465
+          }
+        },
         "PICKIT": 3300,
         "XD - POINT": 2356
       },
@@ -27,7 +33,7 @@
     },
     "total_unidades": 56532,
     "total_os": 36914,
-    "uploadedAt": "2026-04-24T20:38:35.348854"
+    "uploadedAt": "2026-04-28T16:33:07.558481"
   },
   "2026-04-02": {
     "fecha": "2026-04-02",
@@ -40,7 +46,13 @@
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 28144,
+        "XD - CARDS": {
+          "total": 28144,
+          "products": {
+            "Tarjeta debito con bolsa": 23063,
+            "Tarjeta de credito Monza": 5081
+          }
+        },
         "XD - POINT": 2110,
         "GEODIS": 1119
       },
@@ -57,7 +69,7 @@
     },
     "total_unidades": 38610,
     "total_os": 31650,
-    "uploadedAt": "2026-04-24T20:38:35.348854"
+    "uploadedAt": "2026-04-28T16:33:07.558481"
   },
   "2026-04-04": {
     "fecha": "2026-04-04",
@@ -70,7 +82,13 @@
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 21657,
+        "XD - CARDS": {
+          "total": 21657,
+          "products": {
+            "Tarjeta debito con bolsa": 18328,
+            "Tarjeta de credito Monza": 3329
+          }
+        },
         "XD - POINT": 997
       },
       "Point": {
@@ -85,7 +103,7 @@
     },
     "total_unidades": 25889,
     "total_os": 23707,
-    "uploadedAt": "2026-04-24T20:38:35.348854"
+    "uploadedAt": "2026-04-28T16:33:07.558481"
   },
   "2026-04-03": {
     "fecha": "2026-04-03",
@@ -98,7 +116,13 @@
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 23370,
+        "XD - CARDS": {
+          "total": 23370,
+          "products": {
+            "Tarjeta debito con bolsa": 20208,
+            "Tarjeta de credito Monza": 3162
+          }
+        },
         "XD - POINT": 1355
       },
       "Point": {
@@ -113,7 +137,7 @@
     },
     "total_unidades": 28596,
     "total_os": 25708,
-    "uploadedAt": "2026-04-24T20:38:35.348854"
+    "uploadedAt": "2026-04-28T16:33:07.558481"
   },
   "2026-04-06": {
     "fecha": "2026-04-06",
@@ -126,7 +150,13 @@
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 21685,
+        "XD - CARDS": {
+          "total": 21685,
+          "products": {
+            "Tarjeta debito con bolsa": 17032,
+            "Tarjeta de credito Monza": 4653
+          }
+        },
         "XD - POINT": 1136,
         "GEODIS": 354
       },
@@ -143,7 +173,7 @@
     },
     "total_unidades": 27250,
     "total_os": 23878,
-    "uploadedAt": "2026-04-24T20:38:35.348854"
+    "uploadedAt": "2026-04-28T16:33:07.558481"
   },
   "2026-04-05": {
     "fecha": "2026-04-05",
@@ -156,7 +186,13 @@
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 11793,
+        "XD - CARDS": {
+          "total": 11793,
+          "products": {
+            "Tarjeta debito con bolsa": 10691,
+            "Tarjeta de credito Monza": 1102
+          }
+        },
         "XD - POINT": 524
       },
       "Point": {
@@ -171,7 +207,7 @@
     },
     "total_unidades": 14145,
     "total_os": 12974,
-    "uploadedAt": "2026-04-24T20:38:35.348854"
+    "uploadedAt": "2026-04-28T16:33:07.558481"
   },
   "2026-04-07": {
     "fecha": "2026-04-07",
@@ -184,7 +220,13 @@
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 43523,
+        "XD - CARDS": {
+          "total": 43523,
+          "products": {
+            "Tarjeta debito con bolsa": 36206,
+            "Tarjeta de credito Monza": 7317
+          }
+        },
         "XD - POINT": 2040,
         "GEODIS": 259
       },
@@ -201,7 +243,7 @@
     },
     "total_unidades": 53393,
     "total_os": 47921,
-    "uploadedAt": "2026-04-24T20:38:35.348854"
+    "uploadedAt": "2026-04-28T16:33:07.558481"
   },
   "2026-04-08": {
     "fecha": "2026-04-08",
@@ -214,7 +256,13 @@
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 28743,
+        "XD - CARDS": {
+          "total": 28743,
+          "products": {
+            "Tarjeta debito con bolsa": 24290,
+            "Tarjeta de credito Monza": 4453
+          }
+        },
         "XD - POINT": 2262
       },
       "Point": {
@@ -230,7 +278,7 @@
     },
     "total_unidades": 38754,
     "total_os": 33573,
-    "uploadedAt": "2026-04-24T20:38:35.348854"
+    "uploadedAt": "2026-04-28T16:33:07.558481"
   },
   "2026-04-10": {
     "fecha": "2026-04-10",
@@ -243,7 +291,13 @@
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 23061,
+        "XD - CARDS": {
+          "total": 23061,
+          "products": {
+            "Tarjeta debito con bolsa": 19305,
+            "Tarjeta de credito Monza": 3756
+          }
+        },
         "XD - POINT": 1632
       },
       "Point": {
@@ -259,7 +313,7 @@
     },
     "total_unidades": 38025,
     "total_os": 26653,
-    "uploadedAt": "2026-04-24T20:38:35.348854"
+    "uploadedAt": "2026-04-28T16:33:07.558481"
   },
   "2026-04-09": {
     "fecha": "2026-04-09",
@@ -272,7 +326,13 @@
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 23213,
+        "XD - CARDS": {
+          "total": 23213,
+          "products": {
+            "Tarjeta debito con bolsa": 19940,
+            "Tarjeta de credito Monza": 3273
+          }
+        },
         "XD - POINT": 1801
       },
       "Point": {
@@ -287,7 +347,7 @@
     },
     "total_unidades": 30512,
     "total_os": 26489,
-    "uploadedAt": "2026-04-24T20:38:35.348854"
+    "uploadedAt": "2026-04-28T16:33:07.558481"
   },
   "2026-04-11": {
     "fecha": "2026-04-11",
@@ -300,7 +360,13 @@
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 25499,
+        "XD - CARDS": {
+          "total": 25499,
+          "products": {
+            "Tarjeta debito con bolsa": 21601,
+            "Tarjeta de credito Monza": 3898
+          }
+        },
         "XD - POINT": 993
       },
       "Point": {
@@ -315,7 +381,7 @@
     },
     "total_unidades": 30450,
     "total_os": 28290,
-    "uploadedAt": "2026-04-24T20:38:35.348854"
+    "uploadedAt": "2026-04-28T16:33:07.558481"
   },
   "2026-04-23": {
     "fecha": "2026-04-23",
@@ -328,7 +394,13 @@
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 24910,
+        "XD - CARDS": {
+          "total": 24910,
+          "products": {
+            "Tarjeta debito con bolsa": 20231,
+            "Tarjeta de credito Monza": 4679
+          }
+        },
         "XD - POINT": 1272,
         "GEODIS": 409
       },
@@ -345,7 +417,7 @@
     },
     "total_unidades": 30336,
     "total_os": 27097,
-    "uploadedAt": "2026-04-24T20:38:35.348854"
+    "uploadedAt": "2026-04-28T16:33:07.558481"
   },
   "2026-04-14": {
     "fecha": "2026-04-14",
@@ -358,7 +430,13 @@
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 40659,
+        "XD - CARDS": {
+          "total": 40659,
+          "products": {
+            "Tarjeta debito con bolsa": 32521,
+            "Tarjeta de credito Monza": 8138
+          }
+        },
         "XD - POINT": 2367,
         "PICKIT": 1350,
         "DHL": 440,
@@ -379,7 +457,7 @@
     },
     "total_unidades": 57846,
     "total_os": 46803,
-    "uploadedAt": "2026-04-24T20:38:35.348854"
+    "uploadedAt": "2026-04-28T16:33:07.558481"
   },
   "2026-04-12": {
     "fecha": "2026-04-12",
@@ -392,7 +470,13 @@
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 9056,
+        "XD - CARDS": {
+          "total": 9056,
+          "products": {
+            "Tarjeta debito con bolsa": 7309,
+            "Tarjeta de credito Monza": 1747
+          }
+        },
         "XD - POINT": 541
       },
       "Point": {
@@ -408,7 +492,7 @@
     },
     "total_unidades": 23164,
     "total_os": 10232,
-    "uploadedAt": "2026-04-24T20:38:35.348854"
+    "uploadedAt": "2026-04-28T16:33:07.558481"
   },
   "2026-04-16": {
     "fecha": "2026-04-16",
@@ -421,7 +505,13 @@
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 31694,
+        "XD - CARDS": {
+          "total": 31694,
+          "products": {
+            "Tarjeta debito con bolsa": 18299,
+            "Tarjeta de credito Monza": 13395
+          }
+        },
         "XD - POINT": 1303,
         "GEODIS": 353
       },
@@ -438,7 +528,7 @@
     },
     "total_unidades": 37571,
     "total_os": 34791,
-    "uploadedAt": "2026-04-24T20:38:35.348854"
+    "uploadedAt": "2026-04-28T16:33:07.558481"
   },
   "2026-04-17": {
     "fecha": "2026-04-17",
@@ -451,7 +541,13 @@
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 33950,
+        "XD - CARDS": {
+          "total": 33950,
+          "products": {
+            "Tarjeta debito con bolsa": 25307,
+            "Tarjeta de credito Monza": 8643
+          }
+        },
         "XD - POINT": 1886
       },
       "Point": {
@@ -467,7 +563,7 @@
     },
     "total_unidades": 42662,
     "total_os": 38148,
-    "uploadedAt": "2026-04-24T20:38:35.348854"
+    "uploadedAt": "2026-04-28T16:33:07.558481"
   },
   "2026-04-13": {
     "fecha": "2026-04-13",
@@ -480,7 +576,13 @@
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 21287,
+        "XD - CARDS": {
+          "total": 21287,
+          "products": {
+            "Tarjeta debito con bolsa": 17781,
+            "Tarjeta de credito Monza": 3506
+          }
+        },
         "XD - POINT": 840
       },
       "Point": {
@@ -495,7 +597,7 @@
     },
     "total_unidades": 24858,
     "total_os": 23450,
-    "uploadedAt": "2026-04-24T20:38:35.348854"
+    "uploadedAt": "2026-04-28T16:33:07.558481"
   },
   "2026-04-18": {
     "fecha": "2026-04-18",
@@ -508,7 +610,13 @@
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 31611,
+        "XD - CARDS": {
+          "total": 31611,
+          "products": {
+            "Tarjeta debito con bolsa": 22864,
+            "Tarjeta de credito Monza": 8747
+          }
+        },
         "XD - POINT": 946
       },
       "Point": {
@@ -524,7 +632,7 @@
     },
     "total_unidades": 41042,
     "total_os": 33881,
-    "uploadedAt": "2026-04-24T20:38:35.348854"
+    "uploadedAt": "2026-04-28T16:33:07.558481"
   },
   "2026-04-22": {
     "fecha": "2026-04-22",
@@ -537,7 +645,13 @@
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 30255,
+        "XD - CARDS": {
+          "total": 30255,
+          "products": {
+            "Tarjeta debito con bolsa": 21845,
+            "Tarjeta de credito Monza": 8410
+          }
+        },
         "GEODIS": 5738,
         "PICKIT": 1350,
         "XD - POINT": 1239,
@@ -558,7 +672,7 @@
     },
     "total_unidades": 57978,
     "total_os": 32503,
-    "uploadedAt": "2026-04-24T20:38:35.348854"
+    "uploadedAt": "2026-04-28T16:33:07.558481"
   },
   "2026-04-15": {
     "fecha": "2026-04-15",
@@ -571,7 +685,13 @@
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 34607,
+        "XD - CARDS": {
+          "total": 34607,
+          "products": {
+            "Tarjeta debito con bolsa": 22390,
+            "Tarjeta de credito Monza": 12217
+          }
+        },
         "XD - POINT": 1298
       },
       "Point": {
@@ -586,7 +706,7 @@
     },
     "total_unidades": 39893,
     "total_os": 37691,
-    "uploadedAt": "2026-04-24T20:38:35.348854"
+    "uploadedAt": "2026-04-28T16:33:07.558481"
   },
   "2026-04-20": {
     "fecha": "2026-04-20",
@@ -599,7 +719,13 @@
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 27316,
+        "XD - CARDS": {
+          "total": 27316,
+          "products": {
+            "Tarjeta debito con bolsa": 21642,
+            "Tarjeta de credito Monza": 5674
+          }
+        },
         "XD - POINT": 898
       },
       "Point": {
@@ -614,7 +740,7 @@
     },
     "total_unidades": 31180,
     "total_os": 29751,
-    "uploadedAt": "2026-04-24T20:38:35.348854"
+    "uploadedAt": "2026-04-28T16:33:07.558481"
   },
   "2026-04-21": {
     "fecha": "2026-04-21",
@@ -627,7 +753,13 @@
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 55958,
+        "XD - CARDS": {
+          "total": 55958,
+          "products": {
+            "Tarjeta debito con bolsa": 43283,
+            "Tarjeta de credito Monza": 12675
+          }
+        },
         "XD - POINT": 1940
       },
       "Point": {
@@ -642,95 +774,6 @@
     },
     "total_unidades": 63133,
     "total_os": 59559,
-    "uploadedAt": "2026-04-24T20:38:35.348854"
-  },
-  "2026-04-24": {
-    "fecha": "2026-04-24",
-    "site": "MLM",
-    "products": {
-      "Cards": 15051,
-      "Point": 8775,
-      "Bobinas": 1221,
-      "Others": 19
-    },
-    "routes": {
-      "Cards": {
-        "XD - CARDS": 12690,
-        "XD - POINT": 1386,
-        "PICKIT": 975
-      },
-      "Point": {
-        "PICKIT": 5098,
-        "XD - POINT": 2501,
-        "GEODIS": 1176
-      },
-      "Bobinas": {
-        "XD - POINT": 1221
-      },
-      "Others": {
-        "XD - POINT": 19
-      }
-    },
-    "total_unidades": 25066,
-    "total_os": 15348,
-    "uploadedAt": "2026-04-25T23:30:19.207Z"
-  },
-  "2026-04-26": {
-    "fecha": "2026-04-26",
-    "site": "MLM",
-    "products": {
-      "Cards": 21306,
-      "Point": 143,
-      "Bobinas": 49,
-      "Others": 2
-    },
-    "routes": {
-      "Cards": {
-        "XD - CARDS": 21227,
-        "XD - POINT": 79
-      },
-      "Point": {
-        "XD - POINT": 142,
-        "GEODIS": 1
-      },
-      "Bobinas": {
-        "XD - POINT": 49
-      },
-      "Others": {
-        "XD - POINT": 2
-      }
-    },
-    "total_unidades": 21500,
-    "total_os": 21379,
-    "uploadedAt": "2026-04-27T01:52:44.024Z"
-  },
-  "2026-04-25": {
-    "fecha": "2026-04-25",
-    "site": "MLM",
-    "products": {
-      "Cards": 22410,
-      "Point": 18828,
-      "Bobinas": 1110,
-      "Others": 257
-    },
-    "routes": {
-      "Cards": {
-        "XD - CARDS": 21089,
-        "XD - POINT": 1321
-      },
-      "Point": {
-        "GEODIS": 16465,
-        "XD - POINT": 2363
-      },
-      "Bobinas": {
-        "XD - POINT": 1110
-      },
-      "Others": {
-        "XD - POINT": 257
-      }
-    },
-    "total_unidades": 42605,
-    "total_os": 23813,
-    "uploadedAt": "2026-04-27T01:52:44.036Z"
+    "uploadedAt": "2026-04-28T16:33:07.558481"
   }
 }
