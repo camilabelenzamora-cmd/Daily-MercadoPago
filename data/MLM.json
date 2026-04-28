@@ -10,24 +10,30 @@
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 33042,
-        "PICKIT": 3300,
-        "XD - POINT": 2356
+        "XD - CARDS": {
+          "total": 33042,
+          "products": {
+            "Tarjeta debito con bolsa": 29577,
+            "Tarjeta de credito Monza": 3465
+          }
+        },
+        "PICKIT": 6600,
+        "XD - POINT": 4712
       },
       "Point": {
-        "PICKIT": 10790,
-        "XD - POINT": 5731
+        "PICKIT": 21580,
+        "XD - POINT": 11462
       },
       "Bobinas": {
-        "XD - POINT": 1288
+        "XD - POINT": 2576
       },
       "Others": {
-        "XD - POINT": 25
+        "XD - POINT": 50
       }
     },
     "total_unidades": 56532,
     "total_os": 36914,
-    "uploadedAt": "2026-04-24T20:38:35.348854"
+    "uploadedAt": "2026-04-28T15:12:11.217627"
   },
   "2026-04-02": {
     "fecha": "2026-04-02",
@@ -40,24 +46,30 @@
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 28144,
-        "XD - POINT": 2110,
-        "GEODIS": 1119
+        "XD - CARDS": {
+          "total": 28144,
+          "products": {
+            "Tarjeta debito con bolsa": 23063,
+            "Tarjeta de credito Monza": 5081
+          }
+        },
+        "XD - POINT": 4220,
+        "GEODIS": 2238
       },
       "Point": {
-        "XD - POINT": 5151,
-        "GEODIS": 1119
+        "XD - POINT": 10302,
+        "GEODIS": 2238
       },
       "Bobinas": {
-        "XD - POINT": 939
+        "XD - POINT": 1878
       },
       "Others": {
-        "XD - POINT": 28
+        "XD - POINT": 56
       }
     },
     "total_unidades": 38610,
     "total_os": 31650,
-    "uploadedAt": "2026-04-24T20:38:35.348854"
+    "uploadedAt": "2026-04-28T15:12:11.217627"
   },
   "2026-04-04": {
     "fecha": "2026-04-04",
@@ -70,22 +82,28 @@
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 21657,
-        "XD - POINT": 997
+        "XD - CARDS": {
+          "total": 21657,
+          "products": {
+            "Tarjeta debito con bolsa": 18328,
+            "Tarjeta de credito Monza": 3329
+          }
+        },
+        "XD - POINT": 1994
       },
       "Point": {
-        "XD - POINT": 2465
+        "XD - POINT": 4930
       },
       "Bobinas": {
-        "XD - POINT": 753
+        "XD - POINT": 1506
       },
       "Others": {
-        "XD - POINT": 17
+        "XD - POINT": 34
       }
     },
     "total_unidades": 25889,
     "total_os": 23707,
-    "uploadedAt": "2026-04-24T20:38:35.348854"
+    "uploadedAt": "2026-04-28T15:12:11.217627"
   },
   "2026-04-03": {
     "fecha": "2026-04-03",
@@ -98,22 +116,28 @@
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 23370,
-        "XD - POINT": 1355
+        "XD - CARDS": {
+          "total": 23370,
+          "products": {
+            "Tarjeta debito con bolsa": 20208,
+            "Tarjeta de credito Monza": 3162
+          }
+        },
+        "XD - POINT": 2710
       },
       "Point": {
-        "XD - POINT": 3208
+        "XD - POINT": 6416
       },
       "Bobinas": {
-        "XD - POINT": 641
+        "XD - POINT": 1282
       },
       "Others": {
-        "XD - POINT": 22
+        "XD - POINT": 44
       }
     },
     "total_unidades": 28596,
     "total_os": 25708,
-    "uploadedAt": "2026-04-24T20:38:35.348854"
+    "uploadedAt": "2026-04-28T15:12:11.217627"
   },
   "2026-04-06": {
     "fecha": "2026-04-06",
@@ -126,24 +150,30 @@
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 21685,
-        "XD - POINT": 1136,
-        "GEODIS": 354
+        "XD - CARDS": {
+          "total": 21685,
+          "products": {
+            "Tarjeta debito con bolsa": 17032,
+            "Tarjeta de credito Monza": 4653
+          }
+        },
+        "XD - POINT": 2272,
+        "GEODIS": 708
       },
       "Point": {
-        "XD - POINT": 2658,
-        "GEODIS": 568
+        "XD - POINT": 5316,
+        "GEODIS": 1136
       },
       "Bobinas": {
-        "XD - POINT": 833
+        "XD - POINT": 1666
       },
       "Others": {
-        "XD - POINT": 16
+        "XD - POINT": 32
       }
     },
     "total_unidades": 27250,
     "total_os": 23878,
-    "uploadedAt": "2026-04-24T20:38:35.348854"
+    "uploadedAt": "2026-04-28T15:12:11.217627"
   },
   "2026-04-05": {
     "fecha": "2026-04-05",
@@ -156,22 +186,28 @@
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 11793,
-        "XD - POINT": 524
+        "XD - CARDS": {
+          "total": 11793,
+          "products": {
+            "Tarjeta debito con bolsa": 10691,
+            "Tarjeta de credito Monza": 1102
+          }
+        },
+        "XD - POINT": 1048
       },
       "Point": {
-        "XD - POINT": 1442
+        "XD - POINT": 2884
       },
       "Bobinas": {
-        "XD - POINT": 378
+        "XD - POINT": 756
       },
       "Others": {
-        "XD - POINT": 8
+        "XD - POINT": 16
       }
     },
     "total_unidades": 14145,
     "total_os": 12974,
-    "uploadedAt": "2026-04-24T20:38:35.348854"
+    "uploadedAt": "2026-04-28T15:12:11.217627"
   },
   "2026-04-07": {
     "fecha": "2026-04-07",
@@ -184,24 +220,30 @@
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 43523,
-        "XD - POINT": 2040,
-        "GEODIS": 259
+        "XD - CARDS": {
+          "total": 43523,
+          "products": {
+            "Tarjeta debito con bolsa": 36206,
+            "Tarjeta de credito Monza": 7317
+          }
+        },
+        "XD - POINT": 4080,
+        "GEODIS": 518
       },
       "Point": {
-        "XD - POINT": 5549,
-        "GEODIS": 259
+        "XD - POINT": 11098,
+        "GEODIS": 518
       },
       "Bobinas": {
-        "XD - POINT": 1704
+        "XD - POINT": 3408
       },
       "Others": {
-        "XD - POINT": 59
+        "XD - POINT": 118
       }
     },
     "total_unidades": 53393,
     "total_os": 47921,
-    "uploadedAt": "2026-04-24T20:38:35.348854"
+    "uploadedAt": "2026-04-28T15:12:11.217627"
   },
   "2026-04-08": {
     "fecha": "2026-04-08",
@@ -214,23 +256,29 @@
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 28743,
-        "XD - POINT": 2262
+        "XD - CARDS": {
+          "total": 28743,
+          "products": {
+            "Tarjeta debito con bolsa": 24290,
+            "Tarjeta de credito Monza": 4453
+          }
+        },
+        "XD - POINT": 4524
       },
       "Point": {
-        "XD - POINT": 6012,
-        "DHL": 2
+        "XD - POINT": 12024,
+        "DHL": 4
       },
       "Bobinas": {
-        "XD - POINT": 1681
+        "XD - POINT": 3362
       },
       "Others": {
-        "XD - POINT": 54
+        "XD - POINT": 108
       }
     },
     "total_unidades": 38754,
     "total_os": 33573,
-    "uploadedAt": "2026-04-24T20:38:35.348854"
+    "uploadedAt": "2026-04-28T15:12:11.217627"
   },
   "2026-04-10": {
     "fecha": "2026-04-10",
@@ -243,23 +291,29 @@
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 23061,
-        "XD - POINT": 1632
+        "XD - CARDS": {
+          "total": 23061,
+          "products": {
+            "Tarjeta debito con bolsa": 19305,
+            "Tarjeta de credito Monza": 3756
+          }
+        },
+        "XD - POINT": 3264
       },
       "Point": {
-        "GEODIS": 7498,
-        "XD - POINT": 4138
+        "GEODIS": 14996,
+        "XD - POINT": 8276
       },
       "Bobinas": {
-        "XD - POINT": 1173
+        "XD - POINT": 2346
       },
       "Others": {
-        "XD - POINT": 523
+        "XD - POINT": 1046
       }
     },
     "total_unidades": 38025,
     "total_os": 26653,
-    "uploadedAt": "2026-04-24T20:38:35.348854"
+    "uploadedAt": "2026-04-28T15:12:11.217627"
   },
   "2026-04-09": {
     "fecha": "2026-04-09",
@@ -272,22 +326,28 @@
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 23213,
-        "XD - POINT": 1801
+        "XD - CARDS": {
+          "total": 23213,
+          "products": {
+            "Tarjeta debito con bolsa": 19940,
+            "Tarjeta de credito Monza": 3273
+          }
+        },
+        "XD - POINT": 3602
       },
       "Point": {
-        "XD - POINT": 4470
+        "XD - POINT": 8940
       },
       "Bobinas": {
-        "XD - POINT": 1005
+        "XD - POINT": 2010
       },
       "Others": {
-        "XD - POINT": 23
+        "XD - POINT": 46
       }
     },
     "total_unidades": 30512,
     "total_os": 26489,
-    "uploadedAt": "2026-04-24T20:38:35.348854"
+    "uploadedAt": "2026-04-28T15:12:11.217627"
   },
   "2026-04-11": {
     "fecha": "2026-04-11",
@@ -300,22 +360,28 @@
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 25499,
-        "XD - POINT": 993
+        "XD - CARDS": {
+          "total": 25499,
+          "products": {
+            "Tarjeta debito con bolsa": 21601,
+            "Tarjeta de credito Monza": 3898
+          }
+        },
+        "XD - POINT": 1986
       },
       "Point": {
-        "XD - POINT": 2563
+        "XD - POINT": 5126
       },
       "Bobinas": {
-        "XD - POINT": 1376
+        "XD - POINT": 2752
       },
       "Others": {
-        "XD - POINT": 19
+        "XD - POINT": 38
       }
     },
     "total_unidades": 30450,
     "total_os": 28290,
-    "uploadedAt": "2026-04-24T20:38:35.348854"
+    "uploadedAt": "2026-04-28T15:12:11.217627"
   },
   "2026-04-23": {
     "fecha": "2026-04-23",
@@ -328,24 +394,30 @@
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 24910,
-        "XD - POINT": 1272,
-        "GEODIS": 409
+        "XD - CARDS": {
+          "total": 24910,
+          "products": {
+            "Tarjeta debito con bolsa": 20231,
+            "Tarjeta de credito Monza": 4679
+          }
+        },
+        "XD - POINT": 2544,
+        "GEODIS": 818
       },
       "Point": {
-        "XD - POINT": 2088,
-        "GEODIS": 409
+        "XD - POINT": 4176,
+        "GEODIS": 818
       },
       "Bobinas": {
-        "XD - POINT": 1206
+        "XD - POINT": 2412
       },
       "Others": {
-        "XD - POINT": 42
+        "XD - POINT": 84
       }
     },
     "total_unidades": 30336,
     "total_os": 27097,
-    "uploadedAt": "2026-04-24T20:38:35.348854"
+    "uploadedAt": "2026-04-28T15:12:11.217627"
   },
   "2026-04-14": {
     "fecha": "2026-04-14",
@@ -358,28 +430,34 @@
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 40659,
-        "XD - POINT": 2367,
-        "PICKIT": 1350,
-        "DHL": 440,
-        "GEODIS": 32
+        "XD - CARDS": {
+          "total": 40659,
+          "products": {
+            "Tarjeta debito con bolsa": 32521,
+            "Tarjeta de credito Monza": 8138
+          }
+        },
+        "XD - POINT": 4734,
+        "PICKIT": 2700,
+        "DHL": 880,
+        "GEODIS": 64
       },
       "Point": {
-        "XD - POINT": 5668,
-        "PICKIT": 4347,
-        "DHL": 440,
-        "GEODIS": 416
+        "XD - POINT": 11336,
+        "PICKIT": 8694,
+        "DHL": 880,
+        "GEODIS": 832
       },
       "Bobinas": {
-        "XD - POINT": 2078
+        "XD - POINT": 4156
       },
       "Others": {
-        "XD - POINT": 49
+        "XD - POINT": 98
       }
     },
     "total_unidades": 57846,
     "total_os": 46803,
-    "uploadedAt": "2026-04-24T20:38:35.348854"
+    "uploadedAt": "2026-04-28T15:12:11.217627"
   },
   "2026-04-12": {
     "fecha": "2026-04-12",
@@ -392,23 +470,29 @@
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 9056,
-        "XD - POINT": 541
+        "XD - CARDS": {
+          "total": 9056,
+          "products": {
+            "Tarjeta debito con bolsa": 7309,
+            "Tarjeta de credito Monza": 1747
+          }
+        },
+        "XD - POINT": 1082
       },
       "Point": {
-        "GEODIS": 12015,
-        "XD - POINT": 1068
+        "GEODIS": 24030,
+        "XD - POINT": 2136
       },
       "Bobinas": {
-        "XD - POINT": 474
+        "XD - POINT": 948
       },
       "Others": {
-        "XD - POINT": 10
+        "XD - POINT": 20
       }
     },
     "total_unidades": 23164,
     "total_os": 10232,
-    "uploadedAt": "2026-04-24T20:38:35.348854"
+    "uploadedAt": "2026-04-28T15:12:11.217627"
   },
   "2026-04-16": {
     "fecha": "2026-04-16",
@@ -421,24 +505,30 @@
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 31694,
-        "XD - POINT": 1303,
-        "GEODIS": 353
+        "XD - CARDS": {
+          "total": 31694,
+          "products": {
+            "Tarjeta debito con bolsa": 18299,
+            "Tarjeta de credito Monza": 13395
+          }
+        },
+        "XD - POINT": 2606,
+        "GEODIS": 706
       },
       "Point": {
-        "XD - POINT": 2931,
-        "GEODIS": 353
+        "XD - POINT": 5862,
+        "GEODIS": 706
       },
       "Bobinas": {
-        "XD - POINT": 911
+        "XD - POINT": 1822
       },
       "Others": {
-        "XD - POINT": 26
+        "XD - POINT": 52
       }
     },
     "total_unidades": 37571,
     "total_os": 34791,
-    "uploadedAt": "2026-04-24T20:38:35.348854"
+    "uploadedAt": "2026-04-28T15:12:11.217627"
   },
   "2026-04-17": {
     "fecha": "2026-04-17",
@@ -451,23 +541,29 @@
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 33950,
-        "XD - POINT": 1886
+        "XD - CARDS": {
+          "total": 33950,
+          "products": {
+            "Tarjeta debito con bolsa": 25307,
+            "Tarjeta de credito Monza": 8643
+          }
+        },
+        "XD - POINT": 3772
       },
       "Point": {
-        "XD - POINT": 3825,
-        "GEODIS": 1280
+        "XD - POINT": 7650,
+        "GEODIS": 2560
       },
       "Bobinas": {
-        "XD - POINT": 1444
+        "XD - POINT": 2888
       },
       "Others": {
-        "XD - POINT": 277
+        "XD - POINT": 554
       }
     },
     "total_unidades": 42662,
     "total_os": 38148,
-    "uploadedAt": "2026-04-24T20:38:35.348854"
+    "uploadedAt": "2026-04-28T15:12:11.217627"
   },
   "2026-04-13": {
     "fecha": "2026-04-13",
@@ -480,22 +576,28 @@
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 21287,
-        "XD - POINT": 840
+        "XD - CARDS": {
+          "total": 21287,
+          "products": {
+            "Tarjeta debito con bolsa": 17781,
+            "Tarjeta de credito Monza": 3506
+          }
+        },
+        "XD - POINT": 1680
       },
       "Point": {
-        "XD - POINT": 1829
+        "XD - POINT": 3658
       },
       "Bobinas": {
-        "XD - POINT": 880
+        "XD - POINT": 1760
       },
       "Others": {
-        "XD - POINT": 22
+        "XD - POINT": 44
       }
     },
     "total_unidades": 24858,
     "total_os": 23450,
-    "uploadedAt": "2026-04-24T20:38:35.348854"
+    "uploadedAt": "2026-04-28T15:12:11.217627"
   },
   "2026-04-18": {
     "fecha": "2026-04-18",
@@ -508,23 +610,29 @@
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 31611,
-        "XD - POINT": 946
+        "XD - CARDS": {
+          "total": 31611,
+          "products": {
+            "Tarjeta debito con bolsa": 22864,
+            "Tarjeta de credito Monza": 8747
+          }
+        },
+        "XD - POINT": 1892
       },
       "Point": {
-        "GEODIS": 5753,
-        "XD - POINT": 2073
+        "GEODIS": 11506,
+        "XD - POINT": 4146
       },
       "Bobinas": {
-        "XD - POINT": 635
+        "XD - POINT": 1270
       },
       "Others": {
-        "XD - POINT": 24
+        "XD - POINT": 48
       }
     },
     "total_unidades": 41042,
     "total_os": 33881,
-    "uploadedAt": "2026-04-24T20:38:35.348854"
+    "uploadedAt": "2026-04-28T15:12:11.217627"
   },
   "2026-04-22": {
     "fecha": "2026-04-22",
@@ -537,28 +645,34 @@
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 30255,
-        "GEODIS": 5738,
-        "PICKIT": 1350,
-        "XD - POINT": 1239,
-        "DHL": 310
+        "XD - CARDS": {
+          "total": 30255,
+          "products": {
+            "Tarjeta debito con bolsa": 21845,
+            "Tarjeta de credito Monza": 8410
+          }
+        },
+        "GEODIS": 11476,
+        "PICKIT": 2700,
+        "XD - POINT": 2478,
+        "DHL": 620
       },
       "Point": {
-        "GEODIS": 10475,
-        "PICKIT": 5025,
-        "XD - POINT": 2109,
-        "DHL": 387
+        "GEODIS": 20950,
+        "PICKIT": 10050,
+        "XD - POINT": 4218,
+        "DHL": 774
       },
       "Bobinas": {
-        "XD - POINT": 1053
+        "XD - POINT": 2106
       },
       "Others": {
-        "XD - POINT": 37
+        "XD - POINT": 74
       }
     },
     "total_unidades": 57978,
     "total_os": 32503,
-    "uploadedAt": "2026-04-24T20:38:35.348854"
+    "uploadedAt": "2026-04-28T15:12:11.217627"
   },
   "2026-04-15": {
     "fecha": "2026-04-15",
@@ -571,22 +685,28 @@
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 34607,
-        "XD - POINT": 1298
+        "XD - CARDS": {
+          "total": 34607,
+          "products": {
+            "Tarjeta debito con bolsa": 22390,
+            "Tarjeta de credito Monza": 12217
+          }
+        },
+        "XD - POINT": 2596
       },
       "Point": {
-        "XD - POINT": 2885
+        "XD - POINT": 5770
       },
       "Bobinas": {
-        "XD - POINT": 1070
+        "XD - POINT": 2140
       },
       "Others": {
-        "XD - POINT": 33
+        "XD - POINT": 66
       }
     },
     "total_unidades": 39893,
     "total_os": 37691,
-    "uploadedAt": "2026-04-24T20:38:35.348854"
+    "uploadedAt": "2026-04-28T15:12:11.217627"
   },
   "2026-04-20": {
     "fecha": "2026-04-20",
@@ -599,22 +719,28 @@
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 27316,
-        "XD - POINT": 898
+        "XD - CARDS": {
+          "total": 27316,
+          "products": {
+            "Tarjeta debito con bolsa": 21642,
+            "Tarjeta de credito Monza": 5674
+          }
+        },
+        "XD - POINT": 1796
       },
       "Point": {
-        "XD - POINT": 1904
+        "XD - POINT": 3808
       },
       "Bobinas": {
-        "XD - POINT": 1039
+        "XD - POINT": 2078
       },
       "Others": {
-        "XD - POINT": 23
+        "XD - POINT": 46
       }
     },
     "total_unidades": 31180,
     "total_os": 29751,
-    "uploadedAt": "2026-04-24T20:38:35.348854"
+    "uploadedAt": "2026-04-28T15:12:11.217627"
   },
   "2026-04-21": {
     "fecha": "2026-04-21",
@@ -627,110 +753,27 @@
     },
     "routes": {
       "Cards": {
-        "XD - CARDS": 55958,
-        "XD - POINT": 1940
+        "XD - CARDS": {
+          "total": 55958,
+          "products": {
+            "Tarjeta debito con bolsa": 43283,
+            "Tarjeta de credito Monza": 12675
+          }
+        },
+        "XD - POINT": 3880
       },
       "Point": {
-        "XD - POINT": 3584
+        "XD - POINT": 7168
       },
       "Bobinas": {
-        "XD - POINT": 1604
+        "XD - POINT": 3208
       },
       "Others": {
-        "XD - POINT": 47
+        "XD - POINT": 94
       }
     },
     "total_unidades": 63133,
     "total_os": 59559,
-    "uploadedAt": "2026-04-24T20:38:35.348854"
-  },
-  "2026-04-24": {
-    "fecha": "2026-04-24",
-    "site": "MLM",
-    "products": {
-      "Cards": 15051,
-      "Point": 8775,
-      "Bobinas": 1221,
-      "Others": 19
-    },
-    "routes": {
-      "Cards": {
-        "XD - CARDS": 12690,
-        "XD - POINT": 1386,
-        "PICKIT": 975
-      },
-      "Point": {
-        "PICKIT": 5098,
-        "XD - POINT": 2501,
-        "GEODIS": 1176
-      },
-      "Bobinas": {
-        "XD - POINT": 1221
-      },
-      "Others": {
-        "XD - POINT": 19
-      }
-    },
-    "total_unidades": 25066,
-    "total_os": 15348,
-    "uploadedAt": "2026-04-25T23:30:19.207Z"
-  },
-  "2026-04-26": {
-    "fecha": "2026-04-26",
-    "site": "MLM",
-    "products": {
-      "Cards": 21306,
-      "Point": 143,
-      "Bobinas": 49,
-      "Others": 2
-    },
-    "routes": {
-      "Cards": {
-        "XD - CARDS": 21227,
-        "XD - POINT": 79
-      },
-      "Point": {
-        "XD - POINT": 142,
-        "GEODIS": 1
-      },
-      "Bobinas": {
-        "XD - POINT": 49
-      },
-      "Others": {
-        "XD - POINT": 2
-      }
-    },
-    "total_unidades": 21500,
-    "total_os": 21379,
-    "uploadedAt": "2026-04-27T01:52:44.024Z"
-  },
-  "2026-04-25": {
-    "fecha": "2026-04-25",
-    "site": "MLM",
-    "products": {
-      "Cards": 22410,
-      "Point": 18828,
-      "Bobinas": 1110,
-      "Others": 257
-    },
-    "routes": {
-      "Cards": {
-        "XD - CARDS": 21089,
-        "XD - POINT": 1321
-      },
-      "Point": {
-        "GEODIS": 16465,
-        "XD - POINT": 2363
-      },
-      "Bobinas": {
-        "XD - POINT": 1110
-      },
-      "Others": {
-        "XD - POINT": 257
-      }
-    },
-    "total_unidades": 42605,
-    "total_os": 23813,
-    "uploadedAt": "2026-04-27T01:52:44.036Z"
+    "uploadedAt": "2026-04-28T15:12:11.217627"
   }
 }
