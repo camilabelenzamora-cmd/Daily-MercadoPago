@@ -1056,7 +1056,7 @@
     weeksWithData.forEach(m => {
       const opt = document.createElement('option');
       opt.value = m;
-      opt.textContent = `Week ${getISOWeek(m)}`;
+      opt.textContent = `Week ${getISOWeek(addDays(m,1))}`;
       if (m === cursor) opt.selected = true;
       sel.appendChild(opt);
     });
@@ -1259,7 +1259,7 @@
       weeksWithData.forEach(m => {
         const opt = document.createElement('option');
         opt.value = m;
-        opt.textContent = `Week ${getISOWeek(m)}`;
+        opt.textContent = `Week ${getISOWeek(addDays(m,1))}`;
         if (m === regionalCursor) opt.selected = true;
         sel.appendChild(opt);
       });
@@ -1329,7 +1329,7 @@
     const inbGrid = document.getElementById('chartsInbGrid'); inbGrid.innerHTML = '';
     const inbBottomGrid = document.getElementById('chartsInbBottomGrid'); inbBottomGrid.innerHTML = '';
 
-    const weekLabel = view === 'week' ? `· Week ${getISOWeek(regionalCursor)}` : '';
+    const weekLabel = view === 'week' ? `· Week ${getISOWeek(addDays(regionalCursor,1))}` : '';
     const cardWFlex = 'flex:0 0 calc(33.33% - 6px);max-width:calc(33.33% - 6px);';
     const prodIcons = {Cards:'💳', Point:'📱', Bobinas:'🧻', Others:'📦'};
 
@@ -1652,7 +1652,7 @@
 
     const SITE_NAMES = {MLA:'Argentina', MLB:'Brasil', MLM:'México', MLC:'Chile', MLU:'Uruguay'};
     const FLAG_CODES = {MLA:'ar', MLB:'br', MLM:'mx', MLC:'cl', MLU:'uy'};
-    const weekNum = getISOWeek(weeklyCursor);
+    const weekNum = getISOWeek(addDays(weeklyCursor,1));
 
     // Title
     const titleDiv = document.createElement('div');
