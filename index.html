@@ -712,7 +712,7 @@
       // Route sub-rows
       const allRoutes = new Set();
       cols.forEach(c => c.dates.forEach(d => Object.keys(history[d]?.routes?.[prod]||{}).forEach(r => allRoutes.add(r))));
-      const getRV = (d,p,r) => { const v = history[d]?.routes?.[p]?.[r]; return typeof v==='object' ? v.total : (v||0); };
+      const getRV = (d,p,r) => { const v = history[d]?.routes?.[p]?.[r]; if (!v && v!==0) return 0; if (typeof v==='object' && v!==null) return (typeof v.total==='number' ? v.total : 0); return (typeof v==='number' ? v : 0); };
       const routesSorted = Array.from(allRoutes).sort((a,b) => {
         const ta = cols.reduce((s,c)=>s+c.dates.reduce((ss,d)=>ss+getRV(d,prod,a),0),0);
         const tb = cols.reduce((s,c)=>s+c.dates.reduce((ss,d)=>ss+getRV(d,prod,b),0),0);
