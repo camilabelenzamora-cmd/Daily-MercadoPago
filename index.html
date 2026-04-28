@@ -667,7 +667,7 @@
   // ── DATE UTILS ────────────────────────────────────────
   function isoDate(d) { const y=d.getFullYear(); const m=String(d.getMonth()+1).padStart(2,'0'); const day=String(d.getDate()).padStart(2,'0'); return `${y}-${m}-${day}`; }
   function addDays(s, n) { const d=new Date(s+'T12:00:00'); d.setDate(d.getDate()+n); return isoDate(d); }
-  function getMonday(d) { const dt=new Date(d); const day=dt.getDay(); dt.setDate(dt.getDate()+(day===0?-6:1-day)); return isoDate(dt); }
+  function getMonday(d) { const dt=new Date(d); dt.setDate(dt.getDate()-dt.getDay()); return isoDate(dt); } // week starts Sunday
   function shortDate(s) { const [,m,d]=s.split('-'); return `${d}/${m}`; }
   function fmt(n) { return (n!=null && n!==0 && n!=='') ? Number(n).toLocaleString('es-AR') : '<span style="color:#ccc">—</span>'; }
   function lastUpload(histObj) {
@@ -1039,8 +1039,8 @@
   function renderWeek() {
     if (!cursor) cursor = getMonday(new Date());
     const allDays = Array.from({length:7}, (_,i) => addDays(cursor, i));
-    const hasWkndData = d => history[d] || maquilaHistory[d] || asnHistory[d] || headcountData.days?.[d];
-    const dates = allDays.filter((d, i) => i < 5 || hasWkndData(d));
+    const hasSatData = d => history[d] || maquilaHistory[d] || asnHistory[d] || headcountData.days?.[d];
+    const dates = allDays.filter((d, i) => i < 6 || hasSatData(d)); // Dom-Vie always + Sáb if data
     document.getElementById('navLabel').textContent = `Semana ${shortDate(cursor)} — ${shortDate(dates[dates.length-1])}`;
 
     // Populate week selector — combine all data sources
