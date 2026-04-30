@@ -564,9 +564,14 @@
 
   function getISOWeek(dateStr) {
     const d = new Date(dateStr + 'T12:00:00');
-    d.setDate(d.getDate() + 4 - (d.getDay() || 7));
-    const yearStart = new Date(d.getFullYear(), 0, 1);
-    return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+    const year = d.getFullYear();
+    const jan1 = new Date(year, 0, 1);
+    const jan1Day = jan1.getDay();
+    const daysToFirstMonday = jan1Day === 1 ? 0 : jan1Day === 0 ? 1 : 8 - jan1Day;
+    const firstMonday = new Date(year, 0, 1 + daysToFirstMonday);
+    const diff = Math.floor((d - firstMonday) / 86400000);
+    if (diff < 0) return 1;
+    return Math.floor(diff / 7) + 1;
   }
 
   function parseDate(raw) {
@@ -1039,8 +1044,8 @@
   function renderWeek() {
     if (!cursor) cursor = getMonday(new Date());
     const allDays = Array.from({length:7}, (_,i) => addDays(cursor, i));
-    const hasSatData = d => history[d] || maquilaHistory[d] || asnHistory[d] || headcountData.days?.[d];
-    const dates = allDays.filter((d, i) => i < 6 || hasSatData(d)); // Dom-Vie always + Sáb if data
+    const hasWeekendData = d => history[d] || maquilaHistory[d] || asnHistory[d] || headcountData.days?.[d];
+    const dates = allDays.filter((d, i) => (i > 0 && i < 6) || hasWeekendData(d)); // Lun-Vie siempre + Dom/Sáb solo si hay datos
     document.getElementById('navLabel').textContent = `Semana ${shortDate(cursor)} — ${shortDate(dates[dates.length-1])}`;
 
     // Populate week selector — combine all data sources
