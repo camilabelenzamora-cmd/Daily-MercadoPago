@@ -406,5 +406,24 @@
     },
     "total": 2600,
     "uploadedAt": "2026-05-01T01:38:43.371Z"
+  },
+  "2026-04-30": {
+    "fecha": "2026-04-30",
+    "site": "MLC",
+    "products": {
+      "N950 Maquilado": 180,
+      "N950 Servicio Tecnico": 1
+    },
+    "reps": {
+      "N950 Maquilado": {
+        "ext_gaocampo": 120,
+        "ext_iroaranc": 60
+      },
+      "N950 Servicio Tecnico": {
+        "JOSMOLINA": 1
+      }
+    },
+    "total": 181,
+    "uploadedAt": "2026-05-01T19:49:41.508Z"
   }
 }
