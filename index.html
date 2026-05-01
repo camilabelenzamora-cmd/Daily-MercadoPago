@@ -867,6 +867,18 @@
     trTot.innerHTML = `<td>Total Maquilado</td>` + cols.map((c,i)=>`<td>${fmtM(totVals[i],c.dates)}</td>`).join('') + `<td>${fmtN(totVals.reduce((a,b)=>a+b,0))}</td>`;
     tbody.appendChild(trTot);
 
+    if (currentSite === 'MLC') {
+      const isMaqPoint = p => { const n=(p||'').toLowerCase(); return n.startsWith('point')||n.includes('n950')||(n.includes('smart')&&!n.startsWith('funda'))||n.includes('mini'); };
+      const pointVals = cols.map(c => c.dates.reduce((s,d) => s+Object.entries(maquilaHistory[d]?.products||{}).reduce((ss,[p,v])=>ss+(isMaqPoint(p)?v:0),0), 0));
+      const othersVals = cols.map(c => c.dates.reduce((s,d) => s+Object.entries(maquilaHistory[d]?.products||{}).reduce((ss,[p,v])=>ss+(!isMaqPoint(p)?v:0),0), 0));
+      const trPt = document.createElement('tr'); trPt.className='row-maquila-total';
+      trPt.innerHTML = `<td style="padding-left:28px;">Total Maquila Point</td>` + cols.map((c,i)=>`<td>${fmtM(pointVals[i],c.dates)}</td>`).join('') + `<td>${fmtN(pointVals.reduce((a,b)=>a+b,0))}</td>`;
+      tbody.appendChild(trPt);
+      const trOth = document.createElement('tr'); trOth.className='row-maquila-total';
+      trOth.innerHTML = `<td style="padding-left:28px;">Total Maquila Others</td>` + cols.map((c,i)=>`<td>${fmtM(othersVals[i],c.dates)}</td>`).join('') + `<td>${fmtN(othersVals.reduce((a,b)=>a+b,0))}</td>`;
+      tbody.appendChild(trOth);
+    }
+
     // ── DEVOLUCIONES SECTION ──────────────────────────
     function fmtA(val, colDates) {
       const hasUpload = colDates.some(d => asnHistory[d]);
