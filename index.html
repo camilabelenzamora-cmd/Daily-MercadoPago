@@ -274,8 +274,12 @@
         </select>
       </div>
       <div>
-        <label style="font-size:12px;font-weight:600;color:#666;display:block;margin-bottom:4px;">Total headcount</label>
+        <label style="font-size:12px;font-weight:600;color:#666;display:block;margin-bottom:4px;">Headcount Meli</label>
         <input type="number" id="etTotal" min="0" style="width:100%;border:1px solid #dce3ea;border-radius:6px;padding:8px 10px;font-size:14px;">
+      </div>
+      <div id="etEventualesRow">
+        <label style="font-size:12px;font-weight:600;color:#666;display:block;margin-bottom:4px;">Headcount Eventuales</label>
+        <input type="number" id="etEventuales" min="0" placeholder="0" style="width:100%;border:1px solid #dce3ea;border-radius:6px;padding:8px 10px;font-size:14px;">
       </div>
       <div>
         <label style="font-size:12px;font-weight:600;color:#666;display:block;margin-bottom:4px;">Desde</label>
@@ -626,6 +630,7 @@
     expandedProducts.clear();
     expandedMaquilaProds.clear();
     expandedInboundSuppliers.clear();
+    expandedHeadcount = false;
     document.querySelectorAll('.country-tab').forEach(t => t.classList.remove('active'));
     document.querySelector(`[data-site="${site}"]`).classList.add('active');
     showLoading();
@@ -779,34 +784,40 @@
 
     // Headcount = total configurado por fecha
     const headcountVals = cols.map(c => getTotalForDate(c.dates[c.dates.length-1]));
+    const eventualesVals = cols.map(c => getEventualesForDate(c.dates[c.dates.length-1]));
+    const hasEventuales = eventualesVals.some(v => v != null);
+    const hcDisplayVals = cols.map((c,i) => headcountVals[i] != null ? headcountVals[i] + (eventualesVals[i]||0) : null);
+
     const trPres = document.createElement('tr'); trPres.className='row-product';
-    trPres.innerHTML = `<td>Headcount <span onclick="openEditTotalModal()" style="cursor:pointer;font-size:12px;color:#3483FA;margin-left:6px;">✏️</span></td>` + headcountVals.map(v=>`<td>${v ? Number(v).toLocaleString('es-AR') : '<span style="color:#ccc">—</span>'}</td>`).join('') + `<td></td>`;
+    const hcToggleIcon = hasEventuales ? `<span class="toggle-icon ${expandedHeadcount?'open':''}" onclick="toggleHeadcount()" style="cursor:pointer;">▶</span> ` : '';
+    trPres.innerHTML = `<td>${hcToggleIcon}Headcount <span onclick="openEditTotalModal()" style="cursor:pointer;font-size:12px;color:#3483FA;margin-left:6px;">✏️</span></td>` + hcDisplayVals.map(v=>`<td>${v != null ? Number(v).toLocaleString('es-AR') : '<span style="color:#ccc">—</span>'}</td>`).join('') + `<td></td>`;
     tbody.insertBefore(trPres, tbody.firstChild);
+
+    if (hasEventuales) {
+      const trPropios = document.createElement('tr'); trPropios.className = 'row-route' + (expandedHeadcount?' visible':'');
+      trPropios.innerHTML = `<td>Meli</td>` + headcountVals.map(v=>`<td>${v != null ? Number(v).toLocaleString('es-AR') : '<span style="color:#ccc">—</span>'}</td>`).join('') + `<td></td>`;
+      tbody.insertBefore(trPropios, tbody.children[1]);
+      const trEvSub = document.createElement('tr'); trEvSub.className = 'row-route' + (expandedHeadcount?' visible':'');
+      trEvSub.innerHTML = `<td>Eventuales</td>` + eventualesVals.map(v=>`<td>${v != null ? Number(v).toLocaleString('es-AR') : '<span style="color:#ccc">—</span>'}</td>`).join('') + `<td></td>`;
+      tbody.insertBefore(trEvSub, tbody.children[2]);
+    }
 
     const gestVals = cols.map(c => { const hasD = c.dates.some(d=>headcountData.days[d]); if(!hasD) return null; return c.dates.reduce((s,d)=>s+(headcountData.days[d]?.ausentes_gestionables||0),0); });
     const noGestVals = cols.map(c => { const hasD = c.dates.some(d=>headcountData.days[d]); if(!hasD) return null; return c.dates.reduce((s,d)=>s+(headcountData.days[d]?.ausentes_no_gestionables||0),0); });
     const ausVals = cols.map((c,i) => { if(gestVals[i]===null && noGestVals[i]===null) return null; return (gestVals[i]||0)+(noGestVals[i]||0); });
 
-    const eventualesVals = cols.map(c => getEventualesForDate(c.dates[c.dates.length-1]));
-    const hasEventuales = eventualesVals.some(v => v != null);
-
+    const ausOffset = hasEventuales ? 3 : 1;
     const trAus = document.createElement('tr'); trAus.className='row-product';
     trAus.innerHTML = `<td onclick="toggleAusentes()"><span class="toggle-icon ${expandedAusentes?'open':''}">▶</span> Ausentes</td>` + ausVals.map(v=>`<td>${fmt(v)}</td>`).join('') + `<td></td>`;
-    tbody.insertBefore(trAus, tbody.children[1]);
+    tbody.insertBefore(trAus, tbody.children[ausOffset]);
 
     const trGest = document.createElement('tr'); trGest.className='row-route' + (expandedAusentes?' visible':'');
     trGest.innerHTML = `<td>Gestionables</td>` + gestVals.map(v=>`<td>${fmt(v)}</td>`).join('') + `<td></td>`;
-    tbody.insertBefore(trGest, tbody.children[2]);
+    tbody.insertBefore(trGest, tbody.children[ausOffset+1]);
 
     const trNoGest = document.createElement('tr'); trNoGest.className='row-route' + (expandedAusentes?' visible':'');
     trNoGest.innerHTML = `<td>No Gestionables</td>` + noGestVals.map(v=>`<td>${fmt(v)}</td>`).join('') + `<td></td>`;
-    tbody.insertBefore(trNoGest, tbody.children[3]);
-
-    if (hasEventuales) {
-      const trEv = document.createElement('tr'); trEv.className='row-product';
-      trEv.innerHTML = `<td>Eventuales</td>` + eventualesVals.map(v=>`<td>${v != null ? Number(v).toLocaleString('es-AR') : '<span style="color:#ccc">—</span>'}</td>`).join('') + `<td></td>`;
-      tbody.insertBefore(trEv, tbody.children[4]);
-    }
+    tbody.insertBefore(trNoGest, tbody.children[ausOffset+2]);
 
     // Total Presentes = Headcount + Eventuales - Ausentes
     const totPresVals = cols.map((c, i) => {
@@ -817,7 +828,7 @@
     });
     const trTotPres = document.createElement('tr'); trTotPres.className='row-total';
     trTotPres.innerHTML = `<td>Total Presentes</td>` + totPresVals.map(v=>`<td>${fmt(v)}</td>`).join('') + `<td></td>`;
-    tbody.insertBefore(trTotPres, tbody.children[hasEventuales ? 5 : 4]);
+    tbody.insertBefore(trTotPres, tbody.children[ausOffset+3]);
 
     } // end people section
 
@@ -958,6 +969,8 @@
 
   // ── HEADCOUNT ─────────────────────────────────────────
   let expandedAusentes = false;
+  let expandedHeadcount = false;
+  function toggleHeadcount() { expandedHeadcount = !expandedHeadcount; render(); }
 
   function getEventualesForDate(fecha) {
     const ev = headcountData.eventuales || [];
@@ -1014,10 +1027,13 @@
 
   function openEditTotalModal() {
     if (!getToken()) { openTokenModal(); return; }
+    const today = isoDate(new Date());
     document.getElementById('etSiteSelect').value = currentSite;
-    const lastTotal = getTotalForDate(isoDate(new Date()));
+    const lastTotal = getTotalForDate(today);
     document.getElementById('etTotal').value = lastTotal || '';
-    document.getElementById('etDesde').value = isoDate(new Date());
+    const lastEv = getEventualesForDate(today);
+    document.getElementById('etEventuales').value = lastEv || '';
+    document.getElementById('etDesde').value = today;
     document.getElementById('etFeedback').textContent = '';
     document.getElementById('editTotalModal').classList.add('active');
   }
@@ -1026,6 +1042,7 @@
   async function saveTotal() {
     const site = document.getElementById('etSiteSelect').value;
     const total = parseInt(document.getElementById('etTotal').value);
+    const eventuales = parseInt(document.getElementById('etEventuales').value) || 0;
     const desde = document.getElementById('etDesde').value;
     if (!total || !desde) { document.getElementById('etFeedback').textContent = 'Completá todos los campos'; return; }
     const fb = document.getElementById('etFeedback');
@@ -1035,10 +1052,16 @@
       siteData.totals = siteData.totals.filter(t => t.desde !== desde);
       siteData.totals.push({ desde, total });
       siteData.totals.sort((a,b) => a.desde.localeCompare(b.desde));
+      if (eventuales > 0) {
+        if (!siteData.eventuales) siteData.eventuales = [];
+        siteData.eventuales = siteData.eventuales.filter(t => t.desde !== desde);
+        siteData.eventuales.push({ desde, total: eventuales });
+        siteData.eventuales.sort((a,b) => a.desde.localeCompare(b.desde));
+      }
       if (site === currentSite) headcountData = siteData;
       await saveHeadcountData(site, siteData);
       fb.className = 'feedback ok';
-      fb.textContent = `✓ Total ${total} desde ${desde}`;
+      fb.textContent = `✓ Guardado — Meli: ${total}${eventuales ? ` | Eventuales: ${eventuales}` : ''} desde ${desde}`;
       setTimeout(() => { closeEditTotalModal(); render(); }, 1000);
     } catch(e) {
       fb.className = 'feedback err';
