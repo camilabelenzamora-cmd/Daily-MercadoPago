@@ -2024,19 +2024,19 @@
 
         let detailHtml = '';
         if (zd?.detalle && zd.detalle.length > 0) {
-          const byUbi = {};
+          const bySku = {};
           zd.detalle.forEach(d => {
-            if (!byUbi[d.ubicacion]) byUbi[d.ubicacion] = [];
-            byUbi[d.ubicacion].push(d);
+            if (!bySku[d.sku]) bySku[d.sku] = { total: 0, ubicaciones: [] };
+            bySku[d.sku].total += d.unidades;
+            if (!bySku[d.sku].ubicaciones.includes(d.ubicacion)) bySku[d.sku].ubicaciones.push(d.ubicacion);
           });
+          const skusSorted = Object.entries(bySku).sort((a,b) => b[1].total - a[1].total);
           detailHtml = `<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;">
-            ${Object.entries(byUbi).map(([ubi, items]) => `
-              <div style="background:#F8F9FA;border:1px solid #E5E5E5;border-radius:8px;padding:8px 10px;min-width:140px;">
-                <div style="font-size:10px;font-weight:700;color:#888;margin-bottom:6px;letter-spacing:0.3px;">${ubi}</div>
-                ${items.map(it => `<div style="display:flex;justify-content:space-between;gap:12px;font-size:12px;padding:2px 0;border-bottom:1px solid #EFEFEF;">
-                  <span style="font-weight:700;color:#333;">SKU ${it.sku}</span>
-                  <span style="color:#666;">${Number(it.unidades).toLocaleString('es-AR')}</span>
-                </div>`).join('')}
+            ${skusSorted.map(([sku, data]) => `
+              <div style="background:#F8F9FA;border:1px solid #E5E5E5;border-radius:8px;padding:8px 12px;min-width:130px;">
+                <div style="font-size:13px;font-weight:700;color:#333;">SKU ${sku}</div>
+                <div style="font-size:18px;font-weight:800;color:#3483FA;line-height:1.2;">${Number(data.total).toLocaleString('es-AR')}</div>
+                <div style="font-size:10px;color:#aaa;margin-top:4px;">${data.ubicaciones.join(', ')}</div>
               </div>`).join('')}
           </div>`;
         } else {
