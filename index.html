@@ -1278,10 +1278,12 @@
 
     // ── PEOPLE DATA ───────────────────────────────────
     const refDate = dates[dates.length - 1];
+    // Use Monday (index 1) as headcount reference to avoid weekend overrides skewing the total
+    const hcRefDate = view === 'week' ? dates[1] : refDate;
     const peopleCards = REGIONAL_SITES.map(s => {
       const hc = regionalData[s.code]?.headcount || { totals: [], total: null };
-      const _hcBase = (hc.totals || []).filter(t => t.desde <= refDate).sort((a,b) => b.desde.localeCompare(a.desde))[0]?.total || hc.total || null;
-      const _hcWd = hc.totals_weekday; const _hcDay = String(new Date(refDate+'T12:00:00').getDay());
+      const _hcBase = (hc.totals || []).filter(t => t.desde <= hcRefDate).sort((a,b) => b.desde.localeCompare(a.desde))[0]?.total || hc.total || null;
+      const _hcWd = hc.totals_weekday; const _hcDay = String(new Date(hcRefDate+'T12:00:00').getDay());
       const total = (_hcWd && _hcBase != null && _hcWd[_hcDay] != null) ? _hcWd[_hcDay] : _hcBase;
       return { flag: s.flag, code: s.code, total };
     }).filter(c => c.total != null);
@@ -1356,7 +1358,7 @@
       }
       const hcStats = REGIONAL_SITES.map(s => {
         const hc = regionalData[s.code]?.headcount || { totals:[], total:null, days:{} };
-        const total = getHCTotal(hc, dates[dates.length-1]);
+        const total = getHCTotal(hc, hcRefDate);
         if (!total) return null;
         const daysWithData = dates.filter(d => hc.days[d]);
         if (!daysWithData.length) return { flag:s.flag, total, presentes:total, gest:0, noGest:0, pct:0 };
