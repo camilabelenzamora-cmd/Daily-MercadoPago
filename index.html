@@ -939,7 +939,13 @@
   function getTotalForDate(fecha) {
     const totals = headcountData.totals || [];
     const applicable = totals.filter(t => t.desde <= fecha).sort((a,b) => b.desde.localeCompare(a.desde));
-    return applicable.length > 0 ? applicable[0].total : (headcountData.total || null);
+    const base = applicable.length > 0 ? applicable[0].total : (headcountData.total || null);
+    const wd = headcountData.totals_weekday;
+    if (wd && base != null) {
+      const day = String(new Date(fecha + 'T12:00:00').getDay());
+      if (wd[day] != null) return wd[day];
+    }
+    return base;
   }
 
   function openHeadcountModal() {
@@ -1274,7 +1280,9 @@
     const refDate = dates[dates.length - 1];
     const peopleCards = REGIONAL_SITES.map(s => {
       const hc = regionalData[s.code]?.headcount || { totals: [], total: null };
-      const total = (hc.totals || []).filter(t => t.desde <= refDate).sort((a,b) => b.desde.localeCompare(a.desde))[0]?.total || hc.total || null;
+      const _hcBase = (hc.totals || []).filter(t => t.desde <= refDate).sort((a,b) => b.desde.localeCompare(a.desde))[0]?.total || hc.total || null;
+      const _hcWd = hc.totals_weekday; const _hcDay = String(new Date(refDate+'T12:00:00').getDay());
+      const total = (_hcWd && _hcBase != null && _hcWd[_hcDay] != null) ? _hcWd[_hcDay] : _hcBase;
       return { flag: s.flag, code: s.code, total };
     }).filter(c => c.total != null);
 
@@ -1342,7 +1350,9 @@
     if (peopleCards.length) {
       // Calculate per-site weekly averages
       function getHCTotal(hc, date) {
-        return (hc.totals||[]).filter(t=>t.desde<=date).sort((a,b)=>b.desde.localeCompare(a.desde))[0]?.total || hc.total || 0;
+        const base = (hc.totals||[]).filter(t=>t.desde<=date).sort((a,b)=>b.desde.localeCompare(a.desde))[0]?.total || hc.total || 0;
+        const wd = hc.totals_weekday; const day = String(new Date(date+'T12:00:00').getDay());
+        return (wd && base && wd[day] != null) ? wd[day] : base;
       }
       const hcStats = REGIONAL_SITES.map(s => {
         const hc = regionalData[s.code]?.headcount || { totals:[], total:null, days:{} };
