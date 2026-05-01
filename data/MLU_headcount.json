@@ -1,10 +1,10 @@
 {
   "total": null,
-  "days": {},
   "totals": [
     {
       "desde": "2026-04-01",
-      "total": 3
+      "total": 2
     }
-  ]
+  ],
+  "days": {}
 }
