@@ -2042,7 +2042,7 @@
             <tbody>
               ${skusSorted.map(([sku, data], i) => `
                 <tr style="border-bottom:1px solid #F5F5F5;${i%2===0?'background:#FAFAFA;':''}">
-                  <td style="padding:8px;font-weight:700;color:#333;">SKU ${sku}</td>
+                  <td style="padding:8px;font-weight:700;color:#333;">${sku}</td>
                   <td style="padding:8px;text-align:right;font-weight:700;color:#3483FA;">${Number(data.total).toLocaleString('es-AR')}</td>
                   <td style="padding:8px;color:#888;font-size:12px;">${data.ubicaciones.join(', ')}</td>
                 </tr>`).join('')}
