@@ -533,5 +533,33 @@
       "total": 9880
     },
     "uploadedAt": "2026-05-01T01:10:28.820Z"
+  },
+  "2026-04-29": {
+    "fecha": "2026-04-29",
+    "site": "MLM",
+    "devoluciones": {
+      "products": {
+        "Rollo Termico Devolución": 36,
+        "MINI Devolucion": 49,
+        "Smart N950 Devolucion": 185,
+        "Smart Air Devolucion": 40,
+        "Smart Grado A Devolucion": 116
+      },
+      "total": 426
+    },
+    "inbound": {
+      "suppliers": {
+        "Geodis": {
+          "total": 60820,
+          "products": {
+            "Pont Smart N950 Amarillo": 340,
+            "SIM AT&T": 60000,
+            "Labels": 480
+          }
+        }
+      },
+      "total": 60820
+    },
+    "uploadedAt": "2026-05-01T01:12:55.738Z"
   }
 }
