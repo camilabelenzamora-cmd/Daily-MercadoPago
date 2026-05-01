@@ -78,5 +78,20 @@
       "total": 2000
     },
     "uploadedAt": "2026-05-01T01:54:45.046Z"
+  },
+  "2026-04-28": {
+    "fecha": "2026-04-28",
+    "site": "MLU",
+    "devoluciones": {
+      "products": {
+        "Point N950 - Claro": 49
+      },
+      "total": 49
+    },
+    "inbound": {
+      "suppliers": {},
+      "total": 0
+    },
+    "uploadedAt": "2026-05-01T01:55:12.296Z"
   }
 }
