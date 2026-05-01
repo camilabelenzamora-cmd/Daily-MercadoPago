@@ -508,5 +508,30 @@
       "total": 0
     },
     "uploadedAt": "2026-05-01T01:08:18.118Z"
+  },
+  "2026-04-28": {
+    "fecha": "2026-04-28",
+    "site": "MLM",
+    "devoluciones": {
+      "products": {
+        "Smart Air Devolucion": 46,
+        "Tarjeta debito de devolución": 198,
+        "Smart N950 Devolucion": 126
+      },
+      "total": 370
+    },
+    "inbound": {
+      "suppliers": {
+        "Geodis": {
+          "total": 9880,
+          "products": {
+            "Pont Smart N950 Amarillo": 7480,
+            "Rollo Termico": 2400
+          }
+        }
+      },
+      "total": 9880
+    },
+    "uploadedAt": "2026-05-01T01:10:28.820Z"
   }
 }
