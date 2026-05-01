@@ -348,5 +348,63 @@
     },
     "total": 2525,
     "uploadedAt": "2026-04-25T23:19:55.939Z"
+  },
+  "2026-04-29": {
+    "fecha": "2026-04-29",
+    "site": "MLC",
+    "products": {
+      "Rollos Display 10": 2200,
+      "N950 Maquilado": 419
+    },
+    "reps": {
+      "N950 Maquilado": {
+        "ext_gaocampo": 299,
+        "amendozadura": 90,
+        "ext_iroaranc": 30
+      },
+      "Rollos Display 10": {
+        "frosascontre": 2200
+      }
+    },
+    "total": 2619,
+    "uploadedAt": "2026-05-01T01:38:43.371Z"
+  },
+  "2026-04-28": {
+    "fecha": "2026-04-28",
+    "site": "MLC",
+    "products": {
+      "Rollos Display 10": 1100,
+      "N950 Maquilado": 360
+    },
+    "reps": {
+      "N950 Maquilado": {
+        "ext_gaocampo": 210,
+        "amendozadura": 150
+      },
+      "Rollos Display 10": {
+        "frosascontre": 1100
+      }
+    },
+    "total": 1460,
+    "uploadedAt": "2026-05-01T01:38:43.371Z"
+  },
+  "2026-04-27": {
+    "fecha": "2026-04-27",
+    "site": "MLC",
+    "products": {
+      "Rollos Display 10": 2300,
+      "N950 Maquilado": 300
+    },
+    "reps": {
+      "N950 Maquilado": {
+        "amendozadura": 160,
+        "ext_gaocampo": 140
+      },
+      "Rollos Display 10": {
+        "frosascontre": 2300
+      }
+    },
+    "total": 2600,
+    "uploadedAt": "2026-05-01T01:38:43.371Z"
   }
 }
