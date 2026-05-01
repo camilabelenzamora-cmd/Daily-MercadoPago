@@ -907,5 +907,297 @@
     "total_unidades": 34975,
     "total_os": 33676,
     "uploadedAt": "2026-04-24T21:21:10.610Z"
+  },
+  "2026-04-24": {
+    "fecha": "2026-04-24",
+    "site": "MLB",
+    "products": {
+      "Cards": 35126,
+      "Point": 9393,
+      "Bobinas": 3926,
+      "Others": 636
+    },
+    "routes": {
+      "Cards": {
+        "MELI-CARDS": 32825,
+        "OFF-CARDS": 1760,
+        "MELI-CLARO": 188,
+        "MELI-VIVO": 180,
+        "MELI-MPOS": 100,
+        "MELI-TIM": 71,
+        "CORREIOS-VIVO": 2
+      },
+      "Point": {
+        "BAD": 4987,
+        "OFF-VIVO": 1390,
+        "MELI-CLARO": 924,
+        "MELI-VIVO": 671,
+        "OFF-CLARO": 500,
+        "MELI-TROCA": 433,
+        "MELI-TIM": 245,
+        "MELI-MPOS": 117,
+        "CORREIOS-VIVO": 60,
+        "OFF-TIM": 40,
+        "CORREIOS-TROCA": 12,
+        "CORREIOS-CLARO": 12,
+        "CORREIOS-MPOS": 1,
+        "CORREIOS-TIM": 1
+      },
+      "Bobinas": {
+        "MELI-BOBINA": 2784,
+        "OFF-BOBINA": 1000,
+        "CORREIOS-BOBINA": 142
+      },
+      "Others": {
+        "MELI-PLACE": 280,
+        "MELI-CHIP": 215,
+        "OFF-CHIP": 130,
+        "CORREIOS-CHIP": 11
+      }
+    },
+    "total_unidades": 49081,
+    "total_os": 37251,
+    "uploadedAt": "2026-05-01T20:08:55.792Z"
+  },
+  "2026-04-25": {
+    "fecha": "2026-04-25",
+    "site": "MLB",
+    "products": {
+      "Cards": 1931,
+      "Point": 4343,
+      "Bobinas": 2583,
+      "Others": 1454
+    },
+    "routes": {
+      "Cards": {
+        "OFF-CARDS": 1500,
+        "MELI-VIVO": 164,
+        "MELI-CLARO": 118,
+        "MELI-MPOS": 86,
+        "MELI-TIM": 63
+      },
+      "Point": {
+        "MELI-VIVO": 957,
+        "OFF-VIVO": 835,
+        "MELI-CLARO": 809,
+        "OFF-CLARO": 615,
+        "MELI-TROCA": 416,
+        "MELI-TIM": 307,
+        "OFF-TIM": 300,
+        "MELI-MPOS": 104
+      },
+      "Bobinas": {
+        "MELI-BOBINA": 2173,
+        "OFF-BOBINA": 410
+      },
+      "Others": {
+        "GESTION-PROD": 600,
+        "MELI-PLACE": 319,
+        "MELI-CHIP": 295,
+        "OFF-CHIP": 240
+      }
+    },
+    "total_unidades": 10311,
+    "total_os": 4776,
+    "uploadedAt": "2026-05-01T20:08:55.801Z"
+  },
+  "2026-04-27": {
+    "fecha": "2026-04-27",
+    "site": "MLB",
+    "products": {
+      "Cards": 83240,
+      "Point": 12610,
+      "Bobinas": 4978,
+      "Others": 2431
+    },
+    "routes": {
+      "Cards": {
+        "MELI-CARDS": 82564,
+        "MELI-VIVO": 268,
+        "MELI-CLARO": 183,
+        "MELI-MPOS": 117,
+        "MELI-TIM": 91,
+        "CORREIOS-VIVO": 12,
+        "CORREIOS-CLARO": 3,
+        "CORREIOS-TIM": 1,
+        "CORREIOS-MPOS": 1
+      },
+      "Point": {
+        "FULL": 9720,
+        "MELI-VIVO": 1063,
+        "MELI-CLARO": 816,
+        "MELI-TIM": 334,
+        "MELI-TROCA": 319,
+        "MELI-MPOS": 137,
+        "CORREIOS-VIVO": 93,
+        "CORREIOS-CLARO": 59,
+        "CORREIOS-TROCA": 44,
+        "CORREIOS-TIM": 18,
+        "CORREIOS-MPOS": 7
+      },
+      "Bobinas": {
+        "MELI-BOBINA": 4651,
+        "CORREIOS-BOBINA": 327
+      },
+      "Others": {
+        "OFF-OUTROS": 2000,
+        "MELI-CHIP": 394,
+        "CORREIOS-CHIP": 24,
+        "MELI-PLACE": 13
+      }
+    },
+    "total_unidades": 103259,
+    "total_os": 89126,
+    "uploadedAt": "2026-05-01T20:08:55.894Z"
+  },
+  "2026-04-28": {
+    "fecha": "2026-04-28",
+    "site": "MLB",
+    "products": {
+      "Cards": 34426,
+      "Point": 5170,
+      "Bobinas": 3655,
+      "Others": 1118
+    },
+    "routes": {
+      "Cards": {
+        "MELI-CARDS": 31882,
+        "OFF-CARDS": 1840,
+        "MELI-VIVO": 286,
+        "MELI-CLARO": 214,
+        "MELI-TIM": 97,
+        "MELI-MPOS": 91,
+        "CORREIOS-VIVO": 7,
+        "CORREIOS-CLARO": 4,
+        "CORREIOS-MPOS": 3,
+        "CORREIOS-TIM": 2
+      },
+      "Point": {
+        "OFF-VIVO": 1425,
+        "MELI-VIVO": 1121,
+        "MELI-CLARO": 875,
+        "MELI-TROCA": 669,
+        "OFF-CLARO": 485,
+        "MELI-TIM": 255,
+        "MELI-MPOS": 113,
+        "OFF-TIM": 100,
+        "CORREIOS-VIVO": 64,
+        "CORREIOS-TROCA": 41,
+        "CORREIOS-CLARO": 12,
+        "CORREIOS-TIM": 6,
+        "CORREIOS-MPOS": 4
+      },
+      "Bobinas": {
+        "MELI-BOBINA": 2732,
+        "OFF-BOBINA": 760,
+        "CORREIOS-BOBINA": 163
+      },
+      "Others": {
+        "MELI-CHIP": 396,
+        "OFF-CHIP": 390,
+        "MELI-PLACE": 323,
+        "CORREIOS-CHIP": 9
+      }
+    },
+    "total_unidades": 44369,
+    "total_os": 37552,
+    "uploadedAt": "2026-05-01T20:08:55.945Z"
+  },
+  "2026-04-29": {
+    "fecha": "2026-04-29",
+    "site": "MLB",
+    "products": {
+      "Cards": 30134,
+      "Point": 6980,
+      "Bobinas": 3043,
+      "Others": 5476
+    },
+    "routes": {
+      "Cards": {
+        "MELI-CARDS": 29899,
+        "MELI-VIVO": 100,
+        "MELI-MPOS": 52,
+        "MELI-CLARO": 43,
+        "MELI-TIM": 38,
+        "CORREIOS-VIVO": 1,
+        "CORREIOS-TIM": 1
+      },
+      "Point": {
+        "LAB": 4320,
+        "MELI-VIVO": 1067,
+        "MELI-CLARO": 621,
+        "MELI-TROCA": 585,
+        "MELI-TIM": 246,
+        "MELI-MPOS": 61,
+        "CORREIOS-CLARO": 33,
+        "CORREIOS-VIVO": 29,
+        "CORREIOS-TROCA": 10,
+        "CORREIOS-TIM": 6,
+        "CORREIOS-MPOS": 2
+      },
+      "Bobinas": {
+        "MELI-BOBINA": 2941,
+        "CORREIOS-BOBINA": 102
+      },
+      "Others": {
+        "OFF-OUTROS": 5000,
+        "MELI-PLACE": 330,
+        "MELI-CHIP": 130,
+        "CORREIOS-CHIP": 16
+      }
+    },
+    "total_unidades": 45633,
+    "total_os": 34683,
+    "uploadedAt": "2026-05-01T20:08:55.997Z"
+  },
+  "2026-04-30": {
+    "fecha": "2026-04-30",
+    "site": "MLB",
+    "products": {
+      "Cards": 34906,
+      "Point": 8401,
+      "Bobinas": 2296,
+      "Others": 834
+    },
+    "routes": {
+      "Cards": {
+        "MELI-CARDS": 33629,
+        "OFF-CARDS": 1250,
+        "MELI-CLARO": 11,
+        "MELI-VIVO": 8,
+        "MELI-MPOS": 6,
+        "MELI-TIM": 2
+      },
+      "Point": {
+        "LAB": 4320,
+        "OFF-VIVO": 1220,
+        "MELI-VIVO": 732,
+        "MELI-CLARO": 670,
+        "MELI-TROCA": 602,
+        "OFF-CLARO": 470,
+        "MELI-TIM": 212,
+        "OFF-TIM": 74,
+        "CORREIOS-VIVO": 31,
+        "MELI-MPOS": 28,
+        "CORREIOS-TROCA": 21,
+        "CORREIOS-CLARO": 17,
+        "CORREIOS-TIM": 2,
+        "CORREIOS-MPOS": 2
+      },
+      "Bobinas": {
+        "MELI-BOBINA": 1768,
+        "OFF-BOBINA": 410,
+        "CORREIOS-BOBINA": 118
+      },
+      "Others": {
+        "MELI-CHIP": 383,
+        "MELI-PLACE": 365,
+        "OFF-CHIP": 80,
+        "CORREIOS-CHIP": 6
+      }
+    },
+    "total_unidades": 46437,
+    "total_os": 37491,
+    "uploadedAt": "2026-05-01T20:08:56.047Z"
   }
 }
