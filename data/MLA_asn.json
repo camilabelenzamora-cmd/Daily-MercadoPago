@@ -430,5 +430,59 @@
       "total": 47550
     },
     "uploadedAt": "2026-04-25T23:09:40.903Z"
+  },
+  "2026-04-28": {
+    "fecha": "2026-04-28",
+    "site": "MLA",
+    "devoluciones": {
+      "products": {
+        "Tarjeta de Crédito": 240,
+        "Tarjetas Prepagadas": 450
+      },
+      "total": 690
+    },
+    "inbound": {
+      "suppliers": {
+        "GPC": {
+          "total": 40100,
+          "products": {
+            "Tarjeta de Crédito": 20000,
+            "Tarjetas Prepagadas": 20100
+          }
+        },
+        "PLACES": {
+          "total": 1000,
+          "products": {
+            "Etiquetas Places": 1000
+          }
+        }
+      },
+      "total": 41100
+    },
+    "uploadedAt": "2026-05-01T02:13:02.621Z"
+  },
+  "2026-04-27": {
+    "fecha": "2026-04-27",
+    "site": "MLA",
+    "devoluciones": {
+      "products": {
+        "Point N951 - Movistar Amarillo": 59,
+        "Point N952 - Claro Amarillo": 43,
+        "POINT N953 - PERSONAL Amarillo": 104
+      },
+      "total": 206
+    },
+    "inbound": {
+      "suppliers": {
+        "THALES": {
+          "total": 109760,
+          "products": {
+            "Tarjeta de Crédito": 109760
+          }
+        }
+      },
+      "total": 109760
+    },
+    "uploadedAt": "2026-05-01T02:13:02.622Z"
   }
 }
