@@ -597,5 +597,39 @@
     "reps": {},
     "total": 0,
     "uploadedAt": "2026-05-01T01:59:20.890Z"
+  },
+  "2026-04-30": {
+    "fecha": "2026-04-30",
+    "site": "MLM",
+    "products": {
+      "Point Air Maquilado AT&T amarillo": 2804,
+      "Point Smart N950 Maquilado AT&T amarillo": 1110,
+      "Point Smart N950 Maquilado Telcel amarillo": 20
+    },
+    "reps": {
+      "Point Smart N950 Maquilado AT&T amarillo": {
+        "rigonzalezgo": 340,
+        "ohernandezso": 340,
+        "rcruzlemus": 200,
+        "mfragosocort": 140,
+        "rlavallehern": 46,
+        "ericgonz": 44
+      },
+      "Point Air Maquilado AT&T amarillo": {
+        "cmelosantos": 620,
+        "mfragosocort": 560,
+        "angperezmart": 400,
+        "davbenitez": 400,
+        "rigonzalezgo": 400,
+        "joruizperez": 220,
+        "earroyoherna": 200,
+        "rlavallehern": 4
+      },
+      "Point Smart N950 Maquilado Telcel amarillo": {
+        "rlavallehern": 20
+      }
+    },
+    "total": 3934,
+    "uploadedAt": "2026-05-01T19:39:18.749Z"
   }
 }
