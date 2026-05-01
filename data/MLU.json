@@ -369,6 +369,56 @@
     },
     "total_unidades": 503,
     "total_os": 501,
-    "uploadedAt": "2026-04-30T19:33:38.545Z"
+    "uploadedAt": "2026-05-01T01:46:36.186236+00:00"
+  },
+  "2026-04-28": {
+    "fecha": "2026-04-28",
+    "site": "MLU",
+    "products": {
+      "Cards": 4,
+      "Point": 194,
+      "Bobinas": 1,
+      "Others": 0
+    },
+    "routes": {
+      "Cards": {
+        "XD-CARDS": 4
+      },
+      "Point": {
+        "XD-POINT": 194
+      },
+      "Bobinas": {
+        "XD-POINT": 1
+      },
+      "Others": {}
+    },
+    "total_unidades": 199,
+    "total_os": 199,
+    "uploadedAt": "2026-05-01T01:46:36.187236+00:00"
+  },
+  "2026-04-27": {
+    "fecha": "2026-04-27",
+    "site": "MLU",
+    "products": {
+      "Cards": 22,
+      "Point": 237,
+      "Bobinas": 2,
+      "Others": 0
+    },
+    "routes": {
+      "Cards": {
+        "XD-CARDS": 22
+      },
+      "Point": {
+        "XD-POINT": 237
+      },
+      "Bobinas": {
+        "XD-POINT": 2
+      },
+      "Others": {}
+    },
+    "total_unidades": 261,
+    "total_os": 258,
+    "uploadedAt": "2026-05-01T01:46:36.187236+00:00"
   }
 }
