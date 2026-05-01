@@ -249,7 +249,7 @@ def process_stock(rows):
     calles = {k: len(v) for k, v in calle_positions.items()}
 
     # Zones: count unique positions and build detail for PK/MI/PKB/BUF/DK
-    DETAIL_ZONES = {'PK', 'MI', 'PKB', 'BUF', 'DK'}
+    DETAIL_ZONES = {'PK', 'MI', 'PKB', 'BUF', 'DK', 'JA'}
     zonas = {}
     zone_rows = [r for r in valid if r.get('ESTADO','') == 'UBICADO']
     zone_positions = {}

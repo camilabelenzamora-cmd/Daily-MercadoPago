@@ -1,0 +1,162 @@
+{
+  "site": "MLM",
+  "uploadedAt": "2026-05-01T23:57:44.365821+00:00",
+  "calles": {
+    "517": 119,
+    "518": 154,
+    "519": 52
+  },
+  "zonas": {
+    "PK": {
+      "ocupadas": 8,
+      "detalle": [
+        {
+          "ubicacion": "PK-00-01-00",
+          "sku": "2",
+          "unidades": 495
+        },
+        {
+          "ubicacion": "PK-00-01-00",
+          "sku": "21",
+          "unidades": 9050
+        },
+        {
+          "ubicacion": "PK-00-01-00",
+          "sku": "21B",
+          "unidades": 44188
+        },
+        {
+          "ubicacion": "PK-00-01-00",
+          "sku": "39",
+          "unidades": 268
+        },
+        {
+          "ubicacion": "PK-00-01-00",
+          "sku": "51",
+          "unidades": 112168
+        },
+        {
+          "ubicacion": "PK-00-01-00",
+          "sku": "56",
+          "unidades": 9829
+        },
+        {
+          "ubicacion": "PK-00-01-00",
+          "sku": "58",
+          "unidades": 12816
+        },
+        {
+          "ubicacion": "PK-00-01-00",
+          "sku": "80",
+          "unidades": 483
+        },
+        {
+          "ubicacion": "PK-00-02-00",
+          "sku": "81AMA",
+          "unidades": 614
+        },
+        {
+          "ubicacion": "PK-00-03-00",
+          "sku": "54AM",
+          "unidades": 3325
+        },
+        {
+          "ubicacion": "PK-00-04-00",
+          "sku": "40AMA",
+          "unidades": 1
+        },
+        {
+          "ubicacion": "PK-00-05-00",
+          "sku": "40ALQ",
+          "unidades": 179
+        },
+        {
+          "ubicacion": "PK-00-05-00",
+          "sku": "40REF",
+          "unidades": 254
+        },
+        {
+          "ubicacion": "PK-00-06-00",
+          "sku": "1",
+          "unidades": 1
+        },
+        {
+          "ubicacion": "PK-00-06-00",
+          "sku": "40AMA",
+          "unidades": 1996
+        },
+        {
+          "ubicacion": "PK-00-07-00",
+          "sku": "40AMT",
+          "unidades": 1570
+        },
+        {
+          "ubicacion": "PK-00-08-00",
+          "sku": "1TEL",
+          "unidades": 326
+        }
+      ]
+    },
+    "JA": {
+      "ocupadas": 4,
+      "detalle": [
+        {
+          "ubicacion": "JA-00-01-00",
+          "sku": "39",
+          "unidades": 4000
+        },
+        {
+          "ubicacion": "JA-00-01-00",
+          "sku": "40AM",
+          "unidades": 4080
+        },
+        {
+          "ubicacion": "JA-00-01-00",
+          "sku": "54AM",
+          "unidades": 1500
+        },
+        {
+          "ubicacion": "JA-00-01-00",
+          "sku": "81AM",
+          "unidades": 2400
+        },
+        {
+          "ubicacion": "JA-00-02-00",
+          "sku": "40AMA",
+          "unidades": 340
+        },
+        {
+          "ubicacion": "JA-00-02-00",
+          "sku": "40AMT",
+          "unidades": 340
+        },
+        {
+          "ubicacion": "JA-00-03-00",
+          "sku": "21D",
+          "unidades": 840
+        },
+        {
+          "ubicacion": "JA-00-03-00",
+          "sku": "58D",
+          "unidades": 93
+        },
+        {
+          "ubicacion": "JA-00-04-00",
+          "sku": "54AM",
+          "unidades": 0
+        }
+      ]
+    },
+    "MI": {
+      "ocupadas": 1,
+      "detalle": [
+        {
+          "ubicacion": "MI-00-03-00",
+          "sku": "40AM",
+          "unidades": 470
+        }
+      ]
+    }
+  },
+  "recibido": []
+}

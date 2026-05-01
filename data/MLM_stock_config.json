@@ -1,0 +1,12 @@
+{
+  "calles": [
+    { "key": "517", "nombre": "Calle 517", "total": 408 },
+    { "key": "518", "nombre": "Calle 518", "total": 408 },
+    { "key": "519", "nombre": "Calle 519", "total": 408 }
+  ],
+  "zonas": {
+    "PK": { "nombre": "Picking",  "total": 12 },
+    "MI": { "nombre": "Maquila",  "total": 3  },
+    "JA": { "nombre": "Buffer",   "total": 5  }
+  }
+}
