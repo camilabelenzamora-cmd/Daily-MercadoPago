@@ -644,5 +644,41 @@
     "total_unidades": 9593,
     "total_os": 7962,
     "uploadedAt": "2026-05-01T02:07:06.640037+00:00"
+  },
+  "2026-04-30": {
+    "fecha": "2026-04-30",
+    "site": "MLA",
+    "products": {
+      "Cards": 141478,
+      "Point": 3652,
+      "Bobinas": 886,
+      "Others": 1600
+    },
+    "routes": {
+      "Cards": {
+        "PICKIT": 135250,
+        "XD - CARDS": 2911,
+        "XD - Credit Card": 2247,
+        "XD - POINT": 446,
+        "ANDREANI": 403,
+        "Andreani Credit Cards": 221
+      },
+      "Point": {
+        "XD - POINT": 1859,
+        "ENOFIR": 1793
+      },
+      "Bobinas": {
+        "XD - POINT": 501,
+        "CORREO ARGENTINO": 385
+      },
+      "Others": {
+        "PICKIT": 1360,
+        "XD - POINT": 225,
+        "CORREO ARGENTINO": 15
+      }
+    },
+    "total_unidades": 147616,
+    "total_os": 7900,
+    "uploadedAt": "2026-05-01T17:40:41.582Z"
   }
 }
