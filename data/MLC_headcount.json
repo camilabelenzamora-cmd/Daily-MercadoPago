@@ -6,9 +6,6 @@
       "total": 16
     }
   ],
-  "totals_weekday": {
-    "6": 3
-  },
   "days": {
     "2026-04-20": {
       "fecha": "2026-04-20",
@@ -42,9 +39,12 @@
     },
     "2026-04-29": {
       "fecha": "2026-04-29",
-      "ausentes_gestionables": 1,
+      "ausentes_gestionables": 0,
       "ausentes_no_gestionables": 0,
-      "savedAt": "2026-04-30T19:10:48.541Z"
+      "savedAt": "2026-05-01T02:30:11.466Z"
     }
+  },
+  "totals_weekday": {
+    "6": 3
   }
 }
