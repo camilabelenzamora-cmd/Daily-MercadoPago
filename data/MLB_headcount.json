@@ -6,11 +6,12 @@
       "total": 111
     }
   ],
+  "days": {},
+  "totals_weekday": null,
   "eventuales": [
     {
       "desde": "2026-04-01",
-      "total": 13
+      "total": 17
     }
-  ],
-  "days": {}
+  ]
 }
