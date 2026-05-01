@@ -376,5 +376,19 @@
     },
     "total": 2,
     "uploadedAt": "2026-05-01T02:10:22.385Z"
+  },
+  "2026-04-29": {
+    "fecha": "2026-04-29",
+    "site": "MLA",
+    "products": {
+      "Point Smart - Pendiente de Reparación": 3
+    },
+    "reps": {
+      "Point Smart - Pendiente de Reparación": {
+        "lcarabajal": 3
+      }
+    },
+    "total": 3,
+    "uploadedAt": "2026-05-01T02:10:46.776Z"
   }
 }
