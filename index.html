@@ -390,7 +390,7 @@
 
   async function loadHeadcountData(site) {
     const d = await loadRaw(`data/${site}_headcount.json`);
-    return (d && typeof d === 'object') ? { total: d.total || null, totals: d.totals || [], days: d.days || {}, totals_weekday: d.totals_weekday || null } : { total: null, totals: [], days: {}, totals_weekday: null };
+    return (d && typeof d === 'object') ? { total: d.total || null, totals: d.totals || [], days: d.days || {}, totals_weekday: d.totals_weekday || null, eventuales: d.eventuales || [] } : { total: null, totals: [], days: {}, totals_weekday: null, eventuales: [] };
   }
   async function saveHeadcountData(site, data) {
     const content = JSON.stringify(data, null, 2);
@@ -787,6 +787,9 @@
     const noGestVals = cols.map(c => { const hasD = c.dates.some(d=>headcountData.days[d]); if(!hasD) return null; return c.dates.reduce((s,d)=>s+(headcountData.days[d]?.ausentes_no_gestionables||0),0); });
     const ausVals = cols.map((c,i) => { if(gestVals[i]===null && noGestVals[i]===null) return null; return (gestVals[i]||0)+(noGestVals[i]||0); });
 
+    const eventualesVals = cols.map(c => getEventualesForDate(c.dates[c.dates.length-1]));
+    const hasEventuales = eventualesVals.some(v => v != null);
+
     const trAus = document.createElement('tr'); trAus.className='row-product';
     trAus.innerHTML = `<td onclick="toggleAusentes()"><span class="toggle-icon ${expandedAusentes?'open':''}">▶</span> Ausentes</td>` + ausVals.map(v=>`<td>${fmt(v)}</td>`).join('') + `<td></td>`;
     tbody.insertBefore(trAus, tbody.children[1]);
@@ -799,16 +802,22 @@
     trNoGest.innerHTML = `<td>No Gestionables</td>` + noGestVals.map(v=>`<td>${fmt(v)}</td>`).join('') + `<td></td>`;
     tbody.insertBefore(trNoGest, tbody.children[3]);
 
-    // Total Presentes = Headcount - Ausentes
+    if (hasEventuales) {
+      const trEv = document.createElement('tr'); trEv.className='row-product';
+      trEv.innerHTML = `<td>Eventuales</td>` + eventualesVals.map(v=>`<td>${v != null ? Number(v).toLocaleString('es-AR') : '<span style="color:#ccc">—</span>'}</td>`).join('') + `<td></td>`;
+      tbody.insertBefore(trEv, tbody.children[4]);
+    }
+
+    // Total Presentes = Headcount + Eventuales - Ausentes
     const totPresVals = cols.map((c, i) => {
       if (headcountVals[i] == null) return null;
       const gest = c.dates.reduce((s,d)=>s+(headcountData.days[d]?.ausentes_gestionables||0),0);
       const noGest = c.dates.reduce((s,d)=>s+(headcountData.days[d]?.ausentes_no_gestionables||0),0);
-      return headcountVals[i] - gest - noGest;
+      return headcountVals[i] + (eventualesVals[i] || 0) - gest - noGest;
     });
     const trTotPres = document.createElement('tr'); trTotPres.className='row-total';
     trTotPres.innerHTML = `<td>Total Presentes</td>` + totPresVals.map(v=>`<td>${fmt(v)}</td>`).join('') + `<td></td>`;
-    tbody.insertBefore(trTotPres, tbody.children[4]);
+    tbody.insertBefore(trTotPres, tbody.children[hasEventuales ? 5 : 4]);
 
     } // end people section
 
@@ -949,6 +958,12 @@
 
   // ── HEADCOUNT ─────────────────────────────────────────
   let expandedAusentes = false;
+
+  function getEventualesForDate(fecha) {
+    const ev = headcountData.eventuales || [];
+    const applicable = ev.filter(t => t.desde <= fecha).sort((a,b) => b.desde.localeCompare(a.desde));
+    return applicable.length > 0 ? applicable[0].total : null;
+  }
 
   function getTotalForDate(fecha) {
     const totals = headcountData.totals || [];
@@ -1370,25 +1385,32 @@
         const wd = hc.totals_weekday; const day = String(new Date(date+'T12:00:00').getDay());
         return (wd && base && wd[day] != null) ? wd[day] : base;
       }
+      function getEventualesTotal(hc, date) {
+        const ev = hc.eventuales || [];
+        return ev.filter(t=>t.desde<=date).sort((a,b)=>b.desde.localeCompare(a.desde))[0]?.total || 0;
+      }
       const hcStats = REGIONAL_SITES.map(s => {
-        const hc = regionalData[s.code]?.headcount || { totals:[], total:null, days:{} };
+        const hc = regionalData[s.code]?.headcount || { totals:[], total:null, days:{}, eventuales:[] };
         const total = getHCTotal(hc, hcRefDate);
         if (!total) return null;
+        const eventuales = getEventualesTotal(hc, hcRefDate);
         const daysWithData = dates.filter(d => hc.days[d]);
-        if (!daysWithData.length) return { flag:s.flag, total, presentes:total, gest:0, noGest:0, pct:0 };
+        if (!daysWithData.length) return { flag:s.flag, total, eventuales, presentes:total, gest:0, noGest:0, pct:0 };
         const avgGest = daysWithData.reduce((s,d)=>s+(hc.days[d]?.ausentes_gestionables||0),0)/daysWithData.length;
         const avgNoGest = daysWithData.reduce((s,d)=>s+(hc.days[d]?.ausentes_no_gestionables||0),0)/daysWithData.length;
         const avgAus = avgGest + avgNoGest;
-        return { flag:s.flag, total, presentes:Math.max(0,total-avgAus), gest:avgGest, noGest:avgNoGest, pct:total>0?avgAus/total*100:0 };
+        return { flag:s.flag, total, eventuales, presentes:Math.max(0,total-avgAus), gest:avgGest, noGest:avgNoGest, pct:total>0?avgAus/total*100:0 };
       }).filter(Boolean);
 
       if (hcStats.length) {
         const totalHC = hcStats.reduce((s,c)=>s+c.total,0);
+        const totalEv = hcStats.reduce((s,c)=>s+c.eventuales,0);
         const pCard = document.createElement('div');
         pCard.style.cssText = 'background:#fff;border-radius:12px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,0.08);';
+        const evLabel = totalEv > 0 ? `<span style="font-size:12px;font-weight:400;color:#888;margin-left:8px;">+ ${Number(totalEv).toLocaleString('es-AR')} eventuales</span>` : '';
         pCard.innerHTML = `
           <div style="font-size:10px;font-weight:700;color:#888;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">👥 HEADCOUNT <span style="font-weight:400;color:#ccc;">${weekLabel}</span></div>
-          <div style="font-size:26px;font-weight:700;color:#1a1a2e;line-height:1.1;">${Number(totalHC).toLocaleString('es-AR')} <span style="font-size:13px;font-weight:400;color:#aaa;">personas</span></div>
+          <div style="font-size:26px;font-weight:700;color:#1a1a2e;line-height:1.1;">${Number(totalHC).toLocaleString('es-AR')} <span style="font-size:13px;font-weight:400;color:#aaa;">personas</span>${evLabel}</div>
           <div style="margin-top:12px;"><canvas id="chart_hc_inline" height="110"></canvas></div>`;
         gridTop.appendChild(pCard);
         setTimeout(() => {
@@ -1401,7 +1423,9 @@
               labels: hcStats.map(c => c.flag),
               datasets: [
                 { label:'Presentes', data: hcStats.map(c=>Math.round(c.presentes)), backgroundColor:'#009EE3', stack:'hc',
-                  borderRadius: hcStats.map(c=>({topLeft:c.gest<=0&&c.noGest<=0?6:0, topRight:c.gest<=0&&c.noGest<=0?6:0, bottomLeft:6, bottomRight:6})), borderSkipped:false },
+                  borderRadius: hcStats.map(c=>({topLeft:c.gest<=0&&c.noGest<=0&&c.eventuales<=0?6:0, topRight:c.gest<=0&&c.noGest<=0&&c.eventuales<=0?6:0, bottomLeft:6, bottomRight:6})), borderSkipped:false },
+                { label:'Eventuales', data: hcStats.map(c=>c.eventuales||0), backgroundColor:'#00C2A0', stack:'hc',
+                  borderRadius: hcStats.map(c=>({topLeft:c.gest<=0&&c.noGest<=0?6:0, topRight:c.gest<=0&&c.noGest<=0?6:0, bottomLeft:0, bottomRight:0})), borderSkipped:false },
                 { label:'Aus. Gestionables', data: hcStats.map(c=>parseFloat(c.gest.toFixed(1))), backgroundColor:'#FFB142', stack:'hc',
                   borderRadius: hcStats.map(c=>({topLeft:c.noGest<=0?6:0, topRight:c.noGest<=0?6:0, bottomLeft:0, bottomRight:0})), borderSkipped:false },
                 { label:'Aus. No Gestionables', data: hcStats.map(c=>parseFloat(c.noGest.toFixed(1))), backgroundColor:'#FF6B6B', stack:'hc',

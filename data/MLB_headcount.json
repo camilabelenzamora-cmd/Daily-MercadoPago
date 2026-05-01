@@ -6,5 +6,11 @@
       "total": 111
     }
   ],
+  "eventuales": [
+    {
+      "desde": "2026-04-01",
+      "total": 13
+    }
+  ],
   "days": {}
 }
