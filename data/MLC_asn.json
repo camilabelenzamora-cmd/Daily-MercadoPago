@@ -363,5 +363,26 @@
       "total": 2534
     },
     "uploadedAt": "2026-04-25T23:21:08.787Z"
+  },
+  "2026-04-28": {
+    "fecha": "2026-04-28",
+    "site": "MLC",
+    "devoluciones": {
+      "products": {
+        "Prepaid Card": 111,
+        "Prepaid Card SCRAP": 1,
+        "N950 Servicio Tecnico": 44,
+        "Smart Servicio Técnico": 21,
+        "Rollos Display 10": 2,
+        "Point Mini Scrap": 3,
+        "N950 Maquilado": 36
+      },
+      "total": 218
+    },
+    "inbound": {
+      "suppliers": {},
+      "total": 0
+    },
+    "uploadedAt": "2026-05-01T01:42:30.660Z"
   }
 }
