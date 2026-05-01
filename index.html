@@ -1992,7 +1992,7 @@
           detailHtml = `<table class="zona-detail-table">
             <thead><tr><th>Ubicacion</th><th>SKU</th><th>Uds</th></tr></thead>
             <tbody>${Object.entries(byUbi).map(([ubi,items])=>
-              items.map((it,i)=>`<tr><td>${i===0?ubi:''}</td><td>${it.sku}</td><td>${Number(it.unidades).toLocaleString('es-AR')}</td></tr>`).join('')
+              items.map(it=>`<tr><td style="color:#888">${ubi}</td><td><strong>${it.sku}</strong></td><td>${Number(it.unidades).toLocaleString('es-AR')}</td></tr>`).join('')
             ).join('')}</tbody>
           </table>`;
         } else {
