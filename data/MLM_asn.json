@@ -493,5 +493,20 @@
       "total": 0
     },
     "uploadedAt": "2026-04-27T01:59:14.758Z"
+  },
+  "2026-04-27": {
+    "fecha": "2026-04-27",
+    "site": "MLM",
+    "devoluciones": {
+      "products": {
+        "Smart Grado A Devolucion": 82
+      },
+      "total": 82
+    },
+    "inbound": {
+      "suppliers": {},
+      "total": 0
+    },
+    "uploadedAt": "2026-05-01T01:08:18.118Z"
   }
 }
