@@ -1962,33 +1962,33 @@
       const maxOcc = Math.max(...stockConfig.calles.map(c => stockData.calles?.[c.key]||0));
 
       // SVG donut
-      const R = 38, CX = 50, CY = 50, stroke = 10;
+      const R = 44, CX = 56, CY = 56, stroke = 12;
       const circ = 2 * Math.PI * R;
       const dash = circ * totalPctRaw / 100;
-      const donutSvg = `<svg width="100" height="100" viewBox="0 0 100 100">
-        <circle cx="${CX}" cy="${CY}" r="${R}" fill="none" stroke="#F0F0F0" stroke-width="${stroke}"/>
+      const donutSvg = `<svg width="112" height="112" viewBox="0 0 112 112">
+        <circle cx="${CX}" cy="${CY}" r="${R}" fill="none" stroke="#DCEEFF" stroke-width="${stroke}"/>
         <circle cx="${CX}" cy="${CY}" r="${R}" fill="none" stroke="#3483FA" stroke-width="${stroke}"
           stroke-dasharray="${dash} ${circ}" stroke-dashoffset="${circ/4}" stroke-linecap="round"/>
       </svg>`;
 
-      html += `<div style="background:#fff;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,0.08);padding:20px 24px;margin-bottom:16px;display:flex;gap:24px;align-items:stretch;">
-        <div style="display:flex;flex-direction:column;justify-content:center;min-width:210px;">
-          <div style="font-size:10px;font-weight:700;color:#aaa;letter-spacing:1px;text-transform:uppercase;margin-bottom:14px;">Ocupacion RK · Zona Principal</div>
-          <div style="display:flex;align-items:center;gap:12px;">
+      html += `<div style="background:linear-gradient(135deg,#EBF3FF 0%,#F8FBFF 100%);border:1px solid #C8DFFF;border-radius:12px;box-shadow:0 4px 16px rgba(52,131,250,0.12);padding:22px 28px;margin-bottom:16px;display:flex;gap:28px;align-items:stretch;">
+        <div style="display:flex;flex-direction:column;justify-content:center;min-width:220px;">
+          <div style="font-size:10px;font-weight:700;color:#7AABEE;letter-spacing:1px;text-transform:uppercase;margin-bottom:14px;">Ocupacion RK · Zona Principal</div>
+          <div style="display:flex;align-items:center;gap:14px;">
             ${donutSvg}
             <div>
-              <div style="font-size:36px;font-weight:800;color:#3483FA;line-height:1;">${totalPctDisp}%</div>
-              <div style="font-size:12px;color:#aaa;margin-top:6px;line-height:1.7;">
-                <span style="color:#333;font-weight:600;">${totalOcc.toLocaleString('es-AR')}</span> ocupadas<br>
-                <span style="color:#333;font-weight:600;">${totalFree.toLocaleString('es-AR')}</span> libres<br>
-                <span style="color:#333;font-weight:600;">${totalCap.toLocaleString('es-AR')}</span> totales
+              <div style="font-size:42px;font-weight:800;color:#3483FA;line-height:1;">${totalPctDisp}%</div>
+              <div style="font-size:13px;color:#7AABEE;margin-top:8px;line-height:1.8;">
+                <span style="color:#1a3a6e;font-weight:700;">${totalOcc.toLocaleString('es-AR')}</span> ocupadas<br>
+                <span style="color:#1a3a6e;font-weight:700;">${totalFree.toLocaleString('es-AR')}</span> libres<br>
+                <span style="color:#1a3a6e;font-weight:700;">${totalCap.toLocaleString('es-AR')}</span> totales
               </div>
             </div>
           </div>
         </div>
-        <div style="width:1px;background:#F0F0F0;margin:0 4px;"></div>
+        <div style="width:1px;background:#C8DFFF;margin:0 4px;"></div>
         <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:0;">
-          <div style="font-size:11px;font-weight:700;color:#aaa;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:12px;">Por Calle</div>
+          <div style="font-size:11px;font-weight:700;color:#7AABEE;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:14px;">Por Calle</div>
           ${stockConfig.calles.map(c => {
             const occ = stockData.calles?.[c.key] || 0;
             const free = c.total - occ;
@@ -1999,12 +1999,12 @@
             const pctColor = pctRaw >= 90 ? '#D32F2F' : isTop ? '#F57C00' : '#3483FA';
             return `<div style="margin-bottom:10px;">
               <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:4px;">
-                <span style="font-size:13px;font-weight:700;color:#333;">${c.nombre}</span>
+                <span style="font-size:13px;font-weight:700;color:#1a3a6e;">${c.nombre}</span>
                 <span style="font-size:14px;font-weight:700;color:${pctColor};">${pctDisp}%</span>
-                <span style="font-size:11px;color:#aaa;">${occ.toLocaleString('es-AR')} ocup · ${free.toLocaleString('es-AR')} libres</span>
+                <span style="font-size:11px;color:#7AABEE;">${occ.toLocaleString('es-AR')} ocup · ${free.toLocaleString('es-AR')} libres</span>
               </div>
-              <div style="height:8px;background:#F0F0F0;border-radius:4px;overflow:hidden;">
-                <div style="height:100%;width:${pctRaw}%;background:${barColor};border-radius:4px;transition:width 0.4s;"></div>
+              <div style="height:9px;background:#DCEEFF;border-radius:5px;overflow:hidden;">
+                <div style="height:100%;width:${pctRaw}%;background:${barColor};border-radius:5px;transition:width 0.4s;"></div>
               </div>
             </div>`;
           }).join('')}
