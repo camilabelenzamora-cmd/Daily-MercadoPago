@@ -384,5 +384,34 @@
       "total": 0
     },
     "uploadedAt": "2026-05-01T01:42:30.660Z"
+  },
+  "2026-04-29": {
+    "fecha": "2026-04-29",
+    "site": "MLC",
+    "devoluciones": {
+      "products": {
+        "N950 Maquilado": 2
+      },
+      "total": 2
+    },
+    "inbound": {
+      "suppliers": {
+        "IBM": {
+          "total": 22,
+          "products": {
+            "Smart Refurbish Entel": 21,
+            "Smart Servicio Técnico": 1
+          }
+        },
+        "TRANSFORMAPP": {
+          "total": 19,
+          "products": {
+            "Smart Refurbish Movistar": 19
+          }
+        }
+      },
+      "total": 41
+    },
+    "uploadedAt": "2026-05-01T01:43:48.644Z"
   }
 }
