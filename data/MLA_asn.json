@@ -521,5 +521,56 @@
       "total": 50200
     },
     "uploadedAt": "2026-05-01T02:14:09.736Z"
+  },
+  "2026-04-30": {
+    "fecha": "2026-04-30",
+    "site": "MLA",
+    "devoluciones": {
+      "products": {
+        "Point N951 - Movistar Amarillo": 27,
+        "Point N952 - Claro Amarillo": 26,
+        "POINT N953 - PERSONAL Amarillo": 67,
+        "Point Smart - Pendiente de Reparación": 3888,
+        "Chip - Claro 3G": 2,
+        "Chip - Claro 4G": 13,
+        "Bobinas de Papel": 23
+      },
+      "total": 4046
+    },
+    "inbound": {
+      "suppliers": {
+        "GPC": {
+          "total": 64100,
+          "products": {
+            "RE-PACKEO CREDIT CARDS": 12000,
+            "RE-PACKEO CARDS (BOLSA  NEGRA)": 12000,
+            "Tarjetas Prepagadas": 20100,
+            "Tarjeta de Crédito": 20000
+          }
+        },
+        "PICKIT": {
+          "total": 22680,
+          "products": {
+            "Point Mini": 680,
+            "Tarjetas Prepagadas": 22000
+          }
+        },
+        "MASTERCARD": {
+          "total": 3834,
+          "products": {
+            "Tarjeta de Crédito": 3834
+          }
+        },
+        "ENOFIR": {
+          "total": 640,
+          "products": {
+            "Point N950 Refurbished Sin Maquilar Azul": 96,
+            "Point N950 Amarillo Refurbished Sin Maquilar": 544
+          }
+        }
+      },
+      "total": 91254
+    },
+    "uploadedAt": "2026-05-01T17:44:26.894Z"
   }
 }
