@@ -1335,8 +1335,10 @@
     const peopleCards = REGIONAL_SITES.map(s => {
       const hc = regionalData[s.code]?.headcount || { totals: [], total: null };
       const _hcBase = (hc.totals || []).filter(t => t.desde <= hcRefDate).sort((a,b) => b.desde.localeCompare(a.desde))[0]?.total || hc.total || null;
-      const _hcWd = hc.totals_weekday; const _hcDay = String(new Date(hcRefDate+'T12:00:00').getDay());
-      const total = (_hcWd && _hcBase != null && _hcWd[_hcDay] != null) ? _hcWd[_hcDay] : _hcBase;
+      const _hcWd = hc.totals_weekday;
+      const total = (_hcWd && _hcBase != null && Object.values(_hcWd).length)
+        ? Math.max(_hcBase, ...Object.values(_hcWd).filter(v => v != null))
+        : _hcBase;
       return { flag: s.flag, code: s.code, total };
     }).filter(c => c.total != null);
 
@@ -1405,8 +1407,13 @@
       // Calculate per-site weekly averages
       function getHCTotal(hc, date) {
         const base = (hc.totals||[]).filter(t=>t.desde<=date).sort((a,b)=>b.desde.localeCompare(a.desde))[0]?.total || hc.total || 0;
-        const wd = hc.totals_weekday; const day = String(new Date(date+'T12:00:00').getDay());
-        return (wd && base && wd[day] != null) ? wd[day] : base;
+        const wd = hc.totals_weekday;
+        // In Regional use the max weekday value so sites with variable schedules show peak capacity
+        if (wd && base) {
+          const vals = Object.values(wd).filter(v => v != null);
+          if (vals.length) return Math.max(base, ...vals);
+        }
+        return base;
       }
       function getEventualesTotal(hc, date) {
         const ev = hc.eventuales || [];
