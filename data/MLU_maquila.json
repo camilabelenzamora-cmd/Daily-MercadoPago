@@ -146,5 +146,20 @@
     },
     "total": 230,
     "uploadedAt": "2026-04-25T14:23:12.589074"
+  },
+  "2026-04-23": {
+    "fecha": "2026-04-23",
+    "site": "MLU",
+    "products": {
+      "Point N950 - Claro": 390
+    },
+    "reps": {
+      "Point N950 - Claro": {
+        "ext_gonataly": 240,
+        "ext_esteramo": 150
+      }
+    },
+    "total": 390,
+    "uploadedAt": "2026-05-01T01:50:55.701Z"
   }
 }
