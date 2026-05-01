@@ -1403,14 +1403,12 @@
       }).filter(Boolean);
 
       if (hcStats.length) {
-        const totalHC = hcStats.reduce((s,c)=>s+c.total,0);
-        const totalEv = hcStats.reduce((s,c)=>s+c.eventuales,0);
+        const totalHC = hcStats.reduce((s,c)=>s+c.total+c.eventuales,0);
         const pCard = document.createElement('div');
         pCard.style.cssText = 'background:#fff;border-radius:12px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,0.08);';
-        const evLabel = totalEv > 0 ? `<span style="font-size:12px;font-weight:400;color:#888;margin-left:8px;">+ ${Number(totalEv).toLocaleString('es-AR')} eventuales</span>` : '';
         pCard.innerHTML = `
           <div style="font-size:10px;font-weight:700;color:#888;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">👥 HEADCOUNT <span style="font-weight:400;color:#ccc;">${weekLabel}</span></div>
-          <div style="font-size:26px;font-weight:700;color:#1a1a2e;line-height:1.1;">${Number(totalHC).toLocaleString('es-AR')} <span style="font-size:13px;font-weight:400;color:#aaa;">personas</span>${evLabel}</div>
+          <div style="font-size:26px;font-weight:700;color:#1a1a2e;line-height:1.1;">${Number(totalHC).toLocaleString('es-AR')} <span style="font-size:13px;font-weight:400;color:#aaa;">personas</span></div>
           <div style="margin-top:12px;"><canvas id="chart_hc_inline" height="110"></canvas></div>`;
         gridTop.appendChild(pCard);
         setTimeout(() => {
@@ -1439,12 +1437,12 @@
               plugins: {
                 legend: { display: false },
                 datalabels: {
-                  display: (ctx) => ctx.datasetIndex === 2,
+                  display: (ctx) => ctx.datasetIndex === 3,
                   anchor: 'end', align: 'end',
-                  formatter: (v, ctx) => hcStats[ctx.dataIndex]?.total > 0 ? hcStats[ctx.dataIndex].total : '',
+                  formatter: (v, ctx) => { const s = hcStats[ctx.dataIndex]; return s ? (s.total + s.eventuales) : ''; },
                   font: { weight: '700', size: 11 }, color: '#2c3e50'
                 },
-                tooltip: { callbacks: { label: (ctx) => ctx.datasetIndex===3 ? `% Ausentismo: ${ctx.raw}%` : `${ctx.dataset.label}: ${ctx.raw}` } }
+                tooltip: { callbacks: { label: (ctx) => ctx.datasetIndex===4 ? `% Ausentismo: ${ctx.raw}%` : `${ctx.dataset.label}: ${ctx.raw}` } }
               },
               scales: {
                 x: { stacked:true, ticks:{font:{size:16}}, grid:{display:false}, border:{display:false} },
