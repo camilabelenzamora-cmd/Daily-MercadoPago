@@ -575,5 +575,19 @@
     },
     "total": 1291,
     "uploadedAt": "2026-04-27T02:01:48.065Z"
+  },
+  "2026-04-27": {
+    "fecha": "2026-04-27",
+    "site": "MLM",
+    "products": {
+      "Point Smart N950 Maquilado Telcel amarillo": 340
+    },
+    "reps": {
+      "Point Smart N950 Maquilado Telcel amarillo": {
+        "davbenitez": 340
+      }
+    },
+    "total": 340,
+    "uploadedAt": "2026-05-01T00:55:41.430Z"
   }
 }
