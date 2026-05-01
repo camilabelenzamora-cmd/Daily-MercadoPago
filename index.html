@@ -1966,43 +1966,44 @@
       const circ = 2 * Math.PI * R;
       const dash = circ * totalPctRaw / 100;
       const donutSvg = `<svg width="100" height="100" viewBox="0 0 100 100">
-        <circle cx="${CX}" cy="${CY}" r="${R}" fill="none" stroke="#1A3A54" stroke-width="${stroke}"/>
-        <circle cx="${CX}" cy="${CY}" r="${R}" fill="none" stroke="#FFB142" stroke-width="${stroke}"
+        <circle cx="${CX}" cy="${CY}" r="${R}" fill="none" stroke="#F0F0F0" stroke-width="${stroke}"/>
+        <circle cx="${CX}" cy="${CY}" r="${R}" fill="none" stroke="#3483FA" stroke-width="${stroke}"
           stroke-dasharray="${dash} ${circ}" stroke-dashoffset="${circ/4}" stroke-linecap="round"/>
       </svg>`;
 
-      html += `<div style="background:#0D2A40;border-radius:12px;padding:20px 24px;margin-bottom:16px;display:flex;gap:24px;align-items:stretch;">
-        <div style="display:flex;flex-direction:column;justify-content:center;min-width:200px;">
-          <div style="font-size:10px;font-weight:700;color:#5E8AAA;letter-spacing:1px;text-transform:uppercase;margin-bottom:16px;">Ocupacion RK · Zona Principal</div>
+      html += `<div style="background:#fff;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,0.08);padding:20px 24px;margin-bottom:16px;display:flex;gap:24px;align-items:stretch;">
+        <div style="display:flex;flex-direction:column;justify-content:center;min-width:210px;">
+          <div style="font-size:10px;font-weight:700;color:#aaa;letter-spacing:1px;text-transform:uppercase;margin-bottom:14px;">Ocupacion RK · Zona Principal</div>
           <div style="display:flex;align-items:center;gap:12px;">
             ${donutSvg}
             <div>
-              <div style="font-size:36px;font-weight:800;color:#00C2FF;line-height:1;">${totalPctDisp}%</div>
-              <div style="font-size:12px;color:#5E8AAA;margin-top:6px;line-height:1.6;">
-                ${totalOcc.toLocaleString('es-AR')} ocupadas<br>
-                ${totalFree.toLocaleString('es-AR')} libres<br>
-                <strong style="color:#8EAFCC;">${totalCap.toLocaleString('es-AR')} totales</strong>
+              <div style="font-size:36px;font-weight:800;color:#3483FA;line-height:1;">${totalPctDisp}%</div>
+              <div style="font-size:12px;color:#aaa;margin-top:6px;line-height:1.7;">
+                <span style="color:#333;font-weight:600;">${totalOcc.toLocaleString('es-AR')}</span> ocupadas<br>
+                <span style="color:#333;font-weight:600;">${totalFree.toLocaleString('es-AR')}</span> libres<br>
+                <span style="color:#333;font-weight:600;">${totalCap.toLocaleString('es-AR')}</span> totales
               </div>
             </div>
           </div>
         </div>
-        <div style="width:1px;background:#1A3A54;margin:0 4px;"></div>
+        <div style="width:1px;background:#F0F0F0;margin:0 4px;"></div>
         <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:0;">
-          <div style="font-size:11px;font-weight:700;color:#5E8AAA;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:12px;">Por Calle</div>
+          <div style="font-size:11px;font-weight:700;color:#aaa;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:12px;">Por Calle</div>
           ${stockConfig.calles.map(c => {
             const occ = stockData.calles?.[c.key] || 0;
             const free = c.total - occ;
             const pctRaw = c.total > 0 ? (occ / c.total * 100) : 0;
             const pctDisp = pctRaw.toFixed(1);
             const isTop = occ === maxOcc && occ > 0;
-            const barColor = isTop ? '#FFB142' : '#00C2FF';
+            const barColor = isTop ? '#FFB142' : '#3483FA';
+            const pctColor = pctRaw >= 90 ? '#D32F2F' : isTop ? '#F57C00' : '#3483FA';
             return `<div style="margin-bottom:10px;">
               <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:4px;">
-                <span style="font-size:13px;font-weight:700;color:#fff;">${c.nombre}</span>
-                <span style="font-size:14px;font-weight:700;color:${barColor};">${pctDisp}%</span>
-                <span style="font-size:11px;color:#5E8AAA;">${occ.toLocaleString('es-AR')} ocup · ${free.toLocaleString('es-AR')} libres</span>
+                <span style="font-size:13px;font-weight:700;color:#333;">${c.nombre}</span>
+                <span style="font-size:14px;font-weight:700;color:${pctColor};">${pctDisp}%</span>
+                <span style="font-size:11px;color:#aaa;">${occ.toLocaleString('es-AR')} ocup · ${free.toLocaleString('es-AR')} libres</span>
               </div>
-              <div style="height:8px;background:#1A3A54;border-radius:4px;overflow:hidden;">
+              <div style="height:8px;background:#F0F0F0;border-radius:4px;overflow:hidden;">
                 <div style="height:100%;width:${pctRaw}%;background:${barColor};border-radius:4px;transition:width 0.4s;"></div>
               </div>
             </div>`;
@@ -2023,18 +2024,21 @@
 
         let detailHtml = '';
         if (zd?.detalle && zd.detalle.length > 0) {
-          // Group by ubicacion
           const byUbi = {};
           zd.detalle.forEach(d => {
             if (!byUbi[d.ubicacion]) byUbi[d.ubicacion] = [];
             byUbi[d.ubicacion].push(d);
           });
-          detailHtml = `<table class="zona-detail-table">
-            <thead><tr><th>Ubicacion</th><th>SKU</th><th>Uds</th></tr></thead>
-            <tbody>${Object.entries(byUbi).map(([ubi,items])=>
-              items.map(it=>`<tr><td style="color:#888">${ubi}</td><td><strong>${it.sku}</strong></td><td>${Number(it.unidades).toLocaleString('es-AR')}</td></tr>`).join('')
-            ).join('')}</tbody>
-          </table>`;
+          detailHtml = `<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;">
+            ${Object.entries(byUbi).map(([ubi, items]) => `
+              <div style="background:#F8F9FA;border:1px solid #E5E5E5;border-radius:8px;padding:8px 10px;min-width:140px;">
+                <div style="font-size:10px;font-weight:700;color:#888;margin-bottom:6px;letter-spacing:0.3px;">${ubi}</div>
+                ${items.map(it => `<div style="display:flex;justify-content:space-between;gap:12px;font-size:12px;padding:2px 0;border-bottom:1px solid #EFEFEF;">
+                  <span style="font-weight:700;color:#333;">SKU ${it.sku}</span>
+                  <span style="color:#666;">${Number(it.unidades).toLocaleString('es-AR')}</span>
+                </div>`).join('')}
+              </div>`).join('')}
+          </div>`;
         } else {
           detailHtml = `<div style="font-size:12px;color:#bbb;margin-top:8px;">Sin stock</div>`;
         }
