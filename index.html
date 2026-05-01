@@ -863,9 +863,11 @@
     });
 
     const totVals = cols.map(c => c.dates.reduce((s,d)=>s+(maquilaHistory[d]?.total||0),0));
-    const trTot = document.createElement('tr'); trTot.className='row-maquila-total';
-    trTot.innerHTML = `<td>Total Maquilado</td>` + cols.map((c,i)=>`<td>${fmtM(totVals[i],c.dates)}</td>`).join('') + `<td>${fmtN(totVals.reduce((a,b)=>a+b,0))}</td>`;
-    tbody.appendChild(trTot);
+    if (currentSite !== 'MLC') {
+      const trTot = document.createElement('tr'); trTot.className='row-maquila-total';
+      trTot.innerHTML = `<td>Total Maquilado</td>` + cols.map((c,i)=>`<td>${fmtM(totVals[i],c.dates)}</td>`).join('') + `<td>${fmtN(totVals.reduce((a,b)=>a+b,0))}</td>`;
+      tbody.appendChild(trTot);
+    }
 
     if (currentSite === 'MLC') {
       const isMaqPoint = p => { const n=(p||'').toLowerCase(); return n.startsWith('point')||n.includes('n950')||(n.includes('smart')&&!n.startsWith('funda'))||n.includes('mini'); };
