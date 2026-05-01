@@ -561,5 +561,35 @@
       "total": 60820
     },
     "uploadedAt": "2026-05-01T01:12:55.738Z"
+  },
+  "2026-04-30": {
+    "fecha": "2026-04-30",
+    "site": "MLM",
+    "devoluciones": {
+      "products": {
+        "Bolsa de Seguridad Devolucion": 3,
+        "Smart N950 Devolucion": 111,
+        "Labels Devolucion": 3,
+        "MINI Devolucion": 2,
+        "Rollo Termico Devolución": 35,
+        "Smart Air Devolucion": 4
+      },
+      "total": 158
+    },
+    "inbound": {
+      "suppliers": {
+        "Geodis": {
+          "total": 1537,
+          "products": {
+            "Point Air Amarillo": 399,
+            "Point Air": 400,
+            "Bolsa de Seguridad": 256,
+            "Labels": 482
+          }
+        }
+      },
+      "total": 1537
+    },
+    "uploadedAt": "2026-05-01T19:40:39.332Z"
   }
 }
