@@ -109,6 +109,42 @@
     .row-section td { background: #D6EAF8; font-size: 13px; font-weight: 700; color: #1a3a5c; letter-spacing: 0.3px; text-transform: uppercase; padding: 10px 16px; border-top: 8px solid #F8F9FA; }
     .row-maquila-total td { padding: 11px 16px; font-weight: 700; background: #F5F5F5; color: #333; text-align: right; border-top: 1px solid #E5E5E5; }
     .row-maquila-total td:first-child { text-align: left; }
+
+    /* OCUPACION */
+    .ocup-section { padding: 20px 24px; }
+    .ocup-title { font-size:11px; font-weight:700; color:#888; letter-spacing:1px; text-transform:uppercase; margin-bottom:12px; }
+    .ocup-site-bar { display:flex; gap:6px; margin-bottom:20px; flex-wrap:wrap; }
+    .ocup-site-btn { padding:7px 14px; border:1px solid #E5E5E5; border-radius:6px; background:#fff; cursor:pointer; font-size:13px; font-weight:500; color:#999; font-family:inherit; }
+    .ocup-site-btn.active { background:#3483FA; color:#fff; border-color:#3483FA; font-weight:600; }
+    .ocup-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:20px; }
+    .ocup-card { background:#fff; border-radius:8px; box-shadow:0 1px 4px rgba(0,0,0,0.08); padding:18px; }
+    .ocup-card-title { font-size:12px; font-weight:700; color:#888; letter-spacing:0.5px; text-transform:uppercase; margin-bottom:14px; }
+    .calle-row { margin-bottom:12px; }
+    .calle-label { display:flex; justify-content:space-between; font-size:13px; margin-bottom:4px; }
+    .calle-name { font-weight:600; color:#333; }
+    .calle-count { color:#888; font-size:12px; }
+    .calle-pct { font-weight:700; font-size:13px; }
+    .progress-bar { height:10px; background:#F0F0F0; border-radius:5px; overflow:hidden; }
+    .progress-fill { height:100%; border-radius:5px; transition:width 0.4s; }
+    .fill-green  { background:#00a650; }
+    .fill-yellow { background:#FFB142; }
+    .fill-red    { background:#D32F2F; }
+    .zona-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:20px; }
+    .zona-card { background:#fff; border-radius:8px; box-shadow:0 1px 4px rgba(0,0,0,0.08); padding:16px; }
+    .zona-card-name { font-size:11px; font-weight:700; color:#888; letter-spacing:0.5px; text-transform:uppercase; margin-bottom:6px; }
+    .zona-card-pct { font-size:28px; font-weight:700; color:#1a1a2e; line-height:1; margin-bottom:2px; }
+    .zona-card-sub { font-size:12px; color:#aaa; margin-bottom:10px; }
+    .zona-detail-table { width:100%; border-collapse:collapse; font-size:12px; margin-top:10px; }
+    .zona-detail-table th { text-align:left; padding:4px 6px; color:#888; font-weight:600; border-bottom:1px solid #F0F0F0; }
+    .zona-detail-table td { padding:5px 6px; border-bottom:1px solid #F8F8F8; color:#333; }
+    .zona-detail-table tr:last-child td { border-bottom:none; }
+    .recibido-card { background:#FFF3CD; border:1px solid #FFB142; border-radius:8px; padding:16px; margin-bottom:20px; }
+    .recibido-title { font-size:13px; font-weight:700; color:#856404; margin-bottom:10px; }
+    .recibido-table { width:100%; border-collapse:collapse; font-size:13px; }
+    .recibido-table th { text-align:left; padding:6px 10px; color:#856404; font-weight:600; border-bottom:1px solid #FFCA2C; }
+    .recibido-table td { padding:6px 10px; border-bottom:1px solid #FFF0B0; color:#333; }
+    .ocup-empty { text-align:center; padding:60px; color:#bbb; font-size:14px; }
+    .ocup-ts { font-size:11px; color:#bbb; margin-bottom:16px; }
   </style>
 </head>
 <body>
@@ -132,6 +168,7 @@
   <div class="country-tab" data-site="MLM" onclick="selectSite('MLM')"><img src="https://flagcdn.com/w20/mx.png" style="width:18px;vertical-align:middle;margin-right:5px;border-radius:2px;">MX</div>
   <div class="country-tab" data-site="MLC" onclick="selectSite('MLC')"><img src="https://flagcdn.com/w20/cl.png" style="width:18px;vertical-align:middle;margin-right:5px;border-radius:2px;">CL</div>
   <div class="country-tab" data-site="MLU" onclick="selectSite('MLU')"><img src="https://flagcdn.com/w20/uy.png" style="width:18px;vertical-align:middle;margin-right:5px;border-radius:2px;">UY</div>
+  <div class="country-tab" data-site="OCUPACION" onclick="selectOcupacion()">📦 Ocupación</div>
   <button class="upload-btn" onclick="openHeadcountModal()">👥 Headcount</button>
   <button class="upload-btn" onclick="openUploadModal()" style="margin-left:16px;">⬆️ Actualizar</button>
 </div>
@@ -178,6 +215,14 @@
   </div>
 </div>
 
+</div>
+
+<!-- OCUPACION SECTION -->
+<div id="ocupacionSection" style="display:none;">
+  <div class="ocup-section">
+    <div class="ocup-site-bar" id="ocupSiteBar"></div>
+    <div id="ocupContent"></div>
+  </div>
 </div>
 
 <!-- MODAL UPLOAD -->
@@ -623,9 +668,10 @@
   async function selectSite(site) {
     currentSite = site;
     isRegional = false;
-    isWeeklyReview = false;
+    isWeeklyReview = false; isOcupacion = false;
     document.getElementById('regionalCharts').style.display = 'none';
     document.getElementById('weeklyReviewSection').style.display = 'none';
+    document.getElementById('ocupacionSection').style.display = 'none';
     document.getElementById('regionalPeopleChart').style.display = 'none';
     expandedProducts.clear();
     expandedMaquilaProds.clear();
@@ -1260,9 +1306,10 @@
 
   async function selectRegional() {
     isRegional = true;
-    isWeeklyReview = false;
+    isWeeklyReview = false; isOcupacion = false;
     regionalCursor = null;
     document.getElementById('weeklyReviewSection').style.display = 'none';
+    document.getElementById('ocupacionSection').style.display = 'none';
     document.querySelectorAll('.country-tab').forEach(t => t.classList.remove('active'));
     document.querySelector('[data-site="REGIONAL"]').classList.add('active');
     document.getElementById('weekSelector').style.display = 'none';
@@ -1717,6 +1764,7 @@
     document.querySelectorAll('.country-tab').forEach(t => t.classList.remove('active'));
     document.querySelector('[data-site="WEEKLY"]').classList.add('active');
     document.getElementById('regionalCharts').style.display = 'none';
+    document.getElementById('ocupacionSection').style.display = 'none';
     document.getElementById('weeklyReviewSection').style.display = 'block';
     document.getElementById('mainTable').style.display = 'none';
     document.getElementById('emptyState').style.display = 'none';
@@ -1830,6 +1878,149 @@
   }
 
   document.getElementById('weeklyEditModal').addEventListener('click', e => { if(e.target===e.currentTarget) closeWeeklyEditModal(); });
+
+  // ── OCUPACION ─────────────────────────────────────────
+  let isOcupacion = false;
+  let ocupSite = 'MLA';
+  let stockData = null;
+  let stockConfig = null;
+
+  const OCUP_SITES = [
+    { code:'MLA', flag:'🇦🇷', label:'AR' },
+    { code:'MLB', flag:'🇧🇷', label:'BR' },
+    { code:'MLM', flag:'🇲🇽', label:'MX' },
+    { code:'MLC', flag:'🇨🇱', label:'CL' },
+    { code:'MLU', flag:'🇺🇾', label:'UY' }
+  ];
+
+  function selectOcupacion() {
+    isOcupacion = true; isRegional = false; isWeeklyReview = false;
+    document.querySelectorAll('.country-tab').forEach(t => t.classList.remove('active'));
+    document.querySelector('[data-site="OCUPACION"]').classList.add('active');
+    document.getElementById('content') && (document.getElementById('content').style.display = 'none');
+    document.querySelector('.content') && (document.querySelector('.content').style.display = 'none');
+    document.getElementById('weeklyReviewSection').style.display = 'none';
+    document.getElementById('ocupacionSection').style.display = 'block';
+    renderOcupSiteBar();
+    loadAndRenderOcupacion(ocupSite);
+  }
+
+  function renderOcupSiteBar() {
+    const bar = document.getElementById('ocupSiteBar');
+    bar.innerHTML = OCUP_SITES.map(s =>
+      `<button class="ocup-site-btn ${s.code===ocupSite?'active':''}" onclick="switchOcupSite('${s.code}')">${s.flag} ${s.label}</button>`
+    ).join('');
+  }
+
+  function switchOcupSite(code) {
+    ocupSite = code;
+    renderOcupSiteBar();
+    loadAndRenderOcupacion(code);
+  }
+
+  async function loadAndRenderOcupacion(site) {
+    document.getElementById('ocupContent').innerHTML = '<div class="ocup-empty">Cargando...</div>';
+    const [sd, sc] = await Promise.all([
+      loadRaw(`data/${site}_stock.json`),
+      loadRaw(`data/${site}_stock_config.json`)
+    ]);
+    stockData = sd && sd.uploadedAt ? sd : null;
+    stockConfig = sc && sc.calles ? sc : null;
+    renderOcupacion();
+  }
+
+  function renderOcupacion() {
+    const el = document.getElementById('ocupContent');
+    if (!stockData) {
+      el.innerHTML = '<div class="ocup-empty">Sin datos de stock para este site.<br>Procesá el archivo wmscaja con el script procesar.py.</div>';
+      return;
+    }
+
+    const d = new Date(stockData.uploadedAt);
+    const ts = `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+
+    let html = `<div class="ocup-ts">Ultima actualizacion: ${ts}</div>`;
+
+    // ── RECIBIDO ALERT ──
+    if (stockData.recibido && stockData.recibido.length > 0) {
+      html += `<div class="recibido-card">
+        <div class="recibido-title">⚠️ Stock en estado RECIBIDO (${stockData.recibido.length} item${stockData.recibido.length>1?'s':''})</div>
+        <table class="recibido-table">
+          <thead><tr><th>Ubicacion</th><th>SKU</th><th>Unidades</th></tr></thead>
+          <tbody>${stockData.recibido.map(r=>`<tr><td>${r.ubicacion}</td><td><strong>${r.sku}</strong></td><td>${Number(r.unidades).toLocaleString('es-AR')}</td></tr>`).join('')}</tbody>
+        </table>
+      </div>`;
+    }
+
+    // ── CALLES RK ──
+    if (stockConfig && stockConfig.calles && stockConfig.calles.length) {
+      html += `<div class="ocup-card" style="margin-bottom:16px;">
+        <div class="ocup-card-title">Almacenamiento — Calles RK</div>`;
+      stockConfig.calles.forEach(c => {
+        const occ = stockData.calles?.[c.key] || 0;
+        const pct = c.total > 0 ? Math.round(occ / c.total * 100) : 0;
+        const fillClass = pct >= 90 ? 'fill-red' : pct >= 70 ? 'fill-yellow' : 'fill-green';
+        html += `<div class="calle-row">
+          <div class="calle-label">
+            <span class="calle-name">${c.nombre}</span>
+            <span><span class="calle-count">${occ} / ${c.total} pos.</span>&nbsp;&nbsp;<span class="calle-pct" style="color:${pct>=90?'#D32F2F':pct>=70?'#F57C00':'#00a650'}">${pct}%</span></span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill ${fillClass}" style="width:${pct}%"></div></div>
+        </div>`;
+      });
+      html += `</div>`;
+    }
+
+    // ── ZONAS OPERATIVAS ──
+    if (stockConfig && stockConfig.zonas) {
+      html += `<div class="ocup-card-title">Zonas Operativas</div><div class="zona-cards">`;
+      Object.entries(stockConfig.zonas).forEach(([key, cfg]) => {
+        const zd = stockData.zonas?.[key];
+        const occ = zd?.ocupadas || 0;
+        const pct = cfg.total > 0 ? Math.round(occ / cfg.total * 100) : 0;
+        const fillClass = pct >= 90 ? 'fill-red' : pct >= 70 ? 'fill-yellow' : 'fill-green';
+        const pctColor = pct >= 90 ? '#D32F2F' : pct >= 70 ? '#F57C00' : '#00a650';
+
+        let detailHtml = '';
+        if (zd?.detalle && zd.detalle.length > 0) {
+          // Group by ubicacion
+          const byUbi = {};
+          zd.detalle.forEach(d => {
+            if (!byUbi[d.ubicacion]) byUbi[d.ubicacion] = [];
+            byUbi[d.ubicacion].push(d);
+          });
+          detailHtml = `<table class="zona-detail-table">
+            <thead><tr><th>Ubicacion</th><th>SKU</th><th>Uds</th></tr></thead>
+            <tbody>${Object.entries(byUbi).map(([ubi,items])=>
+              items.map((it,i)=>`<tr><td>${i===0?ubi:''}</td><td>${it.sku}</td><td>${Number(it.unidades).toLocaleString('es-AR')}</td></tr>`).join('')
+            ).join('')}</tbody>
+          </table>`;
+        } else {
+          detailHtml = `<div style="font-size:12px;color:#bbb;margin-top:8px;">Sin stock</div>`;
+        }
+
+        html += `<div class="zona-card">
+          <div class="zona-card-name">${cfg.nombre}</div>
+          <div class="zona-card-pct" style="color:${pctColor}">${pct}%</div>
+          <div class="zona-card-sub">${occ} / ${cfg.total} posiciones</div>
+          <div class="progress-bar"><div class="progress-fill ${fillClass}" style="width:${pct}%"></div></div>
+          ${detailHtml}
+        </div>`;
+      });
+      html += `</div>`;
+    }
+
+    el.innerHTML = html;
+  }
+
+  // Hide ocupacion when switching to another tab
+  const _origSelectSite = selectSite;
+  selectSite = async function(site) {
+    isOcupacion = false;
+    document.getElementById('ocupacionSection').style.display = 'none';
+    document.querySelector('.content').style.display = 'block';
+    await _origSelectSite(site);
+  };
 
   // ── INIT ──────────────────────────────────────────────
   updateTokenStatus();

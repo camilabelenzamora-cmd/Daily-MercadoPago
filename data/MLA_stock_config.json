@@ -1,0 +1,13 @@
+{
+  "calles": [
+    { "key": "01", "nombre": "Calle 1", "total": 191 },
+    { "key": "02", "nombre": "Calle 2", "total": 280 },
+    { "key": "03", "nombre": "Calle 3", "total": 280 },
+    { "key": "04", "nombre": "Calle 4", "total": 280 }
+  ],
+  "zonas": {
+    "PK":  { "nombre": "Picking",             "total": 15 },
+    "MI":  { "nombre": "Maquila",              "total": 56 },
+    "PKB": { "nombre": "Bancada de Packing",   "total": 13 }
+  }
+}

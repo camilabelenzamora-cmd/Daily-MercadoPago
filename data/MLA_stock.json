@@ -1,0 +1,218 @@
+{
+  "site": "MLA",
+  "uploadedAt": "2026-05-01T22:44:56.230120+00:00",
+  "calles": {
+    "01": 87,
+    "04": 52,
+    "02": 148
+  },
+  "zonas": {
+    "PK": {
+      "ocupadas": 12,
+      "detalle": [
+        {
+          "ubicacion": "PK-00-01-00-00-01",
+          "sku": "951A",
+          "unidades": 361
+        },
+        {
+          "ubicacion": "PK-00-01-00-00-02",
+          "sku": "953A",
+          "unidades": 413
+        },
+        {
+          "ubicacion": "PK-00-01-00-00-03",
+          "sku": "952A",
+          "unidades": 243
+        },
+        {
+          "ubicacion": "PK-00-01-00-00-05",
+          "sku": "18",
+          "unidades": 4591
+        },
+        {
+          "ubicacion": "PK-00-01-00-00-06",
+          "sku": "209",
+          "unidades": 10460
+        },
+        {
+          "ubicacion": "PK-00-01-00-00-07",
+          "sku": "140",
+          "unidades": 63
+        },
+        {
+          "ubicacion": "PK-00-01-00-00-07",
+          "sku": "2",
+          "unidades": 132
+        },
+        {
+          "ubicacion": "PK-00-01-00-00-07",
+          "sku": "48",
+          "unidades": 525
+        },
+        {
+          "ubicacion": "PK-00-01-00-00-07",
+          "sku": "60",
+          "unidades": 1256
+        },
+        {
+          "ubicacion": "PK-00-01-00-00-07",
+          "sku": "71",
+          "unidades": 435
+        },
+        {
+          "ubicacion": "PK-00-01-00-00-07",
+          "sku": "80",
+          "unidades": 466
+        },
+        {
+          "ubicacion": "PK-00-01-00-00-07",
+          "sku": "91",
+          "unidades": 66
+        },
+        {
+          "ubicacion": "PK-00-01-00-00-07",
+          "sku": "92",
+          "unidades": 21
+        },
+        {
+          "ubicacion": "PK-00-01-00-00-08",
+          "sku": "953A",
+          "unidades": 368
+        },
+        {
+          "ubicacion": "PK-00-01-00-00-09",
+          "sku": "951A",
+          "unidades": 29
+        },
+        {
+          "ubicacion": "PK-00-01-00-00-10",
+          "sku": "134",
+          "unidades": 79369
+        },
+        {
+          "ubicacion": "PK-00-01-00-00-12",
+          "sku": "33",
+          "unidades": 92
+        },
+        {
+          "ubicacion": "PK-00-01-00-00-12",
+          "sku": "60",
+          "unidades": 1410
+        },
+        {
+          "ubicacion": "PK-00-01-00-00-12",
+          "sku": "80",
+          "unidades": 264
+        },
+        {
+          "ubicacion": "PK-00-01-00-00-13",
+          "sku": "953A",
+          "unidades": 710
+        },
+        {
+          "ubicacion": "PK-00-01-00-00-14",
+          "sku": "951A",
+          "unidades": 394
+        }
+      ]
+    },
+    "BUF": {
+      "ocupadas": 3,
+      "detalle": [
+        {
+          "ubicacion": "BUF-GER-01-00-00-01",
+          "sku": "951A",
+          "unidades": 1
+        },
+        {
+          "ubicacion": "BUF-GER-01-00-00-01",
+          "sku": "953A",
+          "unidades": 1
+        },
+        {
+          "ubicacion": "BUF-GER-01-00-00-02",
+          "sku": "04",
+          "unidades": 2514
+        },
+        {
+          "ubicacion": "BUF-GER-01-00-00-02",
+          "sku": "142",
+          "unidades": 28404
+        },
+        {
+          "ubicacion": "BUF-GER-01-00-00-02",
+          "sku": "143",
+          "unidades": 10013
+        },
+        {
+          "ubicacion": "BUF-GER-01-00-00-02",
+          "sku": "2",
+          "unidades": 1
+        },
+        {
+          "ubicacion": "BUF-GER-01-00-00-02",
+          "sku": "28",
+          "unidades": 9283
+        },
+        {
+          "ubicacion": "BUF-GER-01-00-00-02",
+          "sku": "48",
+          "unidades": 30874
+        },
+        {
+          "ubicacion": "BUF-GER-01-00-00-03",
+          "sku": "32",
+          "unidades": 4
+        }
+      ]
+    },
+    "MI": {
+      "ocupadas": 3,
+      "detalle": [
+        {
+          "ubicacion": "MI-0-01-00-00-03",
+          "sku": "952A",
+          "unidades": 396
+        },
+        {
+          "ubicacion": "MI-0-01-00-00-05",
+          "sku": "951A",
+          "unidades": 85
+        },
+        {
+          "ubicacion": "MI-0-01-00-00-06",
+          "sku": "951A",
+          "unidades": 150
+        }
+      ]
+    },
+    "PKB": {
+      "ocupadas": 3,
+      "detalle": [
+        {
+          "ubicacion": "PKB-00-01-00-00-08",
+          "sku": "953A",
+          "unidades": 120
+        },
+        {
+          "ubicacion": "PKB-00-01-00-00-09",
+          "sku": "951A",
+          "unidades": 10
+        },
+        {
+          "ubicacion": "PKB-00-01-00-00-10",
+          "sku": "953A",
+          "unidades": 1
+        }
+      ]
+    }
+  },
+  "recibido": [
+    {
+      "ubicacion": "DK-0-002-000-00-00",
+      "sku": "80",
+      "unidades": 680
+    }
+  ]
+}

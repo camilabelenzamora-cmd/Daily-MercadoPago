@@ -36,7 +36,8 @@ def detect_site_from_value(val):
     if 'URUGUAY' in v: return 'MLU'
     return None
 
-def is_maquila(name): n = name.lower(); return 'maquila' in n or 'caja' in n
+def is_stock(name): n = name.lower(); return 'wmscaja' in n and 'hist' not in n
+def is_maquila(name): n = name.lower(); return ('maquila' in n or 'caja' in n) and not is_stock(n)
 def is_asn(name): n = name.lower(); return 'asn' in n or 'detalhe asn' in n
 def is_despachos(name): n = name.lower(); return 'detalleos' in n or 'detalleorden' in n or 'ordemdesalida' in n or 'histlpndestino' in n.replace(' ', '')
 
@@ -219,6 +220,80 @@ def process_asn(rows):
         })
     return results, site
 
+def process_stock(rows):
+    EXCLUDE_ZONES = {'VR', 'STG'}
+    site_val = next((r.get('DESCRIPCION SITIO','') for r in rows if r.get('DESCRIPCION SITIO','')), '')
+    site = detect_site_from_value(site_val)
+
+    def get_zone(ubi): return (ubi or '').split('-')[0].upper()
+    def get_calle_key(ubi):
+        parts = (ubi or '').split('-')
+        return parts[2] if len(parts) >= 3 else None
+
+    # Filter: only UBICADO or RECIBIDO, exclude virtual/staging zones
+    valid = [r for r in rows if r.get('ESTADO','') in ('UBICADO','RECIBIDO')
+             and get_zone(r.get('UBICACION','')) not in EXCLUDE_ZONES
+             and r.get('UBICACION','')]
+
+    def safe_int(v):
+        try: return int(float(v)) if v not in (None,'','NaN') else 0
+        except: return 0
+
+    # Calles RK: count unique positions per calle key
+    rk_rows = [r for r in valid if get_zone(r.get('UBICACION','')) == 'RK'
+               and r.get('ESTADO','') == 'UBICADO']
+    calle_positions = {}
+    for r in rk_rows:
+        key = get_calle_key(r['UBICACION'])
+        if key: calle_positions.setdefault(key, set()).add(r['UBICACION'])
+    calles = {k: len(v) for k, v in calle_positions.items()}
+
+    # Zones: count unique positions and build detail for PK/MI/PKB/BUF/DK
+    DETAIL_ZONES = {'PK', 'MI', 'PKB', 'BUF', 'DK'}
+    zonas = {}
+    zone_rows = [r for r in valid if r.get('ESTADO','') == 'UBICADO']
+    zone_positions = {}
+    zone_detail = {}
+    for r in zone_rows:
+        z = get_zone(r['UBICACION'])
+        if z == 'RK': continue
+        zone_positions.setdefault(z, set()).add(r['UBICACION'])
+        if z in DETAIL_ZONES:
+            ubi = r['UBICACION']
+            sku = r.get('PRODUCTO','').strip()
+            uds = safe_int(r.get('UNID. DISP.', 0))
+            key = (ubi, sku)
+            zone_detail.setdefault(z, {})
+            zone_detail[z][key] = zone_detail[z].get(key, 0) + uds
+
+    for z, positions in zone_positions.items():
+        detalle = []
+        if z in DETAIL_ZONES:
+            for (ubi, sku), uds in sorted(zone_detail.get(z,{}).items()):
+                if sku: detalle.append({'ubicacion': ubi, 'sku': sku, 'unidades': uds})
+        zonas[z] = {'ocupadas': len(positions), 'detalle': detalle}
+
+    # Recibido: stock in RECIBIDO state
+    recibido_agg = {}
+    for r in valid:
+        if r.get('ESTADO','') == 'RECIBIDO':
+            ubi = r.get('UBICACION','')
+            sku = r.get('PRODUCTO','').strip()
+            uds = safe_int(r.get('UNID. DISP.', 0))
+            key = (ubi, sku)
+            recibido_agg[key] = recibido_agg.get(key, 0) + uds
+    recibido = [{'ubicacion': k[0], 'sku': k[1], 'unidades': v}
+                for k, v in sorted(recibido_agg.items())]
+
+    return {
+        'site': site,
+        'uploadedAt': datetime.now(timezone.utc).isoformat(),
+        'calles': calles,
+        'zonas': zonas,
+        'recibido': recibido
+    }
+
+
 def main():
     if len(sys.argv) < 2:
         print("Uso: python procesar.py <ruta_al_archivo>")
@@ -237,7 +312,17 @@ def main():
 
     site_from_name = detect_site_from_filename(name)
 
-    if is_maquila(name):
+    if is_stock(name):
+        result = process_stock(rows)
+        site = result.get('site') or site_from_name
+        if not site: print("ERROR No se pudo detectar el pais"); sys.exit(1)
+        json_path = DATA / f"{site}_stock.json"
+        save_json(json_path, result)
+        total_pos = sum(result['calles'].values())
+        total_rec = len(result['recibido'])
+        print(f"OK Stock {site} | {total_pos} pos. ocupadas en calles | {len(result['zonas'])} zonas | {total_rec} item(s) RECIBIDO -> {json_path.name}")
+
+    elif is_maquila(name):
         entries, site = process_maquila(rows)
         site = site or site_from_name
         if not site: print("ERROR No se pudo detectar el país"); sys.exit(1)
