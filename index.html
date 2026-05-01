@@ -1429,9 +1429,15 @@
         const totalHC = hcStats.reduce((s,c)=>s+c.total+c.eventuales,0);
         const pCard = document.createElement('div');
         pCard.style.cssText = 'background:#fff;border-radius:12px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,0.08);';
+        const hasAnyEv = hcStats.some(c => c.eventuales > 0);
+        const legendHtml = hasAnyEv ? `<div style="display:flex;gap:12px;margin-top:8px;">
+          <span style="display:flex;align-items:center;gap:4px;font-size:11px;color:#666;"><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#009EE3;"></span>Meli</span>
+          <span style="display:flex;align-items:center;gap:4px;font-size:11px;color:#666;"><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#00C2A0;"></span>Eventuales</span>
+        </div>` : '';
         pCard.innerHTML = `
           <div style="font-size:10px;font-weight:700;color:#888;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">👥 HEADCOUNT <span style="font-weight:400;color:#ccc;">${weekLabel}</span></div>
           <div style="font-size:26px;font-weight:700;color:#1a1a2e;line-height:1.1;">${Number(totalHC).toLocaleString('es-AR')} <span style="font-size:13px;font-weight:400;color:#aaa;">personas</span></div>
+          ${legendHtml}
           <div style="margin-top:12px;"><canvas id="chart_hc_inline" height="110"></canvas></div>`;
         gridTop.appendChild(pCard);
         setTimeout(() => {
