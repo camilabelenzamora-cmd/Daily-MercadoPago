@@ -3,14 +3,56 @@
     "fecha": "2026-04-24",
     "site": "MLB",
     "devoluciones": {
-      "products": {},
-      "total": 0
+      "products": {
+        "Point Mini Chip": 100,
+        "Point Mini NFC 2": 100,
+        "Point Air 2": 100,
+        "Point Smart 2": 72,
+        "Point Pro 3": 126,
+        "Point Smart": 84,
+        "Point Air": 100,
+        "Point Pro 2": 240
+      },
+      "total": 922
     },
     "inbound": {
-      "suppliers": {},
-      "total": 0
+      "suppliers": {
+        "TEC TOY S/A": {
+          "total": 11160,
+          "products": {
+            "Point Mini NFC 2": 5400,
+            "Point Pro 3": 5760
+          }
+        },
+        "CAL-COMP INDUSTRIA E COMERCIO DE ELETRONICOS E INFORMATICA": {
+          "total": 8588,
+          "products": {
+            "Point Smart 2": 8588
+          }
+        },
+        "TRANSIRE FABRICACAO DE COMPONENTES ELETRONICOS LTDA": {
+          "total": 3728,
+          "products": {
+            "Point Smart": 2221,
+            "Point Pro 3": 1507
+          }
+        },
+        "CYBERMAX COMPUTADORES LTDA": {
+          "total": 1435,
+          "products": {
+            "Point Air": 1435
+          }
+        },
+        "GERTEC BRASIL LTDA": {
+          "total": 103,
+          "products": {
+            "Point Pro 2": 103
+          }
+        }
+      },
+      "total": 25014
     },
-    "uploadedAt": "2026-04-24T21:53:17.965Z"
+    "uploadedAt": "2026-05-01T20:11:03.947Z"
   },
   "2026-04-01": {
     "fecha": "2026-04-01",
@@ -663,5 +705,193 @@
       "total": 0
     },
     "uploadedAt": "2026-04-24T21:57:29.571Z"
+  },
+  "2026-04-28": {
+    "fecha": "2026-04-28",
+    "site": "MLB",
+    "devoluciones": {
+      "products": {
+        "Chip Claro Nano 4FF": 100
+      },
+      "total": 100
+    },
+    "inbound": {
+      "suppliers": {
+        "TELEFONICA BRASIL S/A": {
+          "total": 70500,
+          "products": {
+            "Chip Vivo 2FF": 70500
+          }
+        },
+        "MERCADO PAGO": {
+          "total": 54500,
+          "products": {
+            "CARTAO MP": 52500,
+            "KIT ADESIVO MELI PLACES": 2000
+          }
+        },
+        "AUTOPEL AUTOMACAO COMERCIAL E INFORMATICA LTDA": {
+          "total": 28480,
+          "products": {
+            "Bobinas de papel": 28480
+          }
+        },
+        "TEC TOY S/A": {
+          "total": 2880,
+          "products": {
+            "Point Pro 3": 2880
+          }
+        },
+        "TRANSIRE FABRICACAO DE COMPONENTES ELETRONICOS LTDA": {
+          "total": 1378,
+          "products": {
+            "Point Smart": 782,
+            "Point Pro 3": 596
+          }
+        }
+      },
+      "total": 157738
+    },
+    "uploadedAt": "2026-05-01T20:11:03.936Z"
+  },
+  "2026-04-25": {
+    "fecha": "2026-04-25",
+    "site": "MLB",
+    "devoluciones": {
+      "products": {
+        "Point Pro 3": 126,
+        "Point Smart": 126,
+        "Point Smart 2": 108,
+        "Point Pro 2": 48
+      },
+      "total": 408
+    },
+    "inbound": {
+      "suppliers": {
+        "WORLD POST INDUSTRIA COMERCIO E SERVICOS LT": {
+          "total": 325000,
+          "products": {
+            "FLYER_PP": 325000
+          }
+        },
+        "MERCADO PAGO": {
+          "total": 82000,
+          "products": {
+            "CARTAO MP": 82000
+          }
+        },
+        "OGEA SERVICOS LTDA": {
+          "total": 437,
+          "products": {
+            "Point Smart 2": 437
+          }
+        },
+        "CYBERMAX COMPUTADORES LTDA": {
+          "total": 157,
+          "products": {
+            "Point Air": 157
+          }
+        }
+      },
+      "total": 407594
+    },
+    "uploadedAt": "2026-05-01T20:11:03.947Z"
+  },
+  "2026-04-27": {
+    "fecha": "2026-04-27",
+    "site": "MLB",
+    "devoluciones": {
+      "products": {
+        "Point Smart": 362,
+        "Point Mini NFC 1": 478,
+        "Bobinas de papel": 152,
+        "Point Mini NFC 2": 2555,
+        "CARTAO MP": 674,
+        "Point Mini ME30NFC": 87,
+        "Point Pro 2": 818,
+        "Kit Código QR e Pix - Grátis": 5290,
+        "CAIXA PRO10": 520,
+        "CAIXA PRO20": 120,
+        "CAIXA MINI 45": 960,
+        "CAIXA MINI 15": 675,
+        "CAIXA MINI10": 1050,
+        "FLYER_G": 270,
+        "FLYER_P": 10500,
+        "FLYER_M": 1500,
+        "Point Air 2": 100,
+        "Point Smart 2": 252,
+        "Point Pro 3": 252
+      },
+      "total": 26615
+    },
+    "inbound": {
+      "suppliers": {
+        "TEC TOY S/A": {
+          "total": 5760,
+          "products": {
+            "Point Pro 3": 5760
+          }
+        },
+        "MERCADO PAGO": {
+          "total": 1623,
+          "products": {
+            "Bobinas de papel": 1623
+          }
+        },
+        "OGEA SERVICOS LTDA": {
+          "total": 1495,
+          "products": {
+            "Point Smart 2": 1495
+          }
+        }
+      },
+      "total": 8878
+    },
+    "uploadedAt": "2026-05-01T20:11:03.950Z"
+  },
+  "2026-04-29": {
+    "fecha": "2026-04-29",
+    "site": "MLB",
+    "devoluciones": {
+      "products": {
+        "Point Mini": 4,
+        "Point Pro 2": 23,
+        "Point Pro 3": 76,
+        "Point Smart 2": 37,
+        "Point Air 2": 34,
+        "Point Smart": 17,
+        "Point Air": 14,
+        "Point Mini NFC 2": 214,
+        "Point Mini Chip": 1,
+        "CAIXA MINI 20": 2850,
+        "KIT 1 POINT 1 QR": 2100
+      },
+      "total": 5370
+    },
+    "inbound": {
+      "suppliers": {
+        "MERCADO PAGO": {
+          "total": 80000,
+          "products": {
+            "CARTAO MP": 80000
+          }
+        },
+        "CLARO S.A": {
+          "total": 13000,
+          "products": {
+            "Chip Claro Nano 4FF": 3000,
+            "Chip Claro": 10000
+          }
+        },
+        "TELEFONICA BRASIL S/A": {
+          "total": 4500,
+          "products": {
+            "Chip Vivo 2FF": 4500
+          }
+        }
+      },
+      "total": 97500
+    },
+    "uploadedAt": "2026-05-01T20:11:03.950Z"
   }
 }
