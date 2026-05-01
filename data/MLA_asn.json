@@ -484,5 +484,42 @@
       "total": 109760
     },
     "uploadedAt": "2026-05-01T02:13:02.622Z"
+  },
+  "2026-04-29": {
+    "fecha": "2026-04-29",
+    "site": "MLA",
+    "devoluciones": {
+      "products": {
+        "Point N950 - Pendiente de Reparación": 400,
+        "Bobinas de Papel": 400
+      },
+      "total": 800
+    },
+    "inbound": {
+      "suppliers": {
+        "GPC": {
+          "total": 40100,
+          "products": {
+            "Tarjeta de Crédito": 20000,
+            "Tarjetas Prepagadas": 20100
+          }
+        },
+        "TRAMA": {
+          "total": 10000,
+          "products": {
+            "Kit QR": 10000
+          }
+        },
+        "MASTERCARD": {
+          "total": 100,
+          "products": {
+            "Camiseta Adidas Selección Argentina": 50,
+            "Pelota Adidas Copa Mundial FIFA 26": 50
+          }
+        }
+      },
+      "total": 50200
+    },
+    "uploadedAt": "2026-05-01T02:14:09.736Z"
   }
 }
