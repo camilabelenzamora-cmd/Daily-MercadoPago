@@ -1474,11 +1474,12 @@
         if (!total) return null;
         const eventuales = getEventualesTotal(hc, hcRefDate);
         const daysWithData = dates.filter(d => hc.days[d]);
-        if (!daysWithData.length) return { flag:s.flag, total, eventuales, presentes:total, gest:0, noGest:0, pct:0 };
+        const color = SITE_COLORS[s.code] || '#009EE3';
+        if (!daysWithData.length) return { flag:s.flag, color, total, eventuales, presentes:total, gest:0, noGest:0, pct:0 };
         const avgGest = daysWithData.reduce((s,d)=>s+(hc.days[d]?.ausentes_gestionables||0),0)/daysWithData.length;
         const avgNoGest = daysWithData.reduce((s,d)=>s+(hc.days[d]?.ausentes_no_gestionables||0),0)/daysWithData.length;
         const avgAus = avgGest + avgNoGest;
-        return { flag:s.flag, total, eventuales, presentes:Math.max(0,total-avgAus), gest:avgGest, noGest:avgNoGest, pct:total>0?avgAus/total*100:0 };
+        return { flag:s.flag, color, total, eventuales, presentes:Math.max(0,total-avgAus), gest:avgGest, noGest:avgNoGest, pct:total>0?avgAus/total*100:0 };
       }).filter(Boolean);
 
       if (hcStats.length) {
@@ -1505,9 +1506,9 @@
             data: {
               labels: hcStats.map(c => c.flag),
               datasets: [
-                { label:'Presentes', data: hcStats.map(c=>Math.round(c.presentes)), backgroundColor:'#009EE3', stack:'hc',
+                { label:'Presentes', data: hcStats.map(c=>Math.round(c.presentes)), backgroundColor: hcStats.map(c=>c.color), stack:'hc',
                   borderRadius: hcStats.map(c=>({topLeft:c.gest<=0&&c.noGest<=0&&c.eventuales<=0?6:0, topRight:c.gest<=0&&c.noGest<=0&&c.eventuales<=0?6:0, bottomLeft:6, bottomRight:6})), borderSkipped:false },
-                { label:'Eventuales', data: hcStats.map(c=>c.eventuales||0), backgroundColor:'#00C2A0', stack:'hc',
+                { label:'Eventuales', data: hcStats.map(c=>c.eventuales||0), backgroundColor: hcStats.map(c=>c.color+'99'), stack:'hc',
                   borderRadius: hcStats.map(c=>({topLeft:c.gest<=0&&c.noGest<=0?6:0, topRight:c.gest<=0&&c.noGest<=0?6:0, bottomLeft:0, bottomRight:0})), borderSkipped:false },
                 { label:'Aus. Gestionables', data: hcStats.map(c=>parseFloat(c.gest.toFixed(1))), backgroundColor:'#FFB142', stack:'hc',
                   borderRadius: hcStats.map(c=>({topLeft:c.noGest<=0?6:0, topRight:c.noGest<=0?6:0, bottomLeft:0, bottomRight:0})), borderSkipped:false },
