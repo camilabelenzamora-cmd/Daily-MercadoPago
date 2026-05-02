@@ -1561,7 +1561,7 @@
           type: 'bar',
           data: {
             labels: flags,
-            datasets: [{ data: vals, backgroundColor: prod === 'Cards' ? siteColors : barColors, borderRadius: 6, borderSkipped: false }]
+            datasets: [{ data: vals, backgroundColor: siteColors, borderRadius: 6, borderSkipped: false }]
           },
           options: {
             responsive: true,
@@ -1613,7 +1613,7 @@
       if (regionalCharts['maq_point']) regionalCharts['maq_point'].destroy();
       regionalCharts['maq_point'] = new Chart(ctx, {
         type: 'bar',
-        data: { labels: flags, datasets: [{ data: maqPointVals, backgroundColor: barColors, borderRadius: 6, borderSkipped: false }] },
+        data: { labels: flags, datasets: [{ data: maqPointVals, backgroundColor: siteColors, borderRadius: 6, borderSkipped: false }] },
         options: {
           responsive: true,
           layout: { padding: { top: 36 } },
@@ -1666,7 +1666,7 @@
         if (regionalCharts['dev_'+group]) regionalCharts['dev_'+group].destroy();
         regionalCharts['dev_'+group] = new Chart(ctx, {
           type: 'bar',
-          data: { labels: flags, datasets: [{ data: vals, backgroundColor: barColors, borderRadius: 6, borderSkipped: false }] },
+          data: { labels: flags, datasets: [{ data: vals, backgroundColor: siteColors, borderRadius: 6, borderSkipped: false }] },
           options: {
             responsive: true,
             layout: { padding: { top: 24 } },
@@ -1722,7 +1722,7 @@
         if (regionalCharts['inb_'+group]) regionalCharts['inb_'+group].destroy();
         regionalCharts['inb_'+group] = new Chart(ctx, {
           type: 'bar',
-          data: { labels: flags, datasets: [{ data: vals, backgroundColor: barColors, borderRadius: 6, borderSkipped: false }] },
+          data: { labels: flags, datasets: [{ data: vals, backgroundColor: siteColors, borderRadius: 6, borderSkipped: false }] },
           options: {
             responsive: true,
             layout: { padding: { top: 24 } },
