@@ -100,7 +100,7 @@
     .btn-cancel:hover { background: #E0E0E0; }
     .feedback { margin-top: 12px; font-size: 13px; text-align: center; }
     .feedback.ok { color: #00a650; }
-    .feedback.err { color: #D32F2F; }
+    .feedback.err { color: #EF4444; }
     .token-input { width: 100%; border: 1px solid #E5E5E5; border-radius: 6px; padding: 10px 12px; font-size: 13px; margin-bottom: 14px; font-family: monospace; color: #333; }
     .token-input:focus { outline: none; border-color: #3483FA; }
     .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid #fff; border-top-color: transparent; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; }
@@ -128,7 +128,7 @@
     .progress-fill { height:100%; border-radius:5px; transition:width 0.4s; }
     .fill-green  { background:#00a650; }
     .fill-yellow { background:#FFB142; }
-    .fill-red    { background:#D32F2F; }
+    .fill-red    { background:#EF4444; }
     .zona-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:20px; }
     .zona-card { background:#fff; border-radius:8px; box-shadow:0 1px 4px rgba(0,0,0,0.08); padding:16px; }
     .zona-card-name { font-size:11px; font-weight:700; color:#888; letter-spacing:0.5px; text-transform:uppercase; margin-bottom:6px; }
@@ -1994,7 +1994,7 @@
             const free = c.total - occ;
             const pctRaw = c.total > 0 ? (occ / c.total * 100) : 0;
             const pctDisp = pctRaw.toFixed(1);
-            const barColor = pctRaw >= 80 ? '#D32F2F' : pctRaw >= 50 ? '#FFB142' : '#3483FA';
+            const barColor = pctRaw >= 80 ? '#EF4444' : pctRaw >= 50 ? '#FFB142' : '#3483FA';
             const pctColor = barColor;
             return `<div style="margin-bottom:10px;">
               <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:4px;">
@@ -2019,7 +2019,7 @@
         const occ = zd?.ocupadas || 0;
         const pct = cfg.total > 0 ? Math.round(occ / cfg.total * 100) : 0;
         const fillClass = pct >= 80 ? 'fill-red' : pct >= 50 ? 'fill-yellow' : 'fill-green';
-        const pctColor = pct >= 80 ? '#D32F2F' : pct >= 50 ? '#F57C00' : '#3483FA';
+        const pctColor = pct >= 80 ? '#EF4444' : pct >= 50 ? '#F57C00' : '#3483FA';
 
         let detailHtml = '';
         if (zd?.detalle && zd.detalle.length > 0) {
