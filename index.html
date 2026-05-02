@@ -1964,7 +1964,7 @@
       const R = 50, CX = 64, CY = 64, stroke = 11;
       const circ = 2 * Math.PI * R;
       const dash = circ * totalPctRaw / 100;
-      const donutColor = totalPctRaw >= 80 ? '#EF4444' : totalPctRaw >= 50 ? '#FFB142' : '#3483FA';
+      const donutColor = totalPctRaw >= 80 ? '#EF4444' : totalPctRaw >= 50 ? '#FFB142' : '#00a650';
       const donutSvg = `<svg width="128" height="128" viewBox="0 0 128 128">
         <circle cx="${CX}" cy="${CY}" r="${R}" fill="none" stroke="#EFEFEF" stroke-width="${stroke}"/>
         <circle cx="${CX}" cy="${CY}" r="${R}" fill="none" stroke="${donutColor}" stroke-width="${stroke}"
