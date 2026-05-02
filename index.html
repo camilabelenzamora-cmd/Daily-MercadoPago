@@ -2018,8 +2018,8 @@
         const zd = stockData.zonas?.[key];
         const occ = zd?.ocupadas || 0;
         const pct = cfg.total > 0 ? Math.round(occ / cfg.total * 100) : 0;
-        const fillClass = pct >= 90 ? 'fill-red' : pct >= 70 ? 'fill-yellow' : 'fill-green';
-        const pctColor = pct >= 90 ? '#D32F2F' : pct >= 70 ? '#F57C00' : '#00a650';
+        const fillClass = pct >= 80 ? 'fill-red' : pct >= 50 ? 'fill-yellow' : 'fill-green';
+        const pctColor = pct >= 80 ? '#D32F2F' : pct >= 50 ? '#F57C00' : '#3483FA';
 
         let detailHtml = '';
         if (zd?.detalle && zd.detalle.length > 0) {
