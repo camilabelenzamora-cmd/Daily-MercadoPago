@@ -1994,9 +1994,8 @@
             const free = c.total - occ;
             const pctRaw = c.total > 0 ? (occ / c.total * 100) : 0;
             const pctDisp = pctRaw.toFixed(1);
-            const isTop = occ === maxOcc && occ > 0;
-            const barColor = isTop ? '#FFB142' : '#3483FA';
-            const pctColor = pctRaw >= 90 ? '#D32F2F' : isTop ? '#F57C00' : '#3483FA';
+            const barColor = pctRaw >= 80 ? '#D32F2F' : pctRaw >= 50 ? '#FFB142' : '#3483FA';
+            const pctColor = barColor;
             return `<div style="margin-bottom:10px;">
               <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:4px;">
                 <span style="font-size:13px;font-weight:700;color:#333;">${c.nombre}</span>
