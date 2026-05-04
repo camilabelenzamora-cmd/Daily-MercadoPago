@@ -882,7 +882,7 @@
     if (view === 'week') {
       const trOutbound = document.createElement('tr'); trOutbound.className='row-section';
       trOutbound.innerHTML = `<td>${sectionLabel('OUTBOUND', history)}</td>` + cols.map(()=>'<td></td>').join('') + '<td></td>';
-      tbody.insertBefore(trOutbound, tbody.children[5]);
+      tbody.insertBefore(trOutbound, tbody.children[ausOffset+4]);
     }
 
     // ── MAQUILA SECTION ───────────────────────────────
