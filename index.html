@@ -824,7 +824,6 @@
     tbody.appendChild(trOS);
 
     // ── PEOPLE SECTION (solo en vista semanal) ───────
-    let ausOffset = 1;
     if (view !== 'week') {
       // Skip people section in monthly view
     } else {
@@ -853,7 +852,7 @@
     const noGestVals = cols.map(c => { const hasD = c.dates.some(d=>headcountData.days[d]); if(!hasD) return null; return c.dates.reduce((s,d)=>s+(headcountData.days[d]?.ausentes_no_gestionables||0),0); });
     const ausVals = cols.map((c,i) => { if(gestVals[i]===null && noGestVals[i]===null) return null; return (gestVals[i]||0)+(noGestVals[i]||0); });
 
-    ausOffset = hasEventuales ? 3 : 1;
+    const ausOffset = hasEventuales ? 3 : 1;
     const trAus = document.createElement('tr'); trAus.className='row-product';
     trAus.innerHTML = `<td onclick="toggleAusentes()"><span class="toggle-icon ${expandedAusentes?'open':''}">▶</span> Ausentes</td>` + ausVals.map(v=>`<td>${fmt(v)}</td>`).join('') + `<td></td>`;
     tbody.insertBefore(trAus, tbody.children[ausOffset]);
@@ -883,7 +882,8 @@
     if (view === 'week') {
       const trOutbound = document.createElement('tr'); trOutbound.className='row-section';
       trOutbound.innerHTML = `<td>${sectionLabel('OUTBOUND', history)}</td>` + cols.map(()=>'<td></td>').join('') + '<td></td>';
-      tbody.insertBefore(trOutbound, tbody.children[ausOffset+4]);
+      const _hasEv = (headcountData.eventuales||[]).some(e=>e.total>0);
+      tbody.insertBefore(trOutbound, tbody.children[(_hasEv ? 3 : 1) + 4]);
     }
 
     // ── MAQUILA SECTION ───────────────────────────────
