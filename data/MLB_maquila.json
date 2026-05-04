@@ -1795,5 +1795,134 @@
     },
     "total": 5674,
     "uploadedAt": "2026-05-01T20:12:46.883Z"
+  },
+  "2026-05-01": {
+    "fecha": "2026-05-01",
+    "site": "MLB",
+    "products": {
+      "Point Pro2 Claro": 1440,
+      "Point Smart 2 Vivo": 1440,
+      "Point Pro 3 Claro": 1080,
+      "Point Pro 3 Vivo": 720,
+      "Point Pro2 Vivo": 540,
+      "Point Pro 3 Tim": 360,
+      "Point Smart 2 Claro": 240,
+      "Point Smart A910 Claro": 192,
+      "Point Smart A910 Tim": 192,
+      "Point Smart A910 Vivo": 192
+    },
+    "reps": {
+      "Point Pro2 Vivo": {
+        "jjeernandes": 360,
+        "edirlanssilv": 120,
+        "enatsilva": 60
+      },
+      "Point Pro2 Claro": {
+        "ludmoura": 360,
+        "ext_clpedrei": 360,
+        "ggmmatos": 360,
+        "ddiimura": 180,
+        "ajsantana": 180
+      },
+      "Point Pro 3 Claro": {
+        "ccmmatias": 360,
+        "dsevangelist": 360,
+        "anaddsilva": 360
+      },
+      "Point Pro 3 Vivo": {
+        "ext_nicserra": 360,
+        "ext_wellibar": 360
+      },
+      "Point Smart 2 Vivo": {
+        "llffarias": 360,
+        "tvdsantos": 240,
+        "pobarbosa": 240,
+        "anapaussilva": 240,
+        "adrianosanto": 240,
+        "sdgodoy": 120
+      },
+      "Point Smart 2 Claro": {
+        "sdgodoy": 240
+      },
+      "Point Smart A910 Claro": {
+        "pdopinto": 192
+      },
+      "Point Smart A910 Tim": {
+        "edivnascimen": 192
+      },
+      "Point Smart A910 Vivo": {
+        "rosbribeiro": 192
+      },
+      "Point Pro 3 Tim": {
+        "mvictoria": 180,
+        "framenezes": 180
+      }
+    },
+    "total": 6396,
+    "uploadedAt": "2026-05-04T02:28:37.160Z"
+  },
+  "2026-05-02": {
+    "fecha": "2026-05-02",
+    "site": "MLB",
+    "products": {
+      "Point Air 2 Vivo": 840,
+      "Point Smart 2 Vivo": 720,
+      "Point Air Claro Nano": 650,
+      "Point Pro 3 Claro": 621,
+      "Point Pro2 Vivo": 420,
+      "Point Pro 3 Vivo": 360,
+      "Point Pro2 Claro": 360,
+      "Point Smart 2 Claro": 240,
+      "Point Smart A910 Vivo": 192,
+      "Point Smart A910 Claro": 192
+    },
+    "reps": {
+      "Point Pro2 Vivo": {
+        "ludmoura": 180,
+        "sdgodoy": 96,
+        "ereggoncalve": 84,
+        "ext_clpedrei": 60
+      },
+      "Point Smart A910 Vivo": {
+        "ext_wellibar": 96,
+        "ccmmatias": 96
+      },
+      "Point Smart A910 Claro": {
+        "jjeernandes": 96,
+        "ddiimura": 96
+      },
+      "Point Pro 3 Claro": {
+        "ccerqueirads": 360,
+        "alinecoalves": 261
+      },
+      "Point Pro 3 Vivo": {
+        "alincsilva": 360
+      },
+      "Point Air Claro Nano": {
+        "jssimao": 200,
+        "ggggabriele": 200,
+        "ludmoura": 150,
+        "sdgodoy": 100
+      },
+      "Point Smart 2 Vivo": {
+        "llffarias": 240,
+        "pdopinto": 240,
+        "edivnascimen": 240
+      },
+      "Point Smart 2 Claro": {
+        "adrianosanto": 240
+      },
+      "Point Air 2 Vivo": {
+        "pobarbosa": 280,
+        "tvdsantos": 280,
+        "anapaussilva": 280
+      },
+      "Point Pro2 Claro": {
+        "ext_clpedrei": 180,
+        "anaddsilva": 180
+      }
+    },
+    "total": 4595,
+    "uploadedAt": "2026-05-04T02:28:37.162Z"
   }
 }
