@@ -1023,5 +1023,107 @@
     "total_unidades": 34263,
     "total_os": 21679,
     "uploadedAt": "2026-05-01T19:35:23.310Z"
+  },
+  "2026-05-01": {
+    "fecha": "2026-05-01",
+    "site": "MLM",
+    "products": {
+      "Cards": 25368,
+      "Point": 1197,
+      "Bobinas": 374,
+      "Others": 8
+    },
+    "routes": {
+      "Cards": {
+        "XD - CARDS": {
+          "total": 24504,
+          "products": {
+            "Tarjeta debito con bolsa": 20076,
+            "Tarjeta de credito Monza": 4428
+          }
+        },
+        "XD - POINT": 864
+      },
+      "Point": {
+        "XD - POINT": 1197
+      },
+      "Bobinas": {
+        "XD - POINT": 374
+      },
+      "Others": {
+        "XD - POINT": 8
+      }
+    },
+    "total_unidades": 26947,
+    "total_os": 25580,
+    "uploadedAt": "2026-05-04T02:08:25.696Z"
+  },
+  "2026-05-02": {
+    "fecha": "2026-05-02",
+    "site": "MLM",
+    "products": {
+      "Cards": 22605,
+      "Point": 2806,
+      "Bobinas": 1031,
+      "Others": 33
+    },
+    "routes": {
+      "Cards": {
+        "XD - CARDS": {
+          "total": 21235,
+          "products": {
+            "Tarjeta debito con bolsa": 18080,
+            "Tarjeta de credito Monza": 3155
+          }
+        },
+        "XD - POINT": 1370
+      },
+      "Point": {
+        "XD - POINT": 2806
+      },
+      "Bobinas": {
+        "XD - POINT": 1031
+      },
+      "Others": {
+        "XD - POINT": 33
+      }
+    },
+    "total_unidades": 26475,
+    "total_os": 24031,
+    "uploadedAt": "2026-05-04T02:08:25.707Z"
+  },
+  "2026-05-03": {
+    "fecha": "2026-05-03",
+    "site": "MLM",
+    "products": {
+      "Cards": 22177,
+      "Point": 2559,
+      "Bobinas": 861,
+      "Others": 381
+    },
+    "routes": {
+      "Cards": {
+        "XD - CARDS": {
+          "total": 20834,
+          "products": {
+            "Tarjeta debito con bolsa": 17513,
+            "Tarjeta de credito Monza": 3321
+          }
+        },
+        "XD - POINT": 1343
+      },
+      "Point": {
+        "XD - POINT": 2559
+      },
+      "Bobinas": {
+        "XD - POINT": 861
+      },
+      "Others": {
+        "XD - POINT": 381
+      }
+    },
+    "total_unidades": 25978,
+    "total_os": 23505,
+    "uploadedAt": "2026-05-04T02:08:25.718Z"
   }
 }
