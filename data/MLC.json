@@ -781,5 +781,33 @@
     "total_unidades": 6821,
     "total_os": 5564,
     "uploadedAt": "2026-05-01T21:58:34.099Z"
+  },
+  "2026-05-02": {
+    "fecha": "2026-05-02",
+    "site": "MLC",
+    "products": {
+      "Cards": 3603,
+      "Point": 308,
+      "Bobinas": 927,
+      "Others": 1
+    },
+    "routes": {
+      "Cards": {
+        "XD-CARDS": 3499,
+        "MELIENVIOS": 104
+      },
+      "Point": {
+        "MELIENVIOS": 308
+      },
+      "Bobinas": {
+        "MELIENVIOS": 927
+      },
+      "Others": {
+        "MELIENVIOS": 1
+      }
+    },
+    "total_unidades": 4839,
+    "total_os": 4328,
+    "uploadedAt": "2026-05-04T01:33:23.307Z"
   }
 }
