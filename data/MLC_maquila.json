@@ -425,5 +425,19 @@
     },
     "total": 181,
     "uploadedAt": "2026-05-01T19:49:41.508Z"
+  },
+  "2026-05-02": {
+    "fecha": "2026-05-02",
+    "site": "MLC",
+    "products": {
+      "Rollos Display 10": 1100
+    },
+    "reps": {
+      "Rollos Display 10": {
+        "mmontilla": 1100
+      }
+    },
+    "total": 1100,
+    "uploadedAt": "2026-05-04T01:34:39.285Z"
   }
 }
