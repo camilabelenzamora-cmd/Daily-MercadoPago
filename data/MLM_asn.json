@@ -591,5 +591,58 @@
       "total": 1537
     },
     "uploadedAt": "2026-05-01T19:40:39.332Z"
+  },
+  "2026-05-01": {
+    "fecha": "2026-05-01",
+    "site": "MLM",
+    "devoluciones": {
+      "products": {},
+      "total": 0
+    },
+    "inbound": {
+      "suppliers": {
+        "Geodis": {
+          "total": 17620,
+          "products": {
+            "Point Air Amarillo": 3200,
+            "Pont Smart N950 Amarillo": 4420,
+            "Point MINI": 6000,
+            "Rollo Termico": 4000
+          }
+        }
+      },
+      "total": 17620
+    },
+    "uploadedAt": "2026-05-04T02:10:01.743Z"
+  },
+  "2026-05-02": {
+    "fecha": "2026-05-02",
+    "site": "MLM",
+    "devoluciones": {
+      "products": {
+        "Smart Grado A Devolucion": 92,
+        "Smart N950 Devolucion": 143,
+        "Smart Air Devolucion": 26,
+        "MINI Devolucion": 18,
+        "Tarjeta debito de devolución": 2540,
+        "Tarjeta de credito Monza devolucion": 393
+      },
+      "total": 3212
+    },
+    "inbound": {
+      "suppliers": {
+        "Geodis": {
+          "total": 17620,
+          "products": {
+            "Point Air Amarillo": 3200,
+            "Point MINI": 6000,
+            "Pont Smart N950 Amarillo": 4420,
+            "Rollo Termico": 4000
+          }
+        }
+      },
+      "total": 17620
+    },
+    "uploadedAt": "2026-05-04T02:10:01.747Z"
   }
 }
